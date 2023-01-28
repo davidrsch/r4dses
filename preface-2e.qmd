@@ -1,31 +1,31 @@
-# Preface to the second edition {.unnumbered}
+# Prefacio a la segunda edición {.unnumbered}
 
-Welcome to the second edition of "R for Data Science"!
-This is a major reworking of the first edition, removing material we no longer think is useful, adding material we wish we included in the first edition, and generally updating the text and code to reflect changes in best practices.
-We're also very excited to welcome a new co-author: Mine Çetinkaya-Rundel, a noted data science educator and one of our colleagues at Posit (the company formerly known as RStudio).
+¡Bienvenidos a la segunda edición de "R para la Ciencia de Datos"!
+Esta es una reelaboración importante de la primera edición, eliminando material que ya no creemos que sea útil, agregando material que desearíamos haber incluido en la primera edición y, en general, actualizando el texto y el código para reflejar los cambios en las mejores prácticas.
+También estamos muy emocionados de dar la bienvenida a un nuevo coautor: Mine Çetinkaya-Rundel, una destacada educadora en ciencia de datos y una de nuestras colegas en Posit (la compañía anteriormente conocida como RStudio).
 
-A brief summary of the biggest changes follows:
+A continuación se incluye un breve resumen de los cambios más importantes:
 
--   The first part of the book has been renamed to "Whole game".
-    The goal of this section is to give you the rough details of the "whole game" of data science before we dive into the details.
+-   La primera parte del libro ha sido renombrada como "El juego completo".
+    El objetivo de esta sección es brindarle los detalles aproximados del "juego completo" de la ciencia de datos antes de sumergirnos en los detalles.
 
--   The second part of the book is "Visualize".
-    This part gives data visualization tools and best practices a more thorough coverage compared to the first edition.
+-   La segunda parte del libro es "Visualizar".
+    Esta parte brinda a las herramientas de visualización de datos y las mejores prácticas una cobertura más completa en comparación con la primera edición.
 
--   The third part of the book is now called "Transform" and gains new chapters on numbers, logical vectors, and missing values.
-    These were previously parts of the data transformation chapter, but needed much more room.
+-   La tercera parte del libro ahora se llama "Transformar" y gana nuevos capítulos sobre números, vectores lógicos y valores faltantes.
+    Anteriormente, estas eran partes del capítulo de transformación de datos, pero necesitaban mucho más espacio.
 
--   The fourth part of the book is called "Import".
-    It's a new set of chapters that goes beyond reading flat text files to now embrace working with spreadsheets, getting data out of databases, working with big data, rectangling hierarchical data, and scraping data from web sites.
+-   La cuarta parte del libro se llama "Importar".
+    Es un nuevo conjunto de capítulos que va más allá de la lectura de archivos de texto sin formato para abarcar ahora el trabajo con hojas de cálculo, la extracción de datos de bases de datos, el trabajo con macrodatos, el rectángulo de datos jerárquicos y la extracción de datos de sitios web.
 
--   The "Program" part continues, but has been rewritten from top-to-bottom to focus on the most important parts of function writing and iteration.
-    Function writing now includes sections on how to wrap tidyverse functions (dealing with the challenges of tidy evaluation), since this has become much easier over the last few years.
-    We've added a new chapter on important Base R functions that you're likely to see when reading R code found in the wild.
+-   La parte "Programa" continúa, pero se ha reescrito de arriba a abajo para centrarse en las partes más importantes de la escritura e iteración de funciones.
+    La escritura de funciones ahora incluye secciones sobre cómo envolver funciones tidyverse (que se ocupan de los desafíos de la evaluación ordenada), ya que esto se ha vuelto mucho más fácil en los últimos años.
+    Hemos agregado un nuevo capítulo sobre funciones importantes de Base R que es probable que vea al leer el código R que se encuentra en la naturaleza.
 
--   The modeling part has been removed.
-    We never had enough room to fully do modelling justice, and there are now much better resources available.
-    We generally recommend using the [tidymodels](https://www.tidymodels.org/) packages and reading [Tidy Modeling with R](https://www.tmwr.org/) by Max Kuhn and Julia Silge.
+-   La parte de modelado ha sido eliminada.
+    Nunca tuvimos suficiente espacio para hacer justicia a las distintas técnicas de modelación por completo, y ahora hay muchos y mejores recursos disponibles.
+    Por lo general, recomendamos utilizar el paquete [tidymodels](https://www.tidymodels.org/) y leer [Tidy Modeling with R](https://www.tmwr.org/) de Max Kuhn y Julia Silge.
 
--   The communicate part continues as well, but features Quarto instead of R Markdown as the tool of choice for authoring reproducible computational documents.
+-   La parte de comunicación también continúa, pero presenta Quarto en lugar de R Markdown como la herramienta elegida para crear documentos computacionales reproducibles.
 
-Other changes include switching from magrittr's pipe (`%>%`) to the base pipe (`|>`) and switching the book's source from RMarkdown to Quarto.
+Otros cambios incluyen cambiar de la canalización de Magrittr (`%>%`) a la canalización base (`|>`) y cambiar el código fuente del libro de RMarkdown a Quarto.

@@ -1,27 +1,26 @@
-# Welcome {.unnumbered}
+# Bienvenida {.unnumbered}
 
-This is the website for the work-in-progress 2nd edition of **"R for Data Science"**.
-This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it and visualize.
+Este es el sitio web de la segunda edición de trabajo en progreso de **"R para la Ciencia de Datos**. Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
-In this book, you will find a practicum of skills for data science.
-Just as a chemist learns how to clean test tubes and stock a lab, you'll learn how to clean data and draw plots---and many other things besides.
-These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R.
-You'll learn how to use the grammar of graphics, literate programming, and reproducible research to save time.
-You'll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualizing, and exploring data.
+En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
+Así como un químico aprende a limpiar tubos de ensayo y abastecer un laboratorio, usted aprenderá a limpiar datos y dibujar diagramas, y mucho más.
+Estas son las habilidades que hacen que exista la ciencia de datos, y aquí encontrará las mejores prácticas para hacer cada una de estas cosas con R.
+Aprenderá a usar la gramática de los gráficos, la programación literaria y la investigación reproducible para ahorrar tiempo.
+También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.
 
-This website is and will always be free, licensed under the [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) License.
-If you'd like a physical copy of the book, you can order the 1st edition on [Amazon](https://amzn.to/2aHLAQ1), or wait until mid-2023 for the 2nd edition.
-If appreciate reading the book for free and would like to give back please make a donation to [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): the [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (which appears on the cover of R4DS) is a critically endangered native NZ parrot; there are only 252 left.
+Este sitio web es y será siempre gratuito, bajo la licencia de [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) License.
+Si desea una copia física del libro, puede pedir la primera edición en [Amazon](https://amzn.to/2aHLAQ1), o esperar hasta mediados de 2023 para la 2ª edición.
+Si aprecia leer el libro gratis y desea retribuir, haga una donación a [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): el [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (que aparece en la portada de R4DS) es un loro nativo de Nueva Zelanda en peligro de extinsión; solo quedan 252.
 
-If you speak, another language, you might be interested in the freely available translations of the 1st edition:
+Si habla otro idioma, es posible que le interesen las traducciones disponibles gratuitamente de la primera edición:
 
--   [Spanish](https://es.r4ds.hadley.nz)
--   [Italian](https://it.r4ds.hadley.nz)
--   [Turkish](https://tr.r4ds.hadley.nz)
+-   [Español](https://es.r4ds.hadley.nz)
+-   [Italiano](https://it.r4ds.hadley.nz)
+-   [Turco](https://tr.r4ds.hadley.nz)
 
-Please note that R4DS uses a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
-By contributing to this book, you agree to abide by its terms.
+Tenga en cuenta que R4DS utiliza un [Código de conducta del colaborador](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+Al contribuir a este libro, usted acepta cumplir con sus términos.
 
-## Acknowledgements {.unnumbered}
+## Agradecimientos {.unnumbered}
 
-R4DS is hosted by <https://www.netlify.com> as part of their support of open source software and communities.
+R4DS está alojado por <https://www.netlify.com> como parte de su apoyo a las comunidades y el software de código abierto.
