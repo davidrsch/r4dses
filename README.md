@@ -2,7 +2,8 @@
 
 ## R para la Ciencia de Datos
 
-<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"**. El libro está construido usando [Quarto](https://quarto.org/).
+<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"** de Hadley Wickham, Garrett Grolemund y Mine Çetinkaya-Rundel.
+El libro está construido usando [Quarto](https://quarto.org/).
 Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
 En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
@@ -92,7 +93,7 @@ file.copy(pngs, dest, overwrite = TRUE)
 
 ## R for Data Science
 
-<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book.
+<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Garrett Grolemund & Mine Çetinkaya-Rundel.
 The book is built using [Quarto](https://quarto.org/).
 This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it and visualize.
 
