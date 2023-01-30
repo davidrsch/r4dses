@@ -1,6 +1,7 @@
 # Bienvenida {.unnumbered}
 
-Este es el sitio web de la segunda edición de trabajo en progreso de **"R para la Ciencia de Datos**. Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
+Este es el sitio web de la segunda edición de trabajo en progreso de **"R para la Ciencia de Datos"**.
+Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
 En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
 Así como un químico aprende a limpiar tubos de ensayo y abastecer un laboratorio, usted aprenderá a limpiar datos y dibujar diagramas, y mucho más.

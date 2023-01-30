@@ -1,4 +1,4 @@
-# Workflow: basics {#sec-workflow-basics}
+# Flujo de trabajo: conceptos básicos {#sec-workflow-basics}
 
 ```{r}
 #| results: "asis"
@@ -8,17 +8,17 @@ source("_common.R")
 status("complete")
 ```
 
-You now have some experience running R code.
-We didn't give you many details, but you've obviously figured out the basics, or you would've thrown this book away in frustration!
-Frustration is natural when you start programming in R because it is such a stickler for punctuation, and even one character out of place will cause it to complain.
-But while you should expect to be a little frustrated, take comfort in that this experience is typical and temporary: it happens to everyone, and the only way to get over it is to keep trying.
+Ahora tiene algo de experiencia ejecutando código de R.
+No te dimos muchos detalles, pero obviamente has descubierto los conceptos básicos, ¡o habrías tirado este libro por la frustración!
+La frustración es natural cuando comienzas a programar en R porque es muy estricto con la puntuación, e incluso un carácter fuera de lugar hará que se queje.
+Pero si bien debe esperar sentirse un poco frustrado, consuélese con el hecho de que esta experiencia es típica y temporal: le sucede a todos, y la única forma de superarlo es seguir intentándolo.
 
-Before we go any further, let's ensure you've got a solid foundation in running R code and that you know some of the most helpful RStudio features.
+Antes de continuar, asegurémonos de que tiene una base sólida para ejecutar código de R y que conoce algunas de las características más útiles de RStudio.
 
-## Coding basics
+## Conceptos básicos para escribir código
 
-Let's review some basics we've omitted so far in the interest of getting you plotting as quickly as possible.
-You can use R as a calculator:
+Repasemos algunos conceptos básicos que hemos omitido hasta ahora con el fin de que pueda graficar lo más rápido posible.
+Puedes usar R como calculadora:
 
 ```{r}
 1 / 200 * 30
@@ -26,117 +26,117 @@ You can use R as a calculator:
 sin(pi / 2)
 ```
 
-You can create new objects with the assignment operator `<-`:
+Puede crear nuevos objetos con el operador de asignación `<-`:
 
 ```{r}
 x <- 3 * 4
 ```
 
-You can **c**ombine multiple elements into a vector with `c()`:
+Puedes **c**combinar múltiples elementos en un vector con `c()`:
 
 ```{r}
-primes <- c(2, 3, 5, 7, 11, 13)
+primos <- c(2, 3, 5, 7, 11, 13)
 ```
 
-And basic arithmetic is applied to every element of the vector:
+Y la aritmética básica se aplica a cada elemento del vector:
 
 ```{r}
-primes * 2
-primes - 1
+primos * 2
+primos - 1
 ```
 
-All R statements where you create objects, **assignment** statements, have the same form:
-
-```{r}
-#| eval: false
-
-object_name <- value
-```
-
-When reading that code, say "object name gets value" in your head.
-
-You will make lots of assignments, and `<-` is a pain to type.
-You can save time with RStudio's keyboard shortcut: Alt + - (the minus sign).
-Notice that RStudio automatically surrounds `<-` with spaces, which is a good code formatting practice.
-Code is miserable to read on a good day, so giveyoureyesabreak and use spaces.
-
-## Comments
-
-R will ignore any text after `#`.
-This allows you to write **comments**, text that is ignored by R but read by other humans.
-We'll sometimes include comments in examples explaining what's happening with the code.
-
-Comments can be helpful for briefly describing what the following code does.
-
-```{r}
-# define primes
-primes <- c(2, 3, 5, 7, 11, 13)
-
-# multiply primes by 2
-primes * 2
-```
-
-With short pieces of code like this, leaving a comment for every single line of code might not be necessary.
-But as the code you're writing gets more complex, comments can save you (and your collaborators) a lot of time figuring out what was done in the code.
-
-Use comments to explain the *why* of your code, not the *how* or the *what*.
-The *what* and *how* of your code are always possible to figure out, even if it might be tedious, by carefully reading it.
-But if you describe the "what" in your comments and your code, you'll have to remember to update the comment and code in tandem carefully.
-If you change the code and forget to update the comment, they'll be inconsistent, leading to confusion when you return to your code in the future.
-
-Figuring out *why* something was done is much more difficult, if not impossible.
-For example, `geom_smooth()` has an argument called `span`, which controls the smoothness of the curve, with larger values yielding a smoother curve.
-Suppose you decide to change the value of `span` from its default of 0.75 to 0.3: it's easy for a future reader to understand *what* is happening, but unless you note your thinking in a comment, no one will understand *why* you changed the default.
-
-For data analysis code, use comments to explain your overall plan of attack and record important insights as you encounter them.
-There's no way to re-capture this knowledge from the code itself.
-
-## What's in a name? {#sec-whats-in-a-name}
-
-Object names must start with a letter and can only contain letters, numbers, `_`, and `.`.
-You want your object names to be descriptive, so you'll need to adopt a convention for multiple words.
-We recommend **snake_case**, where you separate lowercase words with `_`.
+Todas las declaraciones de R en las que crean objetos, declaraciones de **asignación**, tienen la misma forma
 
 ```{r}
 #| eval: false
 
-i_use_snake_case
-otherPeopleUseCamelCase
-some.people.use.periods
-And_aFew.People_RENOUNCEconvention
+nombre_del_objeto <- valor
 ```
 
-We'll return to names again when we discuss code style in @sec-workflow-style.
+Al leer ese código, diga "el nombre del objeto obtiene valor" en su cabeza.
 
-You can inspect an object by typing its name:
+Hará muchas asignaciones, y `<-` es una molestia escribir.
+Puede ahorrar tiempo con el método abreviado de teclado de RStudio: Alt + - (el signo menos).
+Tenga en cuenta que RStudio rodea automáticamente `<-` con espacios, lo cual es una buena práctica de formateo de código.
+El código es miserable para leer en un buen día, así que tómese un respiro y use espacios.
+
+## Comentarios
+
+R ignorará cualquier texto después de `#`.
+Esto le permite escribir **comentarios**, texto que R ignora pero que otros humanos leen.
+A veces incluiremos comentarios en ejemplos que explican lo que sucede con el código.
+
+Los comentarios pueden ser útiles para describir brevemente lo que hace el siguiente código.
+
+```{r}
+# define números primos
+primos <- c(2, 3, 5, 7, 11, 13)
+
+# multiplica primos por 2
+primos * 2
+```
+
+Con fragmentos de código cortos como este, puede que no sea necesario dejar un comentario para cada línea de código.
+Pero a medida que el código que está escribiendo se vuelve más complejo, los comentarios pueden ahorrarle a usted (y a sus colaboradores) mucho tiempo para averiguar qué se hizo en el código.
+
+Use comentarios para explicar el *por qué* de su código, no el *cómo* o el *qué*.
+Siempre es posible averiguar el *qué* y el *cómo* de su código leyéndolo detenidamente, incluso si puede ser tedioso.
+Pero si describe el "qué" en sus comentarios y su código, deberá recordar actualizar el comentario y el código en conjunto con cuidado.
+Si cambia el código y olvida actualizar el comentario, serán inconsistentes, lo que generará confusión cuando regrese a su código en el futuro.
+
+Averiguar *por qué* se hizo algo es mucho más difícil, si no imposible.
+Por ejemplo, `geom_smooth()` tiene un argumento llamado `span`, que controla la suavidad de la curva, con valores más grandes produciendo una curva más suave.
+Supongamos que decide cambiar el valor de `span` de su valor predeterminado de 0,75 a 0,3: es fácil para un futuro lector entender *qué* está pasando, pero a menos que anote su pensamiento en un comentario, nadie entenderá *por qué* cambiaste el valor predeterminado.
+
+Para el código de análisis de datos, use comentarios para explicar su plan general de ataque y registre información importante a medida que la encuentre.
+No hay forma de volver a capturar este conocimiento desde el código mismo.
+
+## ¿Qué hay en un nombre? {#sec-whats-in-a-name}
+
+Los nombres de los objetos deben comenzar con una letra y solo pueden contener letras, números, `_` y `.`.
+Desea que los nombres de sus objetos sean descriptivos, por lo que deberá adoptar una convención para varias palabras.
+Recomendamos **snake_case**, donde se separan las palabras en minúsculas con `_`.
+
+```{r}
+#| eval: false
+
+yo_uso_snake_case
+otrasPersonasUsanCamelCase
+algunas.personas.usan.puntos
+Y_unasPocas.Personas_RENUNCIANaconvencion
+```
+
+Volveremos a los nombres cuando analicemos el estilo del código en @sec-workflow-style.
+
+Puede inspeccionar un objeto escribiendo su nombre:
 
 ```{r}
 x
 ```
 
-Make another assignment:
+Haz otra asignación:
 
 ```{r}
-this_is_a_really_long_name <- 2.5
+este_es_un_nombre_realmente_largo <- 2.5
 ```
 
-To inspect this object, try out RStudio's completion facility: type "this", press TAB, add characters until you have a unique prefix, then press return.
+Para inspeccionar este objeto, pruebe la función de finalización de RStudio: escriba "este", presione TAB, agregue caracteres hasta que tenga un prefijo único y luego presione Entrar.
 
-Ooops, you made a mistake!
-The value of `this_is_a_really_long_name` should be 3.5, not 2.5.
-Use another keyboard shortcut to help you fix it.
-Type "this" then press Cmd/Ctrl + ↑.
-Doing so will list all the commands you've typed that start with those letters.
-Use the arrow keys to navigate, then press enter to retype the command.
-Change 2.5 to 3.5 and rerun.
+Ups, cometiste un error!
+El valor de `este_es_un_nombre_realmente_largo` debería ser 3.5, no 2.5.
+Use otro método abreviado de teclado para ayudarlo a solucionarlo.
+Escribe "este" y luego presiona Cmd/Ctrl + ↑.
+Al hacerlo, aparecerá una lista de todos los comandos que hayas escrito que comiencen con esas letras.
+Use las teclas de flecha para navegar, luego presione enter para volver a escribir el comando.
+Cambie 2.5 a 3.5 y vuelva a ejecutar.
 
-Make yet another assignment:
+Haz otra asignación más:
 
 ```{r}
 r_rocks <- 2 ^ 3
 ```
 
-Let's try to inspect it:
+Intentemos inspeccionarlo:
 
 ```{r}
 #| eval: false
@@ -147,77 +147,77 @@ R_rocks
 #> Error: object 'R_rocks' not found
 ```
 
-This illustrates the implied contract between you and R: R will do the tedious computations for you, but in exchange, you must be completely precise in your instructions.
-Typos matter; R can't read your mind and say, "oh, they probably meant `r_rocks` when they typed `r_rock`".
-Case matters; similarly, R can't read your mind and say, "oh, they probably meant `r_rocks` when they typed `R_rocks`".
+Esto ilustra el contrato implícito entre usted y R: R hará los tediosos cálculos por usted, pero a cambio, debe ser completamente preciso en sus instrucciones.
+Los errores tipográficos importan; R no puede leer tu mente y decir, "oh, probablemente querían decir `r_rocks` cuando escribieron `r_rock`".
+El tamaño de las letras importa; de manera similar, R no puede leer tu mente y decir, "oh, probablemente querían decir `r_rocks` cuando escribieron `R_rocks`".
 
-## Calling functions
+## Llamando funciones
 
-R has a large collection of built-in functions that are called like this:
+R tiene una gran colección de funciones integradas que se llaman así:
 
 ```{r}
 #| eval: false
 
-function_name(arg1 = val1, arg2 = val2, ...)
+nombre_funcion(arg1 = val1, arg2 = val2, ...)
 ```
 
-Let's try using `seq()`, which makes regular **seq**uences of numbers, and while we're at it, learn more helpful features of RStudio.
-Type `se` and hit TAB.
-A popup shows you possible completions.
-Specify `seq()` by typing more (a `q`) to disambiguate or by using ↑/↓ arrows to select.
-Notice the floating tooltip that pops up, reminding you of the function's arguments and purpose.
-If you want more help, press F1 to get all the details in the help tab in the lower right pane.
+Intentemos usar `seq()`, que crea **secuencias** regulares de números, y mientras estamos en eso, aprenda más funciones útiles de RStudio.
+Escriba `se` y presione TAB.
+Una ventana emergente le muestra posibles terminaciones.
+Especifique `seq()` escribiendo más (una `q`) para eliminar la ambigüedad o usando las flechas ↑/↓ para seleccionar.
+Observe la información sobre herramientas flotante que aparece, recordándole los argumentos y el propósito de la función.
+Si desea más ayuda, presione F1 para obtener todos los detalles en la pestaña de ayuda en el panel inferior derecho.
 
-When you've selected the function you want, press TAB again.
-RStudio will add matching opening (`(`) and closing (`)`) parentheses for you.
-Type the arguments `1, 10` and hit return.
+Cuando haya seleccionado la función que desea, presione TAB nuevamente.
+RStudio agregará paréntesis de apertura (`(`) y cierre (`)`) coincidentes para usted.
+Escriba los argumentos `1, 10`.
 
 ```{r}
 seq(1, 10)
 ```
 
-Type this code and notice that RStudio provides similar assistance with the paired quotation marks:
+Escriba este código y observe que RStudio proporciona una asistencia similar con las comillas emparejadas:
 
 ```{r}
-x <- "hello world"
+x <- "Hola mundo"
 ```
 
-Quotation marks and parentheses must always come in a pair.
-RStudio does its best to help you, but it's still possible to mess up and end up with a mismatch.
-If this happens, R will show you the continuation character "+":
+Las comillas y los paréntesis deben ir siempre en pareja.
+RStudio hace todo lo posible para ayudarlo, pero aún es posible equivocarse y terminar con una falta de coincidencia.
+Si esto sucede, R le mostrará el carácter de continuación "+":
 
-    > x <- "hello
+    > x <- "Hola
     +
 
-The `+` tells you that R is waiting for more input; it doesn't think you're done yet.
-Usually, this means you've forgotten either a `"` or a `)`. Either add the missing pair, or press ESCAPE to abort the expression and try again.
+El `+` te dice que R está esperando más entradas; no cree que hayas terminado todavía.
+Por lo general, esto significa que ha olvidado un `"` o un `)`. Agregue el par faltante o presione ESCAPE para abortar la expresión y vuelva a intentarlo.
 
-Note that the environment tab in the upper right pane displays all of the objects that you've created:
+Tenga en cuenta que la pestaña de entorno en el panel superior derecho muestra todos los objetos que ha creado:
 
 ```{r}
 #| echo: false
 #| fig-alt: >
-#|   Environment tab of RStudio which shows r_rocks, this_is_a_really_long_name, 
-#|   x, and y in the Global Environment.
+#|   Pestaña de entorno de RStudio que muestra r_rocks, este_es_un_nombre_realmente_largo, 
+#|   x, y y en el entorno global (Global Environment).
 
 knitr::include_graphics("screenshots/rstudio-env.png")
 ```
 
-## Exercises
+## Ejercicios
 
-1.  Why does this code not work?
+1.  ¿Por qué este código no funciona?
 
     ```{r}
     #| error: true
 
-    my_variable <- 10
-    my_varıable
+    mi_variable <- 10
+    mi_varıable
     ```
 
-    Look carefully!
-    (This may seem like an exercise in pointlessness, but training your brain to notice even the tiniest difference will pay off when programming.)
+    ¡Mira cuidadosamente!
+    (Esto puede parecer un ejercicio sin sentido, pero entrenar tu cerebro para notar incluso la más mínima diferencia valdrá la pena cuando programes.)
 
-2.  Tweak each of the following R commands so that they run correctly:
+2.  Modifique cada uno de los siguientes comandos de R para que se ejecuten correctamente:
 
     ```{r}
     #| eval: false
@@ -228,26 +228,26 @@ knitr::include_graphics("screenshots/rstudio-env.png")
       geom_point(maping = aes(x = displ, y = hwy))
     ```
 
-3.  Press Alt + Shift + K.
-    What happens?
-    How can you get to the same place using the menus?
+3.  Presione Alt + Mayús + K.
+    ¿Qués lo que pasa?
+    ¿Cómo puedes llegar al mismo lugar usando los menús?
 
-4.  Let's revisit an exercise from the @sec-ggsave.
-    Run the following lines of code.
-    Which of the two plots is saved as `mpg-plot.png`?
-    Why?
+4.  Repasemos un ejercicio de @sec-ggsave.
+    Ejecute las siguientes líneas de código.
+    ¿Cuál de los dos gráficos se guarda como `mpg-plot.png`?
+    ¿Por qué?
 
     ```{r}
     #| eval: false
 
-    my_bar_plot <- ggplot(mpg, aes(x = class)) +
+    mi_grafica_barras <- ggplot(mpg, aes(x = class)) +
       geom_bar()
-    my_scatter_plot <- ggplot(mpg, aes(x = cty, y = hwy)) +
+    mi_diagrama_dispersion <- ggplot(mpg, aes(x = cty, y = hwy)) +
       geom_point()
-    ggsave(filename = "mpg-plot.png", plot = my_bar_plot)
+    ggsave(filename = "mpg-plot.png", plot = mi_grafica_barras)
     ```
 
-## Summary
+## Resumen
 
-Now that you've learned a little more about how R code works, and some tips to help you understand your code when you come back to it in the future.
-In the next chapter, we'll continue your data science journey by teaching you about dplyr, the tidyverse package that helps you transform data, whether it's selecting important variables, filtering down to rows of interest, or computing summary statistics.
+Ahora que ha aprendido un poco más sobre cómo funciona el código de R y algunos consejos para ayudarlo a comprender su código cuando regrese a él en el futuro.
+En el próximo capítulo, continuaremos su recorrido por la ciencia de datos enseñándole sobre dplyr, el paquete de tidyverse que lo ayuda a transformar datos, ya sea seleccionando variables importantes, filtrando filas de interés o calculando estadísticas de resumen.

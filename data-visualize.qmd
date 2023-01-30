@@ -1,4 +1,4 @@
-# Data visualization {#sec-data-visualization}
+# Visualización de datos {#sec-data-visualization}
 
 ```{r}
 #| results: "asis"
@@ -8,23 +8,23 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-> "The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey
+> "El gráfico simple ha traído más información a la mente del analista de datos que cualquier otro dispositivo." --- John Tukey
 
-R has several systems for making graphs, but ggplot2 is one of the most elegant and most versatile.
-ggplot2 implements the **grammar of graphics**, a coherent system for describing and building graphs.
-With ggplot2, you can do more and faster by learning one system and applying it in many places.
+R tiene varios sistemas para hacer gráficos, pero ggplot2 es uno de los más elegantes y versátiles.
+ggplot2 implementa la **gramática de gráficos**, un sistema coherente para describir y construir gráficos.
+Con ggplot2, puede hacer más y más rápido aprendiendo un sistema y aplicándolo en muchos lugares.
 
-This chapter will teach you how to visualize your data using **ggplot2**.
-We will start by creating a simple scatterplot and use that to introduce aesthetic mappings and geometric objects -- the fundamental building blocks of ggplot2.
-We will then walk you through visualizing distributions of single variables as well as visualizing relationships between two or more variables.
-We'll finish off with saving your plots and troubleshooting tips.
+Este capítulo le enseñará cómo visualizar sus datos usando **ggplot2**.
+Comenzaremos creando un diagrama de dispersión simple y lo usaremos para presentar asignaciones aesthetics y objetos geométricos, los componentes básicos de ggplot2.
+Luego lo guiaremos a través de la visualización de distribuciones de variables individuales, así como la visualización de relaciones entre dos o más variables.
+Terminaremos guardando sus gráficas y consejos para la solución de problemas.
 
-### Prerequisites
+### Requisitos previos
 
-This chapter focuses on ggplot2, one of the core packages in the tidyverse.
-To access the datasets, help pages, and functions used in this chapter, load the tidyverse by running:
+Este capítulo se centra en ggplot2, uno de los paquetes principales de tidyverse.
+Para acceder a los conjuntos de datos, las páginas de ayuda y las funciones utilizadas en este capítulo, cargue tidyverse ejecutando:
 
 ```{r}
 #| label: setup
@@ -32,13 +32,13 @@ To access the datasets, help pages, and functions used in this chapter, load the
 library(tidyverse)
 ```
 
-That one line of code loads the core tidyverse; the packages that you will use in almost every data analysis.
-It also tells you which functions from the tidyverse conflict with functions in base R (or from other packages you might have loaded)[^data-visualize-1].
+Esa línea de código carga el núcleo tidyverse; los paquetes que utilizará en casi todos los análisis de datos.
+También le dice qué funciones del tidyverse entran en conflicto con funciones en la base de R (o de otros paquetes que haya cargado) [^data-visualize-1].
 
-[^data-visualize-1]: You can eliminate that message and force conflict resolution to happen on demand by using the conflicted package, which becomes more important as you load more packages.
-    You can learn more about conflicted at <https://conflicted.r-lib.org>.
+[^data-visualize-1]: Puede eliminar ese mensaje y forzar la resolución de conflictos a pedido utilizando el paquete en conflicto, que se vuelve más importante a medida que carga más paquetes.
+    Puede obtener más información sobre conflictos en <https://conflicted.r-lib.org>.
 
-If you run this code and get the error message `there is no package called 'tidyverse'`, you'll need to first install it, then run `library()` once again.
+Si ejecuta este código y obtiene el mensaje de error `there is no package called 'tidyverse'`, primero deberá instalarlo, luego ejecutar `library()` una vez más.
 
 ```{r}
 #| eval: false
@@ -47,119 +47,120 @@ install.packages("tidyverse")
 library(tidyverse)
 ```
 
-You only need to install a package once, but you need to load it every time you start a new session.
+Solo necesita instalar un paquete una vez, pero debe cargarlo cada vez que inicie una nueva sesión.
 
-In addition to tidyverse, we will also use the **palmerpenguins** package, which includes the `penguins` dataset containing body measurements for penguins on three islands in the Palmer Archipelago.
+Además de tidyverse, también utilizaremos el paquete **palmerpenguins**, que incluye el conjunto de datos `penguins` que contiene medidas corporales de pingüinos en tres islas del archipiélago Palmer.
 
 ```{r}
 library(palmerpenguins)
 ```
 
-## First steps
+## Primeros pasos
 
-Let's use our first graph to answer a question: Do penguins with longer flippers weigh more or less than penguins with shorter flippers?
-You probably already have an answer, but try to make your answer precise.
-What does the relationship between flipper length and body mass look like?
-Is it positive?
-Negative?
-Linear?
-Nonlinear?
-Does the relationship vary by the species of the penguin?
-And how about by the island where the penguin lives.
+Usemos nuestro primer gráfico para responder una pregunta: ¿los pingüinos con aletas más largas pesan más o menos que los pingüinos con aletas más cortas?
+Probablemente ya tenga una respuesta, pero intente que su respuesta sea precisa.
+¿Cómo es la relación entre la longitud de las aletas y la masa corporal?
+¿Es positivo?
+¿Negativo?
+¿Lineal?
+¿No lineal?
+¿Varía la relación según la especie del pingüino?
+Y que tal por la isla donde vive el pinguino.
 
-### The `penguins` data frame
+### El data frame `penguins`
 
-You can test your answer with the `penguins` **data frame** found in palmerpenguins (a.k.a. `palmerpenguins::penguins`).
-A data frame is a rectangular collection of variables (in the columns) and observations (in the rows).
-`penguins` contains `r nrow(penguins)` observations collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER[^data-visualize-2].
+Puedes probar tu respuesta con el **data frame** `penguins` que se encuentra en palmerpenguins (a.k.a. `palmerpenguins::penguins`).
+Un data frame es una colección rectangular de variables (en las columnas) y observaciones (en las filas).
+`penguins` contiene observaciones `r nrow(penguins)` recopiladas y puestas a disposición por la Dra.
+Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2].
 
 [^data-visualize-2]: Horst AM, Hill AP, Gorman KB (2020).
-    palmerpenguins: Palmer Archipelago (Antarctica) penguin data.
-    R package version 0.1.0.
-    <https://allisonhorst.github.io/palmerpenguins/>.
+    palmerpenguins: Datos de pingüinos del Archipiélago Palmer (Antártida).
+    version 0.1.0.
+    del paquete de R <https://allisonhorst.github.io/palmerpenguins/>.
     doi: 10.5281/zenodo.3960218.
 
 ```{r}
 penguins
 ```
 
-This data frame contains `r ncol(penguins)` columns.
-For an alternative view, where you can see all variables and the first few observations of each variable, use `glimpse()`.
-Or, if you're in RStudio, run `View(penguins)` to open an interactive data viewer.
+Este data frame contiene columnas `r ncol (penguins)`.
+Para una vista alternativa, donde puede ver todas las variables y las primeras observaciones de cada variable, use `glimpse()`.
+O, si está en RStudio, ejecute `View(penguins)` para abrir un visor de datos interactivo.
 
 ```{r}
 glimpse(penguins)
 ```
 
-Among the variables in `penguins` are:
+Entre las variables en `penguins` están:
 
-1.  `species`: a penguin's species (Adelie, Chinstrap, or Gentoo).
+1.  `species`: una especie de pingüino (Adelie, Chinstrap o Gentoo).
 
-2.  `flipper_length_mm`: length of a penguin's flipper, in millimeters.
+2.  `flipper_length_mm`: longitud de la aleta de un pingüino, en milímetros.
 
-3.  `body_mass_g`: body mass of a penguin, in grams.
+3.  `body_mass_g`: masa corporal de un pingüino, en gramos.
 
-To learn more about `penguins`, open its help page by running `?penguins`.
+Para aprender más sobre `penguins`, abra su página de ayuda ejecutando `?penguins`.
 
-### Ultimate goal {#sec-ultimate-goal}
+### Objetivo final {#sec-ultimate-goal}
 
-Our ultimate goal in this chapter is to recreate the following visualization displaying the relationship between flipper lengths and body masses of these penguins, taking into consideration the species of the penguin.
+Nuestro objetivo final en este capítulo es recrear la siguiente visualización que muestra la relación entre la longitud de las aletas y la masa corporal de estos pingüinos, teniendo en cuenta la especie del pingüino.
 
 ```{r}
 #| echo: false
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins, with a 
-#|   smooth curve displaying the relationship between these two variables 
-#|   overlaid. The plot displays a positive, fairly linear, and relatively 
-#|   strong relationship between these two variables. Species (Adelie, 
-#|   Chinstrap, and Gentoo) are represented with different colors and 
-#|   shapes. The relationship between body mass and flipper length is 
-#|   roughly the same for these three species, and Gentoo penguins are 
-#|   larger than penguins from the other two species.
+#|   Un diagrama de dispersión de la masa corporal con relación a la longitud de la aleta de los pingüinos, con una 
+#|   curva suave que muestra la relación entre estas dos variables
+#|   superpuesto. La gráfica muestra una positiva, bastante lineal, y relativamente 
+#|   fuerte relación entre estas dos variables. Especies (Adelia, 
+#|   Barbijo y Papúa) se representan con diferentes colores y
+#|   formas. La relación entre la masa corporal y la longitud de la aleta es 
+#|   aproximadamente lo mismo para estas tres especies, y los pingüinos papúa son 
+#|   más grandes que los pingüinos de las otras dos especies.
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(aes(color = species, shape = species)) +
   geom_smooth() +
   labs(
-    title = "Body mass and flipper length",
-    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
-    x = "Flipper length (mm)",
-    y = "Body mass (g)",
-    color = "Species",
-    shape = "Species"
+    title = "Masa corporal y longitud de las aletas",
+    subtitle = "Dimensiones para pingüinos Adelia, barbijo y papúa",
+    x = "Longitud de la aleta (mm)",
+    y = "Masa corporal (g)",
+    color = "Especies",
+    shape = "Especies"
   )
 ```
 
-### Creating a ggplot
+### Creando un ggplot
 
-Let's recreate this plot layer-by-layer.
+Recreemos esta gráfica capa por capa.
 
-With ggplot2, you begin a plot with the function `ggplot()`, defining a plot object that you then add layers to.
-The first argument of `ggplot()` is the dataset to use in the graph and So `ggplot(data = penguins)` creates an empty graph.
-This is not a very exciting plot, but you can think of it like an empty canvas you'll paint the remaining layers of your plot onto.
+Con ggplot2, comienza una gráfica con la función `ggplot()`, definiendo un objeto al que luego se le agregan capas.
+El primer argumento de `ggplot()` es el conjunto de datos que se utilizará en el gráfico, por lo que `ggplot(data = penguins)` crea un gráfico vacío.
+Esta no es una gráfica muy emocionante, pero puede pensar en ella como un lienzo vacío en el que pintará las capas restantes de su gráfica.
 
 ```{r}
 #| fig-alt: >
-#|   A blank, gray plot area.
+#|   Un área de gráfico gris en blanco.
 
 ggplot(data = penguins)
 ```
 
-Next, we need to tell `ggplot()` the variables from this data frame that we want to map to visual properties (**aesthetics**) of the plot.
-The `mapping` argument of the `ggplot()` function defines how variables in your dataset are mapped to visual properties of your plot.
-The `mapping` argument is always paired with the `aes()` function, and the `x` and `y` arguments of `aes()` specify which variables to map to the x and y axes.
-For now, we will only map flipper length to the `x` aesthetic and body mass to the `y` aesthetic.
-ggplot2 looks for the mapped variables in the `data` argument, in this case, `penguins`.
+A continuación, debemos decirle a `ggplot()` las variables de este data frame que queremos asignar a las propiedades visuales (**aesthetics**) del gráfico.
+El argumento `mapping` de la función `ggplot()` define cómo las variables en su conjunto de datos se asignan a las propiedades visuales de su gráfico.
+El argumento `mapping` siempre se combina con la función `aes()`, y los argumentos `x` e `y` de `aes()` especifican qué variables asignar a los ejes x e y.
+Por ahora, solo asignaremos la longitud de las aletas a la aesthetic `x` y la masa corporal a la aesthetic `y`.
+ggplot2 busca las variables mapeadas en el argumento `data`, en este caso, `penguins`.
 
-The following plots show the result of adding these mappings, one at a time.
+Las siguientes gráficas muestran el resultado de agregar estas asignaciones, una a la vez.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-alt: >
-#|   There are two plots. The plot on the left is shows flipper length on 
-#|   the x-axis. The values range from 170 to 230 The plot on the right 
-#|   also shows body mass on the y-axis. The values range from 3000 to 
+#|   Hay dos gráficas. El gráfico de la izquierda muestra la longitud de la aleta en
+#|   el eje x. Los valores oscilan entre 170 y 230. El gráfico de la derecha 
+#|   también muestra la masa corporal en el eje y. Los valores van de 3000 a 
 #|   6000.
 
 ggplot(
@@ -172,25 +173,25 @@ ggplot(
 )
 ```
 
-Our empty canvas now has more structure -- it's clear where flipper lengths will be displayed (on the x-axis) and where body masses will be displayed (on the y-axis).
-But the penguins themselves are not yet on the plot.
-This is because we have not yet articulated, in our code, how to represent the observations from our data frame on our plot.
+Nuestro lienzo vacío ahora tiene más estructura: está claro dónde se mostrarán las longitudes de las aletas (en el eje x) y dónde se mostrarán las masas corporales (en el eje y).
+Pero los propios pingüinos aún no están en la gráfica.
+Esto se debe a que aún no hemos articulado, en nuestro código, cómo representar las observaciones de nuestro data frame en nuestra gráfica.
 
-To do so, we need to define a **geom**: the geometrical object that a plot uses to represent data.
-These geometric objects are made available in ggplot2 with functions that start with `geom_`.
-People often describe plots by the type of geom that the plot uses.
-For example, bar charts use bar geoms (`geom_bar()`), line charts use line geoms (`geom_line()`), boxplots use boxplot geoms (`geom_boxplot()`), and so on.
-Scatterplots break the trend; they use the point geom: `geom_point()`.
+Para hacerlo, necesitamos definir una **geom**: el objeto geométrico que usa una gráfica para representar datos.
+Estos objetos geométricos están disponibles en ggplot2 con funciones que comienzan con `geom_`.
+La gente a menudo describe las gráfica por el tipo de geom que utiliza la gráfica.
+Por ejemplo, los gráficos de barras usan geoms de barras (`geom_bar()`), los gráficos de líneas usan geoms de líneas (`geom_line()`), los diagramas de caja usan geoms de diagramas de caja (`geom_boxplot()`), etc.
+Los diagramas de dispersión rompen la tendencia; utilizan el geom de punto: `geom_point()`.
 
-The function `geom_point()` adds a layer of points to your plot, which creates a scatterplot.
-ggplot2 comes with many geom functions that each adds a different type of layer to a plot.
-You'll learn a whole bunch of geoms throughout the book, particularly in @sec-layers.
+La función `geom_point()` agrega una capa de puntos a su diagrama, lo que crea un diagrama de dispersión.
+ggplot2 viene con muchas funciones geom, cada una de las cuales agrega un tipo diferente de capa a una gráfica.
+Aprenderás un montón de geoms a lo largo del libro, particularmente en @sec-layers.
 
 ```{r}
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. The plot 
-#|   displays a positive, linear, and relatively strong relationship between 
-#|   these two variables.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. La gráfica 
+#|   muestra una relación positiva, lineal y relativamente fuerte entre 
+#|   estas dos variables.
 
 ggplot(
   data = penguins,
@@ -199,16 +200,16 @@ ggplot(
   geom_point()
 ```
 
-Now we have something that looks like what we might think of as a "scatter plot".
-It doesn't yet match our "ultimate goal" plot, but using this plot we can start answering the question that motivated our exploration: "What does the relationship between flipper length and body mass look like?" The relationship appears to be positive, fairly linear, and moderately strong.
-Penguins with longer flippers are generally larger in terms of their body mass.
+Ahora tenemos algo que se parece a lo que podríamos considerar como un "diagrama de dispersión".
+Todavía no coincide con nuestra gráfica de "objetivo final", pero usando esta gráfica podemos comenzar a responder la pregunta que motivó nuestra exploración: "¿Cómo es la relación entre la longitud de las aletas y la masa corporal?" La relación parece ser positiva, bastante lineal y moderadamente fuerte.
+Los pingüinos con aletas más largas son generalmente más grandes en términos de masa corporal.
 
-Before we add more layers to this plot, let's pause for a moment and review the warning message we got:
+Antes de agregar más capas a este gráfico, hagamos una pausa por un momento y revisemos el mensaje de advertencia que recibimos:
 
 > Removed 2 rows containing missing values (`geom_point()`).
 
-We're seeing this message because there are two penguins in our dataset with missing body mass and flipper length values and ggplot2 has no way of representing them on the plot.
-You don't need to worry about understanding the following code yet (you will learn about it in @sec-data-transform), but it's one way of identifying the observations with `NA`s for either body mass or flipper length.
+Estamos viendo este mensaje porque hay dos pingüinos en nuestro conjunto de datos a los que les faltan valores de masa corporal y longitud de aleta y ggplot2 no tiene forma de representarlos en el gráfico.
+No necesita preocuparse por comprender el siguiente código todavía (lo aprenderá en @sec-data-transform), pero es una forma de identificar las observaciones con `NA` para la masa corporal o la longitud de la aleta.
 
 ```{r}
 penguins |>
@@ -216,28 +217,28 @@ penguins |>
   filter(is.na(body_mass_g) | is.na(flipper_length_mm))
 ```
 
-Like R, ggplot2 subscribes to the philosophy that missing values should never silently go missing.
-This type of warning is probably one of the most common types of warnings you will see when working with real data -- missing values are a very common issue and you'll learn more about them throughout the book, particularly in @sec-missing-values.
-For the remaining plots in this chapter we will suppress this warning so it's not printed alongside every single plot we make.
+Al igual que R, ggplot2 se suscribe a la filosofía de que los valores faltantes nunca deben desaparecer en silencio.
+Este tipo de advertencia es probablemente uno de los tipos de advertencia más comunes que verá cuando trabaje con datos reales: los valores faltantes son un problema muy común y aprenderá más sobre ellos a lo largo del libro, particularmente en @sec-missing- valores.
+Para las gráficas restantes en este capítulo, suprimiremos esta advertencia para que no se imprima junto con cada gráfica que hagamos
 
-### Adding aesthetics and layers
+### Agregar estética y capas
 
-Scatterplots are useful for displaying the relationship between two variables, but it's always a good idea to be skeptical of any apparent relationship between two variables and ask if there may be other variables that explain or change the nature of this apparent relationship.
-Let's incorporate species into our plot and see if this reveals any additional insights into the apparent relationship between flipper length and body mass.
-We will do this by representing species with different colored points.
+Los diagramas de dispersión son útiles para mostrar la relación entre dos variables, pero siempre es una buena idea ser escéptico ante cualquier relación aparente entre dos variables y preguntar si puede haber otras variables que expliquen o cambien la naturaleza de esta relación aparente.
+Incorporemos las especies a nuestra gráfica y veamos si esto revela alguna información adicional sobre la aparente relación entre la longitud de las aletas y la masa corporal.
+Haremos esto representando especies con puntos de diferentes colores.
 
-To achieve this, where should `species` go in the ggplot call from earlier?
-If you guessed "in the aesthetic mapping, inside of `aes()`", you're already getting the hang of creating data visualizations with ggplot2!
-And if not, don't worry.
-Throughout the book you will make many more ggplots and have many more opportunities to check your intuition as you make them.
+Para lograr esto, ¿dónde debería ir `species` en la llamada ggplot anterior?
+Si adivinaste "en el mapeo estético, dentro de `aes()`", ¡ya estás aprendiendo a crear visualizaciones de datos con ggplot2!
+Y si no, no te preocupes.
+A lo largo del libro, hará muchos más ggplots y tendrá muchas más oportunidades para verificar su intuición a medida que los hace.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. The plot 
-#|   displays a positive, fairly linear, and relatively strong relationship 
-#|   between these two variables. Species (Adelie, Chinstrap, and Gentoo) 
-#|   are represented with different colors.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. La gráfica 
+#|   muestra una relación positiva, bastante lineal y relativamente fuerte 
+#|   entre estas dos variables. Especies (Adelie, Chinstrap y Gentoo) 
+#|   se representan con diferentes colores.
 
 ggplot(
   data = penguins,
@@ -246,22 +247,22 @@ ggplot(
   geom_point()
 ```
 
-When a variable is mapped to an aesthetic, ggplot2 will automatically assign a unique value of the aesthetic (here a unique color) to each unique level of the variable (each of the three species), a process known as **scaling**.
-ggplot2 will also add a legend that explains which values correspond to which levels.
+Cuando una variable se asigna a una aesthetic, ggplot2 asignará automáticamente un valor único de la aesthetic (aquí, un color único) a cada nivel único de la variable (cada una de las tres especies), un proceso conocido como **escalado**.
+ggplot2 también agregará una leyenda que explica qué valores corresponden a qué niveles.
 
-Now let's add one more layer: a smooth curve displaying the relationship between body mass and flipper length.
-Before you proceed, refer back to the code above, and think about how we can add this to our existing plot.
+Ahora agreguemos una capa más: una curva suave que muestre la relación entre la masa corporal y la longitud de la aleta.
+Antes de continuar, consulte el código anterior y piense en cómo podemos agregar esto a nuestra gráfica existente.
 
-Since this is a new geometric object representing our data, we will add a new geom: `geom_smooth()`.
+Dado que este es un nuevo objeto geométrico que representa nuestros datos, agregaremos un nuevo geom: `geom_smooth()`.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. Overlaid 
-#|   on the scatterplot are three smooth curves displaying the 
-#|   relationship between these variables for each species (Adelie, 
-#|   Chinstrap, and Gentoo). Different penguin species are plotted in 
-#|   different colors for the points and the smooth curves.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. Superpuestas
+#|   en el diagrama de dispersión hay tres curvas suaves que muestran la 
+#|   relación entre estas variables para cada especie (Adelie, 
+#|   Chinstrap, y Gentoo). Las diferentes especies de pingüinos se grafican en 
+#|   diferentes colores para los puntos y las curvas suaves.
 
 ggplot(
   data = penguins,
@@ -271,20 +272,20 @@ ggplot(
   geom_smooth()
 ```
 
-We have successfully added smooth curves, but this plot doesn't look like the plot from @sec-ultimate-goal, which only has one curve for the entire dataset as opposed to separate curves for each of the penguin species.
+Agregamos con éxito curvas suaves, pero esta gráfica no se parece a la gráfica de @sec-ultimate-goal, que solo tiene una curva para todo el conjunto de datos en lugar de curvas separadas para cada una de las especies de pingüinos.
 
-When aesthetic mappings are defined in `ggplot()`, at the *global* level, they're inherited by each of the subsequent geom layers of the plot.
-However, each geom function in ggplot2 can also take a `mapping` argument, which allows for aesthetic mappings at the *local* level.
-Since we want points to be colored based on species but don't want the smooth curves to be separated out for them, we should specify `color = species` for `geom_point()` only.
+Cuando los mapeos estéticos se definen en `ggplot()`, en el nivel *global*, son heredados por cada una de las capas geom subsiguientes del gráfico.
+Sin embargo, cada función geom en ggplot2 también puede tomar un argumento `mapping`, que permite mapeos estéticos a nivel *local*.
+Dado que queremos que los puntos se coloreen en función de las especies, pero no queremos que las curvas suaves se separen para ellos, debemos especificar `color = species` solo para `geom_point()`.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. Overlaid 
-#|   on the scatterplot are is a single smooth curve displaying the 
-#|   relationship between these variables for each species (Adelie, 
-#|   Chinstrap, and Gentoo). Different penguin species are plotted in 
-#|   different colors for the points only.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. Superpuesta
+#|   en el diagrama de dispersión hay una sola curva suave que muestra el
+#|   relación entre estas variables para cada especie (Adelie,
+#|   Chinstrap y Gentoo). Las diferentes especies de pingüinos se grafican en
+#|   diferentes colores solo para los puntos.
 
 ggplot(
   data = penguins,
@@ -294,21 +295,21 @@ ggplot(
   geom_smooth()
 ```
 
-Voila!
-We have something that looks very much like our ultimate goal, though it's not yet perfect.
-We still need to use different shapes for each species of penguins and improve labels.
+¡Voila!
+Tenemos algo que se parece mucho a nuestro objetivo final, aunque todavía no es perfecto.
+Todavía necesitamos usar diferentes formas para cada especie de pingüinos y mejorar las etiquetas.
 
-It's generally not a good idea to represent information using only colors on a plot, as people perceive colors differently due to color blindness or other color vision differences.
-Therefore, in addition to color, we can also map `species` to the `shape` aesthetic.
+Por lo general, no es una buena idea representar información usando solo colores en un gráfico, ya que las personas perciben los colores de manera diferente debido a la ceguera al color u otras diferencias en la visión del color.
+Por lo tanto, además del color, también podemos asignar `species` a la aesthetic de `shape`(forma).
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. Overlaid 
-#|   on the scatterplot are is a single smooth curve displaying the 
-#|   relationship between these variables for each species (Adelie, 
-#|   Chinstrap, and Gentoo). Different penguin species are plotted in 
-#|   different colors and shapes for the points only.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. superpuesta
+#|   en el diagrama de dispersión hay una sola curva suave que muestra el
+#|   relación entre estas variables para cada especie (Adelie,
+#|   Chinstrap y Gentoo). Las diferentes especies de pingüinos se grafican en
+#|   diferentes colores y formas solo para los puntos.
 
 ggplot(
   data = penguins,
@@ -318,23 +319,23 @@ ggplot(
   geom_smooth()
 ```
 
-Note that the legend is automatically updated to reflect the different shapes of the points as well.
+Tenga en cuenta que la leyenda se actualiza automáticamente para reflejar también las diferentes formas de los puntos.
 
-And finally, we can improve the labels of our plot using the `labs()` function in a new layer.
-Some of the arguments to `labs()` might be self explanatory: `title` adds a title and `subtitle` adds a subtitle to the plot.
-Other arguments match the aesthetic mappings, `x` is the x-axis label, `y` is the y-axis label, and `color` and `shape` define the label for the legend.
+Y finalmente, podemos mejorar las etiquetas de nuestro gráfico usando la función `labs()` en una nueva capa.
+Algunos de los argumentos de `labs()` pueden explicarse por sí mismos: `title` agrega un título y `subtitle` agrega un subtítulo a la gráfica.
+Otros argumentos coinciden con las asignaciones aesthetics, `x` es la etiqueta del eje x, `y` es la etiqueta del eje y, y `color` y `shape` definen la etiqueta de la leyenda.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins, with a 
-#|   smooth curve displaying the relationship between these two variables 
-#|   overlaid. The plot displays a positive, fairly linear, and relatively 
-#|   strong relationship between these two variables. Species (Adelie, 
-#|   Chinstrap, and Gentoo) are represented with different colors and 
-#|   shapes. The relationship between body mass and flipper length is 
-#|   roughly the same for these three species, and Gentoo penguins are 
-#|   larger than penguins from the other two species.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de la aleta de los pingüinos, con una
+#|   curva suave que muestra la relación entre estas dos variables
+#|   superpuesta. La gráfica muestra una positiva, bastante lineal, y relativamente
+#|   fuerte relación entre estas dos variables. Especies (Adelia,
+#|   Chinstrap y Gentoo) se representan con diferentes colores y
+#|   formas. La relación entre la masa corporal y la longitud de la aleta es
+#|   aproximadamente lo mismo para estas tres especies, y los pingüinos papúa son
+#|   más grande que los pingüinos de las otras dos especies.
 
 ggplot(
   data = penguins,
@@ -343,32 +344,32 @@ ggplot(
   geom_point(aes(color = species, shape = species)) +
   geom_smooth() +
   labs(
-    title = "Body mass and flipper length",
-    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
-    x = "Flipper length (mm)",
-    y = "Body mass (g)",
-    color = "Species",
-    shape = "Species"
+    title = "Masa corporal y longitud de las aletas",
+    subtitle = "Dimensiones para pingüinos Adelia, barbijo y papúa",
+    x = "Longitud de la aleta (mm)",
+    y = "Masa corporal (g)",
+    color = "Especies",
+    shape = "Especies"
   )
 ```
 
-We finally have a plot that perfectly matches our "ultimate goal"!
+¡Finalmente tenemos una gráfica que encaja perfectamente con nuestro "objetivo final"!
 
-### Exercises
+### Ejercicios
 
-1.  How many rows are in `penguins`?
-    How many columns?
+1.  ¿Cuántas filas hay en `penguins`?
+    ¿Cuántas columnas?
 
-2.  What does the `bill_depth_mm` variable in the `penguins` data frame describe?
-    Read the help for `?penguins` to find out.
+2.  ¿Qué describe la variable `bill_ depth_mm` en el data frame `penguins`?
+    Lea la ayuda con `?penguins` para averiguarlo.
 
-3.  Make a scatterplot of `bill_depth_mm` vs. `bill_length_mm`.
-    Describe the relationship between these two variables.
+3.  Haz un diagrama de dispersión de `bill_depth_mm` frente a `bill_length_mm`.
+    Describe la relación entre estas dos variables.
 
-4.  What happens if you make a scatterplot of `species` vs. `bill_depth_mm`?
-    Why is the plot not useful?
+4.  ¿Qué pasa si haces un diagrama de dispersión de `species` frente a `bill_depth_mm`?
+    ¿Por qué la gráfica no es útil?
 
-5.  Why does the following give an error and how would you fix it?
+5.  ¿Por qué lo siguiente da un error y cómo lo solucionaría?
 
     ```{r}
     #| eval: false
@@ -377,24 +378,25 @@ We finally have a plot that perfectly matches our "ultimate goal"!
       geom_point()
     ```
 
-6.  What does the `na.rm` argument do in `geom_point()`?
-    What is the default value of the argument?
-    Create a scatterplot where you successfully use this argument set to `TRUE`.
+6.  ¿Qué hace el argumento `na.rm` en `geom_point()`?
+    ¿Cuál es el valor predeterminado del argumento?
+    Cree un diagrama de dispersión en el que utilice con éxito este argumento con valor `TRUE`.
 
-7.  Add the following caption to the plot you made in the previous exercise: "Data come from the palmerpenguins package." Hint: Take a look at the documentation for `labs()`.
+7.  Agregue el siguiente título al gráfico que hizo en el ejercicio anterior: "Los datos provienen del paquete palmerpenguins".
+    Sugerencia: Eche un vistazo a la documentación de `labs()`.
 
-8.  Recreate the following visualization.
-    What aesthetic should `bill_depth_mm` be mapped to?
-    And should it be mapped at the global level or at the geom level?
+8.  Vuelva a crear la siguiente visualización.
+    ¿A qué aesthetic se debe asignar `bill_depth_mm`?
+    ¿Y debería mapearse a nivel global o a nivel de geom?
 
     ```{r}
     #| echo: false
     #| warning: false
     #| fig-alt: >
-    #|   A scatterplot of body mass vs. flipper length of penguins, colored 
-    #|   by bill depth. A smooth curve of the relationship between body mass 
-    #|   and flipper length is overlaid. The relationship is positive, 
-    #|   fairly linear, and moderately strong.
+    #|   Un diagrama de dispersión de la masa corporal frente a la longitud de la aleta de los pingüinos, coloreado
+    #|   por profundidad de pico. Una curva suave de la relación entre la masa corporal
+    #|   y la longitud de la aleta está superpuesta. La relación es positiva,
+    #|   bastante lineal, y moderadamente fuerte.
 
     ggplot(
       data = penguins,
@@ -404,8 +406,8 @@ We finally have a plot that perfectly matches our "ultimate goal"!
       geom_smooth()
     ```
 
-9.  Run this code in your head and predict what the output will look like.
-    Then, run the code in R and check your predictions.
+9.  Ejecute este código en su cabeza y prediga cómo se verá la salida.
+    Luego, ejecuta el código en R y verifica tus predicciones.
 
     ```{r}
     #| eval: false
@@ -418,8 +420,8 @@ We finally have a plot that perfectly matches our "ultimate goal"!
       geom_smooth(se = FALSE)
     ```
 
-10. Will these two graphs look different?
-    Why/why not?
+10. ¿Se verán diferentes estos dos gráficos?
+    ¿Por qué/ por qué no?
 
     ```{r}
     #| eval: false
@@ -442,10 +444,10 @@ We finally have a plot that perfectly matches our "ultimate goal"!
       )
     ```
 
-## ggplot2 calls
+## Llamadas ggplot2
 
-As we move on from these introductory sections, we'll transition to a more concise expression of ggplot2 code.
-So far we've been very explicit, which is helpful when you are learning:
+A medida que avancemos desde estas secciones introductorias, pasaremos a una expresión más concisa del código ggplot2.
+Hasta ahora hemos sido muy explícitos, lo cual es útil cuando estás aprendiendo:
 
 ```{r}
 #| eval: false
@@ -457,12 +459,12 @@ ggplot(
   geom_point()
 ```
 
-Typically, the first one or two arguments to a function are so important that you should know them by heart.
-The first two arguments to `ggplot()` are `data` and `mapping`, in the remainder of the book, we won't supply those names.
-That saves typing, and, by reducing the amount of boilerplate, makes it easier to see what's different between plots.
-That's a really important programming concern that we'll come back to in @sec-functions.
+Por lo general, los primeros uno o dos argumentos de una función son tan importantes que debe saberlos de memoria.
+Los dos primeros argumentos de `ggplot()` son `data` y `mapping`; en el resto del libro, no proporcionaremos esos nombres.
+Eso ahorra escribir y, al reducir la cantidad de texto repetitivo, hace que sea más fácil ver las diferencias entre los gráficos.
+Esa es una preocupación de programación realmente importante a la que volveremos en @sec-functions.
 
-Rewriting the previous plot more concisely yields:
+Reescribiendo la gráfica anterior de forma más concisa se obtiene:
 
 ```{r}
 #| eval: false
@@ -471,7 +473,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
 ```
 
-In the future, you'll also learn about the pipe which will allow you to create that plot with:
+En el futuro, también aprenderá sobre *pipe* que le permitirá crear esa gráfica con:
 
 ```{r}
 #| eval: false
@@ -481,57 +483,57 @@ penguins |>
   geom_point()
 ```
 
-This is the most common syntax you'll see in the wild.
+Esta es la sintaxis más común que verá en la naturaleza.
 
-## Visualizing distributions
+## Visualización de distribuciones
 
-How you visualize the distribution of a variable depends on the type of variable: categorical or numerical.
+Cómo visualiza la distribución de una variable depende del tipo de variable: categórica o numérica.
 
-### A categorical variable
+### Una variable categórica
 
-A variable is **categorical** if it can only take one of a small set of values.
-To examine the distribution of a categorical variable, you can use a bar chart.
-The height of the bars displays how many observations occurred with each `x` value.
+Una variable es **categórica** si solo puede tomar uno de un pequeño conjunto de valores.
+Para examinar la distribución de una variable categórica, puede utilizar un gráfico de barras.
+La altura de las barras muestra cuántas observaciones ocurrieron con cada valor `x`.
 
 ```{r}
 #| fig-alt: >
-#|   A bar chart of frequencies of species of penguins: Adelie 
-#|   (approximately 150), Chinstrap (approximately 90), Gentoo 
-#|   (approximately 125).
+#|   Un gráfico de barras de frecuencias de especies de pingüinos: Adelie
+#|   (aproximadamente 150), Chinstrap (aproximadamente 90), Gentoo
+#|   (aproximadamente 125).
 
 ggplot(penguins, aes(x = species)) +
   geom_bar()
 ```
 
-In bar plots of categorical variables with non-ordered levels, like the penguin `species` above, it's often preferable to reorder the bars based on their frequencies.
-Doing so requires transforming the variable to a factor (how R handles categorical data) and then reordering the levels of that factor.
+En gráficos de barras de variables categóricas con niveles no ordenados, como la "especies" de pingüinos anterior, a menudo es preferible reordenar las barras en función de sus frecuencias.
+Hacerlo requiere transformar la variable en un factor (cómo R maneja los datos categóricos) y luego reordenar los niveles de ese factor.
 
 ```{r}
 #| fig-alt: >
-#|   A bar chart of frequencies of species of penguins, where the bars are 
-#|   ordered in decreasing order of their heights (frequencies): Adelie 
-#|   (approximately 150), Gentoo (approximately 125), Chinstrap 
-#|   (approximately 90).
+#|   Un gráfico de barras de frecuencias de especies de pingüinos, donde las barras son
+#|   ordenados en orden decreciente de sus alturas (frecuencias): Adelie
+#|   (aproximadamente 150), Gentoo (aproximadamente 125), Chinstrap
+#|   (aproximadamente 90).
 
 ggplot(penguins, aes(x = fct_infreq(species))) +
   geom_bar()
 ```
 
-You will learn more about factors and functions for dealing with factors (like `fct_infreq()` shown above) in @sec-factors.
+Aprenderá más sobre factores y funciones para manejar factores (como `fct_infreq()` que se muestra arriba) en @sec-factors.
 
-### A numerical variable
+### Una variable numérica
 
-A variable is **numerical** if it can take any of an infinite set of ordered values.
-Numbers and date-times are two examples of continuous variables.
-To visualize the distribution of a continuous variable, you can use a histogram or a density plot.
+Una variable es **numérica** si puede tomar cualquiera de un conjunto infinito de valores ordenados.
+Los números y las fechas y horas son dos ejemplos de variables continuas.
+Para visualizar la distribución de una variable continua, puede usar un histograma o un diagrama de densidad.
 
 ```{r}
 #| warning: false
 #| layout-ncol: 2
 #| fig-alt: >
-#|   A histogram (on the left) and density plot (on the right) of body masses 
-#|   of penguins. The distribution is unimodal and right skewed, ranging 
-#|   between approximately 2500 to 6500 grams.
+#|   Un histograma (a la izquierda) y un diagrama de densidad (a la derecha) de las masas corporales
+#|   de pinguinos. La distribución es unimodal y sesgada a la derecha, variando
+#|   entre 2500 a 6500 gramos aproximadamente.
 
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
@@ -539,28 +541,28 @@ ggplot(penguins, aes(x = body_mass_g)) +
   geom_density()
 ```
 
-A histogram divides the x-axis into equally spaced bins and then uses the height of a bar to display the number of observations that fall in each bin.
-In the graph above, the tallest bar shows that 39 observations have a `body_mass_g` value between 3,500 and 3,700 grams, which are the left and right edges of the bar.
+Un histograma divide el eje x en contenedores igualmente espaciados y luego usa la altura de una barra para mostrar el número de observaciones que caen en cada contenedor.
+En el gráfico anterior, la barra más alta muestra que 39 observaciones tienen un valor de `body_mass_g` entre 3500 y 3700 gramos, que son los bordes izquierdo y derecho de la barra.
 
 ```{r}
 penguins |>
   count(cut_width(body_mass_g, 200))
 ```
 
-You can set the width of the intervals in a histogram with the binwidth argument, which is measured in the units of the `x` variable.
-You should always explore a variety of binwidths when working with histograms, as different binwidths can reveal different patterns.
-In the plots below a binwidth of 20 is too narrow, resulting in too many bars, making it difficult to determine the shape of the distribution.
-Similarly, a binwidth of 2,000 is too high, resulting in all data being binned into only three bars, and also making it difficult to determine the shape of the distribution.
+Puede establecer el ancho de los intervalos en un histograma con el argumento *binwidth* (ancho de barra), que se mide en las unidades de la variable `x`.
+Siempre debe explorar una variedad de anchos de bin cuando trabaje con histogramas, ya que diferentes anchos de bin pueden revelar patrones diferentes.
+En las gráficas a continuación, un ancho de bin de 20 es demasiado estrecho, lo que da como resultado demasiadas barras, lo que dificulta determinar la forma de la distribución.
+Del mismo modo, un ancho de intervalo de 2000 es demasiado alto, lo que da como resultado que todos los datos se agrupan en solo tres barras y también dificulta determinar la forma de la distribución.
 
 ```{r}
 #| warning: false
 #| layout-ncol: 3
 #| fig-alt: >
-#|   Three histograms of body masses of penguins, one with binwidth of 20 
-#|   (right), one with binwidth of 200 (center), and one with binwidth of 
-#|   2000 (left). The histogram with binwidth of 20 shows lots of ups and 
-#|   downs in the heights of the bins, creating a jagged outline. The histogram 
-#|   with binwidth of 2000 shows only three bins.
+#|   Tres histogramas de masas corporales de pingüinos, uno con binwidth de 20
+#|   (derecha), uno con binwidth de 200 (centro) y otro con binwidth de
+#|   2000 (izquierda). El histograma con binwidth de 20 muestra muchas subidas y
+#|   bajadas en las alturas de los contenedores, creando un contorno irregular. El histograma
+#|   con binwidth de 2000 muestra solo tres barras.
 
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 20)
@@ -570,13 +572,13 @@ ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 2000)
 ```
 
-### Exercises
+### Ejercicios
 
-1.  Make a bar plot of `species` of `penguins`, where you assign `species` to the `y` aesthetic.
-    How is this plot different?
+1.  Haz un gráfico de barras de `species` de `penguins`, donde asignas `species` a la aesthetic `y`.
+    ¿En qué se diferencia esta gráfica?
 
-2.  How are the following two plots different?
-    Which aesthetic, `color` or `fill`, is more useful for changing the color of bars?
+2.  ¿En qué se diferencian las siguientes dos gráficas?
+    ¿Qué aesthetic, `color` o `fill`, es más útil para cambiar el color de las barras?
 
     ```{r}
     #| eval: false
@@ -588,115 +590,115 @@ ggplot(penguins, aes(x = body_mass_g)) +
       geom_bar(fill = "red")
     ```
 
-3.  What does the `bins` argument in `geom_histogram()` do?
+3.  ¿Qué hace el argumento `bins` en `geom_histogram()`?
 
-4.  Make a histogram of the `carat` variable in the `diamonds` dataset.
-    Experiment with different binwidths.
-    What binwidth reveals the most interesting patterns?
+4.  Haz un histograma de la variable `carat` en el conjunto de datos `diamonds`.
+    Experimente con diferentes *binwidths*.
+    ¿Qué *binwidth* revela los patrones más interesantes?
 
-## Visualizing relationships
+## Visualizando relaciones
 
-To visualize a relationship we need to have at least two variables mapped to aesthetics of a plot.
-In the following sections you will learn about commonly used plots for visualizing relationships between two or more variables and the geoms used for creating them.
+Para visualizar una relación, necesitamos tener al menos dos variables asignadas a la aesthetic de una gráfica.
+En las siguientes secciones, aprenderá acerca de las gráficas comúnmente utilizadas para visualizar las relaciones entre dos o más variables y las geoms utilizados para crearlas.
 
-### A numerical and a categorical variable
+### Una variable numérica y categórica
 
-To visualize the relationship between a numerical and a categorical variable we can use side-by-side box plots.
-A **boxplot** is a type of visual shorthand for a distribution of values that is popular among statisticians.
-As shown in @fig-eda-boxplot, each boxplot consists of:
+Para visualizar la relación entre una variable numérica y categórica, podemos usar diagramas de caja uno al lado del otro.
+Un **diagrama de caja** es un tipo de abreviatura visual para una distribución de valores que es popular entre los estadísticos.
+Como se muestra en @fig-eda-boxplot, cada diagrama de caja consta de:
 
--   A box that stretches from the 25th percentile of the distribution to the 75th percentile, a distance known as the interquartile range (IQR).
-    In the middle of the box is a line that displays the median, i.e. 50th percentile, of the distribution.
-    These three lines give you a sense of the spread of the distribution and whether or not the distribution is symmetric about the median or skewed to one side.
+-   Una caja que se extiende desde el percentil 25 de la distribución hasta el percentil 75, distancia conocida como rango intercuartílico (RIC).
+    En el medio del cuadro hay una línea que muestra la mediana, es decir, el percentil 50, de la distribución.
+    Estas tres líneas le dan una idea de la dispersión de la distribución y si la distribución es o no simétrica con respecto a la mediana o sesgada hacia un lado.
 
--   Visual points that display observations that fall more than 1.5 times the IQR from either edge of the box.
-    These outlying points are unusual so are plotted individually.
+-   Puntos visuales que muestran observaciones que caen más de 1,5 veces el IQR desde cualquier borde del cuadro.
+    Estos puntos periféricos son inusuales, por lo que se grafican individualmente.
 
--   A line (or whisker) that extends from each end of the box and goes to the farthest non-outlier point in the distribution.
+-   Una línea (o bigote) que se extiende desde cada extremo de la caja y va hasta el punto no atípico más alejado de la distribución.
 
 ```{r}
 #| label: fig-eda-boxplot
 #| echo: false
 #| fig-cap: >
-#|   Diagram depicting how a boxplot is created.
+#|   Diagrama que muestra cómo se crea un diagrama de caja.
 #| fig-alt: >
-#|   A diagram depicting how a boxplot is created following the steps outlined 
-#|   above.
+#|   Un diagrama que muestra cómo se crea un diagrama de caja siguiendo los pasos descritos
+#|   con anteriordad.
 
 knitr::include_graphics("images/EDA-boxplot.png")
 ```
 
-Let's take a look at the distribution of body mass by species using `geom_boxplot()`:
+Echemos un vistazo a la distribución de la masa corporal por especie usando `geom_boxplot()`:
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   Side-by-side box plots of distributions of body masses of Adelie, 
-#|   Chinstrap, and Gentoo penguins. The distribution of Adelie and 
-#|   Chinstrap penguins' body masses appear to be symmetric with 
-#|   medians around 3750 grams. The median body mass of Gentoo penguins 
-#|   is much higher, around 5000 grams, and the distribution of the 
-#|   body masses of these penguins appears to be somewhat right skewed.
+#|   Diagramas de caja uno al lado del otro de distribuciones de masas corporales de pingüinos Adelie, 
+#|   Chinstrap y Gentoo. La distribución de las masas corporales 
+#|   de los pingüinos Adeile y Chinstrap parecen ser simétricas con
+#|   medianas alrededor de 3750 gramos. La masa corporal media de los pingüinos Gentoo 
+#|   es mucho mayor, alrededor de 5000 gramos, y la distribución de la
+#|   las masas corporales de estos pingüinos parecen estar algo sesgadas a la derecha.
 
 ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot()
 ```
 
-Alternatively, we can make frequency polygons with `geom_freqpoly()`.
-`geom_freqpoly()` performs the same calculation as `geom_histogram()`, but instead of displaying the counts with bars, it uses lines instead.
-It's much easier to understand overlapping lines than bars of `geom_histogram()`.
-There are a few challenges with this type of plot, which we will come back to in @sec-cat-num on exploring the covariation between a categorical and a numerical variable.
+Alternativamente, podemos hacer polígonos de frecuencia con `geom_freqpoly()`.
+`geom_freqpoly()` realiza el mismo cálculo que `geom_histogram()`, pero en lugar de mostrar los conteos con barras, usa líneas.
+Es mucho más fácil entender las líneas superpuestas que las barras de `geom_histogram()`.
+Hay algunos desafíos con este tipo de gráfico, a los que volveremos en @sec-cat-num sobre la exploración de la covariación entre una variable categórica y numérica.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A frequency polygon of body masses of penguins by species of 
-#|   penguins. Each species (Adelie, Chinstrap, and Gentoo) is 
-#|   represented with different colored outlines for the polygons.
+#|   Un polígono de frecuencia de masas corporales de pingüinos por especies de
+#|   pingüinos. Cada especie (Adelie, Chinstrap y Gentoo) es
+#|   representado con contornos de diferentes colores para los polígonos.
 
 ggplot(penguins, aes(x = body_mass_g, color = species)) +
   geom_freqpoly(binwidth = 200, linewidth = 0.75)
 ```
 
-We've also customized the thickness of the lines using the `linewidth` argument in order to make them stand out a bit more against the background.
+También hemos personalizado el grosor de las líneas usando el argumento `linewidth` para que se destaquen un poco más contra el fondo.
 
-We can also use overlaid density plots, with `species` mapped to both `color` and `fill` aesthetics and using the `alpha` aesthetic to add transparency to the filled density curves.
-This aesthetic takes values between 0 (completely transparent) and 1 (completely opaque).
-In the following plot it's *set* to 0.5.
+También podemos usar gráficos de densidad superpuestos, con `species` asignadas a la aesthetics de `color` y `fill` y usando la aesthetic "alpha" para agregar transparencia a las curvas de densidad rellenas.
+Esta aesthetic toma valores entre 0 (totalmente transparente) y 1 (totalmente opaco).
+En la siguiente gráfica está *establecido* en 0.5.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A frequency polygon of body masses of penguins (on the left) and density 
-#|   plot (on the right). Each species of penguins (Adelie, Chinstrap, and 
-#|   Gentoo) are represented in different colored outlines for the frequency 
-#|   polygons and the density curves. The density curves are also filled with 
-#|   the same colors, with some transparency added.
+#|   Un polígono de frecuencia de masas corporales de pingüinos (a la izquierda) y una gráfica 
+#|   de densidad (a la derecha). Cada especie de pingüinos (Adelie, Chinstrap y
+#|   Gentoo) están representados en diferentes contornos de colores para la frecuencia
+#|   polígonos y las curvas de densidad. Las curvas de densidad también se rellenan con
+#|   los mismos colores, con algo de transparencia añadida.
 
 ggplot(penguins, aes(x = body_mass_g, color = species, fill = species)) +
   geom_density(alpha = 0.5)
 ```
 
-Note the terminology we have used here:
+Tenga en cuenta la terminología que hemos utilizado aquí:
 
--   We *map* variables to aesthetics if we want the visual attribute represented by that aesthetic to vary based on the values of that variable.
--   Otherwise, we *set* the value of an aesthetic.
+-   *Asignamos* variables a la aesthetic si queremos que el atributo visual representado por esa aesthetic varíe según los valores de esa variable.
+-   De lo contrario, *establecemos* el valor de una aesthetic.
 
-### Two categorical variables
+### Dos variables categóricas
 
-We can use segmented bar plots to visualize the distribution between two categorical variables.
-In creating this bar chart, we map the variable we want to divide the data into first to the `x` aesthetic and the variable we then further want to divide each group into to the `fill` aesthetic.
+Podemos usar diagramas de barras segmentadas para visualizar la distribución entre dos variables categóricas.
+Al crear este gráfico de barras, asignamos la variable en la que queremos dividir los datos primero a la aesthetic `x` y la variable en la que luego queremos dividir cada grupo a la aesthetic `fill`.
 
-Below are two segmented bar plots, both displaying the relationship between `island` and `species`, or specifically, visualizing the distribution of `species` within each island.
-The plot on the left shows the frequencies of each species of penguins on each island and the plot on the right shows the relative frequencies (proportions) of each species within each island (despite the incorrectly labeled y-axis that says "count").
-The relative frequency plot, created by setting `position = "fill"` in the geom is more useful for comparing species distributions across islands since it's not affected by the unequal numbers of penguins across the islands.
-Based on the plot on the left, we can see that Gentoo penguins all live on Biscoe island and make up roughly 75% of the penguins on that island, Chinstrap all live on Dream island and make up roughly 50% of the penguins on that island, and Adelie live on all three islands and make up all of the penguins on Torgersen.
+A continuación se muestran dos diagramas de barras segmentadas, ambos muestran la relación entre `island` y `species` o, específicamente, visualizan la distribución de `species` dentro de cada isla.
+El diagrama de la izquierda muestra las frecuencias de cada especie de pingüinos en cada isla y el diagrama de la derecha muestra las frecuencias relativas (proporciones) de cada especie dentro de cada isla (a pesar del eje y etiquetado incorrectamente que dice "count").
+El diagrama de frecuencia relativa, creado al establecer `position = "fill"` en la geom, es más útil para comparar las distribuciones de especies en las islas, ya que no se ve afectado por el número desigual de pingüinos en las islas.
+Según el gráfico de la izquierda, podemos ver que todos los pingüinos Gentoo viven en la isla Biscoe y constituyen aproximadamente el 75 % de los pingüinos de esa isla, Chinstrap todos viven en la isla Dream y constituyen aproximadamente el 50 % de los pingüinos de esa isla , y Adelie viven en las tres islas y forman todos los pingüinos en Torgersen.
 
 ```{r}
 #| fig-alt: >
-#|   Bar plots of penguin species by island (Biscoe, Dream, and Torgersen).
-#|   On the right, frequencies of species are shown. On the left, relative 
-#|   frequencies of species are shown.
+#|   Gráficas de barras de especies de pingüinos por isla (Biscoe, Dream y Torgersen).
+#|   A la derecha, se muestran las frecuencias de las especies. A la izquierda, relativo
+#|   se muestran las frecuencias de las especies.
 
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar()
@@ -704,96 +706,96 @@ ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(position = "fill")
 ```
 
-### Two numerical variables
+### Dos variables numéricas
 
-So far you've learned about scatterplots (created with `geom_point()`) and smooth curves (created with `geom_smooth()`) for visualizing the relationship between two numerical variables.
-A scatterplot is probably the most commonly used plot for visualizing the relationship between two variables.
+Hasta ahora has aprendido acerca de diagramas de dispersión (creados con `geom_point()`) y curvas suaves (creadas con `geom_smooth()`) para visualizar la relación entre dos variables numéricas.
+Una gráfica de dispersión es probablemente la gráfica más utilizada para visualizar la relación entre dos variables.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. The plot 
-#|   displays a positive, linear, relatively strong relationship between 
-#|   these two variables.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. La gráfica
+#|   muestra una relación positiva, lineal y relativamente fuerte entre
+#|   estas dos variables.
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
 ```
 
-### Three or more variables
+### Tres o más variables
 
-One way to add additional variables to a plot is by mapping them to an aesthetic.
-For example, in the following scatterplot the colors of points represent species and the shapes of points represent islands.
+Una forma de agregar variables adicionales a una gráfica es asignarlas a una aesthetic.
+Por ejemplo, en el siguiente diagrama de dispersión, los colores de los puntos representan especies y las formas de los puntos representan islas.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. The plot 
-#|   displays a positive, linear, relatively strong relationship between 
-#|   these two variables. The points are colored based on the species of the 
-#|   penguins and the shapes of the points represent islands (round points are 
-#|   Biscoe island, triangles are Dream island, and squared are Torgersen 
-#|   island). The plot is very busy and it's difficult to distinguish the shapes
-#|   of the points.
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. La gráfica
+#|   muestra una relación positiva, lineal y relativamente fuerte entre
+#|   estas dos variables. Los puntos están coloreados según la especie de los
+#|   pingüinos y las formas de las puntas representan islas (las puntas redondas son
+#|   la isla Biscoe, los triángulos son la isla Dream y los cuadrados son la isla Torgersen). 
+#|   La gráfica está muy ocupada y es difícil distinguir las formas
+#|   de los puntos.
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(aes(color = species, shape = island))
 ```
 
-However adding too many aesthetic mappings to a plot makes it cluttered and difficult to make sense of.
-Another way, which is particularly useful for categorical variables, is to split your plot into **facets**, subplots that each display one subset of the data.
+Sin embargo, agregar demasiadas asignaciones aesthetics a una gráfica hace que sea desordenada y difícil de entender.
+Otra forma, que es particularmente útil para las variables categóricas, es dividir su gráfico en **facetas**, subgráficos que muestran un subconjunto de los datos.
 
-To facet your plot by a single variable, use `facet_wrap()`.
-The first argument of `facet_wrap()` is a formula[^data-visualize-3], which you create with `~` followed by a variable name.
-The variable that you pass to `facet_wrap()` should be categorical.
+Para facetar su gráfica por una sola variable, use `facet_wrap()`.
+El primer argumento de `facet_wrap()` es una fórmula[^data-visualize-3], que se crea con `~` seguido de un nombre de variable.
+La variable que pasa a `facet_wrap()` debe ser categórica.
 
-[^data-visualize-3]: Here "formula" is the name of the type of thing created by `~`, not a synonym for "equation".
+[^data-visualize-3]: Aquí "formula" es el nombre del tipo de cosa creada por `~`, no un sinónimo de "ecuación".
 
 ```{r}
 #| warning: false
 #| fig-width: 8
 #| fig-asp: 0.33
 #| fig-alt: >
-#|   A scatterplot of body mass vs. flipper length of penguins. The shapes and 
-#|   colors of points represent species. Penguins from each island are on a 
-#|   separate facet. Within each facet, the relationship between body mass and 
-#|   flipper length is positive, linear, relatively strong. 
+#|   Un diagrama de dispersión de la masa corporal frente a la longitud de las aletas de los pingüinos. Las formas y
+#|   los colores de los puntos representan especies. Los pingüinos de cada isla están en un
+#|   faceta separada. Dentro de cada faceta, la relación entre la masa corporal y
+#|   la longitud de la aleta es positiva, lineal y  relativamente fuerte. 
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(aes(color = species, shape = species)) +
   facet_wrap(~island)
 ```
 
-You will learn about many other geoms for visualizing distributions of variables and relationships between them in @sec-layers.
+Aprenderá sobre muchas otros geoms para visualizar distribuciones de variables y relaciones entre ellas en @sec-layers.
 
-### Exercises
+### Ejercicios
 
-1.  Which variables in `mpg` are categorical?
-    Which variables are continuous?
-    (Hint: type `?mpg` to read the documentation for the dataset).
-    How can you see this information when you run `mpg`?
+1.  ¿Qué variables en `mpg` son categóricas?
+    ¿Qué variables son continuas?
+    (Sugerencia: escriba `?mpg` para leer la documentación del conjunto de datos).
+    ¿Cómo puedes ver esta información cuando ejecutas `mpg`?
 
-2.  Make a scatterplot of `hwy` vs. `displ` using the `mpg` data frame.
-    Next, map a third, numerical variable to `color`, then `size`, then both `color` and `size`, then `shape`.
-    How do these aesthetics behave differently for categorical vs. numerical variables?
+2.  Haz un diagrama de dispersión de `hwy` vs. `displ` usando el data frame `mpg`.
+    A continuación, asigne una tercera variable numérica a `color`, luego a `size`, luego a `color` y `size`, luego a `shape`.
+    ¿Cómo se comportan estas aesthetics de manera diferente para las variables categóricas frente a las numéricas?
 
-3.  In the scatterplot of `hwy` vs. `displ`, what happens if you map a third variable to `linewidth`?
+3.  En el diagrama de dispersión de `hwy` vs. `displ`, ¿qué sucede si mapeas una tercera variable a `linewidth`?
 
-4.  What happens if you map the same variable to multiple aesthetics?
+4.  ¿Qué sucede si mapeas la misma variable a múltiples aesthetics?
 
-5.  Make a scatterplot of `bill_depth_mm` vs. `bill_length_mm` and color the points by `species`.
-    What does adding coloring by species reveal about the relationship between these two variables?
+5.  Haz un diagrama de dispersión de `bill_depth_mm` vs. `bill_length_mm` y colorea los puntos por `species`.
+    ¿Qué revela la adición de colores por especie sobre la relación entre estas dos variables?
 
-6.  Why does the following yield two separate legends?
-    How would you fix it to combine the two legends?
+6.  ¿Por qué lo siguiente produce dos leyendas separadas?
+    ¿Cómo lo arreglarías para combinar las dos leyendas?
 
     ```{r}
     #| warning: false
     #| fig-alt: >
-    #|   Scatterplot of bill depth vs. bill length where different color and 
-    #|   shape pairings represent each species. The plot has two legends, 
-    #|   one labelled "species" which shows the shape scale and the other
-    #|   that shows the color scale.
+    #|   Gráfica de dispersión de la profundidad del pico frente a la longitud del pico donde hay diferentes colores y
+    #|   los pares de formas representan cada especie. La gráfica tiene dos leyendas,
+    #|   uno etiquetado como "especies" que muestra la escala de forma y el otro
+    #|   que muestra la escala de colores.
 
     ggplot(
       data = penguins,
@@ -803,13 +805,13 @@ You will learn about many other geoms for visualizing distributions of variables
       )
     ) +
       geom_point() +
-      labs(color = "Species")
+      labs(color = "Especies")
     ```
 
-## Saving your plots {#sec-ggsave}
+## Guardando tus gráficas {#sec-ggsave}
 
-Once you've made a plot, you might want to get it out of R by saving it as an image that you can use elsewhere.
-That's the job of `ggsave()`, which will save the most recent plot to disk:
+Una vez que haya creado un gráfico, es posible que desee sacarlo de R guardándolo como una imagen que puede usar en otro lugar.
+Ese es el trabajo de `ggsave()`, que guardará el gráfico más reciente en el disco:
 
 ```{r}
 #| fig-show: hide
@@ -817,29 +819,29 @@ That's the job of `ggsave()`, which will save the most recent plot to disk:
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
-ggsave(filename = "my-plot.png")
+ggsave(filename = "mi-grafica.png")
 ```
 
 ```{r}
 #| include: false
 
-file.remove("my-plot.png")
+file.remove("mi-grafica.png")
 ```
 
-This will save your plot to your working directory, a concept you'll learn more about in @sec-workflow-scripts-projects.
+Esto guardará su gráfica en su directorio de trabajo, un concepto sobre el que aprenderá más en @sec-workflow-scripts-projects.
 
-If you don't specify the `width` and `height` they will be taken from the dimensions of the current plotting device.
-For reproducible code, you'll want to specify them.
-You can learn more about `ggsave()` in the documentation.
+Si no especifica el ancho (argumento `width`) y la altura (argumento `height`) se tomarán de las dimensiones del dispositivo del gráfico actual.
+Para código reproducible, querrá especificarlos.
+Puede aprender más sobre `ggsave()` en la documentación.
 
-Generally, however, we recommend that you assemble your final reports using Quarto, a reproducible authoring system that allows you to interleave your code and your prose and automatically include your plots in your write-ups.
-You will learn more about Quarto in @sec-quarto.
+En general, sin embargo, recomendamos que armes tus informes finales utilizando Quarto, un sistema de creación reproducible que te permite intercalar tu código y tu prosa e incluir automáticamente tus gráficas en tus redacciones.
+Aprenderá más sobre Quarto en @sec-quarto.
 
-### Exercises
+### Ejercicios
 
-1.  Run the following lines of code.
-    Which of the two plots is saved as `mpg-plot.png`?
-    Why?
+1.  Ejecute las siguientes líneas de código.
+    ¿Cuál de los dos gráficos se guarda como `mpg-grafica.png`?
+    ¿Por qué?
 
     ```{r}
     #| eval: false
@@ -848,26 +850,26 @@ You will learn more about Quarto in @sec-quarto.
       geom_bar()
     ggplot(mpg, aes(x = cty, y = hwy)) +
       geom_point()
-    ggsave("mpg-plot.png")
+    ggsave("mpg-grafica.png")
     ```
 
-2.  What do you need to change in the code above to save the plot as a PDF instead of a PNG?
+2.  ¿Qué necesita cambiar en el código anterior para guardar el gráfico como PDF en lugar de PNG?
 
-## Common problems
+## Problemas comunes
 
-As you start to run R code, you're likely to run into problems.
-Don't worry --- it happens to everyone.
-We have all been writing R code for years, but every day we still write code that doesn't work!
+A medida que comience a ejecutar el código de R, es probable que tenga problemas.
+No te preocupes --- le pasa a todo el mundo.
+Todos hemos estado escribiendo código de R durante años, ¡pero todos los días seguimos escribiendo código que no funciona!
 
-Start by carefully comparing the code that you're running to the code in the book.
-R is extremely picky, and a misplaced character can make all the difference.
-Make sure that every `(` is matched with a `)` and every `"` is paired with another `"`.
-Sometimes you'll run the code and nothing happens.
-Check the left-hand of your console: if it's a `+`, it means that R doesn't think you've typed a complete expression and it's waiting for you to finish it.
-In this case, it's usually easy to start from scratch again by pressing ESCAPE to abort processing the current command.
+Comience comparando cuidadosamente el código que está ejecutando con el código del libro.
+R es extremadamente quisquilloso, y un carácter fuera de lugar puede marcar la diferencia.
+Asegúrate de que cada `(` coincida con un `)` y cada `"` esté emparejado con otro `"`.
+A veces, ejecutará el código y no sucederá nada.
+Verifique la parte izquierda de su consola: si es un `+`, significa que R no cree que haya escrito una expresión completa y está esperando que la termine.
+En este caso, por lo general es fácil volver a empezar desde cero presionando ESCAPE para cancelar el procesamiento del comando actual.
 
-One common problem when creating ggplot2 graphics is to put the `+` in the wrong place: it has to come at the end of the line, not the start.
-In other words, make sure you haven't accidentally written code like this:
+Un problema común al crear gráficos ggplot2 es colocar el `+` en el lugar equivocado: tiene que estar al final de la línea, no al principio.
+En otras palabras, asegúrese de no haber escrito accidentalmente un código como este:
 
 ```{r}
 #| eval: false
@@ -876,23 +878,23 @@ ggplot(data = mpg)
 + geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-If you're still stuck, try the help.
-You can get help about any R function by running `?function_name` in the console, or selecting the function name and pressing F1 in RStudio.
-Don't worry if the help doesn't seem that helpful - instead skip down to the examples and look for code that matches what you're trying to do.
+Si todavía estás atascado, prueba la ayuda.
+Puede obtener ayuda sobre cualquier función de R ejecutando `?nombre_de_la_función` en la consola, o seleccionando el nombre de la función y presionando F1 en RStudio.
+No se preocupe si la ayuda no parece tan útil; en su lugar, salte a los ejemplos y busque el código que coincida con lo que está tratando de hacer.
 
-If that doesn't help, carefully read the error message.
-Sometimes the answer will be buried there!
-But when you're new to R, even if the answer is in the error message, you might not yet know how to understand it.
-Another great tool is Google: try googling the error message, as it's likely someone else has had the same problem, and has gotten help online.
+Si eso no ayuda, lea atentamente el mensaje de error.
+¡A veces la respuesta estará enterrada allí!
+Pero cuando eres nuevo en R, incluso si la respuesta está en el mensaje de error, es posible que aún no sepas cómo entenderlo.
+Otra gran herramienta es Google: intente buscar en Google el mensaje de error, ya que es probable que alguien más haya tenido el mismo problema y haya obtenido ayuda en línea.
 
-## Summary
+## Resumen
 
-In this chapter, you've learned the basics of data visualization with ggplot2.
-We started with the basic idea that underpins ggplot2: a visualization is a mapping from variables in your data to aesthetic properties like position, color, size and shape.
-You then learned about increasing the complexity and improving the presentation of your plots layer-by-layer.
-You also learned about commonly used plots for visualizing the distribution of a single variable as well as for visualizing relationships between two or more variables, by levering additional aesthetic mappings and/or splitting your plot into small multiples using faceting.
+En este capítulo, ha aprendido los conceptos básicos de la visualización de datos con ggplot2.
+Comenzamos con la idea básica que sustenta ggplot2: una visualización es un mapeo de variables en sus datos a propiedades estéticas como posición, color, tamaño y forma.
+Luego aprendió a aumentar la complejidad y mejorar la presentación de sus gráficos capa por capa.
+También aprendió sobre las gráficas de uso común para visualizar la distribución de una sola variable, así como para visualizar las relaciones entre dos o más variables, aprovechando mapeos estéticos adicionales y/o dividiendo su gráfica en pequeños múltiplos usando facetas.
 
-We'll use visualizations again and again through out this book, introducing new techniques as we need them as well as do a deeper dive into creating visualizations with ggplot2 in @sec-layers through @sec-exploratory-data-analysis.
+Usaremos visualizaciones una y otra vez a lo largo de este libro, presentaremos nuevas técnicas a medida que las necesitemos y profundizaremos en la creación de visualizaciones con ggplot2 en @sec-layers a través de @sec-exploratory-data-analysis.
 
-With the basics of visualization under your belt, in the next chapter we're going to switch gears a little and give you some practical workflow advice.
-We intersperse workflow advice with data science tools throughout this part of the book because it'll help you stay organized as you write increasing amounts of R code.
+Con los conceptos básicos de visualización en su haber, en el próximo capítulo vamos a cambiar un poco de tema y le daremos algunos consejos prácticos sobre el flujo de trabajo.
+Intercalamos consejos de flujo de trabajo con herramientas de ciencia de datos a lo largo de esta parte del libro porque lo ayudará a mantenerse organizado a medida que escribe cantidades crecientes de código de R.

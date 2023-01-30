@@ -2,7 +2,7 @@
 
 ## R para la Ciencia de Datos
 
-<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"** de Hadley Wickham, Garrett Grolemund y Mine Çetinkaya-Rundel.
+<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"** de Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
 El libro está construido usando [Quarto](https://quarto.org/).
 Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
@@ -16,13 +16,17 @@ También aprenderá a administrar los recursos cognitivos para facilitar los des
 
 Esta traducción de "R para la Ciencia de Datos" es un proyecto personal de [David Díaz Rodríguez](https://github.com/davidrsch) con el objetivo de facilitar el estudio de la Ciencia de Datos con R, tanto al propio traductor como a todas aquellas personas de habla hispana que deseen aprender a realizar Ciencia de Datos con R.
 
-Señalar que esta es una traducción textual del libro por lo que cuando los autores se refieren así mismo en primera persona, será Hadley Wickham, Garrett Grolemund y Mine Çetinkaya-Rundel y no el traductor.
+Señalar que esta es una traducción textual del libro por lo que cuando los autores se refieren así mismo en primera persona, será Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund y no el traductor.
 
 ### Traducido hasta ahora
 
 -   0.1 Bienvenida
 -   0.2 Prefacio de la segunda edición
 -   1 Introducción
+-   El Juego Completo
+    -   2 Visualización de datos
+    -   3 Flujo de trabajo: conceptos básicos
+    -   4 Transformación de datos
 
 ## Sobre otras versiones
 
@@ -93,7 +97,7 @@ file.copy(pngs, dest, overwrite = TRUE)
 
 ## R for Data Science
 
-<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Garrett Grolemund & Mine Çetinkaya-Rundel.
+<a href="https://amzn.to/2aHLAQ1"><img src="oreilly/cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
 The book is built using [Quarto](https://quarto.org/).
 This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it and visualize.
 
@@ -107,13 +111,17 @@ You'll also learn how to manage cognitive resources to facilitate discoveries wh
 
 This translation of "R for Data Science" is a personal project by [David Díaz Rodríguez](https://github.com/davidrsch) with the aim of facilitating the study of Data Science with R, both for the translator himself and for all those Spanish-speaking people who wish to learn to do Data Science with R.
 
-Note that this is a verbatim translation of the book so when the authors refer to themselves in the first person, it will be Hadley Wickham, Garrett Grolemund and Mine Çetinkaya-Rundel and not the translator.
+Note that this is a verbatim translation of the book so when the authors refer to themselves in the first person, it will be Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund and not the translator.
 
 ### Translated so far
 
 -   0.1 Wellcome
 -   0.2 Preface to the second edition
 -   1 Introduction
+-   Whole Game
+    -   2 Data visualization
+    -   3 Workflow: basics
+    -   4 Data transformation
 
 ## About other versions
 
