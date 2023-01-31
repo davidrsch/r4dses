@@ -27,6 +27,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   2 Visualización de datos
     -   3 Flujo de trabajo: conceptos básicos
     -   4 Transformación de datos
+    -   5 Flujo de trabajo: *pipes*
 
 ## Sobre otras versiones
 
@@ -122,6 +123,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   2 Data visualization
     -   3 Workflow: basics
     -   4 Data transformation
+    -   5 Workflow: pipes
 
 ## About other versions
 
