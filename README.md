@@ -28,6 +28,8 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   3 Flujo de trabajo: conceptos básicos
     -   4 Transformación de datos
     -   5 Flujo de trabajo: *pipes*
+    -   6 Datos organizados
+    -   7 Flujo de trabajo: estilo de código
 
 ## Sobre otras versiones
 
@@ -124,6 +126,8 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   3 Workflow: basics
     -   4 Data transformation
     -   5 Workflow: pipes
+    -   6 Tidy Data
+    -   7 Workflow: code style
 
 ## About other versions
 
