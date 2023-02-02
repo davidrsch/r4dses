@@ -30,6 +30,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   5 Flujo de trabajo: *pipes*
     -   6 Datos organizados
     -   7 Flujo de trabajo: estilo de código
+    -   8 Importación de datos
 
 ## Sobre otras versiones
 
@@ -128,6 +129,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   5 Workflow: pipes
     -   6 Tidy Data
     -   7 Workflow: code style
+    -   8 Data Import
 
 ## About other versions
 
