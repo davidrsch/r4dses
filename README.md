@@ -31,6 +31,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   6 Datos organizados
     -   7 Flujo de trabajo: estilo de código
     -   8 Importación de datos
+    -   9 Flujo de trabajo: scripts y proyectos
 
 ## Sobre otras versiones
 
@@ -130,6 +131,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   6 Tidy Data
     -   7 Workflow: code style
     -   8 Data Import
+    -   9 Workflow: scripts and projects
 
 ## About other versions
 
