@@ -333,16 +333,6 @@ Mac y Linux usan barras inclinadas (por ejemplo, `plots/diamonds.pdf`) y Windows
 R puede funcionar con cualquier tipo (sin importar qué plataforma esté usando actualmente), pero desafortunadamente, las barras invertidas significan algo especial para R, y para obtener una sola barra invertida en la ruta, ¡debe escribir dos barras invertidas!
 Eso hace que la vida sea frustrante, por lo que recomendamos usar siempre el estilo Linux/Mac con barras diagonales.
 
-## Resumen
-
-En resumen, los scripts y los proyectos le brindan un flujo de trabajo sólido que le será útil en el futuro:
-
--   Cree un proyecto de RStudio para cada proyecto de análisis de datos.
--   Guarde sus scripts (con nombres informativos) en el proyecto, edítelos, ejecútelos en bits o como un todo. Reinicie R con frecuencia para asegurarse de haber capturado todo en sus scripts.
--   Solo use rutas relativas, no rutas absolutas.
-
-Entonces todo lo que necesita está en un solo lugar y claramente separado de todos los demás proyectos en los que está trabajando.
-
 ## Ejercicios
 
 1.  Vaya a la cuenta de Twitter RStudio Tips, <https://twitter.com/rstudiotips> y encuentre un consejo que parezca interesante.
@@ -353,8 +343,11 @@ Entonces todo lo que necesita está en un solo lugar y claramente separado de to
 
 ## Resumen
 
-En este capítulo, ha aprendido a organizar su código R en scripts (archivos) y proyectos (directorios).
-Al igual que el estilo de código, esto puede parecer un trabajo pesado al principio.
-Pero a medida que acumule más código en múltiples proyectos, aprenderá a apreciar cómo un poco de organización inicial puede ahorrarle mucho tiempo en el futuro.
+En resumen, los guiones y los proyectos le brindan un flujo de trabajo sólido que le será útil en el futuro:
 
+-   Cree un proyecto de RStudio para cada proyecto de análisis de datos.
+-   Guarde sus scripts (con nombres informativos) en el proyecto, edítelos, ejecútelos en bits o como un todo. Reinicie R con frecuencia para asegurarse de haber capturado todo en sus scripts.
+-   Solo use rutas relativas, no rutas absolutas.
+
+Entonces todo lo que necesita está en un solo lugar y claramente separado de todos los demás proyectos en los que está trabajando.
 A continuación, aprenderá cómo obtener ayuda y cómo hacer buenas preguntas de codificación.

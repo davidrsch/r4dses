@@ -24,14 +24,6 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   0.2 Prefacio de la segunda edición
 -   1 Introducción
 -   El Juego Completo
-    -   2 Visualización de datos
-    -   3 Flujo de trabajo: conceptos básicos
-    -   4 Transformación de datos
-    -   5 Flujo de trabajo: *pipes*
-    -   6 Datos organizados
-    -   7 Flujo de trabajo: estilo de código
-    -   8 Importación de datos
-    -   9 Flujo de trabajo: scripts y proyectos
 
 ## Sobre otras versiones
 
@@ -87,7 +79,8 @@ devtools::install_github("hadley/r4ds")
 Para generar un libro para O'Reilly, construya el libro y luego:
 
 ```{r}
-devtools::load_all("../minibook/"); process_book()
+# pak::pak("hadley/htmlbook")
+htmlbook::convert_book()
 
 html <- list.files("oreilly", pattern = "[.]html$", full.names = TRUE)
 file.copy(html, "../r-for-data-science-2e/", overwrite = TRUE)
@@ -97,6 +90,8 @@ dest <- gsub("oreilly", "../r-for-data-science-2e/", pngs)
 fs::dir_create(unique(dirname(dest)))
 file.copy(pngs, dest, overwrite = TRUE)
 ```
+
+Luego confirme y empuje al atlas.
 
 # English
 
@@ -124,14 +119,6 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   0.2 Preface to the second edition
 -   1 Introduction
 -   Whole Game
-    -   2 Data visualization
-    -   3 Workflow: basics
-    -   4 Data transformation
-    -   5 Workflow: pipes
-    -   6 Tidy Data
-    -   7 Workflow: code style
-    -   8 Data Import
-    -   9 Workflow: scripts and projects
 
 ## About other versions
 
@@ -187,7 +174,8 @@ devtools::install_github("hadley/r4ds")
 To generate book for O'Reilly, build the book then:
 
 ```{r}
-devtools::load_all("../minibook/"); process_book()
+# pak::pak("hadley/htmlbook")
+htmlbook::convert_book()
 
 html <- list.files("oreilly", pattern = "[.]html$", full.names = TRUE)
 file.copy(html, "../r-for-data-science-2e/", overwrite = TRUE)
@@ -197,3 +185,5 @@ dest <- gsub("oreilly", "../r-for-data-science-2e/", pngs)
 fs::dir_create(unique(dirname(dest)))
 file.copy(pngs, dest, overwrite = TRUE)
 ```
+
+Then commit and push to atlas.

@@ -366,7 +366,7 @@ knitr::kable(df, format = "markdown")
 ```
 
 ```{r}
-#| eval: false
+#| include: false
 
 cli:::ruler()
 ```

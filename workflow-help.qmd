@@ -1,4 +1,4 @@
-# Workflow: getting help {#sec-workflow-getting-help}
+# Flujo de trabajo: obtener ayuda {#sec-workflow-getting-help}
 
 ```{r}
 #| results: "asis"
@@ -8,48 +8,48 @@ source("_common.R")
 status("complete")
 ```
 
-This book is not an island; there is no single resource that will allow you to master R.
-As you begin to apply the techniques described in this book to your own data, you will soon find questions that we do not answer.
-This section describes a few tips on how to get help and to help you keep learning.
+Este libro no es una isla; no existe un solo recurso que te permita dominar R.
+A medida que comience a aplicar las técnicas descritas en este libro a sus propios datos, pronto encontrará preguntas que no respondemos.
+Esta sección describe algunos consejos sobre cómo obtener ayuda y ayudarlo a seguir aprendiendo.
 
-## Google is your friend
+## Google es tu amigo
 
-If you get stuck, start with Google.
-Typically adding "R" to a query is enough to restrict it to relevant results: if the search isn't useful, it often means that there aren't any R-specific results available.
-Google is particularly useful for error messages.
-If you get an error message and you have no idea what it means, try googling it!
-Chances are that someone else has been confused by it in the past, and there will be help somewhere on the web.
-(If the error message isn't in English, run `Sys.setenv(LANGUAGE = "en")` and re-run the code; you're more likely to find help for English error messages.)
+Si te quedas atascado, empieza con Google.
+Por lo general, agregar "R" a una consulta es suficiente para restringirla a resultados relevantes: si la búsqueda no es útil, a menudo significa que no hay resultados específicos de R disponibles.
+Google es particularmente útil para los mensajes de error.
+Si recibe un mensaje de error y no tiene idea de lo que significa, intente buscarlo en Google.
+Lo más probable es que alguien más se haya confundido en el pasado, y habrá ayuda en algún lugar de la web.
+(Si el mensaje de error no está en inglés, ejecute `Sys.setenv(LANGUAGE = "en")` y vuelva a ejecutar el código; es más probable que encuentre ayuda para los mensajes de error en inglés).
 
-If Google doesn't help, try [Stack Overflow](https://stackoverflow.com).
-Start by spending a little time searching for an existing answer, including `[R]`, to restrict your search to questions and answers that use R.
+Si Google no ayuda, prueba [Stack Overflow](https://stackoverflow.com).
+Comience dedicando un poco de tiempo a buscar una respuesta existente, incluida `[R]`, para restringir su búsqueda a preguntas y respuestas que usen R.
 
-## Making a reprex
+## Haciendo un reprex
 
-If your googling doesn't find anything useful, it's a really good idea to prepare a **reprex,** short for minimal **repr**oducible **ex**ample.
-A good reprex makes it easier for other people to help you, and often you'll figure out the problem yourself in the course of making it.
-There are two parts to creating a reprex:
+Si tu búsqueda en Google no encuentra nada útil, es una muy buena idea preparar un **reprex,** abreviatura de ejemplo mínimo reproducible (en inglés, **repr**oducible **ex**ample).
+Un buen reprex facilita que otras personas te ayuden y, a menudo, resolverás el problema por ti mismo mientras lo haces.
+Hay dos partes para crear un reprex:
 
--   First, you need to make your code reproducible.
-    This means that you need to capture everything, i.e. include any `library()` calls and create all necessary objects.
-    The easiest way to make sure you've done this is using the reprex package.
+-   Primero, debe hacer que su código sea reproducible.
+    Esto significa que necesita capturar todo, es decir, incluir cualquier llamada a `library()` y crear todos los objetos necesarios.
+    La forma más fácil de asegurarse de que ha hecho esto es usar el paquete reprex.
 
--   Second, you need to make it minimal.
-    Strip away everything that is not directly related to your problem.
-    This usually involves creating a much smaller and simpler R object than the one you're facing in real life or even using built-in data.
+-   En segundo lugar, debe hacerlo mínimo.
+    Elimina todo lo que no esté directamente relacionado con tu problema.
+    Esto generalmente implica crear un objeto de R mucho más pequeño y simple que el que enfrenta en la vida real o incluso usar datos integrados.
 
-That sounds like a lot of work!
-And it can be, but it has a great payoff:
+¡Eso suena como un monton de trabajo!
+Y puede ser, pero tiene una gran recompensa:
 
--   80% of the time, creating an excellent reprex reveals the source of your problem.
-    It's amazing how often the process of writing up a self-contained and minimal example allows you to answer your own question.
+-   El 80% de las veces, la creación de un excelente reprex revela el origen de su problema.
+    Es sorprendente la frecuencia con la que el proceso de escribir un ejemplo mínimo e independiente le permite responder a su propia pregunta.
 
--   The other 20% of the time, you will have captured the essence of your problem in a way that is easy for others to play with.
-    This substantially improves your chances of getting help!
+-   El otro 20% del tiempo, habrá capturado la esencia de su problema de una manera que sea fácil de manejar para otros.
+    ¡Esto mejora sustancialmente sus posibilidades de obtener ayuda!
 
-When creating a reprex by hand, it's easy to accidentally miss something, meaning your code can't be run on someone else's computer.
-Avoid this problem by using the reprex package, which is installed as part of the tidyverse.
-Let's say you copy this code onto your clipboard (or, on RStudio Server or Cloud, select it):
+Al crear un reprex a mano, es fácil pasar por alto algo accidentalmente, lo que significa que su código no se puede ejecutar en la computadora de otra persona.
+Evite este problema utilizando el paquete reprex, que se instala como parte de tidyverse.
+Digamos que copia este código en su portapapeles (o, en RStudio Server o Cloud, selecciónelo):
 
 ```{r}
 #| eval: false
@@ -58,14 +58,14 @@ y <- 1:4
 mean(y)
 ```
 
-Then call `reprex()`, where the default target venue is GitHub:
+Luego llame a `reprex()`, donde el lugar de destino predeterminado es GitHub:
 
 ``` r
 reprex::reprex()
 ```
 
-A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RStudio) or your default browser otherwise.
-The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard (on RStudio Server or Cloud, you will need to copy this yourself):
+Se mostrará una vista previa de HTML muy bien representada en el Visor de RStudio (si está en RStudio) o en su navegador predeterminado de lo contrario.
+El bit relevante de Markdown con sabor a GitHub está listo para pegarse desde su portapapeles (en RStudio Server o Cloud, deberá copiarlo usted mismo):
 
     ``` r
     y <- 1:4
@@ -73,7 +73,7 @@ The relevant bit of GitHub-flavored Markdown is ready to be pasted from your cli
     #> [1] 2.5
     ```
 
-Here's what that Markdown would look like rendered in a GitHub issue:
+Así es como se vería ese Markdown representado en un problema de GitHub:
 
 ```{r}
 #| eval: false
@@ -83,50 +83,50 @@ mean(y)
 #> [1] 2.5
 ```
 
-Anyone else can copy, paste, and run this immediately.
+Cualquier otra persona puede copiar, pegar y ejecutar esto inmediatamente.
 
-There are three things you need to include to make your example reproducible: required packages, data, and code.
+Hay tres cosas que debe incluir para que su ejemplo sea reproducible: paquetes requeridos, datos y código.
 
-1.  **Packages** should be loaded at the top of the script so it's easy to see which ones the example needs.
-    This is a good time to check that you're using the latest version of each package; you may have discovered a bug that's been fixed since you installed or last updated the package.
-    For packages in the tidyverse, the easiest way to check is to run `tidyverse_update()`.
+1.  Los **paquetes** deben cargarse en la parte superior del script para que sea fácil ver cuáles necesita el ejemplo.
+    Este es un buen momento para comprobar que está utilizando la última versión de cada paquete; es posible que haya descubierto un error que se solucionó desde que instaló o actualizó el paquete por última vez.
+    Para los paquetes en tidyverse, la forma más fácil de verificar es ejecutar `tidyverse_update()`.
 
-2.  The easiest way to include **data** is to use `dput()` to generate the R code needed to recreate it.
-    For example, to recreate the `mtcars` dataset in R, perform the following steps:
+2.  La forma más fácil de incluir **datos** es usar `dput()` para generar el código de R necesario para recrearlo.
+    Por ejemplo, para recrear el conjunto de datos `mtcars` en R, realice los siguientes pasos:
 
-    1.  Run `dput(mtcars)` in R
-    2.  Copy the output
-    3.  In reprex, type `mtcars <-`, then paste.
+    1.  Ejecute `dput(mtcars)` en R
+    2.  Copie la salida
+    3.  En reprex, escriba `mtcars <-`, luego pegue.
 
-    Try and find the smallest subset of your data that still reveals the problem.
+    Intente encontrar el subconjunto más pequeño de sus datos que aún revele el problema.
 
-3.  Spend a little bit of time ensuring that your **code** is easy for others to read:
+3.  Dedique un poco de tiempo a asegurarse de que su **código** sea fácil de leer para otros:
 
-    -   Make sure you've used spaces and your variable names are concise yet informative.
+    -   Asegúrese de haber utilizado espacios y de que los nombres de las variables sean concisos pero informativos.
 
-    -   Use comments to indicate where your problem lies.
+    -   Utilice comentarios para indicar dónde radica su problema.
 
-    -   Do your best to remove everything that is not related to the problem.
+    -   Haz tu mejor esfuerzo para eliminar todo lo que no esté relacionado con el problema.
 
-    The shorter your code is, the easier it is to understand and the easier it is to fix.
+    Cuanto más corto sea su código, más fácil será de entender y más fácil de arreglar.
 
-Finish by checking that you have actually made a reproducible example by starting a fresh R session and copying and pasting your script.
+Termine comprobando que realmente ha creado un ejemplo reproducible iniciando una nueva sesión de R y copiando y pegando su secuencia de comandos.
 
-## Investing in yourself
+## Invertir en ti mismo
 
-You should also spend some time preparing yourself to solve problems before they occur.
-Investing a little time in learning R each day will pay off handsomely in the long run.
-One way is to follow what the tidyverse team is doing on the [tidyverse blog](https://www.tidyverse.org/blog/).
-To keep up with the R community more broadly, we recommend reading [R Weekly](https://rweekly.org): it's a community effort to aggregate the most interesting news in the R community each week.
+También debe pasar algún tiempo preparándose para resolver problemas antes de que ocurran.
+Invertir un poco de tiempo en aprender R cada día valdrá la pena a largo plazo.
+Una forma es seguir lo que hace el equipo de tidyverse en el [blog de tidyverse](https://www.tidyverse.org/blog/).
+Para mantenerse al día con la comunidad R de manera más amplia, recomendamos leer [R Weekly](https://rweekly.org): es un esfuerzo de la comunidad para agregar las noticias más interesantes de la comunidad de R cada semana.
 
-If you're an active Twitter user, you might also want to follow Hadley ([\@hadleywickham](https://twitter.com/hadleywickham)), Mine ([\@minebocek](https://twitter.com/minebocek)), Garrett ([\@statgarrett](https://twitter.com/statgarrett)), or follow [\@rstudiotips](https://twitter.com/rstudiotips) to keep up with new features in the IDE.
-If you want the full fire hose of new developments, you can also read the ([`#rstats`](https://twitter.com/search?q=%23rstats)) hashtag.
-This is one of the key tools that Hadley and Mine use to keep up with new developments in the community.
+Si es un usuario activo de Twitter, también puede seguir a Hadley ([\@hadleywickham](https://twitter.com/hadleywickham)), Mine ([\@minebocek](https://twitter.com%20/minebocek)), Garrett ([\@statgarrett](https://twitter.com/statgarrett)), o siga [\@rstudiotips](https://twitter.com/rstudiotips) para mantenerse al día con las nuevas funciones en el IDE.
+Si desea conocer todos los nuevos desarrollos, también puede leer el hashtag ([`#rstats`](https://twitter.com/search?q=%23rstats)).
+Esta es una de las herramientas clave que Hadley y Mine usan para mantenerse al día con los nuevos desarrollos en la comunidad.
 
-## Summary
+## Resumen
 
-This chapter concludes the Whole Game part of the book.
-You've now seen the most important parts of the data science process: visualization, transformation, tidying and importing.
-Now you've got a holistic view of the whole process, and we start to get into the details of small pieces.
+Este capítulo concluye la parte de El Juego Completo del libro.
+Ahora ha visto las partes más importantes del proceso de ciencia de datos: visualización, transformación, limpieza e importación.
+Ahora tiene una visión holística de todo el proceso y comenzamos a entrar en los detalles de las piezas pequeñas.
 
-The next part of the book, Visualize, does a deeper dive into the grammar of graphics and creating data visualizations with ggplot2, showcases how to use the tools you've learned so far to conduct exploratory data analysis, and introduces good practices for creating plots for communication.
+La siguiente parte del libro, Visualizar, profundiza en la gramática de los gráficos y la creación de visualizaciones de datos con ggplot2, muestra cómo usar las herramientas que ha aprendido hasta ahora para realizar análisis exploratorios de datos e introduce buenas prácticas para crear gráficos para comunicarse.
