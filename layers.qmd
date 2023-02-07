@@ -1,4 +1,4 @@
-# Layers {#sec-layers}
+# Capas {#sec-layers}
 
 ```{r}
 #| results: "asis"
@@ -7,24 +7,24 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-In the @sec-data-visualization, you learned much more than just how to make scatterplots, bar charts, and boxplots.
-You learned a foundation that you can use to make *any* type of plot with ggplot2.
+En @sec-data-visualization, aprendió mucho más que solo cómo hacer diagramas de dispersión, gráficos de barras y diagramas de caja.
+Aprendiste una base que puedes usar para hacer *cualquier* tipo de gráfico con ggplot2.
 
-In this chapter, you'll expand on that foundation as you learn about the layered grammar of graphics.
-We'll start with a deeper dive into aesthetic mappings, geometric objects, and facets.
-Then, you will learn about statistical transformations ggplot2 makes under the hood when creating a plot.
-These transformations are used to calculate new values to plot, such as the heights of bars in a bar plot or medians in a box plot.
-You will also learn about position adjustments, which modify how geoms are displayed in your plots.
-Finally, we'll briefly introduce coordinate systems.
+En este capítulo, ampliará esa base a medida que aprenda sobre la gramática en capas de los gráficos.
+Comenzaremos con una inmersión más profunda en mapeos estéticos, objetos geométricos y facetas.
+Luego, aprenderá sobre las transformaciones estadísticas que ggplot2 hace bajo el capó al crear un gráfico.
+Estas transformaciones se utilizan para calcular nuevos valores para graficar, como las alturas de las barras en un diagrama de barras o las medianas en un diagrama de caja.
+También aprenderá sobre los ajustes de posición, que modifican cómo se muestran los geoms en sus gráficos.
+Finalmente, presentaremos brevemente los sistemas de coordenadas.
 
-We will not cover every single function and option for each of these layers, but we will walk you through the most important and commonly used functionality provided by ggplot2 as well as introduce you to packages that extend ggplot2.
+No cubriremos todas las funciones y opciones para cada una de estas capas, pero lo guiaremos a través de la funcionalidad más importante y de uso común proporcionada por ggplot2 y le presentaremos los paquetes que amplían ggplot2.
 
-### Prerequisites
+### Requisitos previos
 
-This chapter focuses on ggplot2, one of the core packages in the tidyverse.
-To access the datasets, help pages, and functions used in this chapter, load the tidyverse by running this code:
+Este capítulo se centra en ggplot2, uno de los paquetes principales de tidyverse.
+Para acceder a los conjuntos de datos, las páginas de ayuda y las funciones utilizadas en este capítulo, cargue tidyverse ejecutando este código:
 
 ```{r}
 #| label: setup
@@ -33,46 +33,46 @@ To access the datasets, help pages, and functions used in this chapter, load the
 library(tidyverse)
 ```
 
-## Aesthetic mappings
+## Asignaciones de aesthetic
 
-> "The greatest value of a picture is when it forces us to notice what we never expected to see." --- John Tukey
+> "El mayor valor de una imagen es cuando nos obliga a notar lo que nunca esperábamos ver." --- John Tukey
 
-The `mpg` data frame that is bundled with the ggplot2 package contains `r nrow(mpg)` observations collected by the US Environmental Protection Agency on `r mpg |> distinct(model) |> nrow()` car models.
+El data frame `mpg` que se incluye con el paquete ggplot2 contiene `r nrow(mpg)` observaciones recopiladas por la Agencia de Protección Ambiental de los EU.
 
 ```{r}
 mpg
 ```
 
-Among the variables in `mpg` are:
+Entre las variables en `mpg` están:
 
-1.  `displ`: A car's engine size, in liters.
-    A numerical variable.
+1.  `displ`: Tamaño del motor de un automóvil, en litros.
+    Una variable numérica.
 
-2.  `hwy`: A car's fuel efficiency on the highway, in miles per gallon (mpg).
-    A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.
-    A numerical variable.
+2.  `hwy`: La eficiencia de combustible de un automóvil en la carretera, en millas por galón (mpg).
+    Un automóvil con una eficiencia de combustible baja consume más combustible que un automóvil con una eficiencia de combustible alta cuando recorren la misma distancia.
+    Una variable numérica.
 
-3.  `class`: Type of car.
-    A categorical variable.
+3.  `class`: Tipo de coche.
+    Una variable categórica.
 
-You can learn about `mpg` on its help page by running `?mpg`.
+Puede obtener información sobre `mpg` en su página de ayuda ejecutando `?mpg`.
 
-Let's start by visualizing the relationship between `displ` and `hwy` for various `class`es of cars.
-We can do this with a scatterplot where the numerical variables are mapped to the `x` and `y` aesthetics and the categorical variable is mapped to an aesthetic like `color` or `shape`.
+Comencemos visualizando la relación entre `displ` y `hwy` para varias `clases` de autos.
+Podemos hacer esto con un diagrama de dispersión donde las variables numéricas se asignan a la estética `x` e `y` y la variable categórica se asigna a una estética como `color` o `shape`.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 2
 #| fig-alt: >
-#|   Two scatterplots next to each other, both visualizing highway fuel 
-#|   efficiency versus engine size of cars and showing a negative 
-#|   association. In the plot on the left class is mapped to the color 
-#|   aesthetic, resulting in different colors for each class. 
-#|   In the plot on the right class is mapped the shape aesthetic, 
-#|   resulting in different plotting character shapes for each class,
-#|   except for suv. Each plot comes with a legend that shows the 
-#|   mapping between color or shape and levels of the class variable.
+#|   Dos diagramas de dispersión uno al lado del otro, ambos visualizando la eficiencia de combustible
+#|   en carretera versus el tamaño del motor de los automóviles y mostrando una asociación  
+#|   negativa. En el gráfico de la izquierda, la variable clase (class) se asigna a la aesthetic
+#|   color, dando como resultado diferentes colores para cada clase. 
+#|   En la gráfica de la derecha la variable clase (class) se asigna a la aesthetic shape,
+#|   dando como resultado diferentes formas de caracteres de trazado para cada clase,
+#|   excepto todoterreno. Cada gráfico viene con una leyenda que muestra el
+#|   mapeo entre color o shape y los niveles de la variable clase (class).
 
 # Left
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
@@ -83,31 +83,31 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
   geom_point()
 ```
 
-When `class` is mapped to `shape`, we get two warnings:
+Cuando `class` se asigna a `shape`, recibimos dos advertencias:
 
 > 1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; you have 7.
 > Consider specifying shapes manually if you must have them.
 >
 > 2: Removed 62 rows containing missing values (`geom_point()`).
 
-Since ggplot2 will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic.
-The second warning is related -- there are 62 SUVs in the dataset and they're not plotted.
+Dado que ggplot2 solo usará seis formas a la vez, de manera predeterminada, los grupos adicionales no se trazarán cuando use la aesthetic shape.
+La segunda advertencia está relacionada: hay 62 SUV (todoterrenos) en el conjunto de datos y no están representados.
 
-Similarly, we can map `class` to `size` or `alpha` (transparency) aesthetics as well.
+Del mismo modo, también podemos mapear la esthetic `class` a `size` o `alpha` (transparencia).
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 2
 #| fig-alt: >
-#|   Two scatterplots next to each other, both visualizing highway fuel 
-#|   efficiency versus engine size of cars and showing a negative 
-#|   association. In the plot on the left class is mapped to the size 
-#|   aesthetic, resulting in different sizes for each class. 
-#|   In the plot on the right class is mapped the alpha aesthetic, 
-#|   resulting in different alpha (transparency) levels for each class. 
-#|   Each plot comes with a legend that shows the mapping between size 
-#|   or alpha level and levels of the class variable.
+#|   Dos diagramas de dispersión uno al lado del otro, ambos visualizando la eficiencia de combustible
+#|   en carretera versus el tamaño del motor de los automóviles y mostrando una asociación  
+#|   negativa. En el gráfico de la izquierda, la clase (class) se asigna a la aesthetic
+#|   size, dando como resultado diferentes tamaños para cada clase. 
+#|   En la gráfica de la derecha clase (class) se asigna a la aesthetic alpha,
+#| resultando en diferentes niveles alpha (transparencia) para cada clase. 
+#|   Cada gráfica viene con una leyenda que muestra el mapeo entre el tamaño
+#|   o nivel alfa y niveles de la variable de clase.
 
 # Left
 ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
@@ -118,39 +118,39 @@ ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
   geom_point()
 ```
 
-Both of these produce warnings as well:
+Ambos producen advertencias también:
 
 > Using alpha for a discrete variable is not advised.
 
-Mapping a non-ordinal discrete (categorical) variable (`class`) to an ordered aesthetic (`size` or `alpha`) is generally not a good idea because it implies a ranking that does not in fact exist.
+Asignar una variable discreta (categórica) no ordinal (`class`) a una aesthetic ordenada (`size` o `alpha`) generalmente no es una buena idea porque implica una clasificación que de hecho no existe.
 
-Similarly, we could have mapped `class` to the `alpha` aesthetic, which controls the transparency of the points, or to the `shape` aesthetic, which controls the shape of the points.
+De manera similar, podríamos haber asignado `class` a la aesthetic `alpha`, que controla la transparencia de los puntos, o a la aesthetic `shape`, que controla la forma de los puntos.
 
-Once you map an aesthetic, ggplot2 takes care of the rest.
-It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values.
-For x and y aesthetics, ggplot2 does not create a legend, but it creates an axis line with tick marks and a label.
-The axis line acts as a legend; it explains the mapping between locations and values.
+Una vez que mapeas una aesthetic, ggplot2 se encarga del resto.
+Selecciona una escala razonable para usar con la aesthetic y construye una leyenda que explica el mapeo entre niveles y valores.
+Para las aesthetics x e y, ggplot2 no crea una leyenda, pero crea una línea de eje con marcas y una etiqueta.
+La línea del eje actúa como una leyenda; explica el mapeo entre ubicaciones y valores.
 
-You can also set the aesthetic properties of your geom manually.
-For example, we can make all of the points in our plot blue:
+También puede establecer las propiedades estéticas de su geom manualmente.
+Por ejemplo, podemos hacer que todos los puntos de nuestro gráfico sean azules:
 
 ```{r}
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars 
-#|   that shows a negative association. All points are blue.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
+#| que muestra una asociación negativa. Todos los puntos son azules.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(color = "blue")
 ```
 
-Here, the color doesn't convey information about a variable, but only changes the appearance of the plot.
-You can set an aesthetic manually by name as an argument of your geom function.
-In other words, it goes *outside* of `aes()`.
-You'll need to pick a value that makes sense for that aesthetic:
+Aquí, el color no transmite información sobre una variable, sino que solo cambia la apariencia de la gráfica.
+Puede establecer una estética manualmente por nombre como argumento de su función geom.
+En otras palabras, va *fuera* de `aes()`.
+Deberá elegir un valor que tenga sentido para esa estética:
 
--   The name of a color as a character string.
--   The size of a point in mm.
--   The shape of a point as a number, as shown in @fig-shapes.
+-   El nombre de un color como una cadena de caracteres.
+-   El tamaño de un punto en mm.
+-   La forma de un punto como un número, como se muestra en @fig-shapes.
 
 ```{r}
 #| label: fig-shapes
@@ -159,22 +159,22 @@ You'll need to pick a value that makes sense for that aesthetic:
 #| fig.asp: 0.364
 #| fig-align: "center"
 #| fig-cap: >
-#|   R has 25 built in shapes that are identified by numbers. There are some 
-#|   seeming duplicates: for example, 0, 15, and 22 are all squares. The 
-#|   difference comes from the interaction of the `color` and `fill` 
-#|   aesthetics. The hollow shapes (0--14) have a border determined by `color`; 
-#|   the solid shapes (15--20) are filled with `color`; the filled shapes 
-#|   (21--24) have a border of `color` and are filled with `fill`.
+#|   R tiene 25 formas integradas que se identifican con números. Hay algunos
+#|   duplicados aparentes: por ejemplo, 0, 15 y 22 son todos cuadrados. La
+#|   diferencia proviene de la interacción de las asthetics `color` y 
+#|   `fill`. Las formas huecas (0--14) tienen un borde determinado por `color`;
+#|   las formas sólidas (15--20) se rellenan con `color`; las formas rellenas
+#|   (21--24) tienen un borde de `color` y se rellenan con `fill`.
 #| fig-alt: >
-#|   Mapping between shapes and the numbers that represent them: 0 - square, 
-#|   1 - circle, 2 - triangle point up, 3 - plus, 4 - cross, 5 - diamond, 
-#|   6 - triangle point down, 7 - square cross, 8 - star, 9 - diamond plus, 
-#|   10 - circle plus, 11 - triangles up and down, 12 - square plus, 
-#|   13 - circle cross, 14 - square and triangle down, 15 - filled square, 
-#|   16 - filled circle, 17 - filled triangle point-up, 18 - filled diamond, 
-#|   19 - solid circle, 20 - bullet (smaller circle), 21 - filled circle blue, 
-#|   22 - filled square blue, 23 - filled diamond blue, 24 - filled triangle 
-#|   point-up blue, 25 - filled triangle point down blue.
+#|   Mapeo entre formas y los números que las representan: 0 - cuadrado,
+#|   1 - círculo, 2 - triángulo apuntando hacia arriba, 3 - más, 4 - cruz, 5 - rombo,
+#|   6 - triángulo apuntando hacia abajo, 7 - cruz cuadrada, 8 - estrella, 9 - diamante más,
+#|   10 - círculo más, 11 - triángulos arriba y abajo, 12 - cuadrado más,
+#|   13 - cruz circular, 14 - cuadrado y triángulo hacia abajo, 15 - cuadrado relleno,
+#|   16 - círculo relleno, 17 - triángulo relleno apuntando hacia arriba, 18 - diamante relleno,
+#|   19 - círculo sólido, 20 - viñeta (círculo más pequeño), 21 - círculo relleno azul,
+#|   22 - azul cuadrado relleno, 23 - azul diamante relleno, 24 - triángulo relleno
+#|   apuntando hacia arriba azul, 25 - triángulo relleno apuntando hacia abajo azul.
 
 shapes <- tibble(
   shape = c(0, 1, 2, 5, 3, 4, 6:19, 22, 21, 24, 23, 20),
@@ -192,38 +192,38 @@ ggplot(shapes, aes(x, y)) +
   theme(aspect.ratio = 1/2.75)
 ```
 
-So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point geom.
-You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
+Hasta ahora hemos discutido la estética que podemos mapear o establecer en un diagrama de dispersión, cuando usamos un geom_point.
+Puede obtener más información sobre todas las asignaciones estéticas posibles en la viñeta de especificaciones estéticas en <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
 
-The specific aesthetics you can use for a plot depend on the geom you use to represent the data.
-In the next section we dive deeper into geoms.
+La estética específica que puede usar para una gráfica depende de la geom que use para representar los datos.
+En la siguiente sección profundizaremos en las geomas.
 
-### Exercises
+### Ejercicios
 
-1.  Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles.
+1.  Cree un diagrama de dispersión de `hwy` vs. `displ` donde los puntos son triángulos rellenos de rosa.
 
-2.  Why did the following code not result in a plot with blue points?
+2.  ¿Por qué el siguiente código no dio como resultado un gráfico con puntos azules?
 
     ```{r}
     #| fig-alt: >
-    #|   Scatterplot of highway fuel efficiency versus engine size of cars  
-    #|   that shows a negative association. All points are red and 
-    #|   the legend shows a red point that is mapped to the word blue.
+    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
+    #|   que muestra una asociación negativa. Todos los puntos son rojos y
+    #|   la leyenda muestra un punto rojo que se asigna a la palabra azul.
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy, color = "blue"))
     ```
 
-3.  What does the `stroke` aesthetic do?
-    What shapes does it work with?
-    (Hint: use `?geom_point`)
+3.  ¿Qué hace la estética `stroke`?
+    ¿Con qué formas trabaja?
+    (Pista: usa `?geom_point`)
 
-4.  What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`?
-    Note, you'll also need to specify x and y.
+4.  ¿Qué sucede si asigna una estética a algo que no sea un nombre de variable, como `aes (color = displ < 5)`?
+    Tenga en cuenta que también deberá especificar x e y.
 
-## Geometric objects {#sec-geometric-objects}
+## Objetos geométricos {#sec-geometric-objects}
 
-How are these two plots similar?
+¿En qué se parecen estas dos gráficas?
 
 ```{r}
 #| echo: false
@@ -232,11 +232,11 @@ How are these two plots similar?
 #| fig-width: 4
 #| fig-height: 2
 #| fig-alt: >
-#|   There are two plots. The plot on the left is a scatterplot of highway 
-#|   fuel efficiency versus engine size of cars and the plot on the right 
-#|   shows a smooth curve that follows the trajectory of the relationship 
-#|   between these variables. A confidence interval around the smooth 
-#|   curve is also displayed.
+#|   Hay dos gráficas. El diagrama de la izquierda es un diagrama de dispersión de eficiecia
+#|   de combustible en carretera frente al tamaño del motor de los automóviles y el gráfico de la derecha
+#|   muestra una curva suave que sigue la trayectoria de la relación
+#|   entre estas variables. También se muestra Un intervalo de confianza 
+#|   alrededor de la curva suave.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point()
@@ -245,13 +245,13 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-Both plots contain the same x variable, the same y variable, and both describe the same data.
-But the plots are not identical.
-Each plot uses a different geometric object, geom, to represent the data.
-The plot on the left uses the point geom, and the plot on the right uses the smooth geom, a smooth line fitted to the data.
+Ambas gráficas contienen la misma variable x, la misma variable y, y ambas describen los mismos datos.
+Pero las tramas no son idénticas.
+Cada gráfico utiliza un objeto geométrico diferente, geom, para representar los datos.
+La gráfica de la izquierda usa geom_point, y la gráfica de la derecha usa geom_smooth, una línea suave ajustada a los datos.
 
-To change the geom in your plot, change the geom function that you add to `ggplot()`.
-For instance, to make the plots above, you can use this code:
+Para cambiar la geom en su gráfico, cambie la función geom que agrega a `ggplot()`.
+Por ejemplo, para hacer los diagramas de arriba, puedes usar este código:
 
 ```{r}
 #| eval: false
@@ -265,22 +265,22 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-Every geom function in ggplot2 takes a `mapping` argument.
-However, not every aesthetic works with every geom.
-You could set the shape of a point, but you couldn't set the "shape" of a line.
-If you try, ggplot2 will silently ignore that aesthetic mapping.
-On the other hand, you *could* set the linetype of a line.
-`geom_smooth()` will draw a different line, with a different linetype, for each unique value of the variable that you map to linetype.
+Cada función geom en ggplot2 toma un argumento `mapping`.
+Sin embargo, no todas las estéticas funcionan con todas las geom.
+Puede establecer la forma de un punto, pero no puede establecer la "forma" de una línea.
+Si lo intenta, ggplot2 ignorará silenciosamente ese mapeo estético.
+Por otro lado, *podría* establecer el tipo de línea de una línea.
+`geom_smooth()` dibujará una línea diferente, con un tipo de línea diferente, para cada valor único de la variable que asignas al tipo de línea.
 
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Two plots of highway fuel efficiency versus engine size of cars.
-#|   The data are represented with smooth curves. On the left, three 
-#|   smooth curves, all with the same linetype. On the right, three 
-#|   smooth curves with different line types (solid, dashed, or long 
-#|   dashed) for each type of drive train. In both plots, confidence 
-#|   intervals around the smooth curves are also displayed.
+#|   Dos gráficas de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
+#|   Los datos se representan con curvas suaves. A la izquierda, tres
+#|   curvas suaves, todas con el mismo tipo de línea. A la derecha, tres
+#|   curvas suaves con diferentes tipos de líneas (continuas, discontinuas o largas
+#|   discontinua) para cada tipo de tren de transmisión. En ambas gráficas, también se
+#|   los intervalos de confianza alrededor de las curvas suaves.
 
 ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
   geom_smooth()
@@ -288,33 +288,33 @@ ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) +
   geom_smooth()
 ```
 
-Here, `geom_smooth()` separates the cars into three lines based on their `drv` value, which describes a car's drive train.
-One line describes all of the points that have a `4` value, one line describes all of the points that have an `f` value, and one line describes all of the points that have an `r` value.
-Here, `4` stands for four-wheel drive, `f` for front-wheel drive, and `r` for rear-wheel drive.
+Aquí, `geom_smooth()` separa los autos en tres líneas según su valor `drv`, que describe el tren de transmisión de un auto.
+Una línea describe todos los puntos que tienen un valor `4`, una línea describe todos los puntos que tienen un valor `f` y una línea describe todos los puntos que tienen un valor `r`.
+Aquí, `4` significa tracción en las cuatro ruedas, `f` para tracción delantera y `r` para tracción trasera.
 
-If this sounds strange, we can make it more clear by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
+Si esto suena extraño, podemos hacerlo más claro superponiendo las líneas sobre los datos sin procesar y luego coloreando todo de acuerdo con `drv`.
 
 ```{r}
 #| echo: false
 #| message: false
 #| fig-alt: >
-#|   A plot of highway fuel efficiency versus engine size of cars. The data 
-#|   are represented with points (colored by drive train) as well as smooth 
-#|   curves (where line type is determined based on drive train as well). 
-#|   Confidence intervals around the smooth curves are also displayed.
+#|   Un gráfico de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Los datos
+#|   se representan con puntos (coloreados por el tren de transmisión), así como con curvas
+#|   suaves (donde el tipo de línea también se determina en función del tren de transmisión).
+#|   También se muestran los intervalos de confianza alrededor de las curvas suaves.
 
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) + 
   geom_point() +
   geom_smooth(aes(linetype = drv))
 ```
 
-Notice that this plot contains two geoms in the same graph.
+Observe que este gráfico contiene dos geomas en el mismo gráfico.
 
-Many geoms, like `geom_smooth()`, use a single geometric object to display multiple rows of data.
-For these geoms, you can set the `group` aesthetic to a categorical variable to draw multiple objects.
-ggplot2 will draw a separate object for each unique value of the grouping variable.
-In practice, ggplot2 will automatically group the data for these geoms whenever you map an aesthetic to a discrete variable (as in the `linetype` example).
-It is convenient to rely on this feature because the `group` aesthetic by itself does not add a legend or distinguishing features to the geoms.
+Muchos geoms, como `geom_smooth()`, utilizan un único objeto geométrico para mostrar varias filas de datos.
+Para estos geoms, puede establecer la estética `group` en una variable categórica para dibujar múltiples objetos.
+ggplot2 dibujará un objeto separado para cada valor único de la variable de agrupación.
+En la práctica, ggplot2 agrupará automáticamente los datos de estos geoms siempre que asigne una estética a una variable discreta (como en el ejemplo de `linetype`).
+Es conveniente confiar en esta característica porque la estética `group` por sí misma no agrega una leyenda o características distintivas a las geomas.
 
 ```{r}
 #| layout-ncol: 3
@@ -322,14 +322,14 @@ It is convenient to rely on this feature because the `group` aesthetic by itself
 #| fig-height: 3
 #| message: false
 #| fig-alt: >
-#|   Three plots, each with highway fuel efficiency on the y-axis and engine 
-#|   size of cars, where data are represented by a smooth curve. The first plot 
-#|   only has these two variables, the center plot has three separate smooth 
-#|   curves for each level of drive train, and the right plot not only has the 
-#|   same three separate smooth curves for each level of drive train but these 
-#|   curves are plotted in different colors, without a legend explaining which 
-#|   color maps to which level. Confidence intervals around the smooth curves 
-#|   are also displayed.
+#|   Tres gráficas, cada una con eficiencia de combustible en carretera en el eje y y el tamaño
+#|   del motor de los automóviles, donde los datos se representan mediante una curva suave. La primera gráfica 
+#|   solo tiene estas dos variables, la gráfica central tiene tres
+#|   curvas para cada nivel de tren de transmisión, y la gráfica de la derecha no solo tiene las
+#|   mismas tres curvas suaves separadas para cada nivel del tren de transmisión, también
+#|   se trazan las curvas en diferentes colores, sin una leyenda que explique qué
+#|   color se asigna a qué nivel. También se muestran los intervalos de confianza alrededor de 
+#| las curvas suaves.
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
@@ -341,35 +341,35 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
 
-If you place mappings in a geom function, ggplot2 will treat them as local mappings for the layer.
-It will use these mappings to extend or overwrite the global mappings *for that layer only*.
-This makes it possible to display different aesthetics in different layers.
+Si coloca asignaciones en una función geom, ggplot2 las tratará como asignaciones locales para la capa.
+Utilizará estas asignaciones para extender o sobrescribir las asignaciones globales *solo para esa capa*.
+Esto hace posible mostrar diferentes estéticas en diferentes capas.
 
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, where 
-#|   points are colored according to the car class. A smooth curve following 
-#|   the trajectory of the relationship between highway fuel efficiency versus 
-#|   engine size of cars is overlaid along with a confidence interval around it.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
+#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
+#|   el tamaño del motor de los automóviles se superpone junto con un intervalo de confianza a su alrededor.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(aes(color = class)) + 
   geom_smooth()
 ```
 
-You can use the same idea to specify different `data` for each layer.
-Here, we use red points as well as open circles to highlight two-seater cars.
-The local data argument in `geom_smooth()` overrides the global data argument in `ggplot()` for that layer only.
+Puede usar la misma idea para especificar `datos` diferentes para cada capa.
+Aquí, usamos puntos rojos y círculos abiertos para resaltar los autos de dos plazas.
+El argumento de datos locales en `geom_smooth()` anula el argumento de datos globales en `ggplot()` solo para esa capa.
 
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, where 
-#|   points are colored according to the car class. A smooth curve following 
-#|   the trajectory of the relationship between highway fuel efficiency versus 
-#|   engine size of subcompact cars is overlaid along with a confidence interval 
-#|   around it.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
+#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
+#|   el tamaño del motor de los automóviles subcompactos se superpone junto con un intervalo de confianza
+#|   alrededor.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -383,17 +383,17 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 ```
 
-(You'll learn how `filter()` works in the chapter on data transformations: for now, just know that this command selects only the subcompact cars.)
+(Aprenderá cómo funciona `filter()` en el capítulo sobre transformaciones de datos: por ahora, solo sepa que este comando selecciona solo los autos subcompactos.)
 
-Geoms are the fundamental building blocks of ggplot2.
-You can completely transform the look of your plot by changing its geom, and different geoms can reveal different features of your data.
-For example, the histogram and density plot below reveal that the distribution of highway mileage is bimodal and right skewed while the boxplot reveals two potential outliers.
+Las geomas son los bloques de construcción fundamentales de ggplot2.
+Puede transformar por completo el aspecto de su gráfico cambiando su geom, y diferentes geoms pueden revelar diferentes características de sus datos.
+Por ejemplo, el histograma y el diagrama de densidad a continuación revelan que la distribución del kilometraje en carretera es bimodal y sesgada hacia la derecha, mientras que el diagrama de caja revela dos posibles valores atípicos.
 
 ```{r}
 #| fig-asp: 0.33
 #| fig-alt: >
-#|   Three plots: histogram, density plot, and box plot of highway
-#|   mileage.
+#|   Tres gráficos: histograma, gráfico de densidad y gráfico de caja kilometraje
+#|   de carretera.
  
 # Left
 ggplot(mpg, aes(x = hwy)) +
@@ -408,19 +408,19 @@ ggplot(mpg, aes(x = hwy)) +
   geom_boxplot()
 ```
 
-ggplot2 provides more than 40 geoms but these don't cover all possible plots one could make.
-If you need a different geom, we recommend looking into extension packages first to see if someone else has already implemented it (see <https://exts.ggplot2.tidyverse.org/gallery/> for a sampling).
-For example, the **ggridges** package ([https://wilkelab.org/ggridges](https://wilkelab.org/ggridges/){.uri}) is useful for making ridgeline plots, which can be useful for visualizing the density of a numerical variable for different levels of a categorical variable.
-In the following plot not only did we use a new geom (`geom_density_ridges()`), but we have also mapped the same variable to multiple aesthetics (`drv` to `y`, `fill`, and `color`) as well as set an aesthetic (`alpha = 0.5`) to make the density curves transparent.
+ggplot2 proporciona más de 40 geoms, pero estos no cubren todos los gráficos posibles que uno podría hacer.
+Si necesita un geom diferente, le recomendamos que busque primero en los paquetes de extensión para ver si alguien más ya lo ha implementado (vea <https://exts.ggplot2.tidyverse.org/gallery/> para ver una muestra).
+Por ejemplo, el paquete **ggridges** ([https://wilkelab.org/ggridges](https://wilkelab.org/ggridges/){.uri}) es útil para hacer gráficos de líneas de crestas, que pueden ser útiles para visualizar la densidad de una variable numérica para diferentes niveles de una variable categórica.
+En la siguiente gráfica, no solo usamos un nuevo geom (`geom_density_ridges()`), sino que también asignamos la misma variable a múltiples estéticas (`drv` a `y`, `fill` y `color`) así como establecer una estética (`alpha = 0.5`) para hacer que las curvas de densidad sean transparentes.
 
 ```{r}
 #| fig-asp: 0.33
 #| fig-alt: 
-#|   Density curves for highway mileage for cars with rear wheel, 
-#|   front wheel, and 4-wheel drives plotted separately. The 
-#|   distribution is bimodal and roughly symmetric for real and 
-#|   4 wheel drive cars and unimodal and right skewed for front 
-#|   wheel drive cars.
+#|   Curvas de densidad para kilometraje en carretera para automóviles con tracción en 
+#|   las ruedas traseras, ruedas delanteras y en las 4 ruedas trazadas por separado. La
+#|   distribución es bimodal y aproximadamente simétrica para los automóviles con tracción en 
+#|   las ruedas traseras y en las 4 ruedas, y unimodales y sesgadas a la derecha para los
+#|   coches con tracción en las ruedas delanteras.
 
 library(ggridges)
 
@@ -428,17 +428,17 @@ ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv)) +
   geom_density_ridges(alpha = 0.5, show.legend = FALSE)
 ```
 
-The best place to get a comprehensive overview of all of the geoms ggplot2 offers, as well as all functions in the package, is the reference page: <https://ggplot2.tidyverse.org/reference>.
-To learn more about any single geom, use the help (e.g. `?geom_smooth`).
+El mejor lugar para obtener una descripción completa de todos los geoms que ofrece ggplot2, así como de todas las funciones del paquete, es la página de referencia: <https://ggplot2.tidyverse.org/reference>.
+Para obtener más información sobre cualquier geom individual, use la ayuda (por ejemplo, `? geom_smooth`).
 
-### Exercises
+### Ejercicios
 
-1.  What geom would you use to draw a line chart?
-    A boxplot?
-    A histogram?
-    An area chart?
+1.  ¿Qué geom usarías para dibujar un gráfico de líneas?
+    ¿Un diagrama de caja?
+    ¿Un histograma?
+    ¿Un gráfico de áreas?
 
-2.  Earlier in this chapter we used `show.legend` without explaining it:
+2.  Anteriormente en este capítulo usamos `show.legend` sin explicarlo:
 
     ```{r}
     #| eval: false
@@ -446,14 +446,14 @@ To learn more about any single geom, use the help (e.g. `?geom_smooth`).
       geom_smooth(aes(color = drv), show.legend = FALSE)
     ```
 
-    What does `show.legend = FALSE` do here?
-    What happens if you remove it?
-    Why do you think we used it earlier?
+    ¿Qué hace `show.legend = FALSE` aquí?
+    ¿Qué pasa si lo quitas?
+    ¿Por qué crees que lo usamos antes?
 
-3.  What does the `se` argument to `geom_smooth()` do?
+3.  ¿Qué hace el argumento `se` para `geom_smooth()`?
 
-4.  Recreate the R code necessary to generate the following graphs.
-    Note that wherever a categorical variable is used in the plot, it's `drv`.
+4.  Vuelva a crear el código R necesario para generar los siguientes gráficos.
+    Tenga en cuenta que siempre que se use una variable categórica en el gráfico, es `drv`.
 
     ```{r}
     #| echo: false
@@ -462,20 +462,20 @@ To learn more about any single geom, use the help (e.g. `?geom_smooth`).
     #| fig-width: 4
     #| fig-height: 2
     #| fig-alt: >
-    #|   There are six scatterplots in this figure, arranged in a 3x2 grid. 
-    #|   In all plots highway fuel efficiency of cars are on the y-axis and 
-    #|   engine size is on the x-axis. The first plot shows all points in black 
-    #|   with a smooth curve overlaid on them. In the second plot points are 
-    #|   also all black, with separate smooth curves overlaid for each level of 
-    #|   drive train. On the third plot, points and the smooth curves are 
-    #|   represented in different colors for each level of drive train. In the 
-    #|   fourth plot the points are represented in different colors for each 
-    #|   level of drive train but there is only a single smooth line fitted to 
-    #|   the whole data. In the fifth plot, points are represented in different 
-    #|   colors for each level of drive train, and a separate smooth curve with 
-    #|   different line types are fitted to each level of drive train. And 
-    #|   finally in the sixth plot points are represented in different colors 
-    #|   for each level of drive train and they have a thick white border.
+    #|   Hay seis diagramas de dispersión en esta figura, dispuestos en una cuadrícula de 3x2.
+    #|   En todas las gráficas, la eficiencia de combustible de los automóviles en carretera está en el eje y y
+    #|   el tamaño del motor está en el eje x. La primera gráfica muestra todos los puntos en negro
+    #|   con una suave curva superpuesta sobre ellos. En la segunda gráfica los puntos son
+    #|   también negros, con curvas suaves  superpuestas separadas para cada nivel de
+    #|   tren de transmisión. En la tercera gráfica, los puntos y las curvas suaves son
+    #|   representados en diferentes colores para cada nivel de tren de transmisión. En la
+    #|   cuarta gráfica los puntos están representados en diferentes colores para cada
+    #|   nivel del tren de transmisión, pero solo hay una línea suave que esta ajustada a
+    #|   todos los datos. En el quinto gráfico, los puntos se representan en diferentes
+    #|   colores para cada nivel de tren de transmisión y una curva suave separada por
+    #|   diferentes tipos de línea para cada nivel del tren de transmisión. Y
+    #|   finalmente en la sexta gráfica los puntos se representan en diferentes colores
+    #|   para cada nivel de transmisión y tienen un borde blanco grueso.
 
     ggplot(mpg, aes(x = displ, y = hwy)) + 
       geom_point() + 
@@ -497,74 +497,74 @@ To learn more about any single geom, use the help (e.g. `?geom_smooth`).
       geom_point(aes(color = drv))
     ```
 
-## Facets
+## Facetas
 
-In @sec-data-visualization you learned about faceting with `facet_wrap()`, which splits a plot into subplots that each display one subset of the data based on a categorical variable.
+En @sec-data-visualization, aprendió sobre facetas con `facet_wrap()`, que divide una gráfica en sub-gráficas, cada una de las cuales muestra un subconjunto de los datos en función de una variable categórica.
 
 ```{r}
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, 
-#|   faceted by class, with facets spanning two rows.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
+#|   facetado por clase, con facetas que abarcan dos filas.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_wrap(~cyl)
 ```
 
-To facet your plot with the combination of two variables, switch from `facet_wrap()` to `facet_grid()`.
-The first argument of `facet_grid()` is also a formula, but now it's a double sided formula: `rows ~ cols`.
+Para facetar su gráfico con la combinación de dos variables, cambie de `facet_wrap()` a `facet_grid()`.
+El primer argumento de `facet_grid()` también es una fórmula, pero ahora es una fórmula de doble cara: `rows ~ cols`.
 
 ```{r}
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, faceted 
-#|   by number of cylinders across rows and by type of drive train across 
-#|   columns. This results in a 4x3 grid of 12 facets. Some of these facets have 
-#|   no observations: 5 cylinders and 4 wheel drive, 4 or 5 cylinders and front 
-#|   wheel drive.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, facetado
+#|   por número de cilindros a través de filas y por tipo de tren de transmisión a través
+#|   columnas. Esto da como resultado una cuadrícula de 4x3 de 12 facetas. Algunas de estas facetas no tienen
+#|   observaciones: 5 cilindros y tracción en las 4 ruedas, 4 o 5 cilindros y tracción
+#|   en las ruedas delanteras.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_grid(drv ~ cyl)
 ```
 
-By default each of the facets share the same scale for x and y axes.
-This is useful when you want to compare data across facets but it can be limiting when you want to visualize the relationship within each facet better.
-Setting the `scales` argument in a faceting function to `"free"` will allow for different axis scales across both rows and columns.
-Other options for this argument are `"free_x"` (different scales across rows) and `"free_y"` (different scales across columns).
+Por defecto, cada una de las facetas comparte la misma escala para los ejes x e y.
+Esto es útil cuando desea comparar datos entre facetas, pero puede ser limitante cuando desea visualizar mejor la relación dentro de cada faceta.
+Establecer el argumento `scales` en una función de facetado en `"libre"` permitirá diferentes escalas de eje tanto en filas como en columnas.
+Otras opciones para este argumento son `"free_x"` (diferentes escalas en las filas) y `"free_y"` (diferentes escalas en las columnas).
 
 ```{r}
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, 
-#|   faceted by number of cylinders across rows and by type of drive train 
-#|   across columns. This results in a 4x3 grid of 12 facets. Some of these 
-#|   facets have no observations: 5 cylinders and 4 wheel drive, 4 or 5 
-#|   cylinders and front wheel drive. Facets within a row share the same 
-#|   y-scale and facets within a column share the same x-scale.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
+#|   facetado por número de cilindros a través de filas y por tipo de tren de transmisión
+#|   a través de columnas. Esto da como resultado una cuadrícula de 4x3 de 12 facetas. Algunos de estos
+#|   facetas no tienen observaciones: 5 cilindros y 4 ruedas motrices, 4 o 5
+#|   cilindros y tracción delantera. Las facetas dentro de una fila comparten el mismo
+#|   la escala y y las facetas dentro de una columna comparten la misma escala x.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_grid(drv ~ cyl, scales = "free")
 ```
 
-### Exercises
+### Ejercicios
 
-1.  What happens if you facet on a continuous variable?
+1.  ¿Qué sucede si facetas en una variable continua?
 
-2.  What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
-    How do they relate to this plot?
+2.  ¿Qué significan las celdas vacías en el gráfico con `facet_grid(drv ~ cyl)`?
+    ¿Cómo se relacionan con esta gráfica?
 
     ```{r}
     #| fig-alt: >
-    #|   Scatterplot of number of cycles versus type of drive train of cars. 
-    #|   The plot shows that there are no cars with 5 cylinders that are 4 
-    #|   wheel drive or with 4 or 5 cylinders that are front wheel drive.
+    #|   Diagrama de dispersión del número de ciclos frente al tipo de tren de transmisión de los automóviles.
+    #|   El gráfico muestra que no hay coches de 5 cilindros que tengan tracción
+    #|   en las 4 ruedas o con 4 o 5 cilindros que sean de tracción delantera.
 
     ggplot(mpg) + 
       geom_point(aes(x = drv, y = cyl))
     ```
 
-3.  What plots does the following code make?
-    What does `.` do?
+3.  ¿Qué gráficas hace el siguiente código?
+    ¿Qué hace `.`?
 
     ```{r}
     #| eval: false
@@ -578,7 +578,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_grid(. ~ cyl)
     ```
 
-4.  Take the first faceted plot in this section:
+4.  Tome la primera gráfica facetada en esta sección:
 
     ```{r}
     #| eval: false
@@ -588,24 +588,24 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_wrap(~ class, nrow = 2)
     ```
 
-    What are the advantages to using faceting instead of the color aesthetic?
-    What are the disadvantages?
-    How might the balance change if you had a larger dataset?
+¿Cuáles son las ventajas de usar facetas en lugar de la estética del color?
+¿Cuales son las desventajas?
+¿Cómo podría cambiar el equilibrio si tuviera un conjunto de datos más grande?
 
-5.  Read `?facet_wrap`.
-    What does `nrow` do?
-    What does `ncol` do?
-    What other options control the layout of the individual panels?
-    Why doesn't `facet_grid()` have `nrow` and `ncol` arguments?
+5.  Lee `?facet_wrap`.
+    ¿Qué hace `nrow`?
+    ¿Qué hace `ncol`?
+    ¿Qué otras opciones controlan el diseño de los paneles individuales?
+    ¿Por qué `facet_grid()` no tiene argumentos `nrow` y `ncol`?
 
-6.  Which of the following two plots makes it easier to compare engine size (`displ`) across cars with different drive trains?
-    What does this say about when to place a faceting variable across rows or columns?
+6.  ¿Cuál de las siguientes dos gráficas facilita la comparación del tamaño del motor (`displ`) entre automóviles con diferentes trenes motrices?
+    ¿Qué dice esto acerca de cuándo colocar una variable de facetado en filas o columnas?
 
     ```{r}
     #| fig-alt: >
-    #|   Two faceted plots, both visualizing highway fuel efficiency versus 
-    #|   engine size of cars, faceted by drive train. In the top plot, facet 
-    #|   are organized across rows and in the second, across columns.
+    #|   Gráficos de dos facetas, ambos visualizando la eficiencia de combustible en carretera versus
+    #|   el tamaño del motor de los automóviles, facetado por tren de transmisión. En el gráfico superior, las faceta
+    #|   se organizan por filas y en el segundo, por columnas.
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) + 
@@ -616,20 +616,20 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_grid(. ~ drv)
     ```
 
-7.  Recreate this plot using `facet_wrap()` instead of `facet_grid()`.
-    How do the positions of the facet labels change?
+7.  Vuelva a crear este diagrama usando `facet_wrap()` en lugar de `facet_grid()`.
+    ¿Cómo cambian las posiciones de las etiquetas de las facetas?
 
     ```{r}
     #| fig-alt: >
-    #|   Scatterplot of highway fuel efficiency versus engine size of cars, 
-    #|   faceted by type of drive train across rows.
+    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
+    #|   facetado por tipo de tren de transmisión a través de filas.
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) +
       facet_grid(drv ~ .)
     ```
 
-## Statistical transformations
+## Transformaciones estadísticas
 
 Consider a basic bar chart, drawn with `geom_bar()` or `geom_col()`.
 The following chart displays the total number of diamonds in the `diamonds` dataset, grouped by `cut`.
