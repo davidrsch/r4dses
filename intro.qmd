@@ -55,6 +55,13 @@ Una buena visualización le mostrará cosas que no esperaba o le generará nueva
 Una buena visualización también podría indicar que está haciendo la pregunta incorrecta o que necesita recopilar datos diferentes.
 Las visualizaciones pueden sorprenderlo y no se escalan particularmente bien porque requieren que un ser humano las interprete.
 
+**Los modelos** son herramientas complementarias a la visualización.
+Una vez que haya hecho sus preguntas lo suficientemente precisas, puede usar un modelo para responderlas.
+Los modelos son una herramienta fundamentalmente matemática o computacional, por lo que generalmente se escalan bien.
+¡Incluso cuando no lo hacen, por lo general es más barato comprar más computadoras que comprar más cerebros!
+Pero todo modelo hace suposiciones y, por su propia naturaleza, un modelo no puede cuestionar sus propias suposiciones.
+Eso significa que un modelo no puede sorprenderte fundamentalmente.
+
 El último paso de la ciencia de datos es la **comunicación**, una parte absolutamente crítica de cualquier proyecto de análisis de datos.
 No importa qué tan bien sus modelos y visualización lo hayan llevado a comprender los datos, a menos que también pueda comunicar sus resultados a otros.
 

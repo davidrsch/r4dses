@@ -22,7 +22,6 @@ Una vez que tenga datos ordenados y las herramientas ordenadas proporcionadas po
 En este capítulo, primero aprenderá la definición de datos ordenados y la verá aplicada a un conjunto de datos simple.
 Luego nos sumergiremos en la herramienta principal que usará para ordenar los datos: pivotar.
 Pivotar le permite cambiar la forma de sus datos sin cambiar ninguno de los valores.
-Terminaremos con una discusión sobre datos desordenados útiles y cómo puede crearlos si es necesario.
 
 ### Requisitos previos
 
@@ -41,23 +40,29 @@ A partir de este capítulo, suprimiremos el mensaje de carga de `library(tidyver
 ## Tidy data {#sec-tidy-data}
 
 Puede representar los mismos datos subyacentes de varias formas.
-El siguiente ejemplo muestra los mismos datos organizados de cuatro maneras diferentes.
+El siguiente ejemplo muestra los mismos datos organizados de tres maneras diferentes.
 Cada conjunto de datos muestra los mismos valores de cuatro variables: *país*, *año*, *población* y *casos* de TB (tuberculosis), pero cada conjunto de datos organiza los valores de manera diferente.
 
-<!-- A HACER redibujar como tablas -->
+```{r}
+#| echo: false
+ 
+table2 <- table1 |>
+  pivot_longer(cases:population, names_to = "type", values_to = "count")
+ 
+table3 <- table2 |> 
+  pivot_wider(names_from = year, values_from = count)
+```
 
 ```{r}
 table1
-table2
-table3
 
-# Distribuido en dos tibbles
-table4a # casos
-table4b # poblacion
+table2
+
+table3
 ```
 
 Todas estas son representaciones de los mismos datos subyacentes, pero no son igualmente fáciles de usar.
-Uno de ellos, `table1`, será mucho más fácil de trabajar dentro del tidyverse porque es ordenado.
+Uno de ellos, `table1`, será mucho más fácil de trabajar dentro del tidyverse porque esta ordenada.
 
 Hay tres reglas interrelacionadas que hacen que un conjunto de datos esté ordenado:
 
@@ -112,9 +117,7 @@ Aquí hay algunos pequeños ejemplos que muestran cómo podría trabajar con `ta
 
 # Tasa de cálculo por 10.000
 table1 |>
-  mutate(
-    rate = cases / population * 10000
-  )
+  mutate(rate = cases / population * 10000)
 
 # Calcular casos por año
 table1 |>
@@ -129,9 +132,9 @@ ggplot(table1, aes(x = year, y = cases)) +
 
 ### Ejercicios
 
-1.  Usando prosa, describe cómo se organizan las variables y las observaciones en cada una de las tablas de muestra.
+1.  Usando palabras, describa cómo se organizan las variables y las observaciones en cada una de las tablas de muestra.
 
-2.  Haz un bosquejo del proceso que usarías para calcular la `rate` para `table2` y `table4a` + `table4b`.
+2.  Haz un bosquejo del proceso que usarías para calcular la `rate` para `table2` y `table3`.
     Deberá realizar cuatro operaciones:
 
     a.  Extraiga el número de casos de TB por país por año.
@@ -141,10 +144,7 @@ ggplot(table1, aes(x = year, y = cases)) +
 
     Todavía no ha aprendido todas las funciones que necesitaría para realizar estas operaciones, pero aún debería poder pensar en las transformaciones que necesitaría.
 
-3.  Vuelva a crear el gráfico que muestra el cambio en los casos a lo largo del tiempo usando `table2` en lugar de `table1`.
-    ¿Qué necesitas hacer primero?
-
-## Pivotante {#sec-pivoting}
+## Alargar datos {#sec-pivoting}
 
 Los principios de los datos ordenados pueden parecer tan obvios que se pregunta si alguna vez se encontrará con un conjunto de datos que no esté ordenado.
 Desafortunadamente, sin embargo, la mayoría de los datos reales están desordenados.
@@ -160,11 +160,9 @@ Comenzará averiguando cuáles son las variables y observaciones subyacentes.
 A veces esto es fácil; otras veces necesitará consultar con las personas que generaron originalmente los datos.
 A continuación, **pivotará** sus datos en una forma ordenada, con variables en las columnas y observaciones en las filas.
 
-tidyr proporciona dos funciones para pivotar datos: `pivot_longer()`, que hace que los conjuntos de datos sean **más largos** al aumentar las filas y reducir las columnas, y `pivot_wider()`, que hace que los conjuntos de datos sean **más anchos** al aumentar las columnas y reducir las filas.
-Las siguientes secciones funcionan mediante el uso de `pivot_longer()` y `pivot_wider()` para abordar una amplia gama de conjuntos de datos realistas.
-Estos ejemplos se extraen de `vignette("pivot", package = "tidyr")`, que debería consultar si desea ver más variaciones y problemas más desafiantes.
-
-Sumerjámonos.
+tidyr proporciona dos funciones para pivotar datos: `pivot_longer()` y `pivot_wider()`.
+Empezaremos con `pivot_longer()` porque es el caso más común.
+Veamos unos ejemplos.
 
 ### Datos en nombres de columna {#sec-billboard}
 
@@ -306,7 +304,7 @@ Deben repetirse una vez para cada fila en el conjunto de datos original.
 #| label: fig-pivot-names
 #| echo: false
 #| fig-cap: >
-#|   Los nombres de columna de las columnas pivoteadas se convierten en una nueva columna.
+#|   Los nombres de columna de las columnas pivoteadas se convierten en una nueva columna. Los valores necesitan repetirse una vez por cada fila en el conjunto de datos original
 #| fig-alt: >
 #|   Un diagrama que muestra cómo `pivot_longer()` transforma un simple
 #|   conjunto de datos, usando color para resaltar cómo los nombres de las columnas ("col1" y
@@ -339,7 +337,7 @@ knitr::include_graphics("diagrams/tidy-data/cell-values.png", dpi = 270)
 ### Muchas variables en los nombres de las columnas
 
 Una situación más desafiante ocurre cuando tiene múltiples variables metidas en los nombres de las columnas.
-Por ejemplo, tome el conjunto de datos `who2`:
+Por ejemplo, tome el conjunto de datos `who2`, la fuente de `table_1` y amigos que vió con anterioridad:
 
 ```{r}
 who2
@@ -437,10 +435,10 @@ Cuando usa `".value"` en `names_to`, los nombres de las columnas en la entrada c
 knitr::include_graphics("diagrams/tidy-data/names-and-values.png", dpi = 270)
 ```
 
-### Ampliación de datos
+## Ampliación de datos
 
 Hasta ahora hemos usado `pivot_longer()` para resolver la clase común de problemas donde los valores terminan en los nombres de las columnas.
-A continuación, pivotaremos (HA HA) a `pivot_wider()`, lo que ayuda cuando una observación se distribuye en varias filas.
+A continuación, pivotaremos (HA HA) a `pivot_wider()`, que hace un conjunto de datos más **ancho** al incrementar el número de columnas y reducir las filas lo que ayuda cuando una observación se distribuye en varias filas.
 Esto parece surgir con menos frecuencia en la naturaleza, pero parece surgir mucho cuando se trata de datos gubernamentales.
 
 Comenzaremos analizando `cms_patient_experience`, un conjunto de datos de los servicios de los Centros de Medicare y Medicaid que recopila datos sobre las experiencias de los pacientes:
@@ -513,15 +511,17 @@ df |>
 La conexión entre la posición de la fila en la entrada y la celda en la salida es más débil que en `pivot_longer()` porque las filas y columnas en la salida están determinadas principalmente por los valores de las variables, no por sus ubicaciones.
 
 Para comenzar el proceso, `pivot_wider()` necesita primero averiguar qué irá en las filas y columnas.
-Encontrar los nombres de las columnas es fácil: son solo los valores de `name`.
+Encontrar los nombres de las columnas es fácil: son solo los valores únicos de `name`.
 
 ```{r}
 df |> 
-  distinct(name)
+  distinct(name) |> 
+  pull()
 ```
 
 De forma predeterminada, las filas de la salida están formadas por todas las variables que no se incluyen en los nombres o valores.
 Estos se llaman `id_cols`.
+Aquí solo hay una columna, pero en general puede haber cualquier cantidad de columnas.
 
 ```{r}
 df |> 
@@ -576,180 +576,13 @@ df |>
 
 Luego, depende de usted averiguar qué salió mal con sus datos y reparar el daño subyacente o usar sus habilidades de agrupación y resumen para asegurarse de que cada combinación de valores de fila y columna solo tenga una fila.
 
-## Datos desordenados
-
-Mientras que `pivot_wider()` es ocasionalmente útil para hacer datos ordenados, su verdadera fuerza es hacer datos **desordenados**.
-Si bien eso suena como algo malo, desordenado no es un término peyorativo: hay muchas estructuras de datos desordenadas que son extremadamente útiles.
-Los datos ordenados son un excelente punto de partida para la mayoría de los análisis, pero no es el único formato de datos que necesitará.
-
-Las siguientes secciones mostrarán algunos ejemplos de `pivot_wider()` que generan datos desordenados útiles para presentar datos a otros humanos, para ingresar a algoritmos estadísticos multivariados y para resolver pragmáticamente desafíos de manipulación de datos.
-
-### Presentación de datos a humanos
-
-Como has visto, `dplyr::count()` produce datos ordenados: crea una fila para cada grupo, con una columna para cada variable de agrupación y una columna para el número de observaciones.
-
-```{r}
-diamonds |> 
-  count(clarity, color)
-```
-
-Esto es fácil de visualizar o resumir aún más, pero no es la forma más compacta de visualización.
-Puedes usar `pivot_wider()` para crear una forma más adecuada para mostrarlo a otros humanos:
-
-```{r}
-diamonds |> 
-  count(clarity, color) |> 
-  pivot_wider(
-    names_from = color, 
-    values_from = n
-  )
-```
-
-Esta pantalla también facilita la comparación en dos direcciones, horizontal y verticalmente, como `facet_grid()`.
-
-`pivot_wider()` puede ser genial para esbozar rápidamente una tabla.
-Pero para las tablas de presentación reales, recomendamos aprender un paquete como [gt](https://gt.rstudio.com).
-gt es similar a ggplot2 en que proporciona una gramática extremadamente poderosa para diseñar tablas.
-Se necesita algo de trabajo para aprender, pero la recompensa es la capacidad de hacer casi cualquier tabla que puedas imaginar.
-
-### Estadísticas multivariantes
-
-La mayoría de los métodos estadísticos multivariantes clásicos (como la reducción de dimensiones y la agrupación) requieren sus datos en forma de matriz, donde cada columna es un punto de tiempo, una ubicación, un gen o una especie, pero definitivamente no una variable.
-A veces, estos formatos tienen ventajas sustanciales de rendimiento o espacio, o a veces solo son necesarios para acercarse a la matriz matemática subyacente.
-
-No vamos a cubrir estos métodos estadísticos aquí, pero es útil saber cómo obtener sus datos en la forma que necesitan.
-Por ejemplo, imaginemos que desea agrupar los datos de gapminder para encontrar países que hayan tenido una progresión similar de `gdpPercap` a lo largo del tiempo.
-Para hacer esto, necesitamos una fila para cada país y una columna para cada año:
-
-```{r}
-library(gapminder)
-
-col_year <- gapminder |> 
-  mutate(gdpPercap = log10(gdpPercap)) |> 
-  pivot_wider(
-    id_cols = country, 
-    names_from = year,
-    values_from = gdpPercap
-  ) 
-col_year
-```
-
-`pivot_wider()` produce un tibble donde cada fila está etiquetada por la variable país `country`.
-Pero la mayoría de los algoritmos estadísticos clásicos no quieren el identificador como una variable explícita; quieren como **nombre de fila**.
-Podemos convertir la variable `country` en nombres de fila con `column_to_rowname()`:
-
-```{r}
-col_year <- col_year |> 
-  column_to_rownames("country") 
-
-head(col_year)
-```
-
-Esto crea un data frame, porque los tibbles no admiten nombres de filas [^data-tidy-2].
-
-[^data-tidy-2]: tibbles no usan nombres de fila porque solo funcionan para un subconjunto de casos importantes: cuando las observaciones se pueden identificar mediante un solo vector de caracteres.
-
-Ahora estamos listos para agruparlos con (e.g.) `kmeans()`:
-
-```{r}
-cluster <- stats::kmeans(col_year, centers = 6)
-```
-
-Extraer los datos de este objeto en una forma con la que pueda trabajar es un desafío al que deberá volver más adelante en el libro, una vez que haya aprendido más sobre las listas.
-Pero por ahora, puede obtener la membresía de agrupación con este código:
-
-```{r}
-cluster_id <- cluster$cluster |> 
-  enframe() |> 
-  rename(country = name, cluster_id = value)
-cluster_id
-```
-
-Luego, puede volver a combinar esto con los datos originales usando una de las uniones que aprenderá en @sec-joins.
-
-```{r}
-gapminder |> left_join(cluster_id)
-```
-
-### Computación pragmática
-
-A veces es más fácil responder una pregunta usando datos desordenados.
-Por ejemplo, si está interesado solo en el número total de valores faltantes en `cms_patient_experience`, es más fácil trabajar con datos desordenados:
-
-```{r}
-cms_patient_experience |> 
-  group_by(org_pac_id) |> 
-  summarize(
-    n_miss = sum(is.na(prf_rate)),
-    n = n(),
-  )
-```
-
-Esto es en parte un reflejo de nuestra definición de datos ordenados, donde dijimos que los datos ordenados tienen una variable en cada columna, pero en realidad no definimos qué es una variable (y es sorprendentemente difícil hacerlo).
-Está totalmente bien ser pragmático y decir que una variable es lo que hace que su análisis sea más fácil.
-
-Entonces, si no sabe cómo hacer algunos cálculos, tal vez sea hora de cambiar la organización de sus datos.
-Para cálculos que involucran un número fijo de valores (como calcular diferencias o proporciones), generalmente es más fácil si los datos están en columnas; para aquellos con un número variable de valores (como sumas o medias), generalmente es más fácil en filas.
-No tenga miedo de desordenar, transformar y volver a ordenar si es necesario.
-
-Exploremos esta idea observando `cms_patient_care`, que tiene una estructura similar a `cms_patient_experience`:
-
-```{r}
-cms_patient_care
-```
-
-Contiene información sobre 9 medidas (`beliefs_addressed`, `composite_process`, `dyspena_treatment`, ...) en 14 instalaciones diferentes (identificadas por `ccn` con un nombre dado por `facility_name`).
-Sin embargo, en comparación con `cms_patient_experience`, cada medición se registra en dos filas con una puntuación `score`, el porcentaje de pacientes que respondieron afirmativamente a la pregunta de la encuesta, y un denominador, el número de pacientes a los que se aplica la pregunta.
-Dependiendo de lo que desee hacer a continuación, puede encontrar útil cualquiera de las tres estructuras siguientes:
-
--   Si desea calcular la cantidad de pacientes que respondieron afirmativamente a la pregunta, puede pivotar `type` en las columnas:
-
-    ```{r}
-    cms_patient_care |> 
-      pivot_wider(
-        names_from = type,
-        values_from = score
-      ) |> 
-      mutate(
-        numerator = round(observed / 100 * denominator)
-      )
-    ```
-
--   Si desea mostrar la distribución de cada métrica, puede mantenerla tal cual para poder dividirla por `measure_abbr`.
-
-    ```{r}
-    #| fig.show: "hide"
-
-    cms_patient_care |> 
-      filter(type == "observed") |> 
-      ggplot(aes(x = score)) + 
-      geom_histogram(binwidth = 2) + 
-      facet_wrap(vars(measure_abbr))
-    ```
-
--   Si desea explorar cómo se relacionan las diferentes métricas, puede colocar los nombres de las medidas en las columnas para poder compararlas en diagramas de dispersión.
-
-    ```{r}
-    #| fig.show: "hide"
-
-    cms_patient_care |> 
-      filter(type == "observed") |> 
-      select(-type) |> 
-      pivot_wider(
-        names_from = measure_abbr,
-        values_from = score
-      ) |> 
-      ggplot(aes(x = dyspnea_screening, y = dyspena_treatment)) + 
-      geom_point() + 
-      coord_equal()
-    ```
-
 ## Resumen
 
 En este capítulo aprendiste sobre datos ordenados: datos que tienen variables en columnas y observaciones en filas.
 Tidy data hace que trabajar en tidyverse sea más fácil, porque es una estructura consistente que la mayoría de las funciones entienden: el principal desafío son los datos de cualquier estructura en la que los recibas en un formato ordenado.
 Con ese fin, aprendió sobre `pivot_longer()` y `pivot_wider()`, que le permiten ordenar muchos conjuntos de datos desordenados.
-Por supuesto, ordenar los datos no puede resolver todos los problemas, por lo que también le mostramos algunos casos en los que es posible que desee desordenar deliberadamente sus datos para presentarlos a los humanos, alimentar modelos estadísticos o simplemente hacer cosas pragmáticamente.
+Los ejemplos que usamos aquí son solo una selección de los de `vignette(pivot, package = "tidyr")`, por lo que si encuentra un problema con el que este capítulo no le ayuda, esa viñeta es un buen lugar para intentarlo a continuación.
+
 Si disfrutó especialmente este capítulo y desea obtener más información sobre la teoría subyacente, puede obtener más información sobre la historia y los fundamentos teóricos en el artículo [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) publicado en el Journal of Statistical Software.
 
 En el próximo capítulo, regresaremos al flujo de trabajo para discutir la importancia del estilo del código, manteniendo su código "ordenado" (¡ja!) para que sea más fácil para usted y otros leer y comprender su código.

@@ -37,12 +37,6 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 
 ## Más información acerca del repositorio
 
-Los paquetes R utilizados en este libro se pueden instalar a través de:
-
-```{r}
-devtools::install_github("hadley/r4ds")
-```
-
 ### Imágenes
 
 #### Dibujos Omnigraffle
@@ -132,12 +126,6 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Turkish copy online [R for Data Science](https://tr.r4ds.hadley.nz/)
 
 ## More info about the repository
-
-The R packages used in this book can be installed via:
-
-```{r}
-devtools::install_github("hadley/r4ds")
-```
 
 ### Images
 

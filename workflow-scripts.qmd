@@ -259,7 +259,7 @@ Haga clic en Archivo \> Nuevo proyecto, luego siga los pasos que se muestran en 
 #|   - Primero haga clic en Nuevo directorio.
 #|   - Luego haga clic en Nuevo proyecto.
 #|   - Finalmente, complete el nombre del directorio (proyecto), elija un buen
-#|   subdirectorio para su inicio y haga clic en Crear proyecto.
+#|     subdirectorio para su inicio y haga clic en Crear proyecto.
 #| fig-alt: >
 #|   Tres capturas de pantalla del menú Nuevo proyecto. En la primera captura de pantalla,
 #|   se muestra la ventana Crear Proyecto y se selecciona Nuevo Directorio.

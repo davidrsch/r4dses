@@ -105,9 +105,9 @@ Del mismo modo, también podemos mapear la esthetic `class` a `size` o `alpha` (
 #|   negativa. En el gráfico de la izquierda, la clase (class) se asigna a la aesthetic
 #|   size, dando como resultado diferentes tamaños para cada clase. 
 #|   En la gráfica de la derecha clase (class) se asigna a la aesthetic alpha,
-#| resultando en diferentes niveles alpha (transparencia) para cada clase. 
+#|   resultando en diferentes niveles alpha (transparencia) para cada clase. 
 #|   Cada gráfica viene con una leyenda que muestra el mapeo entre el tamaño
-#|   o nivel alfa y niveles de la variable de clase.
+#|   o nivel alfa y niveles de la variable de clase (class).
 
 # Left
 ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
@@ -137,7 +137,7 @@ Por ejemplo, podemos hacer que todos los puntos de nuestro gráfico sean azules:
 ```{r}
 #| fig-alt: >
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
-#| que muestra una asociación negativa. Todos los puntos son azules.
+#|   que muestra una asociación negativa. Todos los puntos son azules.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(color = "blue")
@@ -329,7 +329,7 @@ Es conveniente confiar en esta característica porque la estética `group` por s
 #|   mismas tres curvas suaves separadas para cada nivel del tren de transmisión, también
 #|   se trazan las curvas en diferentes colores, sin una leyenda que explique qué
 #|   color se asigna a qué nivel. También se muestran los intervalos de confianza alrededor de 
-#| las curvas suaves.
+#|   las curvas suaves.
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
@@ -631,73 +631,73 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ## Transformaciones estadísticas
 
-Consider a basic bar chart, drawn with `geom_bar()` or `geom_col()`.
-The following chart displays the total number of diamonds in the `diamonds` dataset, grouped by `cut`.
-The `diamonds` dataset is in the ggplot2 package and contains information on \~54,000 diamonds, including the `price`, `carat`, `color`, `clarity`, and `cut` of each diamond.
-The chart shows that more diamonds are available with high quality cuts than with low quality cuts.
+Considere un gráfico de barras básico, dibujado con `geom_bar()` o `geom_col()`.
+El siguiente gráfico muestra el número total de diamantes en el conjunto de datos de `diamonds`, agrupados por corte `curt`.
+El conjunto de datos de `diamond` está en el paquete ggplot2 y contiene información sobre \~54 000 diamantes, incluido el precio `price`, el quilate `carat`, el `color`, la claridad `clarity` y el corte `cut` de cada diamante.
+El gráfico muestra que hay más diamantes disponibles con cortes de alta calidad que con cortes de baja calidad.
 
 ```{r}
 #| fig-alt: >
-#|   Bar chart of number of each cut of diamond. There are roughly 1500 
-#|   Fair, 5000 Good, 12000 Very Good, 14000 Premium, and 22000 Ideal cut 
-#|   diamonds.
+#|   Gráfico de barras de número de cada corte de diamante. Hay aproximadamente 1500
+#|   Regulares, 5000 Bueno, 12000 Muy Bueno, 14000 Premium y 22000 diamantes de Corte
+#|   Ideal.
 
 ggplot(diamonds, aes(x = cut)) + 
   geom_bar()
 ```
 
-On the x-axis, the chart displays `cut`, a variable from `diamonds`.
-On the y-axis, it displays count, but count is not a variable in `diamonds`!
-Where does count come from?
-Many graphs, like scatterplots, plot the raw values of your dataset.
-Other graphs, like bar charts, calculate new values to plot:
+En el eje x, el gráfico muestra `cut`, una variable de `diamond`.
+En el eje y, muestra el conteo, ¡pero el conteo no es una variable en `diamond`!
+¿De dónde viene el conteo?
+Muchos gráficos, como diagramas de dispersión, trazan los valores sin procesar de su conjunto de datos.
+Otros gráficos, como gráficos de barras, calculan nuevos valores para trazar:
 
--   Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
+-   Los gráficos de barras, los histogramas y los polígonos de frecuencia agrupan sus datos y luego trazan los recuentos de contenedores, la cantidad de puntos que caen en cada contenedor.
 
--   Smoothers fit a model to your data and then plot predictions from the model.
+-   Los suavizadores ajustan un modelo a sus datos y luego trazan predicciones del modelo.
 
--   Boxplots compute a robust summary of the distribution and then display that summary as a specially formatted box.
+-   Los diagramas de caja calculan un resumen sólido de la distribución y luego muestran ese resumen como un cuadro con formato especial.
 
-The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
-@fig-vis-stat-bar shows how this process works with `geom_bar()`.
+El algoritmo utilizado para calcular nuevos valores para un gráfico se llama **stat**, abreviatura de transformación estadística.
+@fig-vis-stat-bar muestra cómo funciona este proceso con `geom_bar()`.
 
 ```{r}
 #| label: fig-vis-stat-bar
 #| echo: false
 #| out-width: "100%"
 #| fig-cap: >
-#|   When create a bar chart we first start with the raw data, then
-#|   aggregate it to count the number of observations in each bar,
-#|   and finally map those computed variables to plot aesthetics.
+#|   Cuando creamos un gráfico de barras, primero comenzamos con los datos sin procesar, luego
+#|   agregarlo para contar el número de observaciones en cada barra,
+#|   y finalmente mapear esas variables calculadas para trazar las aesthetics.
 #| fig-alt: >
-#|   A figure demonstrating three steps of creating a bar chart. 
-#|   Step 1. geom_bar() begins with the diamonds data set. Step 2. geom_bar() 
-#|   transforms the data with the count stat, which returns a data set of 
-#|   cut values and counts. Step 3. geom_bar() uses the transformed data to 
-#|   build the plot. cut is mapped to the x-axis, count is mapped to the y-axis.
+#|   Una figura que muestra tres pasos para crear un gráfico de barras.
+#|   Paso 1. geom_bar() comienza con el conjunto de datos de diamantes. Paso 2. geom_bar()
+#|   transforma los datos con la cuenta estadística, que devuelve un conjunto de datos de
+#|   valores de corte y conteos. Paso 3. geom_bar() usa los datos transformados para
+#|   construir la trama. el corte se asigna al eje x, el conteo se asigna al eje y.
 
 knitr::include_graphics("images/visualization-stat-bar.png")
 ```
 
-You can learn which stat a geom uses by inspecting the default value for the `stat` argument.
-For example, `?geom_bar` shows that the default value for `stat` is "count", which means that `geom_bar()` uses `stat_count()`.
-`stat_count()` is documented on the same page as `geom_bar()`.
-If you scroll down, the section called "Computed variables" explains that it computes two new variables: `count` and `prop`.
+Puede saber qué estadística usa un geom inspeccionando el valor predeterminado para el argumento `stat`.
+Por ejemplo, `?geom_bar` muestra que el valor predeterminado para `stat` es "count", lo que significa que `geom_bar()` usa `stat_count()`.
+`stat_count()` está documentado en la misma página que `geom_bar()`.
+Si se desplaza hacia abajo, la sección llamada "Variables calculadas" explica que calcula dos nuevas variables: `count` y `prop`.
 
-Every geom has a default stat; and every stat has a default geom.
-This means that you can typically use geoms without worrying about the underlying statistical transformation.
-However, there are three reasons why you might need to use a stat explicitly:
+Cada geom tiene una estadística predeterminada; y cada estadística tiene un geom predeterminado.
+Esto significa que normalmente puede usar geoms sin preocuparse por la transformación estadística subyacente.
+Sin embargo, hay tres razones por las que podría necesitar usar una estadística explícitamente:
 
-1.  You might want to override the default stat.
-    In the code below, we change the stat of `geom_bar()` from count (the default) to identity.
-    This lets us map the height of the bars to the raw values of a $y$ variable.
+1.  Es posible que desee anular la estadística predeterminada.
+    En el siguiente código, cambiamos la estadística de `geom_bar()` de contar (el valor predeterminado) a identidad.
+    Esto nos permite asignar la altura de las barras a los valores brutos de una variable $y$.
 
     ```{r}
     #| warning: false
     #| fig-alt: >
-    #|   Bar chart of number of each cut of diamond. There are roughly 1500 
-    #|   Fair, 5000 Good, 12000 Very Good, 14000 Premium, and 22000 Ideal cut 
-    #|   diamonds.
+    #|   Gráfico de barras de número de cada corte de diamante. Hay aproximadamente 1500
+    #|   Regulares, 5000 Bueno, 12000 Muy Bueno, 14000 Premium y 22000 diamantes de
+    #|   Corte Ideal.
 
     cut_frequencies <- tribble(
       ~cut,         ~freq,
@@ -712,31 +712,31 @@ However, there are three reasons why you might need to use a stat explicitly:
       geom_bar(stat = "identity")
     ```
 
-2.  You might want to override the default mapping from transformed variables to aesthetics.
-    For example, you might want to display a bar chart of proportions, rather than counts:
+2.  Es posible que desee anular la asignación predeterminada de variables transformadas a estética.
+    Por ejemplo, es posible que desee mostrar un gráfico de barras de proporciones, en lugar de recuentos:
 
     ```{r}
     #| fig-alt: >
-    #|   Bar chart of proportion of each cut of diamond. Roughly, Fair 
-    #|   diamonds make up 0.03, Good 0.09, Very Good 0.22, Premium 26, and 
-    #|   Ideal 0.40.
+    #|   Gráfico de barras de proporción de cada corte de diamante. Aproximadamente, los
+    #|   diamantes Regulares componen 0,03, Bueno 0,09, Muy bueno 0,22, Premium 0,26 y
+    #|   Ideal 0,40.
 
     ggplot(diamonds, aes(x = cut, y = after_stat(prop), group = 1)) + 
       geom_bar()
     ```
 
-    To find the variables computed by the stat, look for the section titled "computed variables" in the help for `geom_bar()`.
+    Para encontrar las variables calculadas por la estadística, busque la sección titulada "computed variables" en la ayuda de `geom_bar()`.
 
-3.  You might want to draw greater attention to the statistical transformation in your code.
-    For example, you might use `stat_summary()`, which summarizes the y values for each unique x value, to draw attention to the summary that you're computing:
+3.  Es posible que desee llamar más la atención sobre la transformación estadística en su código.
+    Por ejemplo, puede usar `stat_summary()`, que resume los valores de y para cada valor único de x, para llamar la atención sobre el resumen que está calculando:
 
     ```{r}
     #| fig-alt: >
-    #|   A plot with depth on the y-axis and cut on the x-axis (with levels 
-    #|   fair, good, very good, premium, and ideal) of diamonds. For each level 
-    #|   of cut, vertical lines extend from minimum to maximum depth for diamonds 
-    #|   in that cut category, and the median depth is indicated on the line 
-    #|   with a point.
+    #|   Un gráfico con profundidad en el eje y y corte en el eje x (con niveles
+    #|   regular, bueno, muy bueno, premium e ideal) de diamantes. para cada nivel
+    #|   de corte, las líneas verticales se extienden desde la profundidad mínima hasta la máxima para los diamantes
+    #|   en esa categoría de corte, y la profundidad mediana se indica en la línea
+    #|   con un punto.
 
     ggplot(diamonds) + 
       stat_summary(
@@ -747,27 +747,27 @@ However, there are three reasons why you might need to use a stat explicitly:
       )
     ```
 
-ggplot2 provides more than 20 stats for you to use.
-Each stat is a function, so you can get help in the usual way, e.g. `?stat_bin`.
+ggplot2 proporciona más de 20 estadísticas para su uso.
+Cada estadística es una función, por lo que puede obtener ayuda de la forma habitual, p. `?stat_bin`.
 
-### Exercises
+### Ejercicios
 
-1.  What is the default geom associated with `stat_summary()`?
-    How could you rewrite the previous plot to use that geom function instead of the stat function?
+1.  ¿Cuál es el geom predeterminado asociado con `stat_summary()`?
+    ¿Cómo podría reescribir el diagrama anterior para usar esa función geom en lugar de la función stat?
 
-2.  What does `geom_col()` do?
-    How is it different from `geom_bar()`?
+2.  ¿Qué hace `geom_col()`?
+    ¿En qué se diferencia de `geom_bar()`?
 
-3.  Most geoms and stats come in pairs that are almost always used in concert.
-    Read through the documentation and make a list of all the pairs.
-    What do they have in common?
+3.  La mayoría de los geoms y estadísticas vienen en pares que casi siempre se usan en conjunto.
+    Lea la documentación y haga una lista de todos los pares.
+    ¿Qué tienen en común?
 
-4.  What variables does `stat_smooth()` compute?
-    What parameters control its behavior?
+4.  ¿Qué variables calcula `stat_smooth()`?
+    ¿Qué argumentos controlan su comportamiento?
 
-5.  In our proportion bar chart, we need to set `group = 1`.
-    Why?
-    In other words, what is the problem with these two graphs?
+5.  En nuestro gráfico de barras de proporciones, debemos establecer `group = 1`.
+    ¿Por qué?
+    En otras palabras, ¿cuál es el problema con estos dos gráficos?
 
     ```{r}
     #| eval: false
@@ -778,7 +778,7 @@ Each stat is a function, so you can get help in the usual way, e.g. `?stat_bin`.
       geom_bar()
     ```
 
-## Position adjustments
+## Ajustes de posición
 
 There's one more piece of magic associated with bar charts.
 You can color a bar chart using either the `color` aesthetic, or, more usefully, `fill`:

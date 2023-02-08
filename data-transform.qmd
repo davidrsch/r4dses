@@ -398,26 +398,20 @@ ggplot(flights, aes(x = dep_sched %% 60)) + geom_histogram(binwidth = 1)
 ggplot(flights, aes(x = air_time - airtime2)) + geom_histogram()
 ```
 
-1.  Compare `air_time` con `arr_time - dep_time`.
-    ¿Qué esperas ver?
-    ¿Qué ves?
-    ¿Qué necesitas hacer para arreglarlo?
+1.  Compare `dep_time`, `sched_dep_time`, and `dep_delay`.
 
-2.  Compare `dep_time`, `sched_dep_time` y `dep_delay`.
-    ¿Cómo esperarías que se relacionaran esos tres números?
+2.  Haga una lluvia de ideas sobre tantas formas como sea posible para seleccionar `dep_time`, `dep_delay`, `arr_time` y `arr_delay` de `flights`.
 
-3.  Haga una lluvia de ideas sobre tantas formas como sea posible para seleccionar `dep_time`, `dep_delay`, `arr_time` y `arr_delay` de `flights`.
+3.  ¿Qué sucede si incluye el nombre de una variable varias veces en una llamada `select()`?
 
-4.  ¿Qué sucede si incluye el nombre de una variable varias veces en una llamada `select()`?
-
-5.  ¿Qué hace la función `any_of()`?
+4.  ¿Qué hace la función `any_of()`?
     ¿Por qué podría ser útil junto con este vector?
 
     ```{r}
     variables <- c("year", "month", "day", "dep_delay", "arr_delay")
     ```
 
-6.  ¿Te sorprende el resultado de ejecutar el siguiente código?
+5.  ¿Te sorprende el resultado de ejecutar el siguiente código?
     ¿Cómo tratan los ayudantes selectos el caso de forma predeterminada?
     ¿Cómo se puede cambiar ese valor predeterminado?
 
