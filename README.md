@@ -25,6 +25,8 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   1 Introducción
 -   El Juego Completo
 -   Visualizar
+    -   11 Capas
+    -   12 EDA
 
 ## Sobre otras versiones
 
@@ -115,6 +117,8 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   1 Introduction
 -   Whole Game
 -   Visualize
+    -   11 Layers
+    -   12 EDA
 
 ## About other versions
 

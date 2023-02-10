@@ -246,7 +246,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 Ambas gráficas contienen la misma variable x, la misma variable y, y ambas describen los mismos datos.
-Pero las tramas no son idénticas.
+Pero las gráficas no son idénticas.
 Cada gráfico utiliza un objeto geométrico diferente, geom, para representar los datos.
 La gráfica de la izquierda usa geom_point, y la gráfica de la derecha usa geom_smooth, una línea suave ajustada a los datos.
 
@@ -674,7 +674,7 @@ El algoritmo utilizado para calcular nuevos valores para un gráfico se llama **
 #|   Paso 1. geom_bar() comienza con el conjunto de datos de diamantes. Paso 2. geom_bar()
 #|   transforma los datos con la cuenta estadística, que devuelve un conjunto de datos de
 #|   valores de corte y conteos. Paso 3. geom_bar() usa los datos transformados para
-#|   construir la trama. el corte se asigna al eje x, el conteo se asigna al eje y.
+#|   construir la gráfica. el corte se asigna al eje x, el conteo se asigna al eje y.
 
 knitr::include_graphics("images/visualization-stat-bar.png")
 ```
@@ -780,17 +780,17 @@ Cada estadística es una función, por lo que puede obtener ayuda de la forma ha
 
 ## Ajustes de posición
 
-There's one more piece of magic associated with bar charts.
-You can color a bar chart using either the `color` aesthetic, or, more usefully, `fill`:
+Hay una pieza más de magia asociada con los gráficos de barras.
+Puede colorear un gráfico de barras utilizando la estética `color` o, más útil, `fill`:
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 2
 #| fig-alt: >
-#|   Two bar charts of cut of diamonds. In the first plot, the bars have colored 
-#|   borders. In the second plot, they're filled with colors. Heights of the 
-#|   bars correspond to the number of diamonds in each cut category.
+#|   Dos gráficos de barras de corte de diamantes. En la primera gráfica, las barras tienen color
+#|   en los bordes. En la segunda gráfica, están llenos de colores. Las alturas de 
+#|   las barras corresponden al número de diamantes en cada categoría de corte.
 
 ggplot(diamonds, aes(x = cut, color = cut)) + 
   geom_bar()
@@ -798,40 +798,40 @@ ggplot(diamonds, aes(x = cut, fill = cut)) +
   geom_bar()
 ```
 
-Note what happens if you map the fill aesthetic to another variable, like `clarity`: the bars are automatically stacked.
-Each colored rectangle represents a combination of `cut` and `clarity`.
+Tenga en cuenta lo que sucede si asigna la estética de relleno a otra variable, como `clarity`: las barras se apilan automáticamente.
+Cada rectángulo de color representa una combinación de `cut` y `clarity`.
 
 ```{r}
 #| fig-alt: >
-#|   Segmented bar chart of cut of diamonds, where each bar is filled with 
-#|   colors for the levels of clarity. Heights of the bars correspond to the 
-#|   number of diamonds in each cut category, and heights of the colored 
-#|   segments are proportional to the number of diamonds with a given clarity 
-#|   level within a given cut level.
+#|   Gráfico de barras segmentadas de corte de diamantes, donde cada barra se rellena con
+#|   colores para los niveles de claridad. Las alturas de las barras corresponden al
+#|   número de diamantes en cada categoría de corte y las alturas de los segmentos
+#|   coloreados son proporcionales al número de diamantes con un nivel de claridad
+#|   dado dentro de un nivel de corte.
 
 ggplot(diamonds, aes(x = cut, fill = clarity)) + 
   geom_bar()
 ```
 
-The stacking is performed automatically using the **position adjustment** specified by the `position` argument.
-If you don't want a stacked bar chart, you can use one of three other options: `"identity"`, `"dodge"` or `"fill"`.
+El apilamiento se realiza automáticamente usando el **ajuste de posición** especificado por el argumento `position`.
+Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opciones: `"identity"`, `"dodge"` o `"fill"`.
 
--   `position = "identity"` will place each object exactly where it falls in the context of the graph.
-    This is not very useful for bars, because it overlaps them.
-    To see that overlapping we either need to make the bars slightly transparent by setting `alpha` to a small value, or completely transparent by setting `fill = NA`.
+-   `position = "identity"` colocará cada objeto exactamente donde cae en el contexto del gráfico.
+    Esto no es muy útil para las barras, porque las superpone.
+    Para ver esa superposición, necesitamos hacer que las barras sean ligeramente transparentes configurando `alpha` en un valor pequeño, o completamente transparentes configurando `fill = NA`.
 
     ```{r}
     #| layout-ncol: 2
     #| fig-width: 4
     #| fig-height: 2
     #| fig-alt: >
-    #|   Two segmented bar charts of cut of diamonds, where each bar is filled 
-    #|   with colors for the levels of clarity. Heights of the bars correspond 
-    #|   to the number of diamonds in each cut category, and heights of the 
-    #|   colored segments are proportional to the number of diamonds with a 
-    #|   given clarity level within a given cut level. However the segments 
-    #|   overlap. In the first plot the segments are filled with transparent 
-    #|   colors, in the second plot the segments are only outlined with colors.
+    #|   Dos gráficos de barras segmentadas de corte de diamantes, donde se rellena cada barra
+    #|   con colores para los niveles de claridad. Las alturas de las barras corresponden
+    #|   al número de diamantes en cada categoría de corte, y las alturas de los
+    #|   los segmentos coloreados son proporcionales al número de diamantes con un
+    #|   nivel de claridad dado dentro de un nivel de corte dado. Sin embargo los segmentos
+    #|   se superponen. En el primer gráfico, los segmentos se rellenan con colores
+    #|   transparentes, en el segundo gráfico los segmentos solo están delineados con colores.
 
     ggplot(diamonds, aes(x = cut, fill = clarity)) + 
       geom_bar(alpha = 1/5, position = "identity")
@@ -839,105 +839,105 @@ If you don't want a stacked bar chart, you can use one of three other options: `
       geom_bar(fill = NA, position = "identity")
     ```
 
-    The identity position adjustment is more useful for 2d geoms, like points, where it is the default.
+    El ajuste de posición de identidad es más útil para geomas 2d, como puntos, donde es el valor predeterminado.
 
--   `position = "fill"` works like stacking, but makes each set of stacked bars the same height.
-    This makes it easier to compare proportions across groups.
+-   `position = "fill"` funciona como apilar, pero hace que cada conjunto de barras apiladas tenga la misma altura.
+    Esto facilita la comparación de proporciones entre grupos.
 
     ```{r}
     #| fig-alt: >
-    #|   Segmented bar chart of cut of diamonds, where each bar is filled with 
-    #|   colors for the levels of clarity. Height of each bar is 1 and heights 
-    #|   of the colored segments are proportional to the proportion of diamonds 
-    #|   with a given clarity level within a given cut level.
+    #|   Gráfico de barras segmentadas de corte de diamantes, donde cada barra se rellena con
+    #|   colores para los niveles de claridad. La altura de cada barra es 1 y las alturas
+    #|   de los segmentos coloreados son proporcionales a la proporción de diamantes
+    #|   con un nivel de claridad dado dentro de un nivel de corte dado.
 
     ggplot(diamonds, aes(x = cut, fill = clarity)) + 
       geom_bar(position = "fill")
     ```
 
--   `position = "dodge"` places overlapping objects directly *beside* one another.
-    This makes it easier to compare individual values.
+-   `position = "dodge"` coloca objetos superpuestos directamente *al lado* uno del otro.
+    Esto facilita la comparación de valores individuales.
 
     ```{r}
     #| fig-alt: >
-    #|   Dodged bar chart of cut of diamonds. Dodged bars are grouped by levels 
-    #|   of cut (fair, good, very good, premium, and ideal). In each group there 
-    #|   are eight bars, one for each level of clarity, and filled with a 
-    #|   different color for each level. Heights of these bars represent the 
-    #|   number of diamonds with a given level of cut and clarity.
+    #|   Gráfico de barras multiples de corte de diamantes. Las barras multiples se agrupan por niveles
+    #|   de corte (regular, bueno, muy bueno, premium e ideal). En cada grupo hay
+    #|   ocho barras, una para cada nivel de claridad, y llenas de un
+    #|   color diferente para cada nivel. Las alturas de estas barras representan el
+    #|   número de diamantes con un determinado nivel de corte y claridad.
 
     ggplot(diamonds, aes(x = cut, fill = clarity)) + 
       geom_bar(position = "dodge")
     ```
 
-There's one other type of adjustment that's not useful for bar charts, but can be very useful for scatterplots.
-Recall our first scatterplot.
-Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset?
+Hay otro tipo de ajuste que no es útil para gráficos de barras, pero puede ser muy útil para diagramas de dispersión.
+Recuerde nuestro primer diagrama de dispersión.
+¿Notó que la gráfica muestra solo 126 puntos, aunque hay 234 observaciones en el conjunto de datos?
 
 ```{r}
 #| echo: false
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars that 
-#|   shows a negative association.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles que
+#|   muestra una asociación negativa.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point()
 ```
 
-The underlying values of `hwy` and `displ` are rounded so the points appear on a grid and many points overlap each other.
-This problem is known as **overplotting**.
-This arrangement makes it difficult to see the distribution of the data.
-Are the data points spread equally throughout the graph, or is there one special combination of `hwy` and `displ` that contains 109 values?
+Los valores subyacentes de `hwy` y `displ` se redondean para que los puntos aparezcan en una cuadrícula y muchos puntos se superpongan entre sí.
+Este problema se conoce como **overplotting**.
+Este arreglo hace que sea difícil ver la distribución de los datos.
+¿Los puntos de datos están repartidos por igual a lo largo del gráfico, o hay una combinación especial de 'hwy' y 'displ' que contiene 109 valores?
 
-You can avoid this gridding by setting the position adjustment to "jitter".
-`position = "jitter"` adds a small amount of random noise to each point.
-This spreads the points out because no two points are likely to receive the same amount of random noise.
+Puede evitar esta cuadrícula configurando el ajuste de posición en "jitter".
+`position = "jitter"` agrega una pequeña cantidad de ruido aleatorio a cada punto.
+Esto dispersa los puntos porque es probable que dos puntos no reciban la misma cantidad de ruido aleatorio.
 
 ```{r}
 #| fig-alt: >
-#|   Jittered scatterplot of highway fuel efficiency versus engine size of cars. 
-#|   The plot shows a negative association.
+#|   Diagrama de dispersión fluctuante de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
+#|   El gráfico muestra una asociación negativa.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(position = "jitter")
 ```
 
-Adding randomness seems like a strange way to improve your plot, but while it makes your graph less accurate at small scales, it makes your graph *more* revealing at large scales.
-Because this is such a useful operation, ggplot2 comes with a shorthand for `geom_point(position = "jitter")`: `geom_jitter()`.
+Agregar aleatoriedad parece una forma extraña de mejorar su gráfico, pero mientras hace que su gráfico sea menos preciso a escalas pequeñas, hace que su gráfico sea *más* revelador a escalas grandes.
+Debido a que esta es una operación tan útil, ggplot2 viene con una forma abreviada de `geom_point(position = "jitter")`: `geom_jitter()`.
 
-To learn more about a position adjustment, look up the help page associated with each adjustment: `?position_dodge`, `?position_fill`, `?position_identity`, `?position_jitter`, and `?position_stack`.
+Para obtener más información sobre un ajuste de posición, consulte la página de ayuda asociada con cada ajuste: `?position_dodge`, `?position_fill`, `?position_identity`, `?position_jitter` y `?position_stack`.
 
-### Exercises
+### Ejercicios
 
-1.  What is the problem with this plot?
-    How could you improve it?
+1.  ¿Cuál es el problema con esta gráfica?
+    ¿Cómo podrías mejorarlo?
 
     ```{r}
     #| fig-alt: >
-    #|   Scatterplot of highway fuel efficiency versus city fuel efficiency 
-    #|   of cars that shows a positive association. The number of points 
-    #|   visible in this plot is less than the number of points in the dataset.
+    #|   Diagrama de dispersión de eficiencia de combustible en carretera versus eficiencia de combustible en ciudad
+    #|   de automóviles que muestra una asociación positiva. El número de puntos
+    #|   visible en este gráfico es menor que el número de puntos en el conjunto de datos.
 
     ggplot(mpg, aes(x = cty, y = hwy)) + 
       geom_point()
     ```
 
-2.  What parameters to `geom_jitter()` control the amount of jittering?
+2.  ¿Qué parámetros de `geom_jitter()` controlan la cantidad de fluctuación?
 
-3.  Compare and contrast `geom_jitter()` with `geom_count()`.
+3.  Compare y contraste `geom_jitter()` con `geom_count()`.
 
-4.  What's the default position adjustment for `geom_boxplot()`?
-    Create a visualization of the `mpg` dataset that demonstrates it.
+4.  ¿Cuál es el ajuste de posición predeterminado para `geom_boxplot()`?
+    Cree una visualización del conjunto de datos `mpg` que lo demuestre.
 
-## Coordinate systems
+## Sistemas de coordenadas
 
-Coordinate systems are probably the most complicated part of ggplot2.
-The default coordinate system is the Cartesian coordinate system where the x and y positions act independently to determine the location of each point.
-There are two other coordinate systems that are occasionally helpful.
+Los sistemas de coordenadas son probablemente la parte más complicada de ggplot2.
+El sistema de coordenadas predeterminado es el sistema de coordenadas cartesianas en el que las posiciones x e y actúan de forma independiente para determinar la ubicación de cada punto.
+Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
 
--   `coord_quickmap()` sets the aspect ratio correctly for maps.
-    This is very important if you're plotting spatial data with ggplot2.
-    We don't have the space to discuss maps in this book, but you can learn more in the [Maps chapter](https://ggplot2-book.org/maps.html) of *ggplot2: Elegant graphics for data analysis*.
+-   `coord_quickmap()` establece la relación de aspecto correctamente para los mapas.
+    Esto es muy importante si está trazando datos espaciales con ggplot2.
+    No tenemos el espacio para discutir mapas en este libro, pero puede obtener más información en el \[capítulo de mapas\] (https://ggplot2-book.org/maps.html) de *ggplot2: Gráficos elegantes para el análisis de datos* .
 
     ```{r}
     #| layout-ncol: 2
@@ -945,8 +945,8 @@ There are two other coordinate systems that are occasionally helpful.
     #| fig-height: 2
     #| message: false
     #| fig-alt: >
-    #|   Two maps of the boundaries of New Zealand. In the first plot the aspect 
-    #|   ratio is incorrect, in the second plot it is correct.
+    #|   Dos mapas de los límites de Nueva Zelanda. En la primera gráfica la relación
+    #|   del aspecto es incorrecta, en la segunda gráfica es correcta.
 
     nz <- map_data("nz")
 
@@ -958,16 +958,16 @@ There are two other coordinate systems that are occasionally helpful.
       coord_quickmap()
     ```
 
--   `coord_polar()` uses polar coordinates.
-    Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart.
+-   `coord_polar()` utiliza coordenadas polares.
+    Las coordenadas polares revelan una conexión interesante entre un gráfico de barras y un gráfico de Coxcomb.
 
     ```{r}
     #| layout-ncol: 2
     #| fig-width: 4
     #| fig-asp: 1
     #| fig-alt: >
-    #|   There are two plots. On the left is a bar chart of cut of diamonds, 
-    #|   on the right is a Coxcomb chart of the same data.
+    #|   Hay dos gráficas. A la izquierda hay un gráfico de barras de corte de diamantes,
+    #|   a la derecha hay un gráfico de Coxcomb de los mismos datos.
 
     bar <- ggplot(data = diamonds) + 
       geom_bar(
@@ -982,22 +982,22 @@ There are two other coordinate systems that are occasionally helpful.
     bar + coord_polar()
     ```
 
-### Exercises
+### Ejercicios
 
-1.  Turn a stacked bar chart into a pie chart using `coord_polar()`.
+1.  Convierte un gráfico de barras apiladas en un gráfico circular usando `coord_polar()`.
 
-2.  What's the difference between `coord_quickmap()` and `coord_map()`?
+2.  ¿Cuál es la diferencia entre `coord_quickmap()` y `coord_map()`?
 
-3.  What does the plot below tell you about the relationship between city and highway mpg?
-    Why is `coord_fixed()` important?
-    What does `geom_abline()` do?
+3.  ¿Qué te dice el siguiente diagrama sobre la relación entre mpg en ciudad y en carretera?
+    ¿Por qué es importante `coord_fixed()`?
+    ¿Qué hace `geom_abline()`?
 
     ```{r}
     #| fig-alt: >
-    #|   Scatterplot of highway fuel efficiency versus engine size of cars that 
-    #|   shows a negative association. The plot also has a straight line that 
-    #|   follows the trend of the relationship between the variables but does not 
-    #|   go through the cloud of points, it is beneath it.
+    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles que
+    #|   muestra una asociación negativa. La gráfica también tiene una línea recta que
+    #|   sigue la tendencia de la relación entre las variables pero no
+    #|   atraviesa la nube de puntos, está debajo de ella.
 
     ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
       geom_point() + 
@@ -1005,9 +1005,9 @@ There are two other coordinate systems that are occasionally helpful.
       coord_fixed()
     ```
 
-## The layered grammar of graphics
+## La gramática en capas de los gráficos
 
-We can expand on the graphing template you learned in @sec-graphing-template by adding position adjustments, stats, coordinate systems, and faceting:
+Podemos ampliar la plantilla gráfica que aprendió en @sec-graphing-template agregando ajustes de posición, estadísticas, sistemas de coordenadas y facetas:
 
     ggplot(data = <DATA>) + 
       <GEOM_FUNCTION>(
@@ -1018,41 +1018,41 @@ We can expand on the graphing template you learned in @sec-graphing-template by 
       <COORDINATE_FUNCTION> +
       <FACET_FUNCTION>
 
-Our new template takes seven parameters, the bracketed words that appear in the template.
-In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.
+Nuestra nueva plantilla toma siete parámetros, las palabras entre paréntesis que aparecen en la plantilla.
+En la práctica, rara vez necesita proporcionar los siete parámetros para hacer un gráfico porque ggplot2 proporcionará valores predeterminados útiles para todo excepto los datos, las asignaciones y la función geom.
 
-The seven parameters in the template compose the grammar of graphics, a formal system for building plots.
-The grammar of graphics is based on the insight that you can uniquely describe *any* plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, and a faceting scheme.
+Los siete parámetros de la plantilla componen la gramática de los gráficos, un sistema formal para la construcción de gráficas.
+La gramática de los gráficos se basa en la idea de que puede describir de manera única *cualquier* gráfico como una combinación de un conjunto de datos, una geom, un conjunto de asignaciones, una estadística, un ajuste de posición, un sistema de coordenadas y un esquema de facetas.
 
-To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat).
-Next, you could choose a geometric object to represent each observation in the transformed data.
-You could then use the aesthetic properties of the geoms to represent variables in the data.
-You would map the values of each variable to the levels of an aesthetic.
-You'd then select a coordinate system to place the geoms into, using the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables.
+Para ver cómo funciona esto, considere cómo podría construir un gráfico básico desde cero: podría comenzar con un conjunto de datos y luego transformarlo en la información que desea mostrar (con una estadística).
+A continuación, podría elegir un objeto geométrico para representar cada observación en los datos transformados.
+Luego podría usar las propiedades estéticas de los geoms para representar variables en los datos.
+Asignaría los valores de cada variable a los niveles de una estética.
+Luego, seleccionaría un sistema de coordenadas para colocar los geomas, utilizando la ubicación de los objetos (que en sí misma es una propiedad estética) para mostrar los valores de las variables x e y.
 
 ```{r}
 #| echo: false
 #| fig-alt: >
-#|   A figure demonstrating the steps for going from raw data to table of counts 
-#|   where each row represents one level of cut and a count column shows how many 
-#|   diamonds are in that cut level. 
+#|   Una figura que demuestra los pasos para pasar de los datos sin procesar a la tabla de conteo
+#|   donde cada fila representa un nivel de corte y una columna de conteo muestra cuántos
+#|   diamantes están en ese nivel de corte. 
 
 knitr::include_graphics("images/visualization-grammar.png")
 ```
 
-At this point, you would have a complete graph, but you could further adjust the positions of the geoms within the coordinate system (a position adjustment) or split the graph into subplots (faceting).
-You could also extend the plot by adding one or more additional layers, where each additional layer uses a dataset, a geom, a set of mappings, a stat, and a position adjustment.
+En este punto, tendría un gráfico completo, pero podría ajustar aún más las posiciones de las geomas dentro del sistema de coordenadas (un ajuste de posición) o dividir el gráfico en subgráficos (facetas).
+También puede ampliar el gráfico agregando una o más capas adicionales, donde cada capa adicional utiliza un conjunto de datos, una geom, un conjunto de asignaciones, una estadística y un ajuste de posición.
 
-You could use this method to build *any* plot that you imagine.
-In other words, you can use the code template that you've learned in this chapter to build hundreds of thousands of unique plots.
+Podrías usar este método para construir *cualquier* gráfico que imagines.
+En otras palabras, puede usar la plantilla de código que aprendió en este capítulo para crear cientos de miles de gráficos únicos.
 
-If you'd like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading "[The Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf)", the scientific paper that describes the theory of ggplot2 in detail.
+Si desea obtener más información sobre los fundamentos teóricos de ggplot2, puede disfrutar leyendo "[La gramática en capas de los gráficos](https://vita.had.co.nz/papers/layered-grammar.pdf)", el artículo científico que describe la teoría de ggplot2 en detalle.
 
-## Summary
+## Resumen
 
-In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how geoms are calculated, position adjustments for controlling the fine details of position when geoms might otherwise overlap, and coordinate systems allow you fundamentally change what `x` and `y` mean.
-One layer we have not yet touched on is theme, which we will introduce in @sec-themes.
+En este capítulo, aprendió sobre la gramática en capas de los gráficos, comenzando con la estética y las geometrías para construir un gráfico simple, facetas para dividir el gráfico en subconjuntos, estadísticas para comprender cómo se calculan los geoms, ajustes de posición para controlar los detalles finos de la posición cuando los geoms podrían de lo contrario superponerse y los sistemas de coordenadas le permiten cambiar fundamentalmente lo que significan `x` e `y`.
+Una capa que aún no hemos abordado es el tema, que presentaremos en @sec-themes.
 
-Two very useful resources for getting an overview of the complete ggplot2 functionality are the ggplot2 cheatsheet (which you can find at <https://posit.co/resources/cheatsheets> ) and the ggplot2 package website ([https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)).
+Dos recursos muy útiles para obtener una descripción general de la funcionalidad completa de ggplot2 son la hoja de trucos de ggplot2 (que puede encontrar en <https://posit.co/resources/cheatsheets>) y el sitio web del paquete ggplot2 ([https://ggplot2. tidyverse.org](https://ggplot2.tidyverse.org/)).
 
-An important lesson you should take from this chapter is that when you feel the need for a geom that is not provided by ggplot2, it's always a good idea to look into whether someone else has already solved your problem by creating a ggplot2 extension package that offers that geom.
+Una lección importante que debe aprender de este capítulo es que cuando sienta la necesidad de un geom que ggplot2 no proporciona, siempre es una buena idea investigar si alguien más ya resolvió su problema creando un paquete de extensión ggplot2 que ofrece esa geom.
