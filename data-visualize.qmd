@@ -49,10 +49,11 @@ library(tidyverse)
 
 Solo necesita instalar un paquete una vez, pero debe cargarlo cada vez que inicie una nueva sesión.
 
-Además de tidyverse, también utilizaremos el paquete **palmerpenguins**, que incluye el conjunto de datos `penguins` que contiene medidas corporales de pingüinos en tres islas del archipiélago Palmer.
+Además de tidyverse, también usaremos el paquete **palmerpenguins**, que incluye el conjunto de datos `penguins` que contiene las medidas corporales de los pingüinos en tres islas del archipiélago Palmer, y el paquete ggthemes, que ofrece una paleta de colores segura para daltónicos.
 
 ```{r}
 library(palmerpenguins)
+library(ggthemes)
 ```
 
 ## Primeros pasos
@@ -129,7 +130,9 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
     y = "Masa corporal (g)",
     color = "Especies",
     shape = "Especies"
-  )
+  
+  ) +
+  scale_color_colorblind()
 ```
 
 ### Creando un ggplot
@@ -324,6 +327,7 @@ Tenga en cuenta que la leyenda se actualiza automáticamente para reflejar tambi
 Y finalmente, podemos mejorar las etiquetas de nuestro gráfico usando la función `labs()` en una nueva capa.
 Algunos de los argumentos de `labs()` pueden explicarse por sí mismos: `title` agrega un título y `subtitle` agrega un subtítulo a la gráfica.
 Otros argumentos coinciden con las asignaciones aesthetics, `x` es la etiqueta del eje x, `y` es la etiqueta del eje y, y `color` y `shape` definen la etiqueta de la leyenda.
+Además, podemos mejorar la paleta de colores para que sea segura para los daltónicos con la función `scale_color_colorblind()` del paquete ggthemes.
 
 ```{r}
 #| warning: false
@@ -346,11 +350,10 @@ ggplot(
   labs(
     title = "Masa corporal y longitud de las aletas",
     subtitle = "Dimensiones para pingüinos Adelia, barbijo y papúa",
-    x = "Longitud de la aleta (mm)",
-    y = "Masa corporal (g)",
-    color = "Especies",
-    shape = "Especies"
-  )
+    x = "Longitud de la aleta (mm)", y = "Masa corporal (g)",
+    color = "Especies", shape = "Especies"
+  ) +
+  scale_color_colorblind()
 ```
 
 ¡Finalmente tenemos una gráfica que encaja perfectamente con nuestro "objetivo final"!
@@ -473,7 +476,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point()
 ```
 
-En el futuro, también aprenderá sobre *pipe* que le permitirá crear esa gráfica con:
+En el futuro, también aprenderá sobre *pipe*, `|>`, que le permitirá crear esa gráfica con:
 
 ```{r}
 #| eval: false

@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -205,6 +206,7 @@ En la siguiente sección profundizaremos en las geomas.
 2.  ¿Por qué el siguiente código no dio como resultado un gráfico con puntos azules?
 
     ```{r}
+    #| fig-show: hide
     #| fig-alt: >
     #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
     #|   que muestra una asociación negativa. Todos los puntos son rojos y
@@ -254,7 +256,7 @@ Para cambiar la geom en su gráfico, cambie la función geom que agrega a `ggplo
 Por ejemplo, para hacer los diagramas de arriba, puedes usar este código:
 
 ```{r}
-#| eval: false
+#| fig-show: hide
 
 # Left
 ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -441,7 +443,7 @@ Para obtener más información sobre cualquier geom individual, use la ayuda (po
 2.  Anteriormente en este capítulo usamos `show.legend` sin explicarlo:
 
     ```{r}
-    #| eval: false
+    #| fig-show: hide
     ggplot(mpg, aes(x = displ, y = hwy)) +
       geom_smooth(aes(color = drv), show.legend = FALSE)
     ```
@@ -551,13 +553,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 1.  ¿Qué sucede si facetas en una variable continua?
 
 2.  ¿Qué significan las celdas vacías en el gráfico con `facet_grid(drv ~ cyl)`?
-    ¿Cómo se relacionan con esta gráfica?
+    Ejecute el siguiente código.
+    ¿Cómo se relacionan con la gráfica resultante?
 
     ```{r}
-    #| fig-alt: >
-    #|   Diagrama de dispersión del número de ciclos frente al tipo de tren de transmisión de los automóviles.
-    #|   El gráfico muestra que no hay coches de 5 cilindros que tengan tracción
-    #|   en las 4 ruedas o con 4 o 5 cilindros que sean de tracción delantera.
+    #| fig-show: hide
 
     ggplot(mpg) + 
       geom_point(aes(x = drv, y = cyl))
@@ -567,7 +567,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
     ¿Qué hace `.`?
 
     ```{r}
-    #| eval: false
+    #| fig-show: hide
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) +
@@ -581,7 +581,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 4.  Tome la primera gráfica facetada en esta sección:
 
     ```{r}
-    #| eval: false
+    #| fig-show: hide
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) + 
@@ -602,10 +602,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
     ¿Qué dice esto acerca de cuándo colocar una variable de facetado en filas o columnas?
 
     ```{r}
-    #| fig-alt: >
-    #|   Gráficos de dos facetas, ambos visualizando la eficiencia de combustible en carretera versus
-    #|   el tamaño del motor de los automóviles, facetado por tren de transmisión. En el gráfico superior, las faceta
-    #|   se organizan por filas y en el segundo, por columnas.
+    #| fig-show: hide
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) + 
@@ -616,13 +613,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_grid(. ~ drv)
     ```
 
-7.  Vuelva a crear este diagrama usando `facet_wrap()` en lugar de `facet_grid()`.
+7.  Vuelva a crear la siguiente gráfica usando `facet_wrap()` en lugar de `facet_grid()`.
     ¿Cómo cambian las posiciones de las etiquetas de las facetas?
 
     ```{r}
-    #| fig-alt: >
-    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
-    #|   facetado por tipo de tren de transmisión a través de filas.
+    #| fig-show: hide
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) +
@@ -770,7 +765,7 @@ Cada estadística es una función, por lo que puede obtener ayuda de la forma ha
     En otras palabras, ¿cuál es el problema con estos dos gráficos?
 
     ```{r}
-    #| eval: false
+    #| fig-show: hide
 
     ggplot(diamonds, aes(x = cut, y = after_stat(prop))) + 
       geom_bar()
@@ -785,7 +780,7 @@ Puede colorear un gráfico de barras utilizando la estética `color` o, más út
 
 ```{r}
 #| layout-ncol: 2
-#| fig-width: 4
+#| fig-width: 5.5
 #| fig-height: 2
 #| fig-alt: >
 #|   Dos gráficos de barras de corte de diamantes. En la primera gráfica, las barras tienen color
@@ -822,7 +817,7 @@ Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opc
 
     ```{r}
     #| layout-ncol: 2
-    #| fig-width: 4
+    #| fig-width: 5.5
     #| fig-height: 2
     #| fig-alt: >
     #|   Dos gráficos de barras segmentadas de corte de diamantes, donde se rellena cada barra
@@ -844,28 +839,26 @@ Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opc
 -   `position = "fill"` funciona como apilar, pero hace que cada conjunto de barras apiladas tenga la misma altura.
     Esto facilita la comparación de proporciones entre grupos.
 
-    ```{r}
-    #| fig-alt: >
-    #|   Gráfico de barras segmentadas de corte de diamantes, donde cada barra se rellena con
-    #|   colores para los niveles de claridad. La altura de cada barra es 1 y las alturas
-    #|   de los segmentos coloreados son proporcionales a la proporción de diamantes
-    #|   con un nivel de claridad dado dentro de un nivel de corte dado.
-
-    ggplot(diamonds, aes(x = cut, fill = clarity)) + 
-      geom_bar(position = "fill")
-    ```
-
 -   `position = "dodge"` coloca objetos superpuestos directamente *al lado* uno del otro.
     Esto facilita la comparación de valores individuales.
 
     ```{r}
+    #| layout-ncol: 2
+    #| fig-width: 5.5
+    #| fig-height: 2
     #| fig-alt: >
-    #|   Gráfico de barras multiples de corte de diamantes. Las barras multiples se agrupan por niveles
+    #|   A la izquierda, gráfico de barras segmentadas de corte de diamantes, donde cada barra se rellena con
+    #|   colores para los niveles de claridad. La altura de cada barra es 1 y las alturas
+    #|   de los segmentos coloreados son proporcionales a la proporción de diamantes
+    #|   con un nivel de claridad dado dentro de un nivel de corte dado.
+    #|   A la derecha, gráfico de barras esquivado de corte de diamantes. Las barras multiples se agrupan por niveles
     #|   de corte (regular, bueno, muy bueno, premium e ideal). En cada grupo hay
     #|   ocho barras, una para cada nivel de claridad, y llenas de un
     #|   color diferente para cada nivel. Las alturas de estas barras representan el
     #|   número de diamantes con un determinado nivel de corte y claridad.
 
+    ggplot(diamonds, aes(x = cut, fill = clarity)) +
+      geom_bar(position = "fill")
     ggplot(diamonds, aes(x = cut, fill = clarity)) + 
       geom_bar(position = "dodge")
     ```
@@ -909,14 +902,11 @@ Para obtener más información sobre un ajuste de posición, consulte la página
 
 ### Ejercicios
 
-1.  ¿Cuál es el problema con esta gráfica?
+1.  ¿Cuál es el problema con la gráfica siguiente?
     ¿Cómo podrías mejorarlo?
 
     ```{r}
-    #| fig-alt: >
-    #|   Diagrama de dispersión de eficiencia de combustible en carretera versus eficiencia de combustible en ciudad
-    #|   de automóviles que muestra una asociación positiva. El número de puntos
-    #|   visible en este gráfico es menor que el número de puntos en el conjunto de datos.
+    #| fig-show: hide
 
     ggplot(mpg, aes(x = cty, y = hwy)) + 
       geom_point()
@@ -988,16 +978,12 @@ Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
 
 2.  ¿Cuál es la diferencia entre `coord_quickmap()` y `coord_map()`?
 
-3.  ¿Qué te dice el siguiente diagrama sobre la relación entre mpg en ciudad y en carretera?
+3.  ¿Qué te dice la siguiente gráfica sobre la relación entre mpg en ciudad y en carretera?
     ¿Por qué es importante `coord_fixed()`?
     ¿Qué hace `geom_abline()`?
 
     ```{r}
-    #| fig-alt: >
-    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles que
-    #|   muestra una asociación negativa. La gráfica también tiene una línea recta que
-    #|   sigue la tendencia de la relación entre las variables pero no
-    #|   atraviesa la nube de puntos, está debajo de ella.
+    #| fig-show: hide
 
     ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
       geom_point() + 

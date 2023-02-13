@@ -62,7 +62,7 @@ El código es miserable para leer en un buen día, así que tómese un respiro y
 
 ## Comentarios
 
-R ignorará cualquier texto después de `#`.
+R ignorará cualquier texto en esa línea después de `#`.
 Esto le permite escribir **comentarios**, texto que R ignora pero que otros humanos leen.
 A veces incluiremos comentarios en ejemplos que explican lo que sucede con el código.
 
@@ -133,7 +133,7 @@ Cambie 2.5 a 3.5 y vuelva a ejecutar.
 Haz otra asignación más:
 
 ```{r}
-r_rocks <- 2 ^ 3
+r_rocks <- 2^3
 ```
 
 Intentemos inspeccionarlo:

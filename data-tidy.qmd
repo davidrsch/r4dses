@@ -396,7 +396,7 @@ household
 ```
 
 Este conjunto de datos contiene información sobre cinco familias, con los nombres y fechas de nacimiento de hasta dos niños.
-El nuevo desafío en este conjunto de datos es que los nombres de las columnas contienen los nombres de dos variables (`dob`, `name)` y los valores de otra (`child,` con valores 1 y 2).
+El nuevo desafío en este conjunto de datos es que los nombres de las columnas contienen los nombres de dos variables (`dob`, `name)` y los valores de otra (`child,` con valores 1 o 2).
 Para resolver este problema, nuevamente necesitamos proporcionar un vector a `names_to` pero esta vez usamos el centinela especial `".value"`.
 Esto anula el argumento `values_to` habitual para usar el primer componente del nombre de la columna dinámica como nombre de variable en la salida.
 

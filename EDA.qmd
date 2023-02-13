@@ -265,7 +265,7 @@ Deberá averiguar qué los causó (por ejemplo, un error de ingreso de datos) y 
     ¿Qué sucede si dejas `binwidth` sin configurar?
     ¿Qué sucede si intenta hacer zoom para que solo se muestre la mitad de una barra?
 
-## Valores inusuales {#sec-missing-values-eda}
+## Valores inusuales {#sec-unusual-values-eda}
 
 Si ha encontrado valores inusuales en su conjunto de datos y simplemente desea continuar con el resto de su análisis, tiene dos opciones.
 
@@ -428,7 +428,7 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 ```
 
 Vemos mucha menos información sobre la distribución, pero los diagramas de caja son mucho más compactos, por lo que podemos compararlos más fácilmente (y encajar más en un diagrama).
-¡Es compatible con el hallazgo contrario a la intuición de que los diamantes de mejor calidad son más baratos en promedio!
+¡Es compatible con el hallazgo contrario a la intuición de que los diamantes de mejor calidad suelen ser más baratos!
 En los ejercicios, se le desafiará a averiguar por qué.
 
 `cut` es un factor ordenado: regular es peor que bueno, que es peor que muy bueno y así sucesivamente.

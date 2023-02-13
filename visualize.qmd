@@ -33,7 +33,7 @@ Cada capítulo trata de uno a algunos aspectos de la creación de una visualizac
 
 ### Aprendiendo más
 
-El mejor lugar para obtener más información es el libro ggplot2: [*ggplot2: gráficos elegantes para el análisis de datos*](https://ggplot2-book.org/).
+El mejor lugar para obtener más información es el libro ggplot2: [*ggplot2: gráficos elegantes para el análisis de datos(3e)*](https://ggplot2-book.org/).
 Profundiza mucho más en la teoría subyacente y tiene muchos más ejemplos de cómo combinar las piezas individuales para resolver problemas prácticos.
 
 Otro gran recurso es la galería de extensiones ggplot2 <https://exts.ggplot2.tidyverse.org/gallery/>.

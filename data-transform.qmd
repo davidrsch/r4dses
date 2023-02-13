@@ -279,7 +279,7 @@ flights |>
 
 El `.` es un signo de que `.before` es un argumento para la función, no el nombre de una nueva variable.
 También puede usar `.after` para agregar después de una variable, y tanto en `.before` como en `.after` puede usar el nombre de la variable en lugar de una posición.
-Por ejemplo, podríamos agregar las nuevas variables después de `day:`
+Por ejemplo, podríamos agregar las nuevas variables después de `day`:
 
 ```{r}
 flights |> 
