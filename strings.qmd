@@ -511,7 +511,12 @@ stringr provides two useful tools for cases where your string is too long:
 The following code shows these functions in action with a made-up string:
 
 ```{r}
-x <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+x <- paste0(
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ",
+  "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim ",
+  "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea",
+  "commodo consequat."
+)
 
 str_view(str_trunc(x, 30))
 str_view(str_wrap(x, 30))
@@ -593,7 +598,7 @@ If you'd like to learn more, we recommend reading the detailed explanation at <h
 
 ### Letter variations
 
-Working in languages with accents poses a significant challenge when determining the position of letters (e.g., with `str_length()` and `str_sub()`) as accented letters might be encoded as a single individual character (e.g., ü) or as two characters by combining an unaccented letter (e.g., u) with a diacritic mark (e.g. ¨).
+Working in languages with accents poses a significant challenge when determining the position of letters (e.g. with `str_length()` and `str_sub()`) as accented letters might be encoded as a single individual character (e.g. ü) or as two characters by combining an unaccented letter (e.g. u) with a diacritic mark (e.g. ¨).
 For example, this code shows two ways of representing ü that look identical:
 
 ```{r}

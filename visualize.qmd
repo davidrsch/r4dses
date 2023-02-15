@@ -31,11 +31,9 @@ Cada capítulo trata de uno a algunos aspectos de la creación de una visualizac
 
 -   Finalmente, en @sec-communication aprenderá cómo tomar sus gráficos exploratorios y convertirlos en gráficos expositivos, gráficos que ayudan al recién llegado a su análisis a comprender lo que está sucediendo de la manera más rápida y sencilla posible.
 
-### Aprendiendo más
-
+Estos tres capítulos lo inician en el mundo de la visualización, pero hay mucho más que aprender.
 El mejor lugar para obtener más información es el libro ggplot2: [*ggplot2: gráficos elegantes para el análisis de datos(3e)*](https://ggplot2-book.org/).
 Profundiza mucho más en la teoría subyacente y tiene muchos más ejemplos de cómo combinar las piezas individuales para resolver problemas prácticos.
-
 Otro gran recurso es la galería de extensiones ggplot2 <https://exts.ggplot2.tidyverse.org/gallery/>.
 Este sitio enumera muchos de los paquetes que amplían ggplot2 con nuevos geoms y escalas.
 Es un excelente lugar para comenzar si está tratando de hacer algo que parece difícil con ggplot2.
