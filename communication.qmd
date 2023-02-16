@@ -1,4 +1,4 @@
-# Communication {#sec-communication}
+# Comunicación {#sec-communication}
 
 ```{r}
 #| results: "asis"
@@ -7,29 +7,29 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-In @sec-exploratory-data-analysis, you learned how to use plots as tools for *exploration*.
-When you make exploratory plots, you know---even before looking---which variables the plot will display.
-You made each plot for a purpose, could quickly look at it, and then move on to the next plot.
-In the course of most analyses, you'll produce tens or hundreds of plots, most of which are immediately thrown away.
+En @sec-exploratory-data-analysis, aprendió a usar gráficos como herramientas para *exploración*.
+Cuando hace gráficos exploratorios, sabe, incluso antes de mirar, qué variables mostrará el gráfico.
+Hiciste cada trama con un propósito, podías mirarla rápidamente y luego pasar a la siguiente trama.
+En el curso de la mayoría de los análisis, producirá decenas o cientos de tramas, la mayoría de las cuales se desechan de inmediato.
 
-Now that you understand your data, you need to *communicate* your understanding to others.
-Your audience will likely not share your background knowledge and will not be deeply invested in the data.
-To help others quickly build up a good mental model of the data, you will need to invest considerable effort in making your plots as self-explanatory as possible.
-In this chapter, you'll learn some of the tools that ggplot2 provides to do so.
+Ahora que comprende sus datos, necesita *comunicar* su comprensión a los demás.
+Es probable que su audiencia no comparta su conocimiento previo y no esté profundamente interesado en los datos.
+Para ayudar a otros a construir rápidamente un buen modelo mental de los datos, deberá invertir un esfuerzo considerable para hacer que sus diagramas se expliquen por sí mismos tanto como sea posible.
+En este capítulo, aprenderá algunas de las herramientas que proporciona ggplot2 para hacerlo.
 
-This chapter focuses on the tools you need to create good graphics.
-We assume that you know what you want, and just need to know how to do it.
-For that reason, we highly recommend pairing this chapter with a good general visualization book.
-We particularly like [The Truthful Art](https://www.amazon.com/gp/product/0321934075/), by Albert Cairo.
-It doesn't teach the mechanics of creating visualizations, but instead focuses on what you need to think about in order to create effective graphics.
+Este capítulo se centra en las herramientas que necesita para crear buenos gráficos.
+Suponemos que sabe lo que quiere y solo necesita saber cómo hacerlo.
+Por esa razón, recomendamos combinar este capítulo con un buen libro de visualización general.
+Nos gusta especialmente [The Truthful Art](https://www.amazon.com/gp/product/0321934075/), de Albert Cairo.
+No enseña la mecánica de crear visualizaciones, sino que se enfoca en lo que necesita pensar para crear gráficos efectivos.
 
-### Prerequisites
+### Requisitos previos
 
-In this chapter, we'll focus once again on ggplot2.
-We'll also use a little dplyr for data manipulation, **scales** to override the default breaks, labels, transformations and palettes, and a few ggplot2 extension packages, including **ggrepel** ([https://ggrepel.slowkow.com](https://ggrepel.slowkow.com/)) by Kamil Slowikowski and **patchwork** ([https://patchwork.data-imaginist.com](https://patchwork.data-imaginist.com/)) by Thomas Lin Pedersen.
-Don't forget that you'll need to install those packages with `install.packages()` if you don't already have them.
+En este capítulo, nos centraremos una vez más en ggplot2.
+También usaremos un poco de dplyr para la manipulación de datos, **scales** para anular las rupturas, etiquetas, transformaciones y paletas predeterminadas, y algunos paquetes de extensión de ggplot2, incluido **ggrepel** ([https://ggrepel. slowkow.com](https://ggrepel.slowkow.com/)) de Kamil Slowikowski y **patchwork** ([https://patchwork.data-imaginist.com](https://patchwork.data-imaginist%20.com/)) por Thomas Lin Pedersen.
+No olvides que necesitarás instalar esos paquetes con `install.packages()` si aún no los tienes.
 
 ```{r}
 #| label: setup
@@ -40,91 +40,91 @@ library(ggrepel)
 library(patchwork)
 ```
 
-## Labels
+## Etiquetas
 
-The easiest place to start when turning an exploratory graphic into an expository graphic is with good labels.
-You add labels with the `labs()` function.
-This example adds a plot title:
+El lugar más fácil para comenzar a convertir un gráfico exploratorio en un gráfico expositivo es con buenas etiquetas.
+Agregas etiquetas con la función `labs()`.
+Este ejemplo agrega un título de trama:
 
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, where 
-#|   points are colored according to the car class. A smooth curve following 
-#|   the trajectory of the relationship between highway fuel efficiency versus 
-#|   engine size of cars is overlaid. The plot is titled "Fuel efficiency 
-#|   generally decreases with engine size". 
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
+#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
+#|   el tamaño del motor de los automóviles está superpuesto. La trama se titula "Eficiencia de combustible
+#|   generalmente disminuye con el tamaño del motor".
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size")
+  labs(title = "Eficiencia de combustible generalmente disminuye con el tamaño del motor")
 ```
 
-The purpose of a plot title is to summarize the main finding.
-Avoid titles that just describe what the plot is, e.g. "A scatterplot of engine displacement vs. fuel economy".
+El propósito del título de una trama es resumir el hallazgo principal.
+Evite títulos que solo describan cuál es la trama, por ejemplo "Un diagrama de dispersión de la cilindrada del motor frente a la economía de combustible".
 
-If you need to add more text, there are two other useful labels:
+Si necesita agregar más texto, hay otras dos etiquetas útiles:
 
--   `subtitle` adds additional detail in a smaller font beneath the title.
+-   `subtítulo` agrega detalles adicionales en una fuente más pequeña debajo del título.
 
--   `caption` adds text at the bottom right of the plot, often used to describe the source of the data.
+-   `caption` agrega texto en la parte inferior derecha de la gráfica, que a menudo se usa para describir la fuente de los datos.
 
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, where 
-#|   points are colored according to the car class. A smooth curve following 
-#|   the trajectory of the relationship between highway fuel efficiency versus 
-#|   engine size of cars is overlaid. The plot is titled "Fuel efficiency 
-#|   generally decreases with engine size". The subtitle is "Two seaters 
-#|   (sports cars) are an exception because of their light weight" and the 
-#|   caption is "Data from fueleconomy.gov".
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
-    caption = "Data from fueleconomy.gov"
-  )
-```
-
-You can also use `labs()` to replace the axis and legend titles.
-It's usually a good idea to replace short variable names with more detailed descriptions, and to include the units.
-
-```{r}
-#| message: false
-#| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars, where 
-#|   points are colored according to the car class. A smooth curve following 
-#|   the trajectory of the relationship between highway fuel efficiency versus 
-#|   engine size of cars is overlaid. The x-axis is labelled "Engine 
-#|   displacement (L)" and the y-axis is labelled "Highway fuel economy (mpg)". 
-#|   The legend is labelled "Car type".
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
+#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
+#|   el tamaño del motor de los automóviles está superpuesto. La trama se titula "Eficiencia de combustible
+#|   generalmente disminuye con el tamaño del motor". El subtítulo es "Dos plazas
+#|   (automóviles deportivos) son una excepción debido a su peso ligero" y la
+#|   descripción es "Datos de fueleconomy.gov".
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    color = "Car type"
+    title = "Eficiencia de combustible generalmente disminuye con el tamaño del motor",
+    subtitle = "Dos plazas son una excepción debido a su peso ligero",
+    caption = "Datos de fueleconomy.gov"
   )
 ```
 
-It's possible to use mathematical equations instead of text strings.
-Just switch `""` out for `quote()` and read about the available options in `?plotmath`:
+También puede usar `labs()` para reemplazar los títulos de los ejes y las leyendas.
+Por lo general, es una buena idea reemplazar los nombres cortos de las variables con descripciones más detalladas e incluir las unidades.
+
+```{r}
+#| message: false
+#| fig-alt: >
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
+#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
+#|   el tamaño del motor de los automóviles está superpuesto. El eje x está etiquetado como "Motor
+#|   desplazamiento (L)" y el eje y está etiquetado como "Economía de combustible en carretera (mpg)".
+#|   La leyenda está etiquetada como "Tipo de coche".
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    x = "Motor desplazamiento (L)",
+    y = "Economía de combustible en carretera (mpg)",
+    color = "Tipo de coche"
+  )
+```
+
+Es posible usar ecuaciones matemáticas en lugar de cadenas de texto.
+Simplemente cambia `""` por `quote()` y lee acerca de las opciones disponibles en `?plotmath`:
 
 ```{r}
 #| fig-asp: 1
 #| out-width: "50%"
 #| fig-width: 3
 #| fig-alt: >
-#|   Scatterplot with math text on the x and y axis labels. X-axis label 
-#|   says sum of x_i  squared, for i from 1 to n. Y-axis label says alpha + 
-#|   beta + delta over theta.
+#|   Diagrama de dispersión con texto matemático en las etiquetas de los ejes x e y. etiqueta del eje X
+#|   dice suma de x_i al cuadrado, para i de 1 a n. La etiqueta del eje Y dice alfa +
+#|   beta + delta sobre theta.
 
 df <- tibble(
   x = 1:10,
@@ -139,32 +139,32 @@ ggplot(df, aes(x, y)) +
   )
 ```
 
-### Exercises
+### Ejercicios
 
-1.  Create one plot on the fuel economy data with customized `title`, `subtitle`, `caption`, `x`, `y`, and `color` labels.
+1.  Cree un gráfico en los datos de economía de combustible con etiquetas personalizadas de `título`, `subtítulo`, `título`, `x`, `y` y `color`.
 
-2.  Recreate the following plot using the fuel economy data.
-    Note that both the colors and shapes of points vary by type of drive train.
+2.  Vuelva a crear la siguiente gráfica usando los datos de economía de combustible.
+    Tenga en cuenta que tanto los colores como las formas de los puntos varían según el tipo de transmisión.
 
     ```{r}
     #| echo: false
     #| fig-alt: >
-    #|   Scatterplot of highway versus city fuel efficiency. Shapes and 
-    #|   colors of points are determined by type of drive train.
+    #|   Diagrama de dispersión de eficiencia de combustible en carretera versus ciudad. Formas y
+    #|   los colores de los puntos están determinados por el tipo de tren de transmisión.
 
     ggplot(mpg, aes(x = cty, y = hwy, color = drv, shape = drv)) +
       geom_point() +
       labs(
-        x = "City MPG",
-        y = "Highway MPG",
-        shape = "Type of\ndrive train",
-        color = "Type of\ndrive train"
+        x = "MPG de la ciudad",
+        y = "MPG en carretera",
+        shape = "Tipo de\ntren de transmisión",
+        color = "Tipo de\ntren de transmisión"
       )
     ```
 
-3.  Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
+3.  Tome un gráfico exploratorio que haya creado en el último mes y agregue títulos informativos para que sea más fácil de entender para otros.
 
-## Annotations
+## Anotaciones
 
 In addition to labelling major components of your plot, it's often useful to label individual observations or groups of observations.
 The first tool you have at your disposal is `geom_text()`.

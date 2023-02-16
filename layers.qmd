@@ -362,7 +362,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 Puede usar la misma idea para especificar `datos` diferentes para cada capa.
 Aquí, usamos puntos rojos y círculos abiertos para resaltar los autos de dos plazas.
-El argumento de datos locales en `geom_smooth()` anula el argumento de datos globales en `ggplot()` solo para esa capa.
+El argumento de datos locales en `geom_point()` anula el argumento de datos globales en `ggplot()` solo para esa capa.
 
 ```{r}
 #| message: false

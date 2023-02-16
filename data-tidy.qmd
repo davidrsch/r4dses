@@ -581,7 +581,7 @@ Luego, depende de usted averiguar qué salió mal con sus datos y reparar el da�
 En este capítulo aprendiste sobre datos ordenados: datos que tienen variables en columnas y observaciones en filas.
 Tidy data hace que trabajar en tidyverse sea más fácil, porque es una estructura consistente que la mayoría de las funciones entienden: el principal desafío son los datos de cualquier estructura en la que los recibas en un formato ordenado.
 Con ese fin, aprendió sobre `pivot_longer()` y `pivot_wider()`, que le permiten ordenar muchos conjuntos de datos desordenados.
-Los ejemplos que usamos aquí son solo una selección de los de `vignette(pivot, package = "tidyr")`, por lo que si encuentra un problema con el que este capítulo no le ayuda, esa viñeta es un buen lugar para intentarlo a continuación.
+Los ejemplos que usamos aquí son solo una selección de los de `vignette("pivot", package = "tidyr")`, por lo que si encuentra un problema con el que este capítulo no le ayuda, esa viñeta es un buen lugar para intentarlo a continuación.
 
 Si disfrutó especialmente este capítulo y desea obtener más información sobre la teoría subyacente, puede obtener más información sobre la historia y los fundamentos teóricos en el artículo [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) publicado en el Journal of Statistical Software.
 

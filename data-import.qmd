@@ -104,7 +104,7 @@ students |> janitor::clean_names()
 ```
 
 Otra tarea común después de leer datos es considerar tipos de variables.
-Por ejemplo, `meal_type` es una variable categórica con un conjunto conocido de valores posibles, que en R debería representarse como un factor:
+Por ejemplo, `meal_plan` es una variable categórica con un conjunto conocido de valores posibles, que en R debería representarse como un factor:
 
 ```{r}
 students |>
@@ -114,7 +114,7 @@ students |>
   )
 ```
 
-Tenga en cuenta que los valores en la variable `meal_type` se han mantenido igual, pero el tipo de variable indicado debajo del nombre de la variable ha cambiado de carácter (`<chr>`) a factor (`<fct>`).
+Tenga en cuenta que los valores en la variable `meal_plan` se han mantenido igual, pero el tipo de variable indicado debajo del nombre de la variable ha cambiado de carácter (`<chr>`) a factor (`<fct>`).
 Aprenderá más sobre los factores en @sec-factors.
 
 Antes de analizar estos datos, probablemente querrá arreglar la columna `edad`.
