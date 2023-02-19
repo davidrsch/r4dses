@@ -325,7 +325,7 @@ Por ejemplo, en `nycflights13::flights`[^eda-1], los valores faltantes en la var
 Por lo tanto, es posible que desee comparar los horarios de salida programados para los horarios cancelados y no cancelados.
 Puedes hacer esto creando una nueva variable con `is.na()`.
 
-[^eda-1]: Recuerda que cuando necesites ser explícito sobre el origen de una función (o conjunto de datos), usaremos la forma especial `package::funcion()` o `package::conjuntodedatos`.
+[^eda-1]: Recuerda que cuando necesitemos ser explícito sobre el origen de una función (o conjunto de datos), usaremos la forma especial `package::funcion()` o `package::conjuntodedatos`.
 
 ```{r}
 #| fig-alt: >
