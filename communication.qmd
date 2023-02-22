@@ -194,7 +194,7 @@ label_info <- mpg |>
 label_info
 ```
 
-Luego, usamos este nuevo marco de datos para etiquetar directamente los tres grupos para reemplazar la leyenda con etiquetas colocadas directamente en la gráfica.
+Luego, usamos este nuevo data frame para etiquetar directamente los tres grupos para reemplazar la leyenda con etiquetas colocadas directamente en la gráfica.
 Usando los argumentos `fontface` y `size` podemos personalizar el aspecto de las etiquetas de texto.
 Son más grandes que el resto del texto de la gráfica y están en negrita.
 (`theme(legend.position = "none"`) desactiva la leyenda --- hablaremos de ello más adelante).
@@ -282,8 +282,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(data = potential_outliers, color = "red", size = 3, shape = "circle open")
 ```
 
-Alternativamente, es posible que solo desee agregar una sola etiqueta al gráfico, pero aún necesitará crear un marco de datos.
-A menudo, desea que la etiqueta esté en la esquina del gráfico, por lo que es conveniente crear un nuevo marco de datos usando `summarize()` para calcular los valores máximos de x e y.
+Alternativamente, es posible que solo desee agregar una sola etiqueta al gráfico, pero aún necesitará crear un data frame.
+A menudo, desea que la etiqueta esté en la esquina del gráfico, por lo que es conveniente crear un nuevo data frame usando `summarize()` para calcular los valores máximos de x e y.
 
 ```{r}
 #| fig-alt: >
@@ -309,8 +309,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 Si desea colocar el texto exactamente en los bordes del gráfico, puede usar set `displ = Inf` y `hwy = Inf` en el cuadro anterior, en lugar de los valores máximos calculados.
 
-Alternativamente, podemos agregar la anotación sin crear un nuevo marco de datos, usando `annotate()`.
-Esta función agrega un geom a un gráfico, pero no asigna variables de un marco de datos a una estética.
+Alternativamente, podemos agregar la anotación sin crear un nuevo data frame, usando `annotate()`.
+Esta función agrega un geom a un gráfico, pero no asigna variables de un data frame a una estética.
 El primer argumento de esta función, `geom`, es el objeto geométrico que desea utilizar para la anotación.
 
 ```{r}
@@ -330,7 +330,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 También puede usar una geom de etiqueta en lugar de una geom de texto como hicimos antes, establecer la estética como el color.
-Otro enfoque para llamar la atención sobre una característica de la trama es usar un segmento geom con el argumento `arrow`.
+Otro enfoque para llamar la atención sobre una característica de la gráfica es usar un segmento geom con el argumento `arrow`.
 La estética `x` e `y` definen la ubicación inicial del segmento y `xend` y `yend` para definir la ubicación final.
 
 ```{r}
@@ -398,7 +398,7 @@ Un par de ideas:
 
 ## Escalas
 
-La tercera forma en que puede mejorar su trama para la comunicación es ajustar las escalas.
+La tercera forma en que puede mejorar su gráfica para la comunicación es ajustar las escalas.
 Las escalas controlan el mapeo de valores de datos a cosas que puedes percibir.
 
 ### Escalas predeterminadas
@@ -457,7 +457,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 Puede usar `labels` de la misma manera (un vector de caracteres de la misma longitud que `breaks`), pero también puede establecerlo en `NULL` para suprimir las etiquetas por completo.
-Esto es útil para mapas o para publicar parcelas donde no puede compartir los números absolutos.
+Esto es útil para mapas o para publicar gráficas donde no puede compartir los números absolutos.
 
 ```{r}
 #| fig-alt: >
@@ -545,21 +545,21 @@ Tenga en cuenta que la especificación de rupturas y etiquetas para las escalas 
 
 ### Diseño de leyenda
 
-You will most often use `breaks` and `labels` to tweak the axes.
-While they both also work for legends, there are a few other techniques you are more likely to use.
+La mayoría de las veces usará `breaks` y `labels` para ajustar los ejes.
+Si bien ambos también funcionan para leyendas, hay algunas otras técnicas que es más probable que uses.
 
-To control the overall position of the legend, you need to use a `theme()` setting.
-We'll come back to themes at the end of the chapter, but in brief, they control the non-data parts of the plot.
-The theme setting `legend.position` controls where the legend is drawn:
+Para controlar la posición general de la leyenda, debe usar una configuración `theme()`.
+Volveremos a los temas al final del capítulo, pero en resumen, controlan las partes de la gráfica que no son datos.
+La configuración del tema `legend.position` controla dónde se dibuja la leyenda:
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-height: 2
 #| fig-alt: >
-#|   Four scatterplots of highway fuel efficiency versus engine size of cars 
-#|   where points are colored based on class of car. Clockwise, the legend 
-#|   is placed on the left, top, bottom, and right of the plot.
+#|   Cuatro diagramas de dispersión de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
+#|   donde los puntos están coloreados según la clase de automóvil. En el sentido de las agujas del reloj, la leyenda
+#|   se coloca a la izquierda, arriba, abajo y a la derecha del gráfico.
 
 base <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class))
@@ -567,22 +567,23 @@ base <- ggplot(mpg, aes(x = displ, y = hwy)) +
 base + theme(legend.position = "left")
 base + theme(legend.position = "top")
 base + theme(legend.position = "bottom")
-base + theme(legend.position = "right") # the default
+base + theme(legend.position = "right") # por defecto
 ```
 
-You can also use `legend.position = "none"` to suppress the display of the legend altogether.
+También puede usar `legend.position = "none"` para suprimir la visualización de la leyenda por completo.
 
-To control the display of individual legends, use `guides()` along with `guide_legend()` or `guide_colorbar()`.
-The following example shows two important settings: controlling the number of rows the legend uses with `nrow`, and overriding one of the aesthetics to make the points bigger.
-This is particularly useful if you have used a low `alpha` to display many points on a plot.
+Para controlar la visualización de leyendas individuales, use `guides()` junto con `guide_legend()` o `guide_colorbar()`.
+El siguiente ejemplo muestra dos configuraciones importantes: controlar el número de filas que usa la leyenda con `nrow` y anular una de las estéticas para agrandar los puntos.
+Esto es particularmente útil si ha usado un `alpha` bajo para mostrar muchos puntos en un gráfico.
 
 ```{r}
 #| fig-alt: >
-#|   Scatterplot of highway fuel efficiency versus engine size of cars 
-#|   where points are colored based on class of car. Overlaid on the plot is a 
-#|   smooth curve. The legend is in the bottom and classes are listed 
-#|   horizontally in a row. The points in the legend are larger than the points 
-#|   in the plot.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
+#|   donde los puntos están coloreados según la clase de automóvil. Superpuesto en la gráfica hay un
+#|   curva suave. La leyenda está en la parte inferior y las clases se enumeran
+#|   horizontalmente en una fila. Los puntos en la leyenda son más grandes que los puntos
+#|   en la gráfica
+
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
@@ -591,14 +592,14 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   guides(color = guide_legend(nrow = 1, override.aes = list(size = 4)))
 ```
 
-### Replacing a scale
+### Sustitución de una escala
 
-Instead of just tweaking the details a little, you can instead replace the scale altogether.
-There are two types of scales you're mostly likely to want to switch out: continuous position scales and color scales.
-Fortunately, the same principles apply to all the other aesthetics, so once you've mastered position and color, you'll be able to quickly pick up other scale replacements.
+En lugar de simplemente ajustar un poco los detalles, puede reemplazar la escala por completo.
+Hay dos tipos de escalas que probablemente querrá cambiar: escalas de posición continua y escalas de color.
+Afortunadamente, los mismos principios se aplican a todas las demás estéticas, por lo que una vez que haya dominado la posición y el color, podrá elegir rápidamente otros reemplazos de escala.
 
-It's very useful to plot transformations of your variable.
-For example, it's easier to see the precise relationship between `carat` and `price` if we log transform them:
+Es muy útil para trazar transformaciones de su variable.
+Por ejemplo, es más fácil ver la relación precisa entre quilate,`carat`, y precio, `price`, si le aplicamos una transformación logarítmica:
 
 ```{r}
 #| fig-align: default
@@ -606,29 +607,30 @@ For example, it's easier to see the precise relationship between `carat` and `pr
 #| fig-width: 4
 #| fig-height: 3
 #| fig-alt: >
-#|   Two plots of price versus carat of diamonds. Data binned and the color of 
-#|   the rectangles representing each bin based on the number of points that 
-#|   fall into that bin. In the plot on the right, price and carat values 
-#|   are logged and the axis labels shows the logged values.
+#|   Dos gráficas de precio frente a quilates de diamantes. Datos agrupados y el color de
+#|   los rectángulos que representan cada contenedor en función del número de puntos que
+#|   hay en ese contenedor. En el gráfico de la derecha, los valores de precio y quilates
+#|   son los resultantes de aplicar una transformación logarítmica y las etiquetas de
+#|   los ejes muestran los valores de los logarítmos.
 
-# Left
+# Izquierda
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_bin2d()
 
-# Right
+# Derecha
 ggplot(diamonds, aes(x = log10(carat), y = log10(price))) +
   geom_bin2d()
 ```
 
-However, the disadvantage of this transformation is that the axes are now labelled with the transformed values, making it hard to interpret the plot.
-Instead of doing the transformation in the aesthetic mapping, we can instead do it with the scale.
-This is visually identical, except the axes are labelled on the original data scale.
+Sin embargo, la desventaja de esta transformación es que los ejes ahora están etiquetados con los valores transformados, lo que dificulta la interpretación del gráfico.
+En lugar de hacer la transformación en el mapeo estético, podemos hacerlo con la escala.
+Esto es visualmente idéntico, excepto que los ejes están etiquetados en la escala de datos original.
 
 ```{r}
 #| fig-alt: >
-#|   Plot of price versus carat of diamonds. Data binned and the color of 
-#|   the rectangles representing each bin based on the number of points that 
-#|   fall into that bin. The axis labels are on the original data scale.
+#|   Gráfico de precio versus quilate de diamantes. Datos agrupados y el color de
+#|   los rectángulos que representan cada contenedor en función del número de puntos que
+#|   existen en ese contenedor. Las etiquetas de los ejes están en la escala de datos original.
 
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_bin2d() + 
@@ -636,10 +638,10 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   scale_y_log10()
 ```
 
-Another scale that is frequently customized is color.
-The default categorical scale picks colors that are evenly spaced around the color wheel.
-Useful alternatives are the ColorBrewer scales which have been hand tuned to work better for people with common types of color blindness.
-The two plots below look similar, but there is enough difference in the shades of red and green that the dots on the right can be distinguished even by people with red-green color blindness.
+Otra escala que se personaliza con frecuencia es el color.
+La escala categórica predeterminada selecciona colores que están espaciados uniformemente alrededor de la rueda de colores.
+Las alternativas útiles son las escalas ColorBrewer que se han ajustado a mano para que funcionen mejor para las personas con tipos comunes de daltonismo.
+Los dos gráficos a continuación se ven similares, pero hay suficiente diferencia en los tonos de rojo y verde para que los puntos de la derecha puedan ser distinguidos incluso por personas con daltonismo rojo-verde.
 
 ```{r}
 #| fig-align: default
@@ -647,10 +649,10 @@ The two plots below look similar, but there is enough difference in the shades o
 #| fig-width: 4
 #| fig-height: 3
 #| fig-alt: >
-#|   Two scatterplots of highway mileage versus engine size where points are 
-#|   colored by drive type. The plot on the left uses the default 
-#|   ggplot2 color palette and the plot on the right uses a different color 
-#|   palette.
+#|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde los puntos son
+#|   coloreado por tipo de unidad. El gráfico de la izquierda utiliza el valor predeterminado
+#|   de la paleta de colores de ggplot2 y la gráfica de la derecha usa una paleta de 
+#|   color diferente.
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv))
@@ -660,25 +662,25 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_color_brewer(palette = "Set1")
 ```
 
-Don't forget simpler techniques.
-If there are just a few colors, you can add a redundant shape mapping.
-This will also help ensure your plot is interpretable in black and white.
+No olvides las técnicas más simples.
+Si solo hay unos pocos colores, puede agregar un mapeo de forma redundante.
+Esto también ayudará a garantizar que su gráfica sea interpretable en blanco y negro.
 
 ```{r}
 #| fig-alt: >
-#|   Two scatterplots of highway mileage versus engine size where both color 
-#|   and shape of points are based on drive type. The color palette is not 
-#|   the default ggplot2 palette.
+#|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde ambos colores
+#|   y la forma de los puntos se basan en el tipo de unidad. La paleta de colores no es
+#|   la paleta ggplot2 por defecto.
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv, shape = drv)) +
   scale_color_brewer(palette = "Set1")
 ```
 
-The ColorBrewer scales are documented online at <https://colorbrewer2.org/> and made available in R via the **RColorBrewer** package, by Erich Neuwirth.
-@fig-brewer shows the complete list of all palettes.
-The sequential (top) and diverging (bottom) palettes are particularly useful if your categorical values are ordered, or have a "middle".
-This often arises if you've used `cut()` to make a continuous variable into a categorical variable.
+Las escalas ColorBrewer están documentadas en línea en <https://colorbrewer2.org/> y están disponibles en R a través del paquete **RColorBrewer**, de Erich Neuwirth.
+@fig-brewer muestra la lista completa de todas las paletas.
+Las paletas secuencial (superior) y divergente (inferior) son particularmente útiles si sus valores categóricos están ordenados o tienen un "medio".
+Esto suele ocurrir si ha utilizado `cut()` para convertir una variable continua en una variable categórica.
 
 ```{r}
 #| label: fig-brewer
@@ -686,24 +688,24 @@ This often arises if you've used `cut()` to make a continuous variable into a ca
 #| fig.cap: All colorBrewer scales.
 #| fig.asp: 2.5
 #| fig-alt: >
-#|   All colorBrewer scales. One group goes from light to dark colors. 
-#|   Another group is a set of non ordinal colors. And the last group has 
-#|    diverging scales (from dark to light to dark again). Within each set 
-#|    there are a number of palettes.
+#|   Todas las escalas colorBrewer. Un grupo va de colores claros a oscuros.
+#|   Otro grupo es un conjunto de colores no ordinales. Y el último grupo tiene
+#|   escalas divergentes (de oscuro a claro y de nuevo a oscuro). Dentro de cada conjunto
+#|   hay varias paletas.
 
 par(mar = c(0, 3, 0, 0))
 RColorBrewer::display.brewer.all()
 ```
 
-When you have a predefined mapping between values and colors, use `scale_color_manual()`.
-For example, if we map presidential party to color, we want to use the standard mapping of red for Republicans and blue for Democrats:
+Cuando tenga un mapeo predefinido entre valores y colores, use `scale_color_manual()`.
+Por ejemplo, si mapeamos el partido presidencial al color, queremos usar el mapeo estándar de rojo para los republicanos y azul para los demócratas:
 
 ```{r}
 #| fig-alt: >
-#|   Line plot of id number of presidents versus the year they started their 
-#|   presidency. Start year is marked with a point and a segment that starts 
-#|   there and ends at the end of the presidency. Democratic presidents are 
-#|   represented in black and Republicans in red.
+#|   Gráfico lineal del número de identificación de los presidentes versus el año en que comenzaron su
+#|   presidencia. El año de inicio se marca con un punto y un segmento que comienza
+#|   allí y termina al final de la presidencia. Los presidentes demócratas son
+#|   representados en azul y los republicanos en rojo.
 
 presidential |>
   mutate(id = 33 + row_number()) |>
@@ -713,14 +715,14 @@ presidential |>
   scale_color_manual(values = c(Republican = "red", Democratic = "blue"))
 ```
 
-For continuous color, you can use the built-in `scale_color_gradient()` or `scale_fill_gradient()`.
-If you have a diverging scale, you can use `scale_color_gradient2()`.
-That allows you to give, for example, positive and negative values different colors.
-That's sometimes also useful if you want to distinguish points above or below the mean.
+Para el color continuo, puede utilizar `scale_color_gradient()` o `scale_fill_gradient()` integrados.
+Si tiene una escala divergente, puede usar `scale_color_gradient2()`.
+Eso te permite dar, por ejemplo, valores positivos y negativos de diferentes colores.
+A veces, eso también es útil si desea distinguir puntos por encima o por debajo de la media.
 
-Another option is to use the viridis color scales.
-The designers, Nathaniel Smith and Stéfan van der Walt, carefully tailored continuous color schemes that are perceptible to people with various forms of color blindness as well as perceptually uniform in both color and black and white.
-These scales are available as continuous (`c`), discrete (`d`), and binned (`b`) palettes in ggplot2.
+Otra opción es utilizar las escalas de color de viridis.
+Los diseñadores, Nathaniel Smith y Stéfan van der Walt, diseñaron cuidadosamente esquemas de color continuos que son perceptibles para las personas con diversas formas de daltonismo, así como perceptivamente uniformes tanto en color como en blanco y negro.
+Estas escalas están disponibles como paletas continuas (`c`), discretas (`d`) y agrupadas (`b`) en ggplot2.
 
 ```{r}
 #| fig-align: default
@@ -728,10 +730,10 @@ These scales are available as continuous (`c`), discrete (`d`), and binned (`b`)
 #| fig-width: 4
 #| fig-asp: 1
 #| fig-alt: >
-#|   Three hex plots where the color of the hexes show the number of observations 
-#|   that fall into that hex bin. The first plot uses the default, continuous 
-#|   ggplot2 scale. The second plot uses the viridis, continuous scale, and the 
-#|   third plot uses the viridis, binned scale.
+#|   Tres diagramas hexadecimales donde el color de los hexágonos muestra el número de observaciones
+#|   que caen en ese contenedor hexagonal. El primer gráfico utiliza el valor continuo predeterminado.
+#|   escala ggplot2. La segunda gráfica utiliza la viridis, escala continua, y la
+#|   la tercera gráfica utiliza la escala viridis, binned.
 
 df <- tibble(
   x = rnorm(10000),
@@ -756,18 +758,18 @@ ggplot(df, aes(x, y)) +
   labs(title = "Viridis, binned")
 ```
 
-Note that all color scales come in two variety: `scale_color_x()` and `scale_fill_x()` for the `color` and `fill` aesthetics respectively (the color scales are available in both UK and US spellings).
+Tenga en cuenta que todas las escalas de color vienen en dos variedades: `scale_color_x()` y `scale_fill_x()` para la estética `color` y `fill` respectivamente (las escalas de color están disponibles en la ortografía del Reino Unido y EE. UU.).
 
-### Zooming
+### Zoom
 
-There are three ways to control the plot limits:
+Hay tres formas de controlar los límites de la gráfica:
 
-1.  Adjusting what data are plotted.
-2.  Setting the limits in each scale.
-3.  Setting `xlim` and `ylim` in `coord_cartesian()`.
+1.  Ajustar qué datos se trazan.
+2.  Fijación de los límites en cada escala.
+3.  Configuración de `xlim` y `ylim` en `coord_cartesian()`.
 
-To zoom in on a region of the plot, it's generally best to use `coord_cartesian()`.
-Compare the following two plots:
+Para acercar una región de la gráfica, generalmente es mejor usar `coord_cartesian()`.
+Compara las dos gráficas siguientes:
 
 ```{r}
 #| layout-ncol: 2
@@ -775,13 +777,13 @@ Compare the following two plots:
 #| fig-height: 3
 #| message: false
 
-# Left
+# Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth() +
   coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))
 
-# Right
+# Derecha
 mpg |>
   filter(displ >= 5, displ <= 7, hwy >= 10, hwy <= 30) |>
   ggplot(aes(x = displ, y = hwy)) +
@@ -789,10 +791,10 @@ mpg |>
   geom_smooth()
 ```
 
-You can also set the `limits` on individual scales.
-Reducing the limits is basically equivalent to subsetting the data.
-It is generally more useful if you want to *expand* the limits, for example, to match scales across different plots.
-For example, if we extract two classes of cars and plot them separately, it's difficult to compare the plots because all three scales (the x-axis, the y-axis, and the color aesthetic) have different ranges.
+También puede establecer los "límites" en escalas individuales.
+Reducir los límites es básicamente equivalente a dividir los datos en subconjuntos.
+Por lo general, es más útil si desea *expandir* los límites, por ejemplo, para hacer coincidir escalas en diferentes gráficos.
+Por ejemplo, si extraemos dos clases de autos y los representamos por separado, es difícil comparar los gráficos porque las tres escalas (el eje X, el eje Y y la estética del color) tienen rangos diferentes.
 
 ```{r}
 #| layout-ncol: 2
@@ -802,16 +804,16 @@ For example, if we extract two classes of cars and plot them separately, it's di
 suv <- mpg |> filter(class == "suv")
 compact <- mpg |> filter(class == "compact")
 
-# Left
+# Izquierda
 ggplot(suv, aes(x = displ, y = hwy, color = drv)) +
   geom_point()
 
-# Right
+# Derecha
 ggplot(compact, aes(x = displ, y = hwy, color = drv)) +
   geom_point()
 ```
 
-One way to overcome this problem is to share scales across multiple plots, training the scales with the `limits` of the full data.
+Una forma de superar este problema es compartir escalas en varias parcelas, entrenando las escalas con los "límites" de los datos completos.
 
 ```{r}
 #| layout-ncol: 2
@@ -822,14 +824,14 @@ x_scale <- scale_x_continuous(limits = range(mpg$displ))
 y_scale <- scale_y_continuous(limits = range(mpg$hwy))
 col_scale <- scale_color_discrete(limits = unique(mpg$drv))
 
-# Left
+# Izquierda
 ggplot(suv, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   x_scale +
   y_scale +
   col_scale
 
-# Right
+# Derecha
 ggplot(compact, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   x_scale +
@@ -837,11 +839,11 @@ ggplot(compact, aes(x = displ, y = hwy, color = drv)) +
   col_scale
 ```
 
-In this particular case, you could have simply used faceting, but this technique is useful more generally, if for instance, you want to spread plots over multiple pages of a report.
+En este caso particular, podría haber utilizado simplemente facetas, pero esta técnica es útil de manera más general, si por ejemplo, desea distribuir gráficos en varias páginas de un informe.
 
-### Exercises
+### Ejercicios
 
-1.  Why doesn't the following code override the default scale?
+1.  ¿Por qué el siguiente código no anula la escala predeterminada?
 
     ```{r}
     #| fig-show: "hide"
@@ -857,31 +859,32 @@ In this particular case, you could have simply used faceting, but this technique
       coord_fixed()
     ```
 
-2.  What is the first argument to every scale?
-    How does it compare to `labs()`?
+2.  ¿Cuál es el primer argumento de cada escala?
+    ¿Cómo se compara con `labs()`?
 
-3.  Change the display of the presidential terms by:
+3.  Cambie la visualización de los términos presidenciales por:
 
-    a.  Combining the two variants shown above.
-    b.  Improving the display of the y axis.
-    c.  Labelling each term with the name of the president.
-    d.  Adding informative plot labels.
-    e.  Placing breaks every 4 years (this is trickier than it seems!).
+    a.  Combinando las dos variantes mostradas arriba.
+    b.  Mejorando la visualización del eje y.
+    c.  Etiquetar cada término con el nombre del presidente.
+    d.  Adición de etiquetas de parcela informativas.
+    e.  Colocar descansos cada 4 años (¡es más complicado de lo que parece!).
 
-4.  Use `override.aes` to make the legend on the following plot easier to see.
+4.  Use `override.aes` para hacer que la leyenda en el siguiente gráfico sea más fácil de ver.
 
     ```{r}
     #| fig-format: "png"
     #| out-width: "50%"
     #| fig-alt: >
-    #|   Scatterplot of price versus carat of diamonds. The points are colored 
-    #|   by cut of the diamonds and they're very transparent.
+    #|   Diagrama de dispersión de precio versus quilate de diamantes. Los puntos son de colores.
+    #|   por corte de los diamantes y son muy transparentes.
+
 
     ggplot(diamonds, aes(x = carat, y = price)) +
       geom_point(aes(color = cut), alpha = 1/20)
     ```
 
-## Themes {#sec-themes}
+## Temas {#sec-themes}
 
 Finally, you can customize the non-data elements of your plot with a theme:
 

@@ -566,7 +566,7 @@ Por ejemplo, puedes ver una relación exponencial entre el tamaño en quilates y
 #| dev: "png"
 #| fig-alt: >
 #|   Un diagrama de dispersión de precio frente a quilates. La relación es positiva, algo
-#| fuerte y exponencial.
+#|   fuerte y exponencial.
 
 ggplot(smaller, aes(x = carat, y = price)) +
   geom_point()

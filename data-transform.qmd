@@ -298,7 +298,7 @@ flights |>
   mutate(
     ganancia = dep_delay - arr_delay,
     horas = air_time / 60,
-    gainancia_por_hora = gain / hours,
+    ganancia_por_hora = ganancia / horas,
     .keep = "used"
   )
 ```
