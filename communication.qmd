@@ -813,7 +813,7 @@ ggplot(compact, aes(x = displ, y = hwy, color = drv)) +
   geom_point()
 ```
 
-Una forma de superar este problema es compartir escalas en varias parcelas, entrenando las escalas con los "límites" de los datos completos.
+Una forma de superar este problema es compartir escalas en varias gráficas, entrenando las escalas con los "límites" de los datos completos.
 
 ```{r}
 #| layout-ncol: 2
@@ -867,7 +867,7 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
     a.  Combinando las dos variantes mostradas arriba.
     b.  Mejorando la visualización del eje y.
     c.  Etiquetar cada término con el nombre del presidente.
-    d.  Adición de etiquetas de parcela informativas.
+    d.  Adición de etiquetas de gráfica informativas.
     e.  Colocar descansos cada 4 años (¡es más complicado de lo que parece!).
 
 4.  Use `override.aes` para hacer que la leyenda en el siguiente gráfico sea más fácil de ver.
@@ -886,7 +886,7 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
 
 ## Temas {#sec-themes}
 
-Finally, you can customize the non-data elements of your plot with a theme:
+Finalmente, puede personalizar los elementos que no son datos de su gráfico con un tema:
 
 ```{r}
 #| message: false
@@ -897,46 +897,46 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   theme_bw()
 ```
 
-ggplot2 includes eight themes by default, as shown in @fig-themes.
-Many more are included in add-on packages like **ggthemes** (<https://jrnold.github.io/ggthemes>), by Jeffrey Arnold.
-You can also create your own themes, if you are trying to match a particular corporate or journal style.
+ggplot2 incluye ocho temas por defecto, como se muestra en @fig-themes.
+Muchos más están incluidos en paquetes complementarios como **ggthemes** (<https://jrnold.github.io/ggthemes>), de Jeffrey Arnold.
+También puede crear sus propios temas, si está tratando de hacer coincidir un estilo corporativo o de revista en particular.
 
 ```{r}
 #| label: fig-themes
 #| echo: false
-#| fig-cap: The eight themes built-in to ggplot2.
+#| fig-cap: Los ocho temas integrados en ggplot2.
 #| fig-alt: >
-#|   Eight barplots created with ggplot2, each 
-#|   with one of the eight built-in themes: 
-#|   theme_bw() - White background with grid lines,
-#|   theme_light() - Light axes and grid lines,
-#|   theme_classic() - Classic theme, axes but no grid
-#|   lines, theme_linedraw() - Only black lines, 
-#|   theme_dark() - Dark background for contrast, 
-#|   theme_minimal() - Minimal theme, no background,
-#|   theme_gray() - Gray background (default theme),
-#|   theme_void() - Empty theme, only geoms are visible.
+#|   Ocho gráficos de barras creados con ggplot2, cada uno
+#|   con uno de los ocho temas integrados:
+#|   theme_bw() - Fondo blanco con líneas de cuadrícula,
+#|   theme_light() - Ejes de luz y líneas de cuadrícula,
+#|   theme_classic() - Tema clásico, ejes pero sin cuadrícula
+#|   líneas, theme_linedraw() - Solo líneas negras,
+#|   theme_dark() - Fondo oscuro para contraste,
+#|   theme_minimal() - Tema mínimo, sin fondo,
+#|   theme_gray() - Fondo gris (tema predeterminado),
+#|   theme_void() - Tema vacío, solo son visibles los geoms.
 
 knitr::include_graphics("images/visualization-themes.png")
 ```
 
-Many people wonder why the default theme has a gray background.
-This was a deliberate choice because it puts the data forward while still making the grid lines visible.
-The white grid lines are visible (which is important because they significantly aid position judgments), but they have little visual impact and we can easily tune them out.
-The grey background gives the plot a similar typographic color to the text, ensuring that the graphics fit in with the flow of a document without jumping out with a bright white background.
-Finally, the grey background creates a continuous field of color which ensures that the plot is perceived as a single visual entity.
+Muchas personas se preguntan por qué el tema predeterminado tiene un fondo gris.
+Esta fue una elección deliberada porque presenta los datos sin dejar de hacer visibles las líneas de la cuadrícula.
+Las líneas de cuadrícula blancas son visibles (lo cual es importante porque ayudan significativamente a los juicios de posición), pero tienen poco impacto visual y podemos ignorarlas fácilmente.
+El fondo gris le da a la gráfica un color tipográfico similar al del texto, asegurando que los gráficos encajen con el flujo de un documento sin sobresalir con un fondo blanco brillante.
+Finalmente, el fondo gris crea un campo continuo de color que asegura que la gráfica se perciba como una sola entidad visual.
 
-It's also possible to control individual components of each theme, like the size and color of the font used for the y axis.
-We've already seen that `legend.position` controls where the legend is drawn.
-There are many other aspects of the legend that can be customized with `theme()`.
-For example, in the plot below we change the direction of the legend as well as put a black border around it.
-A few other helpful `theme()` components are used to change the placement for format of the title and caption text.
+También es posible controlar los componentes individuales de cada tema, como el tamaño y el color de la fuente utilizada para el eje y.
+Ya hemos visto que `legend.position` controla dónde se dibuja la leyenda.
+Hay muchos otros aspectos de la leyenda que se pueden personalizar con `theme()`.
+Por ejemplo, en el siguiente gráfico, cambiamos la dirección de la leyenda y le ponemos un borde negro alrededor.
+Se utilizan algunos otros componentes de `theme()` útiles para cambiar la ubicación del formato del título y el texto del subtítulo.
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   labs(
-    title = "Highway mileage decreases as engine size increases",
+    title = "El kilometraje en carretera disminuye a medida que aumenta el tamaño del motor",
     caption = "Source: https://fueleconomy.gov."
     ) +
   theme(
@@ -950,13 +950,13 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
     )
 ```
 
-For an overview of all `theme()` components, see help with `?theme`.
-The [ggplot2 book](https://ggplot2-book.org/) is also a great place to go for the full details on theming.
+Para obtener una descripción general de todos los componentes `theme()`, consulte la ayuda con `?theme`.
+El [libro de ggplot2](https://ggplot2-book.org/) también es un excelente lugar para consultar todos los detalles sobre temas.
 
-### Exercises
+### Ejercicios
 
-1.  Pick a theme offered by the ggthemes package and apply it to the last plot you made.
-2.  Make the axis labels of your plot blue and bolded.
+1.  Elija un tema ofrecido por el paquete ggthemes y aplíquelo a la última gráfica que hizo.
+2.  Haz que las etiquetas de los ejes de tu gráfico sean azules y en negrita.
 
 ## Layout
 
