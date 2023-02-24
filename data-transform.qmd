@@ -699,9 +699,9 @@ ggplot(delays, aes(x = n, y = delay)) +
 ```
 
 No es sorprendente que haya una variación mucho mayor en el retraso promedio cuando hay pocos vuelos para un avión determinado.
-La forma de este gráfico es muy característica: cada vez que traza una media (u otro resumen) frente al tamaño del grupo, verá que la variación disminuye a medida que aumenta el tamaño de la muestra[^data-transform-4].
+La forma de este gráfico es muy característica: cada vez que traza una media (u otras estadísticas resumidas) frente al tamaño del grupo, verá que la variación disminuye a medida que aumenta el tamaño de la muestra[^data-transform-4].
 
-[^data-transform-4]: \*tos\* el teorema del límite central \*tos\*.
+[^data-transform-4]: \*tos\* la ley de los grandes números \*tos\*.
 
 Al mirar este tipo de gráfico, a menudo es útil filtrar los grupos con el menor número de observaciones, para que pueda ver más del patrón y menos de la variación extrema en los grupos más pequeños:
 
@@ -726,7 +726,7 @@ Tenga en cuenta el práctico patrón para combinar ggplot2 y dplyr.
 Es un poco molesto tener que cambiar de `|>` a `+`, pero no es una molestia una vez que aprendes a hacerlo.
 
 Hay otra variación común en este patrón que podemos ver en algunos datos sobre jugadores de béisbol.
-El siguiente código utiliza datos del paquete **Lahman** para comparar la proporción de veces que un jugador golpea la pelota frente a la cantidad de intentos que realiza:
+El siguiente código utiliza datos del paquete **Lahman** para comparar la proporción de veces que un jugador acierta frente a la cantidad de veces que intenta poner la pelota en juego:
 
 ```{r}
 batters <- Lahman::Batting |> 

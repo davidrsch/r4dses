@@ -16,6 +16,7 @@ Esta sección describe algunos consejos sobre cómo obtener ayuda y ayudarlo a s
 
 Si te quedas atascado, empieza con Google.
 Por lo general, agregar "R" a una consulta es suficiente para restringirla a resultados relevantes: si la búsqueda no es útil, a menudo significa que no hay resultados específicos de R disponibles.
+Además, agregar nombres de paquetes como "tidyverse" o "ggplot2" ayudará a reducir los resultados a un código que también le resulte más familiar, por ejemplo, "cómo hacer un diagrama de caja en R" frente a "cómo hacer un diagrama de caja en R con ggplot2".
 Google es particularmente útil para los mensajes de error.
 Si recibe un mensaje de error y no tiene idea de lo que significa, intente buscarlo en Google.
 Lo más probable es que alguien más se haya confundido en el pasado, y habrá ayuda en algún lugar de la web.
@@ -111,6 +112,10 @@ Hay tres cosas que debe incluir para que su ejemplo sea reproducible: paquetes r
     Cuanto más corto sea su código, más fácil será de entender y más fácil de arreglar.
 
 Termine comprobando que realmente ha creado un ejemplo reproducible iniciando una nueva sesión de R y copiando y pegando su secuencia de comandos.
+
+Crear reprexes no es trivial, y se necesitará algo de práctica para aprender a crear reprexes buenos y realmente mínimos.
+
+Sin embargo, aprender a hacer preguntas que incluyan el código e invertir el tiempo para hacerlo reproducible seguirá dando sus frutos a medida que aprenda y domine R.
 
 ## Invertir en ti mismo
 

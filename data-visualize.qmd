@@ -702,6 +702,7 @@ Según el gráfico de la izquierda, podemos ver que todos los pingüinos Gentoo 
 #|   Gráficas de barras de especies de pingüinos por isla (Biscoe, Dream y Torgersen).
 #|   A la derecha, se muestran las frecuencias de las especies. A la izquierda, relativo
 #|   se muestran las frecuencias de las especies.
+#| layout-ncol: 2
 
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar()

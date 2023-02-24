@@ -490,8 +490,9 @@ ggplot(mpg, aes(x = hwy, y = fct_reorder(class, hwy, median))) +
     ¿Qué aprendes?
     ¿Cómo interpretas las gráficas?
 
-5.  Compara y contrasta `geom_violin()` con un `geom_histogram()` facetado, o un `geom_freqpoly()` coloreado.
-    ¿Cuáles son los pros y los contras de cada método?
+5.  Cree una visualización de los precios de los diamantes frente a una variable categórica del conjunto de datos `diamonds` usando `geom_violin()`, luego un `geom_histogram()` facetado y luego un `geom_freqpoly()` coloreado.
+    Compara y contrasta las tres gráficas.
+    ¿Cuáles son los pros y los contras de cada método para visualizar la distribución de una variable numérica en función de los niveles de una variable categórica?
 
 6.  Si tiene un conjunto de datos pequeño, a veces es útil usar `geom_jitter()` para ver la relación entre una variable continua y categórica.
     El paquete ggbeeswarm proporciona una serie de métodos similares a `geom_jitter()`.
@@ -550,7 +551,7 @@ Para gráficas más grandes, es posible que desee probar el paquete heatmaply, q
 2.  ¿Cómo cambia el gráfico de barras segmentado si el color se asigna a la estética `x` y `cut` se asigna a la estética `fill`?
     Calcular las cuentas que caen en cada uno de los segmentos.
 
-3.  Utilice `geom_tile()` junto con dplyr para explorar cómo varían los retrasos promedio de los vuelos según el destino y el mes del año.
+3.  Utilice `geom_tile()` junto con dplyr para explorar cómo varían los retrasos promedio en la salida de los vuelos según el destino y el mes del año.
     ¿Qué hace que la trama sea difícil de leer?
     ¿Cómo podrías mejorarlo?
 

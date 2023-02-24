@@ -93,8 +93,10 @@ mean (x ,na.rm=TRUE)
 ```
 
 Está bien agregar espacios adicionales si mejora la alineación.
-Por ejemplo, si está creando múltiples variables en `mutate()`, es posible que desee agregar espacios para que todos los `=` se alineen.
+Por ejemplo, si está creando múltiples variables en `mutate()`, es posible que desee agregar espacios para que todos los `=` se alineen.[^workflow-style-1]
 Esto hace que sea más fácil hojear el código.
+
+[^workflow-style-1]: Dado que `dep_time` está en formato `HMM` o `HHMM`, usamos la división de enteros (`%/%`) para obtener la hora y el resto (también conocido como módulo, `%%`) para obtener los minutos.
 
 ```{r}
 #| eval: false
@@ -273,9 +275,12 @@ knitr::include_graphics("screenshots/rstudio-nav.png")
     ```{r}
     #| eval: false
 
-    flights|>filter(dest=="IAH")|>group_by(year,month,day)|>summarize(n=n(),delay=mean(arr_delay,na.rm=TRUE))|>filter(n>10)
+    flights|>filter(dest=="IAH")|>group_by(year,month,day)|>summarize(n=n(),
+    delay=mean(arr_delay,na.rm=TRUE))|>filter(n>10)
 
-    flights|>filter(carrier=="UA",dest%in%c("IAH","HOU"),sched_dep_time>0900,sched_arr_time<2000)|>group_by(flight)|>summarize(delay=mean(arr_delay,na.rm=TRUE),cancelled=sum(is.na(arr_delay)),n=n())|>filter(n>10)
+    flights|>filter(carrier=="UA",dest%in%c("IAH","HOU"),sched_dep_time>
+    0900,sched_arr_time<2000)|>group_by(flight)|>summarize(delay=mean(
+    arr_delay,na.rm=TRUE),cancelled=sum(is.na(arr_delay)),n=n())|>filter(n>10)
     ```
 
 ## Resumen

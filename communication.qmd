@@ -174,8 +174,6 @@ Esto hace posible agregar etiquetas textuales a sus gráficas.
 Hay dos posibles fuentes de etiquetas.
 Primero, es posible que tenga un tibble que proporcione etiquetas.
 En la siguiente gráfica, sacamos los autos con el tamaño de motor más alto en cada tipo de unidad y guardamos su información como un nuevo data frames llamado `label_info`.
-Para crear el data frames `label_info`, utilizamos varias funciones nuevas de dplyr.
-¡Aprenderás más sobre cada uno de estos pronto!
 
 ```{r}
 label_info <- mpg |>
@@ -958,89 +956,89 @@ El [libro de ggplot2](https://ggplot2-book.org/) también es un excelente lugar 
 1.  Elija un tema ofrecido por el paquete ggthemes y aplíquelo a la última gráfica que hizo.
 2.  Haz que las etiquetas de los ejes de tu gráfico sean azules y en negrita.
 
-## Layout
+## Disposición
 
-So far we talked about how to create and modify a single plot.
-What if you have multiple plots you want to lay out in a certain way?
-The patchwork package allows you to combine separate plots into the same graphic.
-We loaded this package earlier in the chapter.
+Hasta ahora hablamos sobre cómo crear y modificar una sola gráfica.
+¿Qué sucede si tiene varias gráficas que desea diseñar de cierta manera?
+El paquete patchwork le permite combinar gráficas separadas en el mismo gráfico.
+Cargamos este paquete anteriormente en el capítulo.
 
-To place two plots next to each other, you can simply add them to each other.
-Note that you first need to create the plots and save them as objects (in the following example they're called `p1` and `p2`).
-Then, you place them next to each other with `+`.
+Para colocar dos gráficas una al lado de la otra, simplemente puede agregarlas una a la otra.
+Tenga en cuenta que primero debe crear los gráficos y guardarlos como objetos (en el siguiente ejemplo, se denominan `p1` y `p2`).
+Luego, los colocas uno al lado del otro con `+`.
 
 ```{r}
 #| fig-alt: >
-#|   Two plots (a scatterplot of highway mileage versus engine size and a 
-#|   side-by-side boxplots of highway mileage versus drive train) placed next 
-#|   to each other.
+#|   Dos diagramas (un diagrama de dispersión del kilometraje en carretera versus el tamaño del motor y un
+#|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión) colocados a continuación
+#|   el uno al otro
 
 p1 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
-  labs(title = "Plot 1")
+  labs(title = "Gráfica 1")
 p2 <- ggplot(mpg, aes(x = drv, y = hwy)) + 
   geom_boxplot() + 
-  labs(title = "Plot 2")
+  labs(title = "Gráfica 2")
 p1 + p2
 ```
 
-It's important to note that in the above code chunk we did not use a new function from the patchwork package.
-Instead, the package added a new functionality to the `+` operator.
+Es importante tener en cuenta que en el fragmento de código anterior no usamos una nueva función del paquete patchwork.
+En cambio, el paquete agregó una nueva funcionalidad al operador `+`.
 
-You can also create arbitrary plot layouts with patchwork.
-In the following, `|` places the `p1` and `p3` next to each other and `/` moves `p2` to the next line.
+También puede crear diseños de gráfica arbitrarios con patchwork.
+A continuación, `|` coloca `p1` y `p3` uno al lado del otro y `/` mueve `p2` a la siguiente línea.
 
 ```{r}
 #| fig-alt: >
-#|   Three plots laid out such that first and third plot are next to each other 
-#|   and the second plot stretched beneath them. The first plot is a 
-#|   scatterplot of highway mileage versus engine size, third plot is a 
-#|   scatterplot of highway mileage versus city mileage, and the third plot is 
-#|   side-by-side boxplots of highway mileage versus drive train) placed next 
-#|   to each other.
+#|   Tres gráficas dispuestas de manera que la primera y la tercera gráfica estén una al lado de la otra
+#|   y la segunda gráfica se extendía debajo de ellos. La primera gráfica es una
+#|   diagrama de dispersión del kilometraje en carretera versus el tamaño del motor, el tercer diagrama es un
+#|   diagrama de dispersión de kilometraje en carretera versus kilometraje en ciudad, y el tercer diagrama es
+#|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión) colocados a continuación
+#|   el uno al otro
 
 p3 <- ggplot(mpg, aes(x = cty, y = hwy)) + 
   geom_point() + 
-  labs(title = "Plot 3")
+  labs(title = "Gráfica 3")
 (p1 | p3) / p2
 ```
 
-Additionally, patchwork allows you to collect legends from multiple plots into one common legend, customize the placement of the legend as well as dimensions of the plots, and add a common title, subtitle, caption, etc. to your plots.
-In the following, we have 5 plots.
-We have turned off the legends on the box plots and the scatterplot and collected the legends for the density plots at the top of the plot with `& theme(legend.position = "top")`.
-Note the use of the `&` operator here instead of the usual `+`.
-This is because we're modifying the theme for the patchwork plot as opposed to the individual ggplots.
-The legend is placed on top, inside the `guide_area()`.
-Finally, we have also customized the heights of the various components of our patchwork -- the guide has a height of 1, the box plots 3, density plots 2, and the faceted scatter plot 4.
-Patchwork divides up the area you have allotted for your plot using this scale and places the components accordingly.
+Además, patchwork le permite recopilar leyendas de varias gráficas en una leyenda común, personalizar la ubicación de la leyenda y las dimensiones de las gráficas, y agregar un título, subtítulo, descripción, etc. común a sus gráficas.
+A continuación, tenemos 5 gráficas.
+Desactivamos las leyendas en los diagramas de caja y el diagrama de dispersión y recopilamos las leyendas para los diagramas de densidad en la parte superior del diagrama con `& theme(legend.position = "top")`.
+Tenga en cuenta el uso del operador `&` aquí en lugar del habitual `+`.
+Esto se debe a que estamos modificando el tema de la gráfica de retazos en lugar de las ggplots individuales.
+La leyenda se coloca en la parte superior, dentro de `guide_area()`.
+Finalmente, también hemos personalizado las alturas de los diversos componentes de nuestro mosaico: la guía tiene una altura de 1, los diagramas de caja 3, los diagramas de densidad 2 y el diagrama de dispersión facetado 4.
+Patchwork divide el área que ha asignado para su gráfica utilizando esta escala y coloca los componentes en consecuencia.
 
 ```{r}
 #| fig-width: 10
 #| fig-alt: >
-#|   Five plots laid out such that first two plots are next to each other. Plots 
-#|   three and four are underneath them. And the fifth plot stretches under them. 
-#|   The patchworked plot is titled "City and highway mileage for cars with 
-#|   different drive trains" and captioned "Source: Source: https://fueleconomy.gov". 
-#|   The first two plots are side-by-side box plots. Plots 3 and 4 are density 
-#|   plots. And the fifth plot is a faceted scatterplot. Each of these plots show 
-#|   geoms colored by drive train, but the patchworked plot has only one legend 
-#|   that applies to all of them, above the plots and beneath the title.
+#|   Cinco gráficas distribuidas de manera que las dos primeras gráficas estén una al lado de la otra. gráficas
+#|   tres y cuatro están debajo de ellos. Y la quinta gráfica se extiende debajo de ellos.
+#|   El gráfico fragmentado se titula "Kilometraje en ciudad y carretera para automóviles con
+#|   diferentes trenes de transmisión" y cuya descripción es "Fuente: https://fueleconomy.gov".
+#|   Los primeros dos diagramas son diagramas de caja uno al lado del otro. Las gráficas 3 y 4 son densidad
+#|   gráficas Y el quinto diagrama es un diagrama de dispersión facetado. Cada uno de estos gráficos muestra
+#|   geoms coloreados por tren de transmisión, pero la gráfica de retazos solo tiene una leyenda
+#|   eso se aplica a todos ellos, arriba de las gráficas y debajo del título.
 
 p1 <- ggplot(mpg, aes(x = drv, y = cty, color = drv)) + 
   geom_boxplot(show.legend = FALSE) + 
-  labs(title = "Plot 1")
+  labs(title = "Gráfica 1")
 
 p2 <- ggplot(mpg, aes(x = drv, y = hwy, color = drv)) + 
   geom_boxplot(show.legend = FALSE) + 
-  labs(title = "Plot 2")
+  labs(title = "Gráfica 2")
 
 p3 <- ggplot(mpg, aes(x = cty, color = drv, fill = drv)) + 
   geom_density(alpha = 0.5) + 
-  labs(title = "Plot 3")
+  labs(title = "Gráfica 3")
 
 p4 <- ggplot(mpg, aes(x = hwy, color = drv, fill = drv)) + 
   geom_density(alpha = 0.5) + 
-  labs(title = "Plot 4")
+  labs(title = "Gráfica 4")
 
 p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) + 
   geom_point(show.legend = FALSE) + 
@@ -1049,8 +1047,8 @@ p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) +
 
 (guide_area() / (p1 + p2) / (p3 + p4) / p5) +
   plot_annotation(
-    title = "City and highway mileage for cars with different drive trains",
-    caption = "Source: Source: https://fueleconomy.gov."
+    title = "Kilometraje en ciudad y carretera para automóviles con diferentes trenes de transmisión",
+    caption = "Fuente: https://fueleconomy.gov"
   ) +
   plot_layout(
     guides = "collect",
@@ -1059,12 +1057,12 @@ p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) +
   theme(legend.position = "top")
 ```
 
-If you'd like to learn more about combining and layout out multiple plots with patchwork, we recommend looking through the guides on the package website: <https://patchwork.data-imaginist.com>.
+Si desea obtener más información sobre la combinación y el diseño de varias gráficas con patchwork, le recomendamos consultar las guías en el sitio web del paquete: <https://patchwork.data-imaginist.com>.
 
-### Exercises
+### Ejercicios
 
-1.  What happens if you omit the parentheses in the following plot layout.
-    Can you explain why this happens?
+1.  ¿Qué sucede si omite los paréntesis en el siguiente diseño de gráfico?
+    ¿Puedes explicar por qué sucede esto?
 
     ```{r}
     #| results: hide
@@ -1082,17 +1080,17 @@ If you'd like to learn more about combining and layout out multiple plots with p
     (p1 | p2) / p3
     ```
 
-2.  Using the three plots from the previous exercise, recreate the following patchwork.
+2.  Usando las tres gráficas del ejercicio anterior, recrea el siguiente mosaico.
 
     ```{r}
     #| echo: false
     #| fig-alt: >
-    #|   Three plots: Plot 1 is a scatterplot of highway mileage versus engine size. 
-    #|   Plot 2 is side-by-side box plots of highway mileage versus drive train. 
-    #|   Plot 3 is side-by-side box plots of city mileage versus drive train. 
-    #|   Plots 1 is on the first row. Plots 2 and 3 are on the next row, each span 
-    #|   half the width of Plot 1. Plot 1 is labelled "Fig. A", Plot 2 is labelled 
-    #|   "Fig. B", and Plot 3 is labelled "Fig. C".
+    #|   Tres gráficas: La gráfica 1 es una gráfica de dispersión del kilometraje en carretera versus el tamaño del motor.
+    #|   La gráfica 2 son gráficas de caja una al lado de la otra del kilometraje de la carretera versus el tren de transmisión.
+    #|   La gráfica 3 son gráficas de caja una al lado de la otra del kilometraje de la ciudad versus el tren de transmisión.
+    #|   Las gráficas 1 están en la primera fila. Las gráficas 2 y 3 están en la siguiente fila, cada tramo
+    #|   la mitad del ancho de la gráfica 1. La gráfica 1 está etiquetada como "Fig. A", la gráfica 2 está etiquetada
+    #|   "Fig. B", y la gráfica 3 está etiquetada como "Fig. C".
 
     p1 / (p2 + p3) +
       plot_annotation(
@@ -1102,11 +1100,11 @@ If you'd like to learn more about combining and layout out multiple plots with p
       )
     ```
 
-## Summary
+## Resumen
 
-In this chapter you've learned about adding plot labels such as title, subtitle, caption as well as modifying default axis labels, using annotation to add informational text to your plot or to highlight specific data points, customizing the axis scales, and changing the theme of your plot.
-You've also learned about combining multiple plots in a single graph using both simple and complex plot layouts.
+En este capítulo, aprendió a agregar etiquetas de trazado, como título, subtítulo, leyenda, así como a modificar etiquetas de eje predeterminadas, usar anotaciones para agregar texto informativo a su trazado o resaltar puntos de datos específicos, personalizar las escalas de los ejes y cambiar el tema de su gráfica.
+También aprendió a combinar varios gráficos en un solo gráfico usando diseños de gráficos simples y complejos.
 
-While you've so far learned about how to make many different types of plots and how to customize them using a variety of techniques, we've barely scratched the surface of what you can create with ggplot2.
-If you want to get a comprehensive understanding of ggplot2, we recommend reading the book, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org).
-Other useful resources are the [*R Graphics Cookbook*](https://r-graphics.org) by Winston Chang and [*Fundamentals of Data Visualization*](https://clauswilke.com/dataviz/) by Claus Wilke.
+Si bien hasta ahora ha aprendido cómo crear muchos tipos diferentes de gráficos y cómo personalizarlos usando una variedad de técnicas, apenas hemos arañado la superficie de lo que puede crear con ggplot2.
+Si desea obtener una comprensión completa de ggplot2, le recomendamos leer el libro, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org).
+Otros recursos útiles son el [*R Graphics Cookbook*](https://r-graphics.org) de Winston Chang y [*Fundamentals of Data Visualization*](https://clauswilke.com/dataviz/) de Claus Wilke.
