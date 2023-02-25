@@ -7,7 +7,7 @@ source("_common.R")
 status("complete")
 ```
 
-Después de leer las dos primeras partes del libro, comprende (al menos superficialmente) las herramientas más importantes para hacer ciencia de datos.
+Después de leer la primera parte del libro, comprende (al menos superficialmente) las herramientas más importantes para hacer ciencia de datos.
 Ahora es el momento de empezar a sumergirse en los detalles.
 En esta parte del libro, aprenderá a visualizar datos con mayor profundidad.
 
