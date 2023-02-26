@@ -26,6 +26,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   El Juego Completo
 -   Visualizar
 -   Transformar
+    -   14 Vectores lógicos
 
 ## Sobre otras versiones
 
@@ -117,6 +118,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Whole Game
 -   Visualize
 -   Transform
+    -   14 Logical vectors
 
 ## About other versions
 
