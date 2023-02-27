@@ -10,7 +10,7 @@ status("complete")
 ## Introducción
 
 En este capítulo, aprenderá herramientas para trabajar con vectores lógicos.
-Los vectores lógicos son el tipo de vector más simple porque cada elemento solo puede tener uno de tres valores posibles: verdadero, `TRUE`, falso, `FALSE` y faltante, `NA`.
+Los vectores lógicos son el tipo de vector más simple porque cada elemento solo puede tener uno de tres valores posibles: TRUE, `TRUE`, FALSE, `FALSE` y faltante, `NA`.
 Es relativamente raro encontrar vectores lógicos en sus datos sin procesar, pero los creará y manipulará en el curso de casi todos los análisis.
 
 Comenzaremos discutiendo la forma más común de crear vectores lógicos: con comparaciones numéricas.
@@ -94,7 +94,7 @@ x <- c(1 / 49 * 49, sqrt(2) ^ 2)
 x
 ```
 
-Pero si los prueba para la igualdad, obtiene falso, `FALSE`:
+Pero si los prueba para la igualdad, obtiene FALSE, `FALSE`:
 
 ```{r}
 x == c(1, 2)
@@ -160,7 +160,7 @@ En su lugar, necesitaremos una nueva herramienta: `is.na()`.
 
 ### `is.na()`
 
-`is.na(x)` funciona con cualquier tipo de vector y devuelve verdadero, `TRUE`, para los valores faltantes y falso, `FALSE`, para todo lo demás:
+`is.na(x)` funciona con cualquier tipo de vector y devuelve TRUE, `TRUE`, para los valores faltantes y FALSE, `FALSE`, para todo lo demás:
 
 ```{r}
 is.na(c(TRUE, NA, FALSE))
@@ -197,40 +197,40 @@ Volveremos para cubrir los valores faltantes con más profundidad en @sec-missin
 
 ## Álgebra booleana
 
-Once you have multiple logical vectors, you can combine them together using Boolean algebra.
-In R, `&` is "and", `|` is "or", `!` is "not", and `xor()` is exclusive or[^logicals-2].
-@fig-bool-ops shows the complete set of Boolean operations and how they work.
+Una vez que tenga varios vectores lógicos, puede combinarlos usando álgebra booleana.
+En R, `&` es "y", `|` es "o", `!` es "no", y `xor()` es exclusivo o [^logicals-2].
+@fig-bool-ops muestra el conjunto completo de operaciones booleanas y cómo funcionan.
 
-[^logicals-2]: That is, `xor(x, y)` is true if x is true, or y is true, but not both.
-    This is how we usually use "or" In English.
-    "Both" is not usually an acceptable answer to the question "would you like ice cream or cake?".
+[^logicals-2]: Es decir, `xor(x, y)` es TRUE si x es TRUE, o y es TRUE, pero no ambos.
+    Así es como solemos usar "o" en inglés.
+    "Ambos" no suele ser una respuesta aceptable a la pregunta "¿quieres un helado o un pastel?".
 
 ```{r}
 #| label: fig-bool-ops
 #| echo: false
 #| out-width: NULL
 #| fig-cap: > 
-#|    The complete set of boolean operations. `x` is the left-hand
-#|    circle, `y` is the right-hand circle, and the shaded region show 
-#|    which parts each operator selects.
+#|    El conjunto completo de operaciones booleanas. `x` es el círculo a la
+#|    izquierda, `y` es el círculo de la derecha, y la región sombreada muestra
+#|    qué partes selecciona cada operador.
 #| fig-alt: >
-#|    Six Venn diagrams, each explaining a given logical operator. The
-#|    circles (sets) in each of the Venn diagrams represent x and y. 1. y &
-#|    !x is y but none of x; x & y is the intersection of x and y; x & !y is
-#|    x but none of y; x is all of x none of y; xor(x, y) is everything
-#|    except the intersection of x and y; y is all of y and none of x; and 
-#|    x | y is everything.
+#|    Seis diagramas de Venn, cada uno explicando un operador lógico distinto. Los
+#|    círculos (conjuntos) en cada uno de los diagramas de Venn representan x e y. 1. y &
+#|    !x es y pero nada de x; x & y es la intersección de x e y; x & !y es
+#|    x pero ninguno de y; x es todo de x nada de y; xor(x, y) es todo
+#|    excepto la intersección de x e y; y es todo de y y nada de x; y
+#|    x | y es todo.
 knitr::include_graphics("diagrams/transform.png", dpi = 270)
 ```
 
-As well as `&` and `|`, R also has `&&` and `||`.
-Don't use them in dplyr functions!
-These are called short-circuiting operators and only ever return a single `TRUE` or `FALSE`.
-They're important for programming, not data science.
+Además de `&` y `|`, R también tiene `&&` y `||`.
+¡No los use en funciones dplyr!
+Estos se denominan operadores de cortocircuito y solo devuelven un solo `TRUE` o `FALSE`.
+Son importantes para la programación, no para la ciencia de datos.
 
-### Missing values {#sec-na-boolean}
+### Valores Faltantes {#sec-na-boolean}
 
-The rules for missing values in Boolean algebra are a little tricky to explain because they seem inconsistent at first glance:
+Las reglas para los valores faltantes en el álgebra booleana son un poco difíciles de explicar porque parecen inconsistentes a primera vista:
 
 ```{r}
 df <- tibble(x = c(TRUE, FALSE, NA))
@@ -242,15 +242,15 @@ df |>
   )
 ```
 
-To understand what's going on, think about `NA | TRUE`.
-A missing value in a logical vector means that the value could either be `TRUE` or `FALSE`.
-`TRUE | TRUE` and `FALSE | TRUE` are both `TRUE`, so `NA | TRUE` must also be `TRUE`.
-Similar reasoning applies with `NA & FALSE`.
+Para entender lo que está pasando, piense en `NA | TRUE`.
+Un valor faltante en un vector lógico significa que el valor podría ser `TRUE` o `FALSE`.
+`TRUE | TRUE` y `FALSE | TRUE` son ambos `TRUE`, entonces `NA | TRUE` también debe ser `TRUE`.
+Se aplica un razonamiento similar con `NA & FALSE`.
 
-### Order of operations
+### Orden de operaciones
 
-Note that the order of operations doesn't work like English.
-Take the following code that finds all flights that departed in November or December:
+Tenga en cuenta que el orden de las operaciones no funciona como en inglés.
+Tome el siguiente código que encuentra todos los vuelos que salieron en noviembre o diciembre:
 
 ```{r}
 #| eval: false
@@ -259,18 +259,18 @@ flights |>
    filter(month == 11 | month == 12)
 ```
 
-You might be tempted to write it like you'd say in English: "Find all flights that departed in November or December.":
+Es posible que tenga la tentación de escribirlo como diría en inglés: "Buscar todos los vuelos que partieron en noviembre o diciembre".:
 
 ```{r}
 flights |> 
    filter(month == 11 | 12)
 ```
 
-This code doesn't error but it also doesn't seem to have worked.
-What's going on?
-Here, R first evaluates `month == 11` creating a logical vector, which we call `nov`.
-It computes `nov | 12`.
-When you use a number with a logical operator it converts everything apart from 0 to `TRUE`, so this is equivalent to `nov | TRUE` which will always be `TRUE`, so every row will be selected:
+Este código no da error, pero tampoco parece haber funcionado.
+¿Qué está sucediendo?
+Aquí, R primero evalúa `month == 11` creando un vector lógico, al que llamamos `nov`.
+Calcula `nov | 12`.
+Cuando usa un número con un operador lógico, convierte todo menos 0 en `TRUE`, por lo que esto es equivalente a `nov | TRUE` que siempre será `TRUE`, por lo que se seleccionarán todas las filas:
 
 ```{r}
 flights |> 
@@ -283,15 +283,15 @@ flights |>
 
 ### `%in%`
 
-An easy way to avoid the problem of getting your `==`s and `|`s in the right order is to use `%in%`.
-`x %in% y` returns a logical vector the same length as `x` that is `TRUE` whenever a value in `x` is anywhere in `y` .
+Una manera fácil de evitar el problema de poner tus `==`s y `|`s en el orden correcto es usar `%in%`.
+`x %in% y` devuelve un vector lógico de la misma longitud que `x` que es `TRUE` cada vez que un valor en `x` está en cualquier parte de `y`.
 
 ```{r}
 1:12 %in% c(1, 5, 11)
 letters[1:10] %in% c("a", "e", "i", "o", "u")
 ```
 
-So to find all flights in November and December we could write:
+Entonces, para encontrar todos los vuelos en noviembre y diciembre, podríamos escribir:
 
 ```{r}
 #| eval: false
@@ -300,39 +300,39 @@ flights |>
   filter(month %in% c(11, 12))
 ```
 
-Note that `%in%` obeys different rules for `NA` to `==`, as `NA %in% NA` is `TRUE`.
+Tenga en cuenta que `%in%` obedece reglas diferentes para `NA` y `==`, ya que `NA %in% NA` es `TRUE`.
 
 ```{r}
 c(1, 2, NA) == NA
 c(1, 2, NA) %in% NA
 ```
 
-This can make for a useful shortcut:
+Esto puede ser un atajo útil:
 
 ```{r}
 flights |> 
   filter(dep_time %in% c(NA, 0800))
 ```
 
-### Exercises
+### Ejercicios
 
-1.  Find all flights where `arr_delay` is missing but `dep_delay` is not. Find all flights where neither `arr_time` nor `sched_arr_time` are missing, but `arr_delay` is.
-2.  How many flights have a missing `dep_time`? What other variables are missing in these rows? What might these rows represent?
-3.  Assuming that a missing `dep_time` implies that a flight is cancelled, look at the number of cancelled flights per day. Is there a pattern? Is there a connection between the proportion of cancelled flights and the average delay of non-cancelled flights?
+1.  Encuentre todos los vuelos en los que falte `arr_delay` pero no `dep_delay`. Encuentre todos los vuelos en los que no falten ni `arr_time` ni `sched_arr_time`, pero sí `arr_delay`.
+2.  ¿A cuántos vuelos les falta `dep_time`? ¿Qué otras variables faltan en estas filas? ¿Qué podrían representar estas filas?
+3.  Suponiendo que la falta de `dep_time` implica que se canceló un vuelo, mire la cantidad de vuelos cancelados por día. ¿Hay un patrón? ¿Existe una conexión entre la proporción de vuelos cancelados y el retraso promedio de los vuelos no cancelados?
 
-## Summaries {#sec-logical-summaries}
+## Resúmenes {#sec-logical-summaries}
 
-The following sections describe some useful techniques for summarizing logical vectors.
-As well as functions that only work specifically with logical vectors, you can also use functions that work with numeric vectors.
+Las siguientes secciones describen algunas técnicas útiles para resumir vectores lógicos.
+Además de funciones que solo funcionan específicamente con vectores lógicos, también puede usar funciones que funcionan con vectores numéricos.
 
-### Logical summaries
+### Resúmenes lógicos
 
-There are two main logical summaries: `any()` and `all()`.
-`any(x)` is the equivalent of `|`; it'll return `TRUE` if there are any `TRUE`'s in `x`.
-`all(x)` is equivalent of `&`; it'll return `TRUE` only if all values of `x` are `TRUE`'s.
-Like all summary functions, they'll return `NA` if there are any missing values present, and as usual you can make the missing values go away with `na.rm = TRUE`.
+Hay dos resúmenes lógicos principales: `any()` y `all()`.
+`any(x)` es el equivalente de `|`; devolverá `TRUE` si hay algún `TRUE` en `x`.
+`all(x)` es equivalente a `&`; devolverá `TRUE` solo si todos los valores de `x` son `TRUE`.
+Como todas las funciones de resumen, devolverán `NA` si hay algún valor faltante presente y, como de costumbre, puede hacer que los valores faltantes desaparezcan con `na.rm = TRUE`.
 
-For example, we could use `all()` to find out if there were days where every flight was delayed:
+Por ejemplo, podríamos usar `all()` para averiguar si hubo días en los que se retrasó cada vuelo:
 
 ```{r}
 flights |> 
@@ -344,22 +344,22 @@ flights |>
   )
 ```
 
-In most cases, however, `any()` and `all()` are a little too crude, and it would be nice to be able to get a little more detail about how many values are `TRUE` or `FALSE`.
-That leads us to the numeric summaries.
+En la mayoría de los casos, sin embargo, `any()` y `all()` son un poco toscos, y sería bueno poder obtener un poco más de detalles sobre cuántos valores son `TRUE` o `FALSE`.
+Eso nos lleva a los resúmenes numéricos.
 
-### Numeric summaries of logical vectors {#sec-numeric-summaries-of-logicals}
+### Resúmenes numéricos de vectores lógicos {#sec-numeric-summaries-of-logicals}
 
-When you use a logical vector in a numeric context, `TRUE` becomes 1 and `FALSE` becomes 0.
-This makes `sum()` and `mean()` very useful with logical vectors because `sum(x)` will give the number of `TRUE`s and `mean(x)` the proportion of `TRUE`s.
-That lets us see the distribution of delays across the days of the year as shown in @fig-prop-delayed-dist
+Cuando usa un vector lógico en un contexto numérico, `TRUE` se convierte en 1 y `FALSE` se convierte en 0.
+Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` dará el número de `TRUE` y `media(x)` la proporción de `TRUE`.
+Eso nos permite ver la distribución de retrasos a lo largo de los días del año como se muestra en @fig-prop-delayed-dist
 
 ```{r}
 #| label: fig-prop-delayed-dist
 #| fig-cap: >
-#|   A histogram showing the proportion of delayed flights each day.
+#|   Un histograma que muestra la proporción de vuelos retrasados cada día.
 #| fig-alt: >
-#|   The distribution is unimodal and mildly right skewed. The distribution
-#|   peaks around 30% delayed flights.
+#|   La distribución es unimodal y levemente sesgada a la derecha. La distribución
+#|   aumenta alrededor del 30% de vuelos retrasados.
 flights |> 
   group_by(year, month, day) |> 
   summarize(
@@ -370,7 +370,7 @@ flights |>
   geom_histogram(binwidth = 0.05)
 ```
 
-Or we could ask: "How many flights left before 5am?", which are often flights that were delayed from the previous day:
+O podríamos preguntar: "¿Cuántos vuelos salieron antes de las 5 am?", que a menudo son vuelos que se retrasaron desde el día anterior:
 
 ```{r}
 flights |> 
@@ -382,13 +382,13 @@ flights |>
   arrange(desc(n_early))
 ```
 
-### Logical subsetting
+### Subconjunto lógico
 
-There's one final use for logical vectors in summaries: you can use a logical vector to filter a single variable to a subset of interest.
-This makes use of the base `[` (pronounced subset) operator, which you'll learn more about in @sec-subset-many.
+Hay un uso final para los vectores lógicos en los resúmenes: puede usar un vector lógico para filtrar una sola variable a un subconjunto de interés.
+Esto hace uso del operador base `[` (subconjunto pronunciado), sobre el que obtendrá más información en @sec-subset-many.
 
-Imagine we wanted to look at the average delay just for flights that were actually delayed.
-One way to do so would be to first filter the flights and then calculate the average delay:
+Imagine que quisiéramos ver el retraso promedio solo para los vuelos que realmente se retrasaron.
+Una forma de hacerlo sería filtrar primero los vuelos y luego calcular el retraso promedio:
 
 ```{r}
 flights |> 
@@ -401,13 +401,11 @@ flights |>
   )
 ```
 
-This works, but what if we wanted to also compute the average delay for flights that arrived early?
-We'd need to perform a separate filter step, and then figure out how to combine the two data frames together[^logicals-3].
-Instead you could use `[` to perform an inline filtering: `arr_delay[arr_delay > 0]` will yield only the positive arrival delays.
+Esto funciona, pero ¿y si también quisiéramos calcular el retraso promedio de los vuelos que llegaron temprano?
+Tendríamos que realizar un paso de filtro por separado y luego descubrir cómo combinar los dos marcos de datos juntos \[\^ lógicos-3\].
+En su lugar, podría usar `[` para realizar un filtrado en línea: `arr_delay[arr_delay > 0]` generará solo los retrasos de llegada positivos.
 
-[^logicals-3]: We'll cover this in @sec-joins.
-
-This leads to:
+Esto lleva a:
 
 ```{r}
 flights |> 
@@ -420,24 +418,24 @@ flights |>
   )
 ```
 
-Also note the difference in the group size: in the first chunk `n()` gives the number of delayed flights per day; in the second, `n()` gives the total number of flights.
+También tenga en cuenta la diferencia en el tamaño del grupo: en el primer fragmento `n()` da el número de vuelos retrasados por día; en el segundo, `n()` da el número total de vuelos.
 
-### Exercises
+### Ejercicios
 
-1.  What will `sum(is.na(x))` tell you? How about `mean(is.na(x))`?
-2.  What does `prod()` return when applied to a logical vector? What logical summary function is it equivalent to? What does `min()` return when applied to a logical vector? What logical summary function is it equivalent to? Read the documentation and perform a few experiments.
+1.  ¿Qué te dirá `sum(is.na(x))`? ¿Qué tal `mean(is.na(x))`?
+2.  ¿Qué devuelve `prod()` cuando se aplica a un vector lógico? ¿A qué función de resumen lógico es equivalente? ¿Qué devuelve `min()` cuando se aplica a un vector lógico? ¿A qué función de resumen lógico es equivalente? Lea la documentación y realice algunos experimentos.
 
-## Conditional transformations
+## Transformaciones condicionales
 
 One of the most powerful features of logical vectors are their use for conditional transformations, i.e. doing one thing for condition x, and something different for condition y.
 There are two important tools for this: `if_else()` and `case_when()`.
 
 ### `if_else()`
 
-If you want to use one value when a condition is `TRUE` and another value when it's `FALSE`, you can use `dplyr::if_else()`[^logicals-4].
+If you want to use one value when a condition is `TRUE` and another value when it's `FALSE`, you can use `dplyr::if_else()`[^logicals-3].
 You'll always use the first three argument of `if_else()`. The first argument, `condition`, is a logical vector, the second, `true`, gives the output when the condition is true, and the third, `false`, gives the output if the condition is false.
 
-[^logicals-4]: dplyr's `if_else()` is very similar to base R's `ifelse()`.
+[^logicals-3]: dplyr's `if_else()` is very similar to base R's `ifelse()`.
     There are two main advantages of `if_else()`over `ifelse()`: you can choose what should happen to missing values, and `if_else()` is much more likely to give you a meaningful error if you variables have incompatible types.
 
 Let's begin with a simple example of labeling a numeric vector as either "+ve" or "-ve":
