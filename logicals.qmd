@@ -427,39 +427,39 @@ También tenga en cuenta la diferencia en el tamaño del grupo: en el primer fra
 
 ## Transformaciones condicionales
 
-One of the most powerful features of logical vectors are their use for conditional transformations, i.e. doing one thing for condition x, and something different for condition y.
-There are two important tools for this: `if_else()` and `case_when()`.
+Una de las características más poderosas de los vectores lógicos es su uso para transformaciones condicionales, es decir, hacer una cosa para la condición x y algo diferente para la condición y.
+Hay dos herramientas importantes para esto: `if_else()` y `case_when()`.
 
 ### `if_else()`
 
-If you want to use one value when a condition is `TRUE` and another value when it's `FALSE`, you can use `dplyr::if_else()`[^logicals-3].
-You'll always use the first three argument of `if_else()`. The first argument, `condition`, is a logical vector, the second, `true`, gives the output when the condition is true, and the third, `false`, gives the output if the condition is false.
+Si quiere usar un valor cuando una condición es `TRUE` y otro valor cuando es `FALSE`, puede usar `dplyr::if_else()`[^logicals-3].
+Siempre usarás los tres primeros argumentos de `if_else()`. El primer argumento, `condition`, es un vector lógico, el segundo, `true`, da la salida cuando la condición es verdadera, y el tercero, `false`, da la salida si la condición es falsa.
 
-[^logicals-3]: dplyr's `if_else()` is very similar to base R's `ifelse()`.
-    There are two main advantages of `if_else()`over `ifelse()`: you can choose what should happen to missing values, and `if_else()` is much more likely to give you a meaningful error if you variables have incompatible types.
+[^logicals-3]: El `if_else()` de dplyr es muy similar al `ifelse()` de base R.
+    Hay dos ventajas principales de `if_else()` sobre `ifelse()`: puede elegir qué debería pasar con los valores faltantes, y es mucho más probable que `if_else()` le dé un error significativo si sus variables tienen tipos incompatibles.
 
-Let's begin with a simple example of labeling a numeric vector as either "+ve" or "-ve":
+Comencemos con un ejemplo simple de etiquetar un vector numérico como "+ve" o "-ve":
 
 ```{r}
 x <- c(-3:3, NA)
 if_else(x > 0, "+ve", "-ve")
 ```
 
-There's an optional fourth argument, `missing` which will be used if the input is `NA`:
+Hay un cuarto argumento opcional, `missing` que se usará si la entrada es `NA`:
 
 ```{r}
 if_else(x > 0, "+ve", "-ve", "???")
 ```
 
-You can also use vectors for the the `true` and `false` arguments.
-For example, this allows us to create a minimal implementation of `abs()`:
+También puede usar vectores para los argumentos `true` y `false`.
+Por ejemplo, esto nos permite crear una implementación mínima de `abs()`:
 
 ```{r}
 if_else(x < 0, -x, x)
 ```
 
-So far all the arguments have used the same vectors, but you can of course mix and match.
-For example, you could implement a simple version of `coalesce()` like this:
+Hasta ahora, todos los argumentos han usado los mismos vectores, pero, por supuesto, puede mezclarlos y combinarlos.
+Por ejemplo, podría implementar una versión simple de `coalesce()` como esta:
 
 ```{r}
 x1 <- c(NA, 1, 2, NA)
@@ -467,24 +467,24 @@ y1 <- c(3, NA, 4, 6)
 if_else(is.na(x1), y1, x1)
 ```
 
-You might have noticed a small infelicity in our labeling example above: zero is neither positive nor negative.
-We could resolve this by adding an additional `if_else()`:
+Es posible que haya notado una pequeña infelicidad en nuestro ejemplo de etiquetado anterior: cero no es ni positivo ni negativo.
+Podríamos resolver esto agregando un `if_else()` adicional:
 
 ```{r}
 if_else(x == 0, "0", if_else(x < 0, "-ve", "+ve"), "???")
 ```
 
-This is already a little hard to read, and you can imagine it would only get harder if you have more conditions.
-Instead, you can switch to `dplyr::case_when()`.
+Esto ya es un poco difícil de leer, y puedes imaginar que solo sería más difícil si tuvieras más condiciones.
+En su lugar, puede cambiar a `dplyr::case_when()`.
 
 ### `case_when()`
 
-dplyr's `case_when()` is inspired by SQL's `CASE` statement and provides a flexible way of performing different computations for different conditions.
-It has a special syntax that unfortunately looks like nothing else you'll use in the tidyverse.
-It takes pairs that look like `condition ~ output`.
-`condition` must be a logical vector; when it's `TRUE`, `output` will be used.
+`case_when()` de dplyr está inspirado en la declaración `CASE` de SQL y proporciona una forma flexible de realizar diferentes cálculos para diferentes condiciones.
+Tiene una sintaxis especial que, lamentablemente, no se parece a nada que vayas a usar en tidyverse.
+Toma pares que parecen `condition ~ output`.
+`condition` debe ser un vector lógico; cuando es `TRUE`, se usará `output`.
 
-This means we could recreate our previous nested `if_else()` as follows:
+Esto significa que podríamos recrear nuestro anterior `if_else()` anidado de la siguiente manera:
 
 ```{r}
 x <- c(-3:3, NA)
@@ -496,10 +496,10 @@ case_when(
 )
 ```
 
-This is more code, but it's also more explicit.
+Esto es más código, pero también es más explícito.
 
-To explain how `case_when()` works, lets explore some simpler cases.
-If none of the cases match, the output gets an `NA`:
+Para explicar cómo funciona `case_when()`, exploremos algunos casos más simples.
+Si ninguno de los casos coincide, la salida obtiene un `NA`:
 
 ```{r}
 case_when(
@@ -508,7 +508,7 @@ case_when(
 )
 ```
 
-If you want to create a "default"/catch all value, use `TRUE` on the left hand side:
+Si desea crear un valor catch all "predeterminado", use `TRUE` en el lado izquierdo:
 
 ```{r}
 case_when(
@@ -518,7 +518,7 @@ case_when(
 )
 ```
 
-And note that if multiple conditions match, only the first will be used:
+Y tenga en cuenta que si coinciden varias condiciones, solo se utilizará la primera:
 
 ```{r}
 case_when(
@@ -527,30 +527,30 @@ case_when(
 )
 ```
 
-Just like with `if_else()` you can use variables on both sides of the `~` and you can mix and match variables as needed for your problem.
-For example, we could use `case_when()` to provide some human readable labels for the arrival delay:
+Al igual que con `if_else()`, puede usar variables en ambos lados de `~` y puede mezclar y combinar variables según sea necesario para su problema.
+Por ejemplo, podríamos usar `case_when()` para proporcionar algunas etiquetas legibles por humanos para el retraso de llegada:
 
 ```{r}
 flights |> 
   mutate(
     status = case_when(
-      is.na(arr_delay)      ~ "cancelled",
-      arr_delay < -30       ~ "very early",
-      arr_delay < -15       ~ "early",
-      abs(arr_delay) <= 15  ~ "on time",
-      arr_delay < 60        ~ "late",
-      arr_delay < Inf       ~ "very late",
+      is.na(arr_delay)      ~ "cancelado",
+      arr_delay < -30       ~ "muy temprano",
+      arr_delay < -15       ~ "temprano",
+      abs(arr_delay) <= 15  ~ "a tiempo",
+      arr_delay < 60        ~ "tarde",
+      arr_delay < Inf       ~ "muy tarde",
     ),
     .keep = "used"
   )
 ```
 
-Be wary when writing this sort of complex `case_when()` statement; my first two attempts used a mix of `<` and `>` and I kept accidentally creating overlapping conditions.
+Tenga cuidado al escribir este tipo de declaraciones complejas `case_when()`; mis primeros dos intentos usaron una combinación de `<` y `>` y seguí creando accidentalmente condiciones superpuestas.
 
-### Compatible types
+### Tipos compatibles
 
-Note that both `if_else()` and `case_when()` require **compatible** types in the output.
-If they're not compatible, you'll see errors like this:
+Tenga en cuenta que tanto `if_else()` como `case_when()` requieren tipos **compatibles** en la salida.
+Si no son compatibles, verá errores como este:
 
 ```{r}
 #| error: true
@@ -563,23 +563,23 @@ case_when(
 )
 ```
 
-Overall, relatively few types are compatible, because automatically converting one type of vector to another is a common source of errors.
-Here are the most important cases that are compatible:
+En general, relativamente pocos tipos son compatibles, porque la conversión automática de un tipo de vector a otro es una fuente común de errores.
+Estos son los casos más importantes que son compatibles:
 
--   Numeric and logical vectors are compatible, as we discussed in @sec-numeric-summaries-of-logicals.
--   Strings and factors (@sec-factors) are compatible, because you can think of a factor as a string with a restricted set of values.
--   Dates and date-times, which we'll discuss in @sec-dates-and-times, are compatible because you can think of a date as a special case of date-time.
--   `NA`, which is technically a logical vector, is compatible with everything because every vector has some way of representing a missing value.
+-   Los vectores numéricos y lógicos son compatibles, como discutimos en @sec-numeric-summaries-of-logicals.
+-   Las cadenas y los factores (@sec-factors) son compatibles, porque puede pensar en un factor como una cadena con un conjunto restringido de valores.
+-   Las fechas y las fechas y horas, de las que hablaremos en @sec-dates-and-times, son compatibles porque puede pensar en una fecha como un caso especial de fecha y hora.
+-   `NA`, que técnicamente es un vector lógico, es compatible con todo porque cada vector tiene alguna forma de representar un valor faltante.
 
-We don't expect you to memorize these rules, but they should become second nature over time because they are applied consistently throughout the tidyverse.
+No esperamos que memorices estas reglas, pero deberían convertirse en una segunda naturaleza con el tiempo porque se aplican de manera consistente en todo el tidyverse.
 
-## Summary
+## Resumen
 
-The definition of a logical vector is simple because each value must be either `TRUE`, `FALSE`, or `NA`.
-But logical vectors provide a huge amount of power.
-In this chapter, you learned how to create logical vectors with `>`, `<`, `<=`, `=>`, `==`, `!=`, and `is.na()`, how to combine them with `!`, `&`, and `|`, and how to summarize them with `any()`, `all()`, `sum()`, and `mean()`.
-You also learned the powerful `if_else()` and `case_when()` functions that allow you to return values depending on the value of a logical vector.
+La definición de un vector lógico es simple porque cada valor debe ser `TRUE`, `FALSE` o `NA`.
+Pero los vectores lógicos proporcionan una gran cantidad de posibilidades.
+En este capítulo, aprendió a crear vectores lógicos con `>`, `<`, `<=`, `=>`, `==`, `!=` y `is.na()`, cómo combinarlos con `!`, `&` y `|`, y cómo resumirlos con `any()`, `all()`, `sum()` y `mean()`.
+También aprendiste las poderosas funciones `if_else()` y `case_when()` que te permiten devolver valores dependiendo del valor de un vector lógico.
 
-We'll see logical vectors again and again in the following chapters.
-For example in @sec-strings you'll learn about `str_detect(x, pattern)` which returns a logical vector that's `TRUE` for the elements of `x` that match the `pattern`, and in @sec-dates-and-times you'll create logical vectors from the comparison of dates and times.
-But for now, we're going to move onto the next most important type of vector: numeric vectors.
+Veremos vectores lógicos una y otra vez en los siguientes capítulos.
+Por ejemplo, en @sec-strings aprenderá sobre `str_detect(x, pattern)` que devuelve un vector lógico que es `TRUE` para los elementos de `x` que coinciden con el patrón, `pattern`, y en @sec-dates- and-times creará vectores lógicos a partir de la comparación de fechas y horas.
+Pero por ahora, vamos a pasar al siguiente tipo de vector más importante: los vectores numéricos.

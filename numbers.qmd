@@ -1,4 +1,4 @@
-# Numbers {#sec-numbers}
+# Números {#sec-numbers}
 
 ```{r}
 #| results: "asis"

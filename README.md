@@ -27,6 +27,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   Visualizar
 -   Transformar
     -   14 Vectores lógicos
+    -   15 Números
 
 ## Sobre otras versiones
 
@@ -119,6 +120,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Visualize
 -   Transform
     -   14 Logical vectors
+    -   15 Numbers
 
 ## About other versions
 
