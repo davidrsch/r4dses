@@ -41,7 +41,7 @@ A partir de este capítulo, suprimiremos el mensaje de carga de `library(tidyver
 
 Puede representar los mismos datos subyacentes de varias formas.
 El siguiente ejemplo muestra los mismos datos organizados de tres maneras diferentes.
-Cada conjunto de datos muestra los mismos valores de cuatro variables: *país*, *año*, *población* y *casos* de TB (tuberculosis), pero cada conjunto de datos organiza los valores de manera diferente.
+Cada conjunto de datos muestra los mismos valores de cuatro variables: país (*country*), año (*year*), población (*population*) y número de casos (*cases*) documentados de TB (tuberculosis), pero cada conjunto de datos organiza los valores de manera diferente.
 
 ```{r}
 #| echo: false

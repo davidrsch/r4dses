@@ -98,10 +98,13 @@ Este libro le enseñará la familia de paquetes tidymodels que, como puede adivi
 
 ### Big data
 
-Este libro se enfoca con orgullo en pequeños conjuntos de datos en memoria.
+Este libro se enfoca orgullosamente y principalmente en pequeños conjuntos de datos en memoria.
 Este es el lugar correcto para comenzar porque no puede abordar big data a menos que tenga experiencia con small data.
-Las herramientas que aprende en este libro manejarán fácilmente cientos de megabytes de datos y, con un poco de cuidado, normalmente puede usarlas para trabajar con 1-2 Gb de datos.
-Si trabaja habitualmente con datos más grandes (10-100 Gb, digamos), debe obtener más información sobre [data.table](https://github.com/Rdatatable/data.table).
+Las herramientas que aprende en la mayoría de este libro manejarán fácilmente cientos de megabytes de datos y, con un poco de cuidado, normalmente puede usarlas para trabajar con 1-2 Gb de datos.
+
+Dicho esto, el libro también aborda la extracción de datos de las bases de datos y de los archivos de parquet, las cuales son soluciones comúnmente utilizadas para almacenar big data.
+
+Sin embargo, si trabaja habitualmente con datos más grandes (por ejemplo, de 10 a 100 Gb), debe obtener más información sobre \[data.table\] (https://github.com/Rdatatable/data.table).
 Este libro no enseña data.table porque tiene una interfaz muy concisa que ofrece menos pistas lingüísticas, lo que hace que sea más difícil de aprender.
 Sin embargo, la recompensa por el rendimiento bien vale la pena el esfuerzo requerido para aprenderlo si está trabajando con grandes cantidades de datos.
 
@@ -132,7 +135,7 @@ Debe esforzarse por aprender cosas nuevas a lo largo de su carrera, pero asegúr
 Creemos que R es un excelente lugar para comenzar su viaje de ciencia de datos porque es un entorno diseñado desde cero para respaldar la ciencia de datos.
 R no es solo un lenguaje de programación; también es un entorno interactivo para hacer ciencia de datos.
 Para respaldar la interacción, R es un lenguaje mucho más flexible que muchos de sus pares.
-Esta flexibilidad tiene sus desventajas, pero la gran ventaja es lo fácil que es desarrollar gramáticas personalizadas para partes específicas del proceso de ciencia de datos.
+Esta flexibilidad tiene sus desventajas, pero la gran ventaja es lo fácil que es tener un código estructurado como el problema que intenta resolver para partes específicas del proceso de ciencia de datos.
 Estos minilenguajes lo ayudan a pensar en los problemas como un científico de datos al mismo tiempo que respaldan una interacción fluida entre su cerebro y la computadora.
 
 ## Requisitos previos

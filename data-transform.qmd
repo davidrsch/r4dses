@@ -113,7 +113,7 @@ Por ejemplo, podríamos encontrar todos los vuelos que llegaron con más de 120 
 
 ```{r}
 flights |> 
-  filter(arr_delay > 120)
+  filter(dep_delay > 120)
 ```
 
 Además de `>` (mayor que), puede usar `>=` (mayor o igual que), `<` (menor que), `<=` (menor o igual que), `==` (igual a) y `!=` (no igual a).
@@ -194,7 +194,7 @@ flights |>
 ```
 
 Puedes combinar `arrange()` y `filter()` para resolver problemas más complejos.
-Por ejemplo, podríamos buscar los vuelos que se retrasaron más a la llegada y que salieron más o menos a tiempo:
+Por ejemplo, podríamos filtrar los vuelos que salieron más o menos a tiempo y luego organizar los resultados para ver qué vuelos se retrasaron más al llegar:
 
 ```{r}
 flights |> 
@@ -212,12 +212,12 @@ Sin embargo, la mayoría de las veces, querrá la combinación distinta de algun
 flights |> 
   distinct()
 
-# Esto encuentra todos los pares únicos de origen y destino.
+# Esto encuentra todos los pares únicos de origen y destino
 flights |> 
   distinct(origin, dest)
 ```
 
-Tenga en cuenta que si desea encontrar el número de duplicados o filas que no estaban duplicadas, es mejor que cambie `distinct()` por `count()` y luego filtre según sea necesario.
+Tenga en cuenta que si desea encontrar la cantidad de duplicados o filas que no se duplicaron, es mejor que cambie `distinct()` por `count()`, lo que le dará la cantidad de observaciones por nivel único, y luego filtre según sea necesario.
 
 ### Ejercicios
 
@@ -246,7 +246,7 @@ Tenga en cuenta que si desea encontrar el número de duplicados o filas que no e
 ## Columnas
 
 Hay cuatro verbos importantes que afectan a las columnas sin cambiar las filas: `mutate()`, `select()`, `rename()` y `relocate()`.
-`mutate()` crea nuevas columnas que son funciones de las columnas existentes; `select()`, `rename()` y `relocate()` cambian qué columnas están presentes, sus nombres o sus posiciones.
+`mutate()` crea nuevas columnas que se derivan de las columnas existentes; `select()`, `rename()` y `relocate()` cambian qué columnas están presentes, sus nombres o sus posiciones.
 También hablaremos de `pull()` ya que le permite sacar una columna del data frame.
 
 ### `mutate()` {#sec-mutate}
@@ -420,6 +420,8 @@ ggplot(flights, aes(x = air_time - airtime2)) + geom_histogram()
 
     select(flights, contains("TIME"))
     ```
+
+6.  Cambie el nombre de `air_time` a `air_time_min` para indicar las unidades de medida y muévalo al comienzo del data frame.
 
 ## Grupos
 
@@ -689,12 +691,12 @@ Eso parece bastante sorprendente, así que dibujemos un diagrama de dispersión 
 
 ```{r}
 #| fig-alt: >
-#|   Un diagrama de dispersión que muestra el número de vuelos frente al retraso. Retrasos
+#|   Un diagrama de dispersión que muestra el número de vuelos frente a la demora promedio en la llegada. Retrasos
 #|   para aviones con un número muy pequeño de vuelos tienen una variabilidad muy alta
 #|   (de -50 a ~300), pero la variabilidad disminuye rápidamente a medida que
 #|   número de vuelos aumenta.
 
-ggplot(delays, aes(x = n, y = delay)) + 
+ggplot(delays, aes(x = delay, y = n)) + 
   geom_point(alpha = 1/10)
 ```
 
@@ -708,16 +710,14 @@ Al mirar este tipo de gráfico, a menudo es útil filtrar los grupos con el meno
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   Ahora que el eje y (retraso promedio) es más pequeño (-20 a 60 minutos),
-#|   podemos ver una historia más complicada. La línea suave sugiere
-#|   una disminución inicial en el retraso promedio de 10 minutos a 0 minutos
-#|   a medida que el número de vuelos por avión aumenta de 25 a 100.
-#|   A esto le sigue un aumento gradual hasta 10 minutos durante 250
-#|   vuelos, luego una disminución gradual a ~5 minutos en 500 vuelos.
+#|   Diagrama de dispersión del número de vuelos de un avión dado frente al retraso promedio
+#|   para esos vuelos, para aviones con más de 25 vuelos. Como retraso promedio
+#|   aumenta de -20 a 10, el número de vuelos también aumenta. Para
+#|   mayores demoras promedio, el número de vuelos disminuye.
 
 delays |>  
   filter(n > 25) |> 
-  ggplot(aes(x = n, y = delay)) + 
+  ggplot(aes(x = delay, y = n)) + 
   geom_point(alpha = 1/10) + 
   geom_smooth(se = FALSE)
 ```

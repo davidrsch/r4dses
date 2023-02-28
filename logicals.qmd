@@ -137,14 +137,14 @@ NA == NA
 Es más fácil entender por qué esto es cierto si proporcionamos artificialmente un poco más de contexto:
 
 ```{r}
-# Sea x la edad de María. No sabemos cuantos años tiene.
-x <- NA
+# No sabemos cuántos años tiene María.
+edad_maria <- NA
 
-# Sea y la edad de Juan. No sabemos cuantos años tiene.
-y <- NA
+# No sabemos cuántos años tiene Juan.
+edad_juan <- NA
 
 # ¿Juan y María tienen la misma edad?
-x == y
+edad_maria == edad_juan
 # ¡No sabemos!
 
 ```
@@ -192,13 +192,14 @@ Volveremos para cubrir los valores faltantes con más profundidad en @sec-missin
 
 ### Ejercicios
 
-1.  ¿Cómo funciona `dplyr::near()`? Escribe `near` para ver el código fuente.
+1.  ¿Cómo funciona `dplyr::near()`? Escribe `near` para ver el código fuente. ¿Es `sqrt(2)^2` cerca de 2?
 2.  Use `mutate()`, `is.na()` y `count()` juntos para describir cómo se conectan los valores que faltan en `dep_time`, `sched_dep_time` y `dep_delay`.
 
 ## Álgebra booleana
 
 Una vez que tenga varios vectores lógicos, puede combinarlos usando álgebra booleana.
 En R, `&` es "y", `|` es "o", `!` es "no", y `xor()` es exclusivo o [^logicals-2].
+Por ejemplo, `df |> filter(!is.na(x))` encuentra todas las filas donde no falta `x` y `df |> filter(x < -10 | x > 0)` encuentra todas las filas donde `x` es menor que -10 o mayor que 0.
 @fig-bool-ops muestra el conjunto completo de operaciones booleanas y cómo funcionan.
 
 [^logicals-2]: Es decir, `xor(x, y)` es TRUE si x es TRUE, o y es TRUE, pero no ambos.
@@ -332,14 +333,15 @@ Hay dos resúmenes lógicos principales: `any()` y `all()`.
 `all(x)` es equivalente a `&`; devolverá `TRUE` solo si todos los valores de `x` son `TRUE`.
 Como todas las funciones de resumen, devolverán `NA` si hay algún valor faltante presente y, como de costumbre, puede hacer que los valores faltantes desaparezcan con `na.rm = TRUE`.
 
-Por ejemplo, podríamos usar `all()` para averiguar si hubo días en los que se retrasó cada vuelo:
+Por ejemplo, podríamos usar `all()` y `any()` para averiguar si cada vuelo se retrasó menos de una hora o si algún vuelo se retrasó más de 5 horas.
+Y usar `group_by()` nos permite hacer eso por día:
 
 ```{r}
 flights |> 
   group_by(year, month, day) |> 
   summarize(
-    all_delayed = all(arr_delay >= 0, na.rm = TRUE),
-    any_delayed = any(arr_delay >= 0, na.rm = TRUE),
+    all_delayed = all(dep_delay <= 60, na.rm = TRUE),
+    any_long_delay = any(arr_delay >= 300, na.rm = TRUE),
     .groups = "drop"
   )
 ```
@@ -350,36 +352,18 @@ Eso nos lleva a los resúmenes numéricos.
 ### Resúmenes numéricos de vectores lógicos {#sec-numeric-summaries-of-logicals}
 
 Cuando usa un vector lógico en un contexto numérico, `TRUE` se convierte en 1 y `FALSE` se convierte en 0.
-Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` dará el número de `TRUE` y `media(x)` la proporción de `TRUE`.
-Eso nos permite ver la distribución de retrasos a lo largo de los días del año como se muestra en @fig-prop-delayed-dist
+Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` da el número de `TRUE`s y `mean(x)` da la proporción de `TRUE`s (porque `mean()` es simplemente `sum()` dividido por `length()`.
 
-```{r}
-#| label: fig-prop-delayed-dist
-#| fig-cap: >
-#|   Un histograma que muestra la proporción de vuelos retrasados cada día.
-#| fig-alt: >
-#|   La distribución es unimodal y levemente sesgada a la derecha. La distribución
-#|   aumenta alrededor del 30% de vuelos retrasados.
-flights |> 
-  group_by(year, month, day) |> 
-  summarize(
-    prop_delayed = mean(arr_delay > 0, na.rm = TRUE),
-    .groups = "drop"
-  ) |> 
-  ggplot(aes(x = prop_delayed)) + 
-  geom_histogram(binwidth = 0.05)
-```
-
-O podríamos preguntar: "¿Cuántos vuelos salieron antes de las 5 am?", que a menudo son vuelos que se retrasaron desde el día anterior:
+Eso, por ejemplo, nos permite ver la proporción de vuelos que se retrasaron menos de 60 minutos y la cantidad de vuelos que se retrasaron más de 5 horas:
 
 ```{r}
 flights |> 
   group_by(year, month, day) |> 
   summarize(
-    n_early = sum(dep_time < 500, na.rm = TRUE),
+    all_delayed = mean(dep_delay <= 60, na.rm = TRUE),
+    any_long_delay = sum(arr_delay >= 300, na.rm = TRUE),
     .groups = "drop"
-  ) |> 
-  arrange(desc(n_early))
+  )
 ```
 
 ### Subconjunto lógico
@@ -572,6 +556,18 @@ Estos son los casos más importantes que son compatibles:
 -   `NA`, que técnicamente es un vector lógico, es compatible con todo porque cada vector tiene alguna forma de representar un valor faltante.
 
 No esperamos que memorices estas reglas, pero deberían convertirse en una segunda naturaleza con el tiempo porque se aplican de manera consistente en todo el tidyverse.
+
+### Ejercicios
+
+1.  A number is even if its divisible by two, which in R you can find out with `x %% 2 == 0`.
+    Use this fact and `if_else()` to determine whether each number between 0 and 20 is even or odd.
+
+2.  Given a vector of days like `x <- c("Monday", "Saturday", "Wednesday")`, use an `ifelse()` statement to label them as weekends or weekdays.
+
+3.  Use `ifelse()` to compute the absolute value of a numeric vector called `x`.
+
+4.  Write a `case_when()` statement that uses the `month` and `day` columns from `flights` to label a selection of important US holidays (e.g. New Years Day, 4th of July, Thanksgiving, and Christmas).
+    First create a logical column that is either `TRUE` or `FALSE`, and then create a character column that either gives the name of the holiday or is `NA`.
 
 ## Resumen
 

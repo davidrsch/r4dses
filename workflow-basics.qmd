@@ -10,7 +10,7 @@ status("complete")
 
 Ahora tiene algo de experiencia ejecutando código de R.
 No te dimos muchos detalles, pero obviamente has descubierto los conceptos básicos, ¡o habrías tirado este libro por la frustración!
-La frustración es natural cuando comienzas a programar en R porque es muy estricto con la puntuación, e incluso un carácter fuera de lugar hará que se queje.
+La frustración es natural cuando comienzas a programar en R porque es muy estricto con la puntuación, e incluso un carácter fuera de lugar puede hacer que se queje.
 Pero si bien debe esperar sentirse un poco frustrado, consuélese con el hecho de que esta experiencia es típica y temporal: le sucede a todos, y la única forma de superarlo es seguir intentándolo.
 
 Antes de continuar, asegurémonos de que tiene una base sólida para ejecutar código de R y que conoce algunas de las características más útiles de RStudio.

@@ -73,7 +73,7 @@ Y que tal por la isla donde vive el pinguino.
 Puedes probar tu respuesta con el **data frame** `penguins` que se encuentra en palmerpenguins (a.k.a. `palmerpenguins::penguins`).
 Un data frame es una colección rectangular de variables (en las columnas) y observaciones (en las filas).
 `penguins` contiene observaciones `r nrow(penguins)` recopiladas y puestas a disposición por la Dra.
-Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2].
+Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2]. En este contexto, una variable se refiere a un atributo de todos los pingüinos y una observación se refiere a todos los atributos de un solo pingüino.
 
 [^data-visualize-2]: Horst AM, Hill AP, Gorman KB (2020).
     palmerpenguins: Datos de pingüinos del Archipiélago Palmer (Antártida).
@@ -87,7 +87,7 @@ penguins
 
 Este data frame contiene columnas `r ncol (penguins)`.
 Para una vista alternativa, donde puede ver todas las variables y las primeras observaciones de cada variable, use `glimpse()`.
-O, si está en RStudio, ejecute `View(penguins)` para abrir un visor de datos interactivo.
+O, si está en RStudio, haga clic en el nombre del data frame en el panel Entorno o ejecute `View(penguins)` para abrir un visor de datos interactivo.
 
 ```{r}
 glimpse(penguins)
@@ -159,17 +159,11 @@ ggplot2 busca las variables mapeadas en el argumento `data`, en este caso, `peng
 Las siguientes gráficas muestran el resultado de agregar estas asignaciones, una a la vez.
 
 ```{r}
-#| layout-ncol: 2
 #| fig-alt: >
-#|   Hay dos gráficas. El gráfico de la izquierda muestra la longitud de la aleta en
-#|   el eje x. Los valores oscilan entre 170 y 230. El gráfico de la derecha 
-#|   también muestra la masa corporal en el eje y. Los valores van de 3000 a 
-#|   6000.
+#|   La gráfica muestra la longitud de la aleta en el eje x, con valores que van desde
+#| 170 a 230, y masa corporal en el eje y, con valores que van desde 3000
+#| a 6000.
 
-ggplot(
-  data = penguins,
-  mapping = aes(x = flipper_length_mm)
-)
 ggplot(
   data = penguins,
   mapping = aes(x = flipper_length_mm, y = body_mass_g)
@@ -204,7 +198,7 @@ ggplot(
 ```
 
 Ahora tenemos algo que se parece a lo que podríamos considerar como un "diagrama de dispersión".
-Todavía no coincide con nuestra gráfica de "objetivo final", pero usando esta gráfica podemos comenzar a responder la pregunta que motivó nuestra exploración: "¿Cómo es la relación entre la longitud de las aletas y la masa corporal?" La relación parece ser positiva, bastante lineal y moderadamente fuerte.
+Todavía no coincide con nuestra gráfica de "objetivo final", pero usando esta gráfica podemos comenzar a responder la pregunta que motivó nuestra exploración: "¿Cómo es la relación entre la longitud de las aletas y la masa corporal?" La relación parece ser positiva (a medida que aumenta la longitud de la aleta, también lo hace la masa corporal), bastante lineal (los puntos se agrupan alrededor de una línea en lugar de una curva) y moderadamente fuerte (no hay demasiada dispersión alrededor de esa línea).
 Los pingüinos con aletas más largas son generalmente más grandes en términos de masa corporal.
 
 Antes de agregar más capas a este gráfico, hagamos una pausa por un momento y revisemos el mensaje de advertencia que recibimos:
@@ -227,7 +221,8 @@ Para las gráficas restantes en este capítulo, suprimiremos esta advertencia pa
 ### Agregar estética y capas
 
 Los diagramas de dispersión son útiles para mostrar la relación entre dos variables, pero siempre es una buena idea ser escéptico ante cualquier relación aparente entre dos variables y preguntar si puede haber otras variables que expliquen o cambien la naturaleza de esta relación aparente.
-Incorporemos las especies a nuestra gráfica y veamos si esto revela alguna información adicional sobre la aparente relación entre la longitud de las aletas y la masa corporal.
+Por ejemplo, ¿la relación entre la longitud de las aletas y la masa corporal difiere según la especie?
+Incorporemos las especies a nuestra gráfica y veamos si esto revela alguna información adicional sobre la aparente relación entre estas variables.
 Haremos esto representando especies con puntos de diferentes colores.
 
 Para lograr esto, ¿dónde debería ir `species` en la llamada ggplot anterior?
@@ -486,8 +481,6 @@ penguins |>
   geom_point()
 ```
 
-Esta es la sintaxis más común que verá en la naturaleza.
-
 ## Visualización de distribuciones
 
 Cómo visualiza la distribución de una variable depende del tipo de variable: categórica o numérica.
@@ -528,20 +521,17 @@ Aprenderá más sobre factores y funciones para manejar factores (como `fct_infr
 
 Una variable es **numérica** si puede tomar cualquiera de un conjunto infinito de valores ordenados.
 Los números y las fechas y horas son dos ejemplos de variables continuas.
-Para visualizar la distribución de una variable continua, puede usar un histograma o un diagrama de densidad.
+Una visualización de uso común para distribuciones de variables continuas es un histograma.
 
 ```{r}
 #| warning: false
 #| layout-ncol: 2
 #| fig-alt: >
-#|   Un histograma (a la izquierda) y un diagrama de densidad (a la derecha) de las masas corporales
-#|   de pinguinos. La distribución es unimodal y sesgada a la derecha, variando
-#|   entre 2500 a 6500 gramos aproximadamente.
+#|   Un histograma de masas corporales de pingüinos. La distribución es unimodal.
+#|   y sesgada a la derecha, oscilando entre aproximadamente 2500 a 6500 gramos.
 
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
-ggplot(penguins, aes(x = body_mass_g)) +
-  geom_density()
 ```
 
 Un histograma divide el eje x en contenedores igualmente espaciados y luego usa la altura de una barra para mostrar el número de observaciones que caen en cada contenedor.
@@ -573,6 +563,23 @@ ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 200)
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 2000)
+```
+
+Una visualización alternativa para distribuciones de variables numéricas es una gráfica de densidad.
+Un gráfico de densidad es una versión suavizada de un histograma y una alternativa práctica, particularmente para datos continuos que provienen de una distribución suave subyacente.
+No entraremos en cómo `geom_density()` estima la densidad (puede leer más sobre eso en la documentación de la función), pero expliquemos cómo se dibuja la curva de densidad con una analogía.
+Imagina un histograma hecho de bloques de madera.
+Luego, imagina que le tiras encima un hilo de espagueti cocido.
+La forma que tomarán los espaguetis sobre los bloques se puede considerar como la forma de la curva de densidad.
+Muestra menos detalles que un histograma, pero puede facilitar la obtención rápida de la forma de la distribución, en particular con respecto a las modas y la asimetría.
+
+```{r}
+#| fig-alt: >
+#|   Un gráfico de densidad de masas corporales de pingüinos. La distribución es unimodal.
+#|   y sesgada a la derecha, oscilando entre aproximadamente 2500 a 6500 gramos.
+
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_density()
 ```
 
 ### Ejercicios
@@ -607,10 +614,10 @@ En las siguientes secciones, aprenderá acerca de las gráficas comúnmente util
 ### Una variable numérica y categórica
 
 Para visualizar la relación entre una variable numérica y categórica, podemos usar diagramas de caja uno al lado del otro.
-Un **diagrama de caja** es un tipo de abreviatura visual para una distribución de valores que es popular entre los estadísticos.
+Un **diagrama de caja** es un tipo de abreviatura visual para medidas de posición (percentiles) que describen una distribución que se usa comúnmente en el análisis estadístico de datos.
 Como se muestra en @fig-eda-boxplot, cada diagrama de caja consta de:
 
--   Una caja que se extiende desde el percentil 25 de la distribución hasta el percentil 75, distancia conocida como rango intercuartílico (RIC).
+-   Un caja que indica el rango de la mitad central de los datos, una distancia conocida como rango intercuartil (RIC), que se extiende desde el percentil 25 de la distribución hasta el percentil 75.
     En el medio del cuadro hay una línea que muestra la mediana, es decir, el percentil 50, de la distribución.
     Estas tres líneas le dan una idea de la dispersión de la distribución y si la distribución es o no simétrica con respecto a la mediana o sesgada hacia un lado.
 
@@ -795,11 +802,7 @@ Aprenderá sobre muchas otros geoms para visualizar distribuciones de variables 
 
     ```{r}
     #| warning: false
-    #| fig-alt: >
-    #|   Gráfica de dispersión de la profundidad del pico frente a la longitud del pico donde hay diferentes colores y
-    #|   los pares de formas representan cada especie. La gráfica tiene dos leyendas,
-    #|   uno etiquetado como "especies" que muestra la escala de forma y el otro
-    #|   que muestra la escala de colores.
+    #| fig-show: hide
 
     ggplot(
       data = penguins,
@@ -810,6 +813,19 @@ Aprenderá sobre muchas otros geoms para visualizar distribuciones de variables 
     ) +
       geom_point() +
       labs(color = "Especies")
+    ```
+
+7.  Cree los dos diagramas de barras segmentadas siguientes.
+    ¿Qué pregunta puedes responder con la primera?
+    ¿Qué pregunta puedes responder con la segunda?
+
+    ```{r}
+    #| fig-show: hide
+
+    ggplot(penguins, aes(x = island, fill = species)) +
+      geom_bar(position = "fill")
+    ggplot(penguins, aes(x = species, fill = island)) +
+      geom_bar(position = "fill")
     ```
 
 ## Guardando tus gráficas {#sec-ggsave}
