@@ -143,7 +143,7 @@ edad_maria <- NA
 # No sabemos cuántos años tiene Juan.
 edad_juan <- NA
 
-# ¿Juan y María tienen la misma edad?
+# ¿María y Juan tienen la misma edad?
 edad_maria == edad_juan
 # ¡No sabemos!
 

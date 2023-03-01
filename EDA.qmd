@@ -766,4 +766,4 @@ En este capítulo, aprendió una variedad de herramientas para ayudarlo a compre
 Ha visto técnicas que funcionan con una sola variable a la vez y con un par de variables.
 Esto puede parecer una restricción dolorosa si tiene decenas o cientos de variables en sus datos, pero son la base sobre la que se construyen todas las demás técnicas.
 
-En el próximo capítulo, abordaremos nuestro último consejo de flujo de trabajo: cómo obtener ayuda cuando está atascado.
+En el próximo capítulo, nos centraremos en las herramientas que podemos utilizar para comunicar nuestros resultados.
