@@ -7,20 +7,20 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-Numeric vectors are the backbone of data science, and you've already used them a bunch of times earlier in the book.
-Now it's time to systematically survey what you can do with them in R, ensuring that you're well situated to tackle any future problem involving numeric vectors.
+Los vectores numéricos son la columna vertebral de la ciencia de datos y ya los ha usado varias veces anteriormente en el libro.
+Ahora es el momento de examinar sistemáticamente lo que puede hacer con ellos en R, asegurándose de estar bien situado para abordar cualquier problema futuro que involucre vectores numéricos.
 
-We'll start by giving you a couple of tools to make numbers if you have strings, and then going into a little more detail of `count()`.
-Then we'll dive into various numeric transformations that pair well with `mutate()`, including more general transformations that can be applied to other types of vector, but are often used with numeric vectors.
-We'll finish off by covering the summary functions that pair well with `summarize()` and show you how they can also be used with `mutate()`.
+Comenzaremos brindándole un par de herramientas para hacer números si tiene cadenas, y luego entraremos en un poco más de detalle de `count()`.
+Luego nos sumergiremos en varias transformaciones numéricas que combinan bien con `mutate()`, incluidas transformaciones más generales que se pueden aplicar a otros tipos de vectores, pero que a menudo se usan con vectores numéricos.
+Terminaremos cubriendo las funciones de resumen que combinan bien con `summarize()` y le mostraremos cómo también se pueden usar con `mutate()`.
 
-### Prerequisites
+### Requisitos previos
 
-This chapter mostly uses functions from base R, which are available without loading any packages.
-But we still need the tidyverse because we'll use these base R functions inside of tidyverse functions like `mutate()` and `filter()`.
-Like in the last chapter, we'll use real examples from nycflights13, as well as toy examples made with `c()` and `tribble()`.
+Este capítulo utiliza principalmente funciones de base R, que están disponibles sin cargar ningún paquete.
+Pero aún necesitamos el tidyverse porque usaremos estas funciones básicas de R dentro de las funciones de tidyverse como `mutate()` y `filter()`.
+Como en el último capítulo, usaremos ejemplos reales de nycflights13, así como ejemplos de juguetes hechos con `c()` y `tribble()`.
 
 ```{r}
 #| label: setup
@@ -30,48 +30,48 @@ library(tidyverse)
 library(nycflights13)
 ```
 
-## Making numbers
+## Haciendo úmeros
 
-In most cases, you'll get numbers already recorded in one of R's numeric types: integer or double.
-In some cases, however, you'll encounter them as strings, possibly because you've created them by pivoting from column headers or because something has gone wrong in your data import process.
+En la mayoría de los casos, obtendrá números ya registrados en uno de los tipos numéricos de R: entero o doble.
+En algunos casos, sin embargo, los encontrará como cadenas, posiblemente porque los creó al girar desde los encabezados de columna o porque algo salió mal en su proceso de importación de datos.
 
-readr provides two useful functions for parsing strings into numbers: `parse_double()` and `parse_number()`.
-Use `parse_double()` when you have numbers that have been written as strings:
+readr proporciona dos funciones útiles para analizar cadenas en números: `parse_double()` y `parse_number()`.
+Usa `parse_double()` cuando tengas números escritos como cadenas:
 
 ```{r}
 x <- c("1.2", "5.6", "1e3")
 parse_double(x)
 ```
 
-Use `parse_number()` when the string contains non-numeric text that you want to ignore.
-This is particularly useful for currency data and percentages:
+Usa `parse_number()` cuando la cadena contenga texto no numérico que quieras ignorar.
+Esto es particularmente útil para datos de moneda y porcentajes:
 
 ```{r}
 x <- c("$1,234", "USD 3,513", "59%")
 parse_number(x)
 ```
 
-## Counts
+## Contar
 
-It's surprising how much data science you can do with just counts and a little basic arithmetic, so dplyr strives to make counting as easy as possible with `count()`.
-This function is great for quick exploration and checks during analysis:
+Es sorprendente la cantidad de ciencia de datos que puede hacer con solo conteos y un poco de aritmética básica, por lo que dplyr se esfuerza por hacer que contar sea lo más fácil posible con `count()`.
+Esta función es excelente para realizar exploraciones y comprobaciones rápidas durante el análisis:
 
 ```{r}
 flights |> count(dest)
 ```
 
-(Despite the advice in @sec-workflow-style, we usually put `count()` on a single line because it's usually used at the console for a quick check that a calculation is working as expected.)
+(A pesar de los consejos en @sec-workflow-style, generalmente colocamos `count()` en una sola línea porque generalmente se usa en la consola para verificar rápidamente que un cálculo funciona como se esperaba.)
 
-If you want to see the most common values, add `sort = TRUE`:
+Si desea ver los valores más comunes, agregue `sort = TRUE`:
 
 ```{r}
 flights |> count(dest, sort = TRUE)
 ```
 
-And remember that if you want to see all the values, you can use `|> View()` or `|> print(n = Inf)`.
+Y recuerda que si quieres ver todos los valores, puedes usar `|> View()` o `|> print(n = Inf)`.
 
-You can perform the same computation "by hand" with `group_by()`, `summarize()` and `n()`.
-This is useful because it allows you to compute other summaries at the same time:
+Puede realizar el mismo cálculo "a mano" con `group_by()`, `summarize()` y `n()`.
+Esto es útil porque le permite calcular otros resúmenes al mismo tiempo:
 
 ```{r}
 flights |> 
@@ -82,8 +82,8 @@ flights |>
   )
 ```
 
-`n()` is a special summary function that doesn't take any arguments and instead accesses information about the "current" group.
-This means that it only works inside dplyr verbs:
+`n()` es una función de resumen especial que no toma ningún argumento y en su lugar accede a información sobre el grupo "actual".
+Esto significa que solo funciona dentro de los verbos dplyr:
 
 ```{r}
 #| error: true
@@ -91,10 +91,10 @@ This means that it only works inside dplyr verbs:
 n()
 ```
 
-There are a couple of variants of `n()` and `count()` that you might find useful:
+Hay un par de variantes de `n()` y `count()` que pueden resultarle útiles:
 
--   `n_distinct(x)` counts the number of distinct (unique) values of one or more variables.
-    For example, we could figure out which destinations are served by the most carriers:
+-   `n_distinct(x)` cuenta el número de valores distintos (únicos) de una o más variables.
+    Por ejemplo, podríamos averiguar qué destinos son atendidos por la mayoría de los transportistas:
 
     ```{r}
     flights |> 
@@ -103,8 +103,8 @@ There are a couple of variants of `n()` and `count()` that you might find useful
       arrange(desc(carriers))
     ```
 
--   A weighted count is a sum.
-    For example you could "count" the number of miles each plane flew:
+-   Una cuenta ponderada es una suma.
+    Por ejemplo, podría "contar" el número de millas que voló cada avión:
 
     ```{r}
     flights |> 
@@ -112,15 +112,15 @@ There are a couple of variants of `n()` and `count()` that you might find useful
       summarize(miles = sum(distance))
     ```
 
-    Weighted counts are a common problem so `count()` has a `wt` argument that does the same thing:
+    Los recuentos ponderados son un problema común, por lo que `count()` tiene un argumento `wt` que hace lo mismo:
 
     ```{r}
     #| results: false
     flights |> count(tailnum, wt = distance)
     ```
 
--   You can count missing values by combining `sum()` and `is.na()`.
-    In the `flights` dataset this represents flights that are cancelled:
+-   Puede contar los valores perdidos combinando `sum()` y `is.na()`.
+    En el conjunto de datos de `flights`, esto representa los vuelos que se cancelan:
 
     ```{r}
     flights |> 
@@ -128,30 +128,30 @@ There are a couple of variants of `n()` and `count()` that you might find useful
       summarize(n_cancelled = sum(is.na(dep_time))) 
     ```
 
-### Exercises
+### Ejercicios
 
-1.  How can you use `count()` to count the number rows with a missing value for a given variable?
-2.  Expand the following calls to `count()` to instead use `group_by()`, `summarize()`, and `arrange()`:
+1.  ¿Cómo puedes usar `count()` para contar las filas de números con un valor faltante para una variable dada?
+2.  Expanda las siguientes llamadas a `count()` para usar en su lugar `group_by()`, `summarize()` y `arrange()`:
     1.  `flights |> count(dest, sort = TRUE)`
 
     2.  `flights |> count(tailnum, wt = distance)`
 
-## Numeric transformations
+## Transformaciones numéricas
 
-Transformation functions work well with `mutate()` because their output is the same length as the input.
-The vast majority of transformation functions are already built into base R.
-It's impractical to list them all so this section will show the most useful ones.
-As an example, while R provides all the trigonometric functions that you might dream of, we don't list them here because they're rarely needed for data science.
+Las funciones de transformación funcionan bien con `mutate()` porque su salida tiene la misma longitud que la entrada.
+La gran mayoría de las funciones de transformación ya están integradas en la base R.
+No es práctico enumerarlos todos, por lo que esta sección mostrará los más útiles.
+Como ejemplo, aunque R proporciona todas las funciones trigonométricas con las que podría soñar, no las enumeramos aquí porque rara vez se necesitan para la ciencia de datos.
 
-### Arithmetic and recycling rules {#sec-recycling}
+### Reglas aritméticas y de reciclaje. {#sec-recycling}
 
-We introduced the basics of arithmetic (`+`, `-`, `*`, `/`, `^`) in @sec-workflow-basics and have used them a bunch since.
-These functions don't need a huge amount of explanation because they do what you learned in grade school.
-But we need to briefly talk about the **recycling rules** which determine what happens when the left and right hand sides have different lengths.
-This is important for operations like `flights |> mutate(air_time = air_time / 60)` because there are 336,776 numbers on the left of `/` but only one on the right.
+Introdujimos los conceptos básicos de aritmética (`+`, `-`, `*`, `/`, `^`) en @sec-workflow-basics y los hemos usado mucho desde entonces.
+Estas funciones no necesitan una gran cantidad de explicación porque hacen lo que aprendiste en la escuela primaria.
+Pero necesitamos hablar brevemente sobre las **reglas de reciclaje** que determinan lo que sucede cuando los lados izquierdo y derecho tienen diferentes longitudes.
+Esto es importante para operaciones como `flights |> mutate(air_time = air_time / 60)` porque hay 336.776 números a la izquierda de `/` pero solo uno a la derecha.
 
-R handles mismatched lengths by **recycling,** or repeating, the short vector.
-We can see this in operation more easily if we create some vectors outside of a data frame:
+R maneja las longitudes que no coinciden **reciclando** o repitiendo el vector corto.
+Podemos ver esto en funcionamiento más fácilmente si creamos algunos vectores fuera de un data frame:
 
 ```{r}
 x <- c(1, 2, 10, 20)
@@ -160,30 +160,30 @@ x / 5
 x / c(5, 5, 5, 5)
 ```
 
-Generally, you only want to recycle single numbers (i.e. vectors of length 1), but R will recycle any shorter length vector.
-It usually (but not always) gives you a warning if the longer vector isn't a multiple of the shorter:
+En general, solo desea reciclar números individuales (es decir, vectores de longitud 1), pero R reciclará cualquier vector de longitud más corta.
+Por lo general (pero no siempre) le da una advertencia si el vector más largo no es un múltiplo del más corto:
 
 ```{r}
 x * c(1, 2)
 x * c(1, 2, 3)
 ```
 
-These recycling rules are also applied to logical comparisons (`==`, `<`, `<=`, `>`, `>=`, `!=`) and can lead to a surprising result if you accidentally use `==` instead of `%in%` and the data frame has an unfortunate number of rows.
-For example, take this code which attempts to find all flights in January and February:
+Estas reglas de reciclaje también se aplican a las comparaciones lógicas (`==`, `<`, `<=`, `>`, `>=`, `!=`) y pueden conducir a un resultado sorprendente si accidentalmente usa `==` en lugar de `%in%` y el marco de datos tiene un número desafortunado de filas.
+Por ejemplo, tome este código que intenta encontrar todos los vuelos en enero y febrero:
 
 ```{r}
 flights |> 
   filter(month == c(1, 2))
 ```
 
-The code runs without error, but it doesn't return what you want.
-Because of the recycling rules it finds flights in odd numbered rows that departed in January and flights in even numbered rows that departed in February.
-And unfortunately there's no warning because `flights` has an even number of rows.
+El código se ejecuta sin errores, pero no devuelve lo que desea.
+Debido a las reglas de reciclaje, encuentra vuelos en filas impares que partieron en enero y vuelos en filas pares que partieron en febrero.
+Y, lamentablemente, no hay ninguna advertencia porque `flights` tiene un número par de filas.
 
-To protect you from this type of silent failure, most tidyverse functions use a stricter form of recycling that only recycles single values.
-Unfortunately that doesn't help here, or in many other cases, because the key computation is performed by the base R function `==`, not `filter()`.
+Para protegerlo de este tipo de fallas silenciosas, la mayoría de las funciones de tidyverse utilizan una forma más estricta de reciclaje que solo recicla valores únicos.
+Desafortunadamente, eso no ayuda aquí, ni en muchos otros casos, porque el cálculo clave lo realiza la función base R `==`, no `filter()`.
 
-### Minimum and maximum
+### Mínimo y máximo
 
 The arithmetic functions work with pairs of variables.
 Two closely related functions are `pmin()` and `pmax()`, which when given two or more variables will return the smallest or largest value in each row:
