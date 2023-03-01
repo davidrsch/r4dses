@@ -161,8 +161,8 @@ Las siguientes gráficas muestran el resultado de agregar estas asignaciones, un
 ```{r}
 #| fig-alt: >
 #|   La gráfica muestra la longitud de la aleta en el eje x, con valores que van desde
-#| 170 a 230, y masa corporal en el eje y, con valores que van desde 3000
-#| a 6000.
+#|   170 a 230, y masa corporal en el eje y, con valores que van desde 3000
+#|   a 6000.
 
 ggplot(
   data = penguins,
