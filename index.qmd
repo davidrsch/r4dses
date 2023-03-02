@@ -4,8 +4,8 @@ Este es el sitio web de la segunda edición de trabajo en progreso de **"R para 
 Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
 En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
-Así como un químico aprende a limpiar tubos de ensayo y abastecer un laboratorio, usted aprenderá a limpiar datos y dibujar diagramas, y mucho más.
-Estas son las habilidades que hacen que exista la ciencia de datos, y aquí encontrará las mejores prácticas para hacer cada una de estas cosas con R.
+Así como un químico aprende a limpiar tubos de ensayo y a abastecer un laboratorio, usted aprenderá a limpiar datos, dibujar diagramas y mucho más.
+Estas son las habilidades que hacen que exista la ciencia de datos y aquí encontrará las mejores prácticas para realizar estas tareas con R.
 Aprenderá a usar la gramática de los gráficos, la programación literaria y la investigación reproducible para ahorrar tiempo.
 También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.
 

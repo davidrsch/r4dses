@@ -10,7 +10,7 @@ A continuación se incluye un breve resumen de los cambios más importantes:
     El objetivo de esta sección es brindarle los detalles aproximados del "juego completo" de la ciencia de datos antes de sumergirnos en los detalles.
 
 -   La segunda parte del libro es "Visualizar".
-    Esta parte brinda a las herramientas de visualización de datos y las mejores prácticas una cobertura más completa en comparación con la primera edición.
+    Esta parte brinda a las herramientas de visualización de datos y a las mejores prácticas una cobertura más completa en comparación con la primera edición.
 
 -   La tercera parte del libro ahora se llama "Transformar" y gana nuevos capítulos sobre números, vectores lógicos y valores faltantes.
     Anteriormente, estas eran partes del capítulo de transformación de datos, pero necesitaban mucho más espacio.
@@ -18,9 +18,9 @@ A continuación se incluye un breve resumen de los cambios más importantes:
 -   La cuarta parte del libro se llama "Importar".
     Es un nuevo conjunto de capítulos que va más allá de la lectura de archivos de texto sin formato para abarcar ahora el trabajo con hojas de cálculo, la extracción de datos de bases de datos, el trabajo con macrodatos, el rectángulo de datos jerárquicos y la extracción de datos de sitios web.
 
--   La parte "Programa" continúa, pero se ha reescrito de arriba a abajo para centrarse en las partes más importantes de la escritura e iteración de funciones.
+-   La parte "Programar" continúa, pero se ha reescrito de arriba a abajo para centrarse en las partes más importantes de la escritura e iteración de funciones.
     La escritura de funciones ahora incluye secciones sobre cómo envolver funciones tidyverse (que se ocupan de los desafíos de la evaluación ordenada), ya que esto se ha vuelto mucho más fácil en los últimos años.
-    Hemos agregado un nuevo capítulo sobre funciones importantes de Base R que es probable que vea al leer el código R que se encuentra en la naturaleza.
+    Hemos agregado un nuevo capítulo sobre funciones importantes de R Base que es probable que vea al leer el código R que se encuentra en la naturaleza.
 
 -   La parte de modelado ha sido eliminada.
     Nunca tuvimos suficiente espacio para hacer justicia a las distintas técnicas de modelación por completo, y ahora hay muchos y mejores recursos disponibles.
@@ -28,4 +28,4 @@ A continuación se incluye un breve resumen de los cambios más importantes:
 
 -   La parte de comunicación también continúa, pero presenta Quarto en lugar de R Markdown como la herramienta elegida para crear documentos computacionales reproducibles.
 
-Otros cambios incluyen cambiar de la canalización de Magrittr (`%>%`) a la canalización base (`|>`) y cambiar el código fuente del libro de RMarkdown a Quarto.
+Otros cambios incluyen cambiar de la canalización o pipe de Magrittr (`%>%`) a la canalización base (`|>`) y cambiar el código fuente del libro de RMarkdown a Quarto.
