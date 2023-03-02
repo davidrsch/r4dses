@@ -185,8 +185,8 @@ Desafortunadamente, eso no ayuda aquí, ni en muchos otros casos, porque el cál
 
 ### Mínimo y máximo
 
-The arithmetic functions work with pairs of variables.
-Two closely related functions are `pmin()` and `pmax()`, which when given two or more variables will return the smallest or largest value in each row:
+Las funciones aritméticas trabajan con pares de variables.
+Dos funciones estrechamente relacionadas son `pmin()` y `pmax()`, que cuando se les dan dos o más variables devolverán el valor más pequeño o más grande en cada fila:
 
 ```{r}
 df <- tribble(
@@ -203,8 +203,8 @@ df |>
   )
 ```
 
-Note that these are different to the summary functions `min()` and `max()` which take multiple observations and return a single value.
-You can tell that you've used the wrong form when all the minimums and all the maximums have the same value:
+Tenga en cuenta que estas son diferentes a las funciones de resumen `min()` y `max()` que toman múltiples observaciones y devuelven un solo valor.
+Puedes darte cuenta de que has usado la forma incorrecta cuando todos los mínimos y todos los máximos tienen el mismo valor:
 
 ```{r}
 df |> 
@@ -214,17 +214,17 @@ df |>
   )
 ```
 
-### Modular arithmetic
+### Aritmética modular
 
-Modular arithmetic is the technical name for the type of math you did before you learned about decimal places, i.e. division that yields a whole number and a remainder.
-In R, `%/%` does integer division and `%%` computes the remainder:
+La aritmética modular es el nombre técnico del tipo de matemática que hacías antes de aprender sobre los lugares decimales, es decir, la división que produce un número entero y un resto.
+En R, `%/%` realiza la división de enteros y `%%` calcula el resto:
 
 ```{r}
 1:10 %/% 3
 1:10 %% 3
 ```
 
-Modular arithmetic is handy for the `flights` dataset, because we can use it to unpack the `sched_dep_time` variable into `hour` and `minute`:
+La aritmética modular es útil para el conjunto de datos `flights`, porque podemos usarla para desempaquetar la variable `sched_dep_time` en `hour` y `minute`:
 
 ```{r}
 flights |> 
@@ -235,22 +235,23 @@ flights |>
   )
 ```
 
-We can combine that with the `mean(is.na(x))` trick from @sec-logical-summaries to see how the proportion of cancelled flights varies over the course of the day.
-The results are shown in @fig-prop-cancelled.
+Podemos combinar eso con el truco `mean(is.na(x))` de @sec-logical-summaries para ver cómo varía la proporción de vuelos cancelados a lo largo del día.
+Los resultados se muestran en @fig-prop-cancelled.
 
 ```{r}
 #| label: fig-prop-cancelled
 #| fig-cap: > 
-#|   A line plot with scheduled departure hour on the x-axis, and proportion
-#|   of cancelled flights on the y-axis. Cancellations seem to accumulate
-#|   over the course of the day until 8pm, very late flights are much
-#|   less likely to be cancelled.
+#|   Un gráfico de líneas con la hora de salida programada en el eje x y la proporción
+#|   de vuelos cancelados en el eje y. Las cancelaciones parecen acumularse
+#|   en el transcurso del día hasta las 8:00 p. m., los vuelos muy tardíos son mucho
+#|   menos probables de ser cancelado.
 #| fig-alt: >
-#|   A line plot showing how proportion of cancelled flights changes over
-#|   the course of the day. The proportion starts low at around 0.5% at
-#|   6am, then steadily increases over the course of the day until peaking
-#|   at 4% at 7pm. The proportion of cancelled flights then drops rapidly
-#|   getting down to around 1% by midnight.
+#|   Un gráfico de líneas que muestra cómo cambia la proporción de vuelos cancelados a lo largo de
+#|   el transcurso del día. La proporción comienza baja en torno al 0,5% en
+#|   6 a.m., luego aumenta constantemente a lo largo del día hasta alcanzar su punto máximo
+#|   el 4% a las 19 h. La proporción de vuelos cancelados cae rápidamente
+#|   bajando a alrededor del 1% para la medianoche.
+
 flights |> 
   group_by(hour = sched_dep_time %/% 100) |> 
   summarize(prop_cancelled = mean(is.na(dep_time)), n = n()) |> 
@@ -260,43 +261,43 @@ flights |>
   geom_point(aes(size = n))
 ```
 
-### Logarithms
+### Logaritmos
 
-Logarithms are an incredibly useful transformation for dealing with data that ranges across multiple orders of magnitude and convert exponential growth to linear growth.
-In R, you have a choice of three logarithms: `log()` (the natural log, base e), `log2()` (base 2), and `log10()` (base 10).
-We recommend using `log2()` or `log10()`.
-`log2()` is easy to interpret because a difference of 1 on the log scale corresponds to doubling on the original scale and a difference of -1 corresponds to halving; whereas `log10()` is easy to back-transform because (e.g.) 3 is 10\^3 = 1000.
-The inverse of `log()` is `exp()`; to compute the inverse of `log2()` or `log10()` you'll need to use `2^` or `10^`.
+Los logaritmos son una transformación increíblemente útil para manejar datos que varían en varios órdenes de magnitud y convertir el crecimiento exponencial en crecimiento lineal.
+En R, puede elegir entre tres logaritmos: `log()` (el logaritmo natural, base e), `log2()` (base 2) y `log10()` (base 10).
+Recomendamos usar `log2()` o `log10()`.
+`log2()` es fácil de interpretar porque una diferencia de 1 en la escala logarítmica corresponde a duplicar la escala original y una diferencia de -1 corresponde a reducir a la mitad; mientras que `log10()` es fácil de transformar porque (por ejemplo) 3 es 10\^3 = 1000.
+El inverso de `log()` es `exp()`; para calcular el inverso de `log2()` o `log10()` necesitará usar `2^` o `10^`.
 
-### Rounding {#sec-rounding}
+### Redondeo {#sec-rounding}
 
-Use `round(x)` to round a number to the nearest integer:
+Usa `round(x)` para redondear un número al entero más cercano:
 
 ```{r}
 round(123.456)
 ```
 
-You can control the precision of the rounding with the second argument, `digits`.
-`round(x, digits)` rounds to the nearest `10^-n` so `digits = 2` will round to the nearest 0.01.
-This definition is useful because it implies `round(x, -3)` will round to the nearest thousand, which indeed it does:
+Puede controlar la precisión del redondeo con el segundo argumento dígitos, `digits`.
+`round(x, digits)` se redondea al `10^-n` más cercano, por lo que `digits = 2` se redondea al 0,01 más cercano.
+Esta definición es útil porque implica que `round(x, -3)` se redondeará al millar más cercano, lo que de hecho sucede:
 
 ```{r}
-round(123.456, 2)  # two digits
-round(123.456, 1)  # one digit
-round(123.456, -1) # round to nearest ten
-round(123.456, -2) # round to nearest hundred
+round(123.456, 2)  # dos dígitos
+round(123.456, 1)  # un dígito
+round(123.456, -1) # redondear a la decena más cercana
+round(123.456, -2) # redondear a la centena más cercana
 ```
 
-There's one weirdness with `round()` that seems surprising at first glance:
+Hay una rareza con `round()` que parece sorprendente a primera vista:
 
 ```{r}
 round(c(1.5, 2.5))
 ```
 
-`round()` uses what's known as "round half to even" or Banker's rounding: if a number is half way between two integers, it will be rounded to the **even** integer.
-This is a good strategy because it keeps the rounding unbiased: half of all 0.5s are rounded up, and half are rounded down.
+`round()` utiliza lo que se conoce como "redondear la mitad a par" o redondeo bancario: si un número está a medio camino entre dos enteros, se redondeará al entero **par**.
+Esta es una buena estrategia porque mantiene el redondeo imparcial: la mitad de todos los 0,5 se redondean hacia arriba y la otra mitad hacia abajo.
 
-`round()` is paired with `floor()` which always rounds down and `ceiling()` which always rounds up:
+`round()` se empareja con `floor()` que siempre redondea hacia abajo y `ceiling()` que siempre redondea hacia arriba:
 
 ```{r}
 x <- 123.456
@@ -305,45 +306,45 @@ floor(x)
 ceiling(x)
 ```
 
-These functions don't have a `digits` argument, so you can instead scale down, round, and then scale back up:
+Estas funciones no tienen un argumento dígitos, `digits`, por lo que puede reducir, redondear y luego volver a aumentar:
 
 ```{r}
-# Round down to nearest two digits
+# Redondear hacia abajo a los dos dígitos más cercanos
 floor(x / 0.01) * 0.01
-# Round up to nearest two digits
+# Redondea hacia arriba a los dos dígitos más cercanos
 ceiling(x / 0.01) * 0.01
 ```
 
-You can use the same technique if you want to `round()` to a multiple of some other number:
+Puedes usar la misma técnica si quieres `round()` a un múltiplo de algún otro número:
 
 ```{r}
-# Round to nearest multiple of 4
+# Redondea al múltiplo más cercano de 4
 round(x / 4) * 4
 
-# Round to nearest 0.25
+# Redondear al 0,25 más cercano
 round(x / 0.25) * 0.25
 ```
 
-### Cutting numbers into ranges
+### Cortar números en rangos
 
-Use `cut()`[^numbers-1] to break up (aka bin) a numeric vector into discrete buckets:
+Use `cut()`[^numbers-1] para dividir (también conocido como bin) un vector numérico en cubos discretos:
 
-[^numbers-1]: ggplot2 provides some helpers for common cases in `cut_interval()`, `cut_number()`, and `cut_width()`.
-    ggplot2 is an admittedly weird place for these functions to live, but they are useful as part of histogram computation and were written before any other parts of the tidyverse existed.
+[^numbers-1]: ggplot2 proporciona algunos ayudantes para casos comunes en `cut_interval()`, `cut_number()` y `cut_width()`.
+    ggplot2 es un lugar ciertamente extraño para que vivan estas funciones, pero son útiles como parte del cálculo del histograma y se escribieron antes de que existieran otras partes del tidyverse.
 
 ```{r}
 x <- c(1, 2, 5, 10, 15, 20)
 cut(x, breaks = c(0, 5, 10, 15, 20))
 ```
 
-The breaks don't need to be evenly spaced:
+Los cortes no necesitan estar espaciados uniformemente:
 
 ```{r}
 cut(x, breaks = c(0, 5, 10, 100))
 ```
 
-You can optionally supply your own `labels`.
-Note that there should be one less `labels` than `breaks`.
+Opcionalmente, puede proporcionar sus propias etiquetas, `labels`.
+Tenga en cuenta que debe haber una etiqueta, `labels`, menos que rupturas, `breaks`.
 
 ```{r}
 cut(x, 
@@ -352,38 +353,38 @@ cut(x,
 )
 ```
 
-Any values outside of the range of the breaks will become `NA`:
+Cualquier valor fuera del rango de las rupturas se convertirá en `NA`:
 
 ```{r}
 y <- c(NA, -10, 5, 10, 30)
 cut(y, breaks = c(0, 5, 10, 15, 20))
 ```
 
-See the documentation for other useful arguments like `right` and `include.lowest`, which control if the intervals are `[a, b)` or `(a, b]` and if the lowest interval should be `[a, b]`.
+Consulte la documentación para ver otros argumentos útiles como `right` e `include.lowest`, que controlan si los intervalos son `[a, b)` o `(a, b]` y si el intervalo más bajo debe ser `[a, b]`.
 
-### Cumulative and rolling aggregates {#sec-cumulative-and-rolling-aggregates}
+### Agregados acumulativos y rodantes {#sec-cumulative-and-rolling-aggregates}
 
-Base R provides `cumsum()`, `cumprod()`, `cummin()`, `cummax()` for running, or cumulative, sums, products, mins and maxes.
-dplyr provides `cummean()` for cumulative means.
-Cumulative sums tend to come up the most in practice:
+Base R proporciona `cumsum()`, `cumprod()`, `cummin()`, `cummax()` para ejecutar, o acumular, sumas, productos, mínimos y máximos.
+dplyr proporciona `cummean()` para medios acumulativos.
+Las sumas acumulativas tienden a ser las más importantes en la práctica:
 
 ```{r}
 x <- 1:10
 cumsum(x)
 ```
 
-If you need more complex rolling or sliding aggregates, try the [slider](https://davisvaughan.github.io/slider/) package by Davis Vaughan.
+Si necesita agregados rodantes o deslizantes más complejos, pruebe el paquete [slider](https://davisvaughan.github.io/slider/) de Davis Vaughan.
 
-### Exercises
+### Ejercicios
 
-1.  Explain in words what each line of the code used to generate @fig-prop-cancelled does.
+1.  Explique con palabras qué hace cada línea del código utilizado para generar @fig-prop-cancelled.
 
-2.  What trigonometric functions does R provide?
-    Guess some names and look up the documentation.
-    Do they use degrees or radians?
+2.  ¿Qué funciones trigonométricas proporciona R?
+    Adivina algunos nombres y busca la documentación.
+    ¿Usan grados o radianes?
 
-3.  Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they're not really continuous numbers.
-    You can see the basic problem by running the code below: there's a gap between each hour.
+3.  Actualmente, `dep_time` y `sched_dep_time` son convenientes de ver, pero difíciles de calcular porque en realidad no son números continuos.
+    Puede ver el problema básico ejecutando el siguiente código: hay un intervalo entre cada hora.
 
     ```{r}
     #| eval: false
@@ -393,11 +394,11 @@ If you need more complex rolling or sliding aggregates, try the [slider](https:/
       geom_point()
     ```
 
-    Convert them to a more truthful representation of time (either fractional hours or minutes since midnight).
+    Conviértalos a una representación más veraz del tiempo (ya sean horas fraccionarias o minutos desde la medianoche).
 
-4.  Round `dep_time` and `arr_time` to the nearest five minutes.
+4.  Redondea `dep_time` y `arr_time` a los cinco minutos más cercanos.
 
-## General transformations
+## Transformaciones generales
 
 The following sections describe some general transformations which are often used with numeric vectors, but can be applied to all other column types.
 
