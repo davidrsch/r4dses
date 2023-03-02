@@ -503,5 +503,5 @@ En este capítulo, ha aprendido a cargar archivos CSV con `read_csv()` y a reali
 Ha aprendido cómo funcionan los archivos csv, algunos de los problemas que puede encontrar y cómo solucionarlos.
 Llegaremos a la importación de datos varias veces en este libro: @sec-import-spreadsheets desde Excel y Google Sheets, @sec-import-databases le mostrará cómo cargar datos desde bases de datos, @sec-arrow desde archivos parquet, \@ sec-rectangling de JSON y @sec-scraping de sitios web.
 
-Ahora que está escribiendo una cantidad sustancial de código R, es hora de aprender más sobre cómo organizar su código en archivos y directorios.
-En el próximo capítulo, aprenderá todo acerca de las ventajas de los scripts y proyectos, y algunas de las muchas herramientas que brindan para facilitarle la vida.
+Estamos casi al final de esta sección del libro, pero hay un último tema importante que cubrir: cómo obtener ayuda.
+Entonces, en el próximo capítulo, aprenderá algunos buenos lugares para buscar ayuda, cómo crear un reprex para maximizar sus posibilidades de obtener una buena ayuda y algunos consejos generales para mantenerse al día con el mundo de R.

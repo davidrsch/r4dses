@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -14,7 +15,7 @@ A menudo, necesitará crear nuevas variables o resúmenes para ver los patrones 
 Aprenderá cómo hacer todo eso (¡y más!) en este capítulo, que lo introducirá a la transformación de datos utilizando el paquete **dplyr** y un nuevo conjunto de datos en vuelos que partieron de la ciudad de Nueva York en 2013.
 
 El objetivo de este capítulo es brindarle una descripción general de todas las herramientas clave para transformar un data frame.
-Comenzaremos con funciones que operan en filas y luego en columnas de un data frame.
+Comenzaremos con funciones que operan en filas y luego columnas de un data frame, luego regresamos para hablar más sobre las canalizaciones o pipe, una herramienta importante que usa para combinar verbos.
 A continuación, introduciremos la capacidad de trabajar con grupos.
 Terminaremos el capítulo con un caso de estudio que muestra estas funciones en acción y volveremos a las funciones con más detalle en capítulos posteriores, a medida que comencemos a profundizar en tipos específicos de datos (por ejemplo, números, cadenas, fechas).
 
@@ -73,8 +74,8 @@ Pero antes de discutir sus diferencias individuales, vale la pena señalar lo qu
 
 3.  El resultado es siempre un nuevo data frame.
 
-Debido a que el primer argumento es un data frame y la salida es un data frame, los verbos dplyr funcionan bien con *pipe* `|>`.
-*Pipe* toma el objeto resultante de su izquierda y la pasa a la función de su derecha de modo que `x |> f(y)` es equivalente a `f(x, y)`, y `x |> f(y) |> g(z)` es equivalente a into `g(f(x, y), z)`.
+Dado que cada verbo es bastante simple, resolver problemas complejos generalmente requerirá combinar varios verbos, y lo haremos con las canalizaciones o pipes `|>`.
+Hablaremos más sobre las canalizaciones en @the-pipe, pero en resumen, una canalización toma la cosa a su izquierda y la pasa a la función a su derecha para que `x |> f(y)` sea equivalente a `f(x, y)`, y `x |> f(y) |> g(z)` es equivalente a `g(f(x, y), z)`.
 La forma más fácil de leer *pipe* es "entonces".
 Eso hace posible tener una idea del siguiente código aunque aún no haya aprendido los detalles:
 
@@ -89,11 +90,8 @@ flights |>
   )
 ```
 
-El código comienza con el conjunto de datos `flights`, luego lo filtra, luego lo agrupa y luego lo resume.
-Volveremos a *pipe* y sus alternativas en @sec-pipes.
-
 Los verbos de dplyr están organizados en cuatro grupos según lo que operan: **filas**, **columnas**, **grupos** o **tablas**.
-En las siguientes secciones, aprenderá los verbos más importantes para filas, columnas y grupos, luego regresaremos a los verbos que funcionan en tablas en @sec-joins.
+En las siguientes secciones, aprenderá los verbos más importantes para filas, columnas y grupos, luego regresaremos a los verbos de unión que funcionan en tablas en @sec-joins.
 ¡Vamos a empezar!
 
 ## Filas
@@ -193,15 +191,6 @@ flights |>
   arrange(desc(dep_delay))
 ```
 
-Puedes combinar `arrange()` y `filter()` para resolver problemas más complejos.
-Por ejemplo, podríamos filtrar los vuelos que salieron más o menos a tiempo y luego organizar los resultados para ver qué vuelos se retrasaron más al llegar:
-
-```{r}
-flights |> 
-  filter(dep_delay <= 10 & dep_delay >= -10) |> 
-  arrange(desc(arr_delay))
-```
-
 ### `distinct()`
 
 `distinct()` encuentra todas las filas únicas en un conjunto de datos, por lo que, en un sentido técnico, opera principalmente en las filas.
@@ -282,6 +271,7 @@ También puede usar `.after` para agregar después de una variable, y tanto en `
 Por ejemplo, podríamos agregar las nuevas variables después de `day`:
 
 ```{r}
+#| results: false
 flights |> 
   mutate(
     ganancia = dep_delay - arr_delay,
@@ -291,9 +281,11 @@ flights |>
 ```
 
 Alternativamente, puede controlar qué variables se mantienen con el argumento `.keep`.
-Un argumento particularmente útil es `"used"`, que le permite ver las entradas y salidas de sus cálculos:
+Un argumento particularmente útil es `"used"`, que le permite ver las entradas y salidas de sus cálculos.
+Por ejemplo, la siguiente salida contendrá solo las variables `dep_delay`, `arr_delay`, `air_time`, `gain`, `hours` y `gain_per_hour`.
 
 ```{r}
+#| results: false
 flights |> 
   mutate(
     ganancia = dep_delay - arr_delay,
@@ -310,20 +302,34 @@ En esta situación, el primer desafío suele ser centrarse en las variables que 
 `select()` le permite acercarse rápidamente a un subconjunto útil utilizando operaciones basadas en los nombres de las variables.
 `select()` no es muy útil con los datos de los vuelos porque solo tenemos 19 variables, pero aún puedes hacerte una idea general de cómo funciona:
 
-```{r}
-# Seleccionar columnas por nombre
-flights |> 
-  select(year, month, day)
+-   Seleccionar columnas por nombre
 
-# Seleccionar todas las columnas entre year y day (incluyendolas)
+```{r}
+#| results: false
+flights |>
+  select(year, month, day)
+```
+
+-   Seleccionar todas las columnas entre year y day
+
+```{r}
+#| results: false
 flights |> 
   select(year:day)
+```
 
-# eleccionar todas las columnas excepto aquellas entre year y day (incluyendolas)
+-   Seleccionar todas las columnas excepto aquellas entre year y day (incluyendolas)
+
+```{r}
+#| results: false
 flights |> 
   select(!year:day)
+```
 
-# Seleccionar todas las columnas que son caracteres
+-   Seleccionar todas las columnas que son caracteres
+
+```{r}
+#| results: false 
 flights |> 
   select(where(is.character))
 ```
@@ -373,6 +379,8 @@ flights |>
 Pero puedes usar los mismos argumentos `.before` y `.after` que `mutate()` para elegir dónde ponerlos:
 
 ```{r}
+#| results: false
+
 flights |> 
   relocate(year:dep_time, .after = time_hour)
 flights |> 
@@ -423,6 +431,95 @@ ggplot(flights, aes(x = air_time - airtime2)) + geom_histogram()
 
 6.  Cambie el nombre de `air_time` a `air_time_min` para indicar las unidades de medida y muévalo al comienzo del data frame.
 
+## Canalizaciones o pipe {#the-pipe}
+
+Le mostramos ejemplos simples de las canalizaciones anteriormente, pero su verdadero poder surge cuando comienza a combinar varios verbos.
+Por ejemplo, imagine que desea encontrar vuelos rápidos al aeropuerto IAH de Houston: debe combinar `filter()`, `mutate()`, `select()` y `arrange()`:
+
+```{r}
+flights |> 
+  filter(dest == "IAH") |> 
+  mutate(speed = distance / air_time * 60) |>
+  select(year:day, dep_time, carrier, flight, speed) |>
+  arrange(desc(speed))
+```
+
+Aunque esta canalización tiene cuatro pasos, es fácil de hojear porque los verbos aparecen al comienzo de cada línea: comience con los datos de `flights`, luego filtre, luego agrupe y luego resuma.
+
+¿Qué pasaría si no tuviéramos la canalización?
+Podríamos anidar cada llamada de función dentro de la llamada anterior:
+
+```{r}
+#| results: false
+ 
+arrange(
+  select(
+    mutate(
+      filter(
+        flights,
+        dest == "IAH"
+      ),
+      speed = distance / air_time * 60
+    ),
+    year:day, dep_time, carrier, flight, speed
+  ),
+  desc(speed)
+)
+```
+
+O podríamos usar un montón de variables intermedias:
+
+```{r}
+#| results: false
+
+flights1 <- filter(flights, dest == "IAH")
+flights2 <- mutate(flights1, speed = distance / air_time * 60)
+flights3 <- select(flights2, year:day, dep_time, carrier, flight, speed)
+arrange(flights3, desc(speed))
+```
+
+Si bien ambas formas tienen su tiempo y lugar, la canalización generalmente produce un código de análisis de datos que es más fácil de escribir y leer.
+
+Para agregar la canalización a su código, recomendamos usar el atajo de teclado incorporado Ctrl/Cmd + Shift + M.
+Deberá realizar un cambio en sus opciones de RStudio para usar `|>` en lugar de `%>%` como se muestra en @fig-pipe-options; más sobre `%>%` en breve.
+
+485
+
+```{r}
+#| label: fig-pipe-options
+#| echo: false
+#| fig-cap: >
+#|   Para insertar `|>`, asegúrese de que la opción "Use native pipe operator" esté marcada.
+#| fig-alt: > 
+#|   Captura de pantalla que muestra la opción "Use native pipe operator" que puede
+#|   encontrarse en el panel "Editing" de las opciones de "Code".
+
+knitr::include_graphics("screenshots/rstudio-pipe-options.png")
+```
+
+::: callout-note
+## magrittr
+
+Si ha estado usando tidyverse por un tiempo, es posible que esté familiarizado con la canalización `%>%` proporcionada por el paquete **magrittr**.
+El paquete magrittr está incluido en el tidyverse principal, por lo que puede usar `%>%` siempre que cargue el tidyverse:
+
+```{r}
+#| eval: false
+ 
+library(tidyverse)
+
+mtcars %>% 
+  group_by(cyl) %>%
+  summarize(n = n())
+```
+
+Para casos simples, `|>` y `%>%` se comportan de manera idéntica.
+Entonces, ¿por qué recomendamos la tubería base?
+En primer lugar, debido a que es parte de la base R, siempre está disponible para su uso, incluso cuando no está utilizando el tidyverse.
+En segundo lugar, `|>` es un poco más simple que `%>%`: en el tiempo entre la invención de `%>%` en 2014 y la inclusión de `|>` en R 4.1.0 en 2021, ganamos una mejor comprensión de la tubería.
+Esto permitió que la implementación base desechara características poco utilizadas y menos importantes.
+:::
+
 ## Grupos
 
 Hasta ahora ha aprendido acerca de las funciones que funcionan con filas y columnas.
@@ -459,7 +556,7 @@ flights |>
 
 ¡UH oh!
 Algo salió mal y todos nuestros resultados son `NA` (pronunciado "N-A"), el símbolo de R para el valor faltante.
-Volveremos a discutir los valores faltantes en @sec-missing-values, pero por ahora los eliminaremos usando `na.rm = TRUE`:
+Volveremos a discutir los valores faltantes en detalle en @sec-missing-values, pero por ahora los eliminaremos usando `na.rm = TRUE`:
 
 ```{r}
 flights |> 
@@ -503,12 +600,6 @@ flights |>
 ```
 
 Esto es similar a calcular el retraso máximo con `summarize()`, pero obtienes la fila completa en lugar del resumen único:
-
-```{r}
-flights |> 
-  group_by(dest) |> 
-  summarize(max_delay = max(arr_delay, na.rm = TRUE))
-```
 
 ### Agrupación por múltiples variables
 
@@ -665,89 +756,32 @@ Como puede ver, cuando resume un data frame sin agrupar, obtiene una sola fila p
 
 Siempre que realice una agregación, siempre es una buena idea incluir un conteo (`n()`).
 De esa manera, puede asegurarse de no sacar conclusiones basadas en cantidades muy pequeñas de datos.
-Por ejemplo, veamos los aviones (identificados por su número de cola) que tienen los retrasos medios más altos:
-
-```{r}
-#| fig-alt: >
-#|   Un histograma de frecuencia que muestra la distribución de los retrasos en los vuelos.
-#|   La distribución es unimodal, con un gran pico alrededor de 0, y
-#|   asimétrica: muy pocos vuelos salen con más de 30 minutos de antelación,
-#|   pero los vuelos se retrasan hasta 5 horas.
-
-delays <- flights |>  
-  filter(!is.na(arr_delay), !is.na(tailnum)) |> 
-  group_by(tailnum) |> 
-  summarize(
-    delay = mean(arr_delay, na.rm = TRUE),
-    n = n()
-  )
-
-ggplot(delays, aes(x = delay)) + 
-  geom_freqpoly(binwidth = 10)
-```
-
-¡Guau, hay algunos aviones que tienen un retraso *promedio* de 5 horas (300 minutos)!
-Eso parece bastante sorprendente, así que dibujemos un diagrama de dispersión de la cantidad de vuelos frente al retraso promedio:
-
-```{r}
-#| fig-alt: >
-#|   Un diagrama de dispersión que muestra el número de vuelos frente a la demora promedio en la llegada. Retrasos
-#|   para aviones con un número muy pequeño de vuelos tienen una variabilidad muy alta
-#|   (de -50 a ~300), pero la variabilidad disminuye rápidamente a medida que
-#|   número de vuelos aumenta.
-
-ggplot(delays, aes(x = delay, y = n)) + 
-  geom_point(alpha = 1/10)
-```
-
-No es sorprendente que haya una variación mucho mayor en el retraso promedio cuando hay pocos vuelos para un avión determinado.
-La forma de este gráfico es muy característica: cada vez que traza una media (u otras estadísticas resumidas) frente al tamaño del grupo, verá que la variación disminuye a medida que aumenta el tamaño de la muestra[^data-transform-4].
-
-[^data-transform-4]: \*tos\* la ley de los grandes números \*tos\*.
-
-Al mirar este tipo de gráfico, a menudo es útil filtrar los grupos con el menor número de observaciones, para que pueda ver más del patrón y menos de la variación extrema en los grupos más pequeños:
-
-```{r}
-#| warning: false
-#| fig-alt: >
-#|   Diagrama de dispersión del número de vuelos de un avión dado frente al retraso promedio
-#|   para esos vuelos, para aviones con más de 25 vuelos. Como retraso promedio
-#|   aumenta de -20 a 10, el número de vuelos también aumenta. Para
-#|   mayores demoras promedio, el número de vuelos disminuye.
-
-delays |>  
-  filter(n > 25) |> 
-  ggplot(aes(x = delay, y = n)) + 
-  geom_point(alpha = 1/10) + 
-  geom_smooth(se = FALSE)
-```
-
-Tenga en cuenta el práctico patrón para combinar ggplot2 y dplyr.
-Es un poco molesto tener que cambiar de `|>` a `+`, pero no es una molestia una vez que aprendes a hacerlo.
-
-Hay otra variación común en este patrón que podemos ver en algunos datos sobre jugadores de béisbol.
-El siguiente código utiliza datos del paquete **Lahman** para comparar la proporción de veces que un jugador acierta frente a la cantidad de veces que intenta poner la pelota en juego:
+Demostraremos esto con algunos datos de béisbol del paquete **Lahman**.
+En concreto, compararemos la proporción de veces que un jugador acierta vs el número de veces que intenta poner la pelota en juego:
 
 ```{r}
 batters <- Lahman::Batting |> 
   group_by(playerID) |> 
   summarize(
-    perf = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
+    performance = sum(H, na.rm = TRUE) / sum(AB, na.rm = TRUE),
     n = sum(AB, na.rm = TRUE)
   )
 batters
 ```
 
-Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, `ba`) contra el número de oportunidades para batear la pelota (medida por el turno al bate, `ab`), se ven dos patrones:
+Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, `performance`) contra el número de oportunidades para batear la pelota (medida por veces al bate, `n`), se ven dos patrones:
 
-1.  Como arriba, la variación en nuestro agregado disminuye a medida que obtenemos más puntos de datos.
+1.  La variación en nuestro agregado disminuye a medida que obtenemos más puntos de datos.
+    La forma de esta gráfica es muy característica: cada vez que grafica una media (u otras estadísticas de resumen) frente al tamaño del grupo, verá que la variación disminuye a medida que aumenta el tamaño de la muestra [^data-transform-4].
 
-2.  Hay una correlación positiva entre la habilidad (`perf`) y las oportunidades de golpear la pelota (`n`) porque obviamente los equipos quieren dar a sus mejores bateadores la mayor cantidad de oportunidades de golpear la pelota.
+2.  Hay una correlación positiva entre la habilidad (`perf`) y las oportunidades de golpear la pelota (`n`) porque los equipos quieren dar a sus mejores bateadores la mayor cantidad de oportunidades para golpear la pelota.
+
+[^data-transform-4]: \*cough\* the law of large numbers \*cough\*.
 
 ```{r}
 #| warning: false
 #| fig-alt: >
-#|   Un diagrama de dispersión del número de oportunidades de bateo vs. rendimiento de bateo
+#|   Un diagrama de dispersión del número de rendimiento de bateo versus oportunidades de bateo
 #|   superpuesto con una línea suavizada. El rendimiento medio aumenta considerablemente
 #|   de 0,2 cuando n es 1 a 0,25 cuando n es ~1000. Rendimiento medio
 #|   continúa aumentando linealmente en una pendiente mucho menos profunda alcanzando
@@ -755,17 +789,20 @@ Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, `b
 
 batters |> 
   filter(n > 100) |> 
-  ggplot(aes(x = n, y = perf)) +
-    geom_point(alpha = 1 / 10) + 
-    geom_smooth(se = FALSE)
+  ggplot(aes(x = n, y = performance)) +
+  geom_point(alpha = 1 / 10) + 
+  geom_smooth(se = FALSE)
 ```
 
+Tenga en cuenta el práctico patrón para combinar ggplot2 y dplyr.
+Es un poco molesto tener que cambiar de `|>` a `+`, pero no es una molestia una vez que aprendes a hacerlo.
+
 Esto también tiene implicaciones importantes para la clasificación.
-Si selecciona ingenuamente `desc(ba)`, las personas con los mejores promedios de bateo son claramente afortunadas, no hábiles:
+Si selecciona ingenuamente `desc(performance)`, las personas con los mejores promedios de bateo son claramente afortunadas, no hábiles:
 
 ```{r}
 batters |> 
-  arrange(desc(perf))
+  arrange(desc(performance))
 ```
 
 Puede encontrar una buena explicación de este problema y cómo superarlo en <http://varianceexplained.org/r/empirical_bayes_baseball/> y <https://www.evanmiller.org/how-not-to-sort-by-average-rating.html>.
@@ -777,5 +814,4 @@ Las herramientas se agrupan aproximadamente en tres categorías: las que manipul
 En este capítulo, nos hemos centrado en estas herramientas de "data frame completo", pero aún no ha aprendido mucho sobre lo que puede hacer con la variable individual.
 Volveremos a eso en la parte Transformar del libro, donde cada capítulo le brindará herramientas para un tipo específico de variable.
 
-Por ahora, volveremos al flujo de trabajo, y en el próximo capítulo aprenderá más sobre *pipe*, `|>`, por qué la recomendamos y un poco de la historia que conduce desde `%>%` de Magrittr.
-para basar `|>` de R.
+En el próximo capítulo, regresaremos al flujo de trabajo para discutir la importancia del estilo del código, manteniendo su código bien organizado para que usted y otros puedan leerlo y comprenderlo fácilmente.

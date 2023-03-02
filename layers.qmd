@@ -94,7 +94,7 @@ Cuando `class` se asigna a `shape`, recibimos dos advertencias:
 Dado que ggplot2 solo usará seis formas a la vez, de manera predeterminada, los grupos adicionales no se trazarán cuando use la aesthetic shape.
 La segunda advertencia está relacionada: hay 62 SUV (todoterrenos) en el conjunto de datos y no están representados.
 
-Del mismo modo, también podemos mapear la esthetic `class` a `size` o `alpha` (transparencia).
+De manera similar, también podemos mapear la estética `class` a `size` o `alpha`, que controlan la forma y la transparencia de los puntos, respectivamente.
 
 ```{r}
 #| layout-ncol: 2
@@ -124,8 +124,6 @@ Ambos producen advertencias también:
 > Using alpha for a discrete variable is not advised.
 
 Asignar una variable discreta (categórica) no ordinal (`class`) a una aesthetic ordenada (`size` o `alpha`) generalmente no es una buena idea porque implica una clasificación que de hecho no existe.
-
-De manera similar, podríamos haber asignado `class` a la aesthetic `alpha`, que controla la transparencia de los puntos, o a la aesthetic `shape`, que controla la forma de los puntos.
 
 Una vez que mapeas una aesthetic, ggplot2 se encarga del resto.
 Selecciona una escala razonable para usar con la aesthetic y construye una leyenda que explica el mapeo entre niveles y valores.
@@ -397,7 +395,7 @@ Por ejemplo, el histograma y el diagrama de densidad a continuación revelan que
 #|   Tres gráficos: histograma, gráfico de densidad y gráfico de caja kilometraje
 #|   de carretera.
  
-# Left
+# Top
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 2)
 
@@ -405,7 +403,7 @@ ggplot(mpg, aes(x = hwy)) +
 ggplot(mpg, aes(x = hwy)) +
   geom_density()
 
-# Right
+# Bottom
 ggplot(mpg, aes(x = hwy)) +
   geom_boxplot()
 ```
@@ -993,7 +991,7 @@ Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
 
 ## La gramática en capas de los gráficos
 
-Podemos ampliar la plantilla gráfica que aprendió en @sec-graphing-template agregando ajustes de posición, estadísticas, sistemas de coordenadas y facetas:
+Podemos ampliar la plantilla de gráficos que aprendió en @sec-ggplot2-calls agregando ajustes de posición, estadísticas, sistemas de coordenadas y facetas:
 
     ggplot(data = <DATA>) + 
       <GEOM_FUNCTION>(

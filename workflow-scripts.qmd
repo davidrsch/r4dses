@@ -350,4 +350,7 @@ En resumen, los guiones y los proyectos le brindan un flujo de trabajo sólido q
 -   Solo use rutas relativas, no rutas absolutas.
 
 Entonces todo lo que necesita está en un solo lugar y claramente separado de todos los demás proyectos en los que está trabajando.
-A continuación, aprenderá cómo obtener ayuda y cómo hacer buenas preguntas de codificación.
+
+Hasta ahora, hemos trabajado con conjuntos de datos incluidos en paquetes de R.
+Esto hace que sea más fácil obtener algo de práctica con datos preparados previamente, pero obviamente sus datos no estarán disponibles de esta manera.
+Entonces, en el próximo capítulo, aprenderá cómo cargar datos desde el disco en su sesión R usando el paquete readr.

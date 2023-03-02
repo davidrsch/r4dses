@@ -350,7 +350,7 @@ Si observa estas columnas durante el tiempo suficiente, notará que hay un patr�
 Cada nombre de columna se compone de tres piezas separadas por `_`.
 La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico (`diagnosis`), la segunda pieza, `m`/`f` es el género (`gender`), y la tercera pieza, `014`/`1524`/`2535`/`3544`/`4554`/`65` es el rango de edad (`age`).
 
-Entonces, en este caso, tenemos seis variables: dos variables ya son columnas, tres variables están contenidas en el nombre de la columna y una variable está en el nombre de la celda.
+Entonces, en este caso, tenemos seis variables: dos variables ya son columnas, tres variables están contenidas en el nombre de la columna y una variable está en el valor de la celda.
 Esto requiere dos cambios en nuestra llamada a `pivot_longer()`: `names_to` obtiene un vector de nombres de columnas y `names_sep` describe cómo dividir el nombre de la variable en partes:
 
 ```{r}
@@ -585,4 +585,5 @@ Los ejemplos que usamos aquí son solo una selección de los de `vignette("pivot
 
 Si disfrutó especialmente este capítulo y desea obtener más información sobre la teoría subyacente, puede obtener más información sobre la historia y los fundamentos teóricos en el artículo [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) publicado en el Journal of Statistical Software.
 
-En el próximo capítulo, regresaremos al flujo de trabajo para discutir la importancia del estilo del código, manteniendo su código "ordenado" (¡ja!) para que sea más fácil para usted y otros leer y comprender su código.
+Ahora que está escribiendo una cantidad sustancial de código R, es hora de aprender más sobre cómo organizar su código en archivos y directorios.
+En el próximo capítulo, aprenderá todo acerca de las ventajas de los scripts y proyectos, y algunas de las muchas herramientas que brindan para facilitarle la vida.

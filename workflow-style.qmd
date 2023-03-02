@@ -242,6 +242,9 @@ flights |>
   geom_point()
 ```
 
+Esté atento a la transición de `|>` a `+`.
+Desearíamos que esta transición no fuera necesaria, pero desafortunadamente, ggplot2 se escribió antes de que se descubriera la canalización.
+
 ## Seccionamiento de comentarios
 
 A medida que sus secuencias de comandos se hacen más largas, puede usar comentarios de **sección** para dividir su archivo en partes manejables:
@@ -289,6 +292,8 @@ En este capítulo, ha aprendido los principios más importantes del estilo de c�
 Al principio, pueden parecer un conjunto de reglas arbitrarias (¡porque lo son!), pero con el tiempo, a medida que escriba más código y comparta código con más personas, verá lo importante que es un estilo coherente.
 Y no se olvide del paquete styler: es una excelente manera de mejorar rápidamente la calidad del código mal diseñado.
 
-Hasta ahora, hemos trabajado con conjuntos de datos incluidos en paquetes de R.
-Esto hace que sea más fácil obtener algo de práctica con datos preparados previamente, pero obviamente sus datos no estarán disponibles de esta manera.
-Entonces, en el próximo capítulo, aprenderá cómo cargar datos desde el disco en su sesión R usando el paquete readr.
+En el próximo capítulo, volvemos a las herramientas de ciencia de datos y aprendemos sobre los datos ordenados.
+Tidy data es una forma consistente de organizar sus data frames que se utiliza en todo el tidyverse.
+Esta consistencia facilita su vida porque una vez que tiene datos ordenados, solo funciona con la gran mayoría de las funciones de tidyverse.
+Por supuesto, la vida nunca es fácil y la mayoría de los conjuntos de datos que encuentre en la naturaleza no estarán ya ordenados.
+Entonces, también le enseñaremos cómo usar el paquete tidyr para ordenar sus datos desordenados.

@@ -7,7 +7,7 @@ source("_common.R")
 ```
 
 La ciencia de datos es una disciplina apasionante que le permite transformar datos sin procesar en comprensión, perspectiva y conocimiento.
-El objetivo de "R para la Ciencia de Datos" es ayudarlo a aprender las herramientas más importantes en R que le permitirán hacer ciencia de datos de manera eficiente y reproducible.
+El objetivo de "R para ciencia de datos" es ayudarlo a aprender las herramientas más importantes en R que le permitirán hacer ciencia de datos de manera eficiente y reproducible, y divertirse en el camino 😃.
 Después de leer este libro, tendrá las herramientas para abordar una amplia variedad de desafíos de ciencia de datos utilizando las mejores partes de R.
 
 ## Lo que vas a aprender
@@ -93,32 +93,21 @@ Eso significa que este libro no puede cubrir todos los temas importantes.
 
 ### Modelado
 
-Para obtener más información sobre el modelado, le recomendamos encarecidamente [Tidy Modeling with R](https://www.tmwr.org) por nuestros colegas Max Kuhn y Julia Silge.
+El modelado es muy importante para la ciencia de datos, pero es un gran tema y, lamentablemente, no tenemos el espacio para darle la cobertura que se merece aquí.
+Para obtener más información sobre modelado, recomendamos [Tidy Modeling with R](https://www.tmwr.org) de nuestros colegas Max Kuhn y Julia Silge.
 Este libro le enseñará la familia de paquetes tidymodels que, como puede adivinar por el nombre, comparten muchas convenciones con los paquetes tidyverse que usamos en este libro.
 
 ### Big data
 
 Este libro se enfoca orgullosamente y principalmente en pequeños conjuntos de datos en memoria.
 Este es el lugar correcto para comenzar porque no puede abordar big data a menos que tenga experiencia con small data.
-Las herramientas que aprende en la mayoría de este libro manejarán fácilmente cientos de megabytes de datos y, con un poco de cuidado, normalmente puede usarlas para trabajar con 1-2 Gb de datos.
+Las herramientas que aprende en la mayoría de este libro manejarán fácilmente cientos de megabytes de datos y, con un poco de cuidado, normalmente puede usarlas para trabajar con unos pocos gigabytes de datos.
+También le mostraremos cómo obtener datos de bases de datos y archivos de parquet, los cuales se usan a menudo para almacenar big data.
+No necesariamente podrá trabajar con todo el conjunto de datos, pero eso no es un problema porque solo necesita un subconjunto o submuestra para responder la pregunta que le interesa.
 
-Dicho esto, el libro también aborda la extracción de datos de las bases de datos y de los archivos de parquet, las cuales son soluciones comúnmente utilizadas para almacenar big data.
-
-Sin embargo, si trabaja habitualmente con datos más grandes (por ejemplo, de 10 a 100 Gb), debe obtener más información sobre \[data.table\] (https://github.com/Rdatatable/data.table).
-Este libro no enseña data.table porque tiene una interfaz muy concisa que ofrece menos pistas lingüísticas, lo que hace que sea más difícil de aprender.
-Sin embargo, la recompensa por el rendimiento bien vale la pena el esfuerzo requerido para aprenderlo si está trabajando con grandes cantidades de datos.
-
-Si sus datos son más grandes que esto, considere cuidadosamente si su problema de datos grandes es en realidad un problema de datos pequeños disfrazado.
-Si bien el conjunto completo de datos puede ser grande, a menudo, los datos necesarios para responder una pregunta específica son pequeños.
-Es posible que pueda encontrar un subconjunto, una submuestra o un resumen que quepa en la memoria y aún le permita responder la pregunta que le interesa.
-El desafío aquí es encontrar los datos pequeños correctos, lo que a menudo requiere mucha iteración.
-
-Otra posibilidad es que su gran problema de datos sea en realidad una gran cantidad de pequeños problemas de datos disfrazados.
-Cada problema individual puede caber en la memoria, pero tienes millones de ellos.
-Por ejemplo, es posible que desee ajustar un modelo a cada persona en su conjunto de datos.
-Esto sería trivial si tuviera solo 10 o 100 personas; en cambio, tienes un millón.
-Afortunadamente, cada problema es independiente de los demás (una configuración que a veces se llama vergonzosamente paralela), por lo que solo necesita un sistema (como [Hadoop](https://hadoop.apache.org/) o [Spark](https://spark.apache.org/)) que le permite enviar diferentes conjuntos de datos a diferentes computadoras para su procesamiento.
-Una vez que haya descubierto cómo responder a su pregunta para un solo subconjunto utilizando las herramientas descritas en este libro, puede aprender nuevas herramientas como **sparklyr** para resolverlo para el conjunto de datos completo.
+Si trabaja habitualmente con datos más grandes (10-100 Gb, digamos), le recomendamos obtener más información sobre \[data.table\] (https://github.com/Rdatatable/data.table).
+No lo enseñamos aquí porque usa una interfaz diferente a tidyverse y requiere que aprendas algunas convenciones diferentes.
+Sin embargo, es increíblemente más rápido y vale la pena invertir algo de tiempo en aprenderlo si está trabajando con grandes datos.
 
 ### Python, Julia, y amigos
 
@@ -127,21 +116,12 @@ Esto no se debe a que pensemos que estas herramientas son malas.
 ¡No lo son!
 Y en la práctica, la mayoría de los equipos de ciencia de datos usan una combinación de lenguajes, a menudo al menos R y Python.
 
-Sin embargo, creemos firmemente que es mejor dominar una herramienta a la vez.
-Mejorará más rápido si se sumerge profundamente en lugar de dispersarse en muchos temas.
-Esto no significa que solo debas saber una cosa, solo que generalmente aprenderás más rápido si te apegas a una cosa a la vez.
-Debe esforzarse por aprender cosas nuevas a lo largo de su carrera, pero asegúrese de que su comprensión sea sólida antes de pasar a la siguiente cosa emocionante.
-
-Creemos que R es un excelente lugar para comenzar su viaje de ciencia de datos porque es un entorno diseñado desde cero para respaldar la ciencia de datos.
-R no es solo un lenguaje de programación; también es un entorno interactivo para hacer ciencia de datos.
-Para respaldar la interacción, R es un lenguaje mucho más flexible que muchos de sus pares.
-Esta flexibilidad tiene sus desventajas, pero la gran ventaja es lo fácil que es tener un código estructurado como el problema que intenta resolver para partes específicas del proceso de ciencia de datos.
-Estos minilenguajes lo ayudan a pensar en los problemas como un científico de datos al mismo tiempo que respaldan una interacción fluida entre su cerebro y la computadora.
+Pero creemos firmemente que es mejor dominar una herramienta a la vez, y R es un excelente lugar para comenzar.
 
 ## Requisitos previos
 
 Hemos hecho algunas suposiciones sobre lo que ya sabe para aprovechar al máximo este libro.
-En general, debe tener conocimientos numéricos, y es útil si ya tiene algo de experiencia en programación.
+En general, debe tener conocimientos numéricos, y es útil si ya tiene algo de experiencia en programación básica.
 Si nunca ha programado antes, es posible que encuentre que [Hands on Programming with R](https://rstudio-education.github.io/hopr/) por Garrett puede ser un valioso complemento de este libro.
 
 Necesita cuatro cosas para ejecutar el código de este libro: R, RStudio, una colección de paquetes de R llamada **tidyverse** y un puñado de otros paquetes.
@@ -150,21 +130,16 @@ Incluyen funciones reutilizables, documentación que describe cómo usarlas y da
 
 ### R
 
-Para descargar R, vaya a CRAN la red comprensiva de archivos de R (por sus siglas en inglés: comprehensive R archive network).
-CRAN está compuesto por un conjunto de servidores espejo distribuidos por todo el mundo y se utiliza para distribuir R y paquetes de R.
-No elijas un espejo cerca de ti; en su lugar, use el espejo de la nube, <https://cloud.r-project.org>, que lo resuelve automáticamente por ti.
-
+Para descargar R, vaya a CRAN la red comprensiva de archivos de R (por sus siglas en inglés: comprehensive R archive network), <https://cloud.r-project.org>.
 Una nueva versión principal de R sale una vez al año y hay 2 o 3 lanzamientos menores cada año.
 Es una buena idea actualizar regularmente.
 La actualización puede ser un poco complicada, especialmente para las versiones principales que requieren que vuelva a instalar todos sus paquetes, pero posponerlo solo empeora las cosas.
-Necesitarás al menos R 4.1.0 para este libro.
+Recomendamos R 4.2.0 o posterior para este libro.
 
 ### RStudio
 
-RStudio es un entorno de desarrollo integrado, o IDE, para la programación con R.
-Descárgalo e instálalo desde <https://posit.co/download/rstudio-desktop/>.
-RStudio se actualiza un par de veces al año.
-Cuando haya una nueva versión disponible, RStudio se lo hará saber.
+RStudio es un entorno de desarrollo integrado, o IDE, para programación R, que puede descargar desde <https://posit.co/download/rstudio-desktop/>.
+RStudio se actualiza un par de veces al año y le avisará automáticamente cuando haya una nueva versión disponible para que no tenga que volver a comprobarlo.
 Es una buena idea actualizar regularmente para aprovechar las últimas y mejores funciones.
 Para este libro, asegúrese de tener al menos RStudio 2022.02.0.
 
@@ -190,7 +165,7 @@ También deberá instalar algunos paquetes de R.
 Un **paquete** de R es una colección de funciones, datos y documentación que amplía las capacidades de R básico.
 El uso de paquetes es clave para el uso exitoso de R.
 La mayoría de los paquetes que aprenderás en este libro forman parte del llamado tidyverse.
-Todos los paquetes en tidyverse comparten una filosofía común de programación de datos y R y están diseñados para trabajar juntos de forma natural.
+Todos los paquetes en tidyverse comparten una filosofía común de datos y programación R y están diseñados para trabajar juntos.
 
 Puedes instalar el tidyverse completo con una sola línea de código:
 
@@ -202,7 +177,6 @@ install.packages("tidyverse")
 
 En su computadora, escriba esa línea de código en la consola y luego presione Intro para ejecutarlo.
 R descargará los paquetes de CRAN y los instalará en su computadora.
-Si tiene problemas para instalar, asegúrese de estar conectado a Internet y de que <https://cloud.r-project.org/> no está bloqueado por su firewall o proxy.
 
 No podrá usar las funciones, objetos o archivos de ayuda en un paquete hasta que lo cargue con `library()`.
 Una vez que haya instalado un paquete, puede cargarlo usando la función `library()`:
@@ -215,7 +189,7 @@ Esto le dice que tidyverse carga nueve paquetes: dplyr, forcats, ggplot2, lubrid
 Estos se consideran el **núcleo** del tidyverse porque los usará en casi todos los análisis.
 
 Los paquetes en tidyverse cambian con bastante frecuencia.
-Puede comprobar si hay actualizaciones disponibles y, opcionalmente, instalarlas ejecutando `tidyverse_update()`.
+Puedes ver si hay actualizaciones disponibles ejecutando `tidyverse_update()`.
 
 ### Otros paquetes
 
