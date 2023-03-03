@@ -18,7 +18,7 @@ Antes de continuar, asegurémonos de que tiene una base sólida para ejecutar c�
 ## Conceptos básicos para escribir código
 
 Repasemos algunos conceptos básicos que hemos omitido hasta ahora con el fin de que pueda graficar lo más rápido posible.
-Puedes usar R como calculadora:
+Puedes usar R para hacer cálculos matemáticos básicos:
 
 ```{r}
 1 / 200 * 30
@@ -32,13 +32,16 @@ Puede crear nuevos objetos con el operador de asignación `<-`:
 x <- 3 * 4
 ```
 
+Tenga en cuenta que el valor de `x` no se imprime, solo se almacena.
+Si desea ver el valor, escriba `x` en la consola.
+
 Puedes **c**combinar múltiples elementos en un vector con `c()`:
 
 ```{r}
 primos <- c(2, 3, 5, 7, 11, 13)
 ```
 
-Y la aritmética básica se aplica a cada elemento del vector:
+Y las operaciones aplicadas al vector se aplican a cada elemento del mismo:
 
 ```{r}
 primos * 2
@@ -58,7 +61,7 @@ Al leer ese código, diga "el nombre del objeto obtiene valor" en su cabeza.
 Hará muchas asignaciones, y `<-` es una molestia escribir.
 Puede ahorrar tiempo con el método abreviado de teclado de RStudio: Alt + - (el signo menos).
 Tenga en cuenta que RStudio rodea automáticamente `<-` con espacios, lo cual es una buena práctica de formateo de código.
-El código es miserable para leer en un buen día, así que tómese un respiro y use espacios.
+El código puede ser para leer en un buen día, así que tómese un respiro y use espacios.
 
 ## Comentarios
 
@@ -81,8 +84,7 @@ Pero a medida que el código que está escribiendo se vuelve más complejo, los 
 
 Use comentarios para explicar el *por qué* de su código, no el *cómo* o el *qué*.
 Siempre es posible averiguar el *qué* y el *cómo* de su código leyéndolo detenidamente, incluso si puede ser tedioso.
-Pero si describe el "qué" en sus comentarios y su código, deberá recordar actualizar el comentario y el código en conjunto con cuidado.
-Si cambia el código y olvida actualizar el comentario, serán inconsistentes, lo que generará confusión cuando regrese a su código en el futuro.
+Si describe cada paso en los comentarios y luego cambia el código, deberá recordar actualizar los comentarios también o será confuso cuando regrese a su código en el futuro.
 
 Averiguar *por qué* se hizo algo es mucho más difícil, si no imposible.
 Por ejemplo, `geom_smooth()` tiene un argumento llamado `span`, que controla la suavidad de la curva, con valores más grandes produciendo una curva más suave.
@@ -122,11 +124,10 @@ este_es_un_nombre_realmente_largo <- 2.5
 
 Para inspeccionar este objeto, pruebe la función de finalización de RStudio: escriba "este", presione TAB, agregue caracteres hasta que tenga un prefijo único y luego presione Entrar.
 
-Ups, cometiste un error!
-El valor de `este_es_un_nombre_realmente_largo` debería ser 3.5, no 2.5.
-Use otro método abreviado de teclado para ayudarlo a solucionarlo.
-Escribe "este" y luego presiona Cmd/Ctrl + ↑.
-Al hacerlo, aparecerá una lista de todos los comandos que hayas escrito que comiencen con esas letras.
+Supongamos que cometió un error y que el valor de `este_es_un_nombre_realmente_largo` debería ser 3,5, no 2,5.
+Puede usar otro método abreviado de teclado para ayudarlo a solucionarlo.
+Por ejemplo, puede presionar ↑ para traer el último comando que escribió y editarlo.
+O escribe "este" y luego presiona Cmd/Ctrl + ↑ para enumerar todos los comandos que has escrito que comienzan con esas letras.
 Use las teclas de flecha para navegar, luego presione enter para volver a escribir el comando.
 Cambie 2.5 a 3.5 y vuelva a ejecutar.
 
@@ -148,6 +149,7 @@ R_rocks
 ```
 
 Esto ilustra el contrato implícito entre usted y R: R hará los tediosos cálculos por usted, pero a cambio, debe ser completamente preciso en sus instrucciones.
+De lo contrario, es probable que obtenga un error que dice que no se encontró el objeto que está buscando.
 Los errores tipográficos importan; R no puede leer tu mente y decir, "oh, probablemente querían decir `r_rocks` cuando escribieron `r_rock`".
 El tamaño de las letras importa; de manera similar, R no puede leer tu mente y decir, "oh, probablemente querían decir `r_rocks` cuando escribieron `R_rocks`".
 
@@ -158,7 +160,7 @@ R tiene una gran colección de funciones integradas que se llaman así:
 ```{r}
 #| eval: false
 
-nombre_funcion(arg1 = val1, arg2 = val2, ...)
+nombre_funcion(argumento1 = val1, argumento2 = val2, ...)
 ```
 
 Intentemos usar `seq()`, que crea **secuencias** regulares de números, y mientras estamos en eso, aprenda más funciones útiles de RStudio.
@@ -170,13 +172,21 @@ Si desea más ayuda, presione F1 para obtener todos los detalles en la pestaña 
 
 Cuando haya seleccionado la función que desea, presione TAB nuevamente.
 RStudio agregará paréntesis de apertura (`(`) y cierre (`)`) coincidentes para usted.
-Escriba los argumentos `1, 10`.
+Escriba el nombre del primer argumento, `from`, y establézcalo en `1`.
+Luego, escribe el nombre del segundo argumento, `to`, y configúralo como `10`.
+Finalmente, presione ejecutar.
+
+```{r}
+seq(from = 1, to = 10)
+```
+
+A menudo omitimos los nombres de los primeros argumentos en las llamadas a funciones, por lo que podemos reescribir esto de la siguiente manera:
 
 ```{r}
 seq(1, 10)
 ```
 
-Escriba este código y observe que RStudio proporciona una asistencia similar con las comillas emparejadas:
+Escriba el siguiente código y observe que RStudio proporciona una asistencia similar con las comillas emparejadas:
 
 ```{r}
 x <- "Hola mundo"
@@ -222,10 +232,11 @@ knitr::include_graphics("screenshots/rstudio-env.png")
     ```{r}
     #| eval: false
 
-    libary(tidyverse)
+    libary(todyverse)
 
-    ggplot(dota = mpg) + 
-      geom_point(maping = aes(x = displ, y = hwy))
+    ggplot(dTA = mpg) +  
+      geom_point(maping = aes(x = displ y = hwy)) +
+      geom_smooth(method = "lm)
     ```
 
 3.  Presione Option + Shift + K / Alt + Shift + K.

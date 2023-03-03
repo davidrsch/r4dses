@@ -84,7 +84,7 @@ Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2]. En est
 
 Escriba el nombre del data frame en la consola y R imprimirá una vista previa de su contenido.
 Tenga en cuenta que dice "tibble" en la parte superior de esta vista previa.
-En tidyverse, usamos data frames especiales llamados tibbles sobre los que aprenderá más pronto.
+En tidyverse, usamos data frames especiales llamados **tibbles** sobre los que aprenderá más pronto.
 
 ```{r}
 penguins
@@ -155,7 +155,7 @@ ggplot(data = penguins)
 
 A continuación, debemos decirle a `ggplot()` cómo se representará visualmente la información de nuestros datos.
 El argumento `mapping` de la función `ggplot()` define cómo las variables en su conjunto de datos se asignan a las propiedades visuales (**aesthetics**) de su gráfico.
-El argumento `mapping` siempre se combina con la función `aes()`, y los argumentos `x` e `y` de `aes()` especifican qué variables asignar a los ejes x e y.
+El argumento `mapping` siempre se define usando la función `aes()`, y los argumentos `x` e `y` de `aes()` especifican qué variables asignar a los ejes x e y.
 Por ahora, solo asignaremos la longitud de las aletas a la aesthetic `x` y la masa corporal a la aesthetic `y`.
 ggplot2 busca las variables mapeadas en el argumento `data`, en este caso, `penguins`.
 
@@ -663,7 +663,7 @@ ggplot(penguins, aes(x = body_mass_g, color = species)) +
 
 También hemos personalizado el grosor de las líneas usando el argumento `linewidth` para que se destaquen un poco más contra el fondo.
 
-Alternativamente, podemos asignar `species` a la estética de `color` y `fill` y usar la estética `alpha` para agregar transparencia a las curvas de densidad rellenas.
+Adicionalmente, podemos asignar `species` a la estética de `color` y `fill` y usar la estética `alpha` para agregar transparencia a las curvas de densidad rellenas.
 Esta aesthetic toma valores entre 0 (totalmente transparente) y 1 (totalmente opaco).
 En la siguiente gráfica está *establecido* en 0.5.
 
@@ -755,7 +755,7 @@ Para facetar su gráfica por una sola variable, use `facet_wrap()`.
 El primer argumento de `facet_wrap()` es una fórmula[^data-visualize-3], que se crea con `~` seguido de un nombre de variable.
 La variable que pasa a `facet_wrap()` debe ser categórica.
 
-[^data-visualize-3]: Aquí "formula" es el nombre del tipo de cosa creada por `~`, no un sinónimo de "ecuación".
+[^data-visualize-3]: Aquí "formula" es el nombre de la cosa creada por `~`, no un sinónimo de "ecuación".
 
 ```{r}
 #| warning: false
