@@ -28,6 +28,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   Transformar
     -   14 Vectores lógicos
     -   15 Números
+    -   16 Caracteres
 
 ## Sobre otras versiones
 
@@ -121,6 +122,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Transform
     -   14 Logical vectors
     -   15 Numbers
+    -   16 Strings
 
 ## About other versions
 
