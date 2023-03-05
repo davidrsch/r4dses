@@ -29,6 +29,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   14 Vectores lógicos
     -   15 Números
     -   16 Caracteres
+    -   17 Expresiones regulares
 
 ## Sobre otras versiones
 
@@ -123,6 +124,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   14 Logical vectors
     -   15 Numbers
     -   16 Strings
+    -   17 Regular expressions
 
 ## About other versions
 
