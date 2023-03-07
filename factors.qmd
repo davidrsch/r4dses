@@ -1,4 +1,4 @@
-# Factors {#sec-factors}
+# Factores {#sec-factors}
 
 ```{r}
 #| results: "asis"
@@ -7,21 +7,21 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-Factors are used for categorical variables, variables that have a fixed and known set of possible values.
-They are also useful when you want to display character vectors in a non-alphabetical order.
+Los factores se utilizan para variables categóricas, variables que tienen un conjunto fijo y conocido de valores posibles.
+También son útiles cuando desea mostrar vectores de caracteres en un orden no alfabético.
 
-We'll start by motivating why factors are needed for data analysis[^factors-1] and how you can create them with `factor()`. We'll then introduce you to the `gss_cat` dataset which contains a bunch of categorical variables to experiment with.
-You'll then use that dataset to practice modifying the order and values of factors, before we finish up with a discussion of ordered factors.
+Comenzaremos explicando por qué se necesitan factores para el análisis de datos[^factors-1] y cómo puede crearlos con `factor()`. Luego le presentaremos el conjunto de datos `gss_cat` que contiene un montón de variables categóricas para experimentar.
+Luego usará ese conjunto de datos para practicar la modificación del orden y los valores de los factores, antes de que terminemos con una discusión sobre los factores ordenados.
 
-[^factors-1]: They're also really important for modelling.
+[^factors-1]: También son muy importantes para el modelado.
 
-### Prerequisites
+### Requisitos previos
 
-Base R provides some basic tools for creating and manipulating factors.
-We'll supplement these with the **forcats** package, which is part of the core tidyverse.
-It provides tools for dealing with **cat**egorical variables (and it's an anagram of factors!) using a wide range of helpers for working with factors.
+Base R proporciona algunas herramientas básicas para crear y manipular factores.
+Los complementaremos con el paquete **forcats**, que es parte del tidyverse principal.
+Proporciona herramientas para tratar con variables **cat**egóricas (¡y es un anagrama de factores!) usando una amplia gama de ayudantes para trabajar con factores.
 
 ```{r}
 #| label: setup
@@ -30,7 +30,7 @@ It provides tools for dealing with **cat**egorical variables (and it's an anagra
 library(tidyverse)
 ```
 
-## Factor basics
+## Fundamentos de los factores
 
 Imagine that you have a variable that records month:
 
