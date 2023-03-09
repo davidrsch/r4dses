@@ -32,79 +32,79 @@ library(tidyverse)
 
 ## Fundamentos de los factores
 
-Imagine that you have a variable that records month:
+Imagina que tienes una variable que registra el mes:
 
 ```{r}
-x1 <- c("Dec", "Apr", "Jan", "Mar")
+x1 <- c("Dic", "Abr", "Ene", "Mar")
 ```
 
-Using a string to record this variable has two problems:
+Usar una cadena para registrar esta variable tiene dos problemas:
 
-1.  There are only twelve possible months, and there's nothing saving you from typos:
+1.  Solo hay doce meses posibles, y no hay nada que lo salve de los errores tipográficos:
 
     ```{r}
-    x2 <- c("Dec", "Apr", "Jam", "Mar")
+    x2 <- c("Dic", "Abr", "Eme", "Mar")
     ```
 
-2.  It doesn't sort in a useful way:
+2.  No ordena de una manera útil:
 
     ```{r}
     sort(x1)
     ```
 
-You can fix both of these problems with a factor.
-To create a factor you must start by creating a list of the valid **levels**:
+Puede solucionar ambos problemas con un factor.
+Para crear un factor, debe comenzar creando una lista de los **niveles** (levels) válidos:
 
 ```{r}
-month_levels <- c(
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+meses_levels <- c(
+  "Ene", "Feb", "Mar", "Abr", "May", "Jun", 
+  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
 )
 ```
 
-Now you can create a factor:
+Ahora puedes crear un factor:
 
 ```{r}
-y1 <- factor(x1, levels = month_levels)
+y1 <- factor(x1, levels = meses_levels)
 y1
 
 sort(y1)
 ```
 
-And any values not in the level will be silently converted to NA:
+Y cualquier valor que no esté en el nivel se convertirá silenciosamente a NA:
 
 ```{r}
-y2 <- factor(x2, levels = month_levels)
+y2 <- factor(x2, levels = meses_levels)
 y2
 ```
 
-This seems risky, so you might want to use `forcats::fct()` instead:
+Esto parece arriesgado, por lo que es posible que desee utilizar `forcats::fct()` en su lugar:
 
 ```{r}
 #| error: true
-y2 <- fct(x2, levels = month_levels)
+y2 <- fct(x2, levels = meses_levels)
 ```
 
-If you omit the levels, they'll be taken from the data in alphabetical order:
+Si omite los niveles, se tomarán de los datos en orden alfabético:
 
 ```{r}
 factor(x1)
 ```
 
-Sorting alphabetically is slightly risky because not every computer will sort strings in the same way.
-So `forcats::fct()` orders by first appearance:
+Ordenar alfabéticamente es un poco arriesgado porque no todas las computadoras ordenarán las cadenas de la misma manera.
+Entonces `forcats::fct()` ordena por primera aparición:
 
 ```{r}
 fct(x1)
 ```
 
-If you ever need to access the set of valid levels directly, you can do so with `levels()`:
+Si alguna vez necesita acceder directamente al conjunto de niveles válidos, puede hacerlo con `levels()`:
 
 ```{r}
 levels(y2)
 ```
 
-You can also create a factor when reading your data with readr with `col_factor()`:
+También puedes crear un factor al leer tus datos con readr con `col_factor()`:
 
 ```{r}
 csv <- "
@@ -117,7 +117,7 @@ df <- read_csv(csv, col_types = cols(month = col_factor(month_levels)))
 df$month
 ```
 
-## General Social Survey
+## Encuesta Social General
 
 For the rest of this chapter, we're going to use `forcats::gss_cat`.
 It's a sample of data from the [General Social Survey](https://gss.norc.org), a long-running US survey conducted by the independent research organization NORC at the University of Chicago.
