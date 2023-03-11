@@ -127,33 +127,33 @@ La encuesta tiene miles de preguntas, por lo que en `gss_cat` Hadley seleccionó
 gss_cat
 ```
 
-(Remember, since this dataset is provided by a package, you can get more information about the variables with `?gss_cat`.)
+(Recuerde, dado que este conjunto de datos lo proporciona un paquete, puede obtener más información sobre las variables con `?gss_cat`.)
 
-When factors are stored in a tibble, you can't see their levels so easily.
-One way to view them is with `count()`:
+Cuando los factores se almacenan en un tibble, no puede ver sus niveles tan fácilmente.
+Una forma de verlos es con `count()`:
 
 ```{r}
 gss_cat |>
   count(race)
 ```
 
-When working with factors, the two most common operations are changing the order of the levels, and changing the values of the levels.
-Those operations are described in the sections below.
+Cuando se trabaja con factores, las dos operaciones más comunes son cambiar el orden de los niveles y cambiar los valores de los niveles.
+Esas operaciones se describen en las secciones siguientes.
 
-### Exercise
+### Ejercicios
 
-1.  Explore the distribution of `rincome` (reported income).
-    What makes the default bar chart hard to understand?
-    How could you improve the plot?
+1.  Explore la distribución de `rincome` (ingresos declarados).
+    ¿Qué hace que el gráfico de barras predeterminado sea difícil de entender?
+    ¿Cómo podrías mejorar la gráfica?
 
-2.  What is the most common `relig` in this survey?
-    What's the most common `partyid`?
+2.  ¿Cuál es la `relig` más común en esta encuesta?
+    ¿Cuál es el `partyid` más común?
 
-3.  Which `relig` does `denom` (denomination) apply to?
-    How can you find out with a table?
-    How can you find out with a visualization?
+3.  ¿A qué `relig` se aplica `denom` (denominación)?
+    ¿Cómo puedes averiguarlo con una tabla?
+    ¿Cómo puedes averiguarlo con una visualización?
 
-## Modifying factor order
+## Modificación del orden de los factores
 
 It's often useful to change the order of the factor levels in a visualization.
 For example, imagine you want to explore the average number of hours spent watching TV per day across religions:
