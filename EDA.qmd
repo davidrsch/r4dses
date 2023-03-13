@@ -23,9 +23,9 @@ EDA no es un proceso formal con un conjunto estricto de reglas.
 Más que nada, EDA es un estado de ánimo.
 Durante las fases iniciales de EDA, debe sentirse libre de investigar cada idea que se le ocurra.
 Algunas de estas ideas funcionarán y otras serán callejones sin salida.
-A medida que continúe su exploración, se centrará en algunas áreas particularmente productivas que eventualmente escribirá y comunicará a otros.
+A medida que continúe su exploración, se concentrará en algunas ideas particularmente productivas que eventualmente escribirá y comunicará a otros.
 
-EDA es una parte importante de cualquier análisis de datos, incluso si las preguntas se le entregan en bandeja, porque siempre necesita investigar la calidad de sus datos.
+EDA es una parte importante de cualquier análisis de datos, incluso si las principales preguntas de investigación se le entregan en bandeja, porque siempre necesita investigar la calidad de sus datos.
 La limpieza de datos es solo una aplicación de EDA: hace preguntas sobre si sus datos cumplen con sus expectativas o no.
 Para realizar la limpieza de datos, deberá implementar todas las herramientas de EDA: visualización, transformación y modelado.
 
@@ -66,22 +66,6 @@ Puede redactar libremente estas preguntas como:
 
 El resto de este capítulo analizará estas dos preguntas.
 Explicaremos qué son la variación y la covariación, y le mostraremos varias formas de responder cada pregunta.
-Para facilitar la discusión, definamos algunos términos:
-
--   Una **variable** es una cantidad, calidad o propiedad que puede medir.
-
--   Un **valor** es el estado de una variable cuando la mides.
-    El valor de una variable puede cambiar de una medida a otra.
-
--   Una **observación** es un conjunto de mediciones realizadas en condiciones similares (usualmente realiza todas las mediciones en una observación al mismo tiempo y en el mismo objeto).
-    Una observación contendrá varios valores, cada uno asociado con una variable diferente.
-    A veces nos referiremos a una observación como un punto de datos.
-
--   **Datos tabulares** es un conjunto de valores, cada uno asociado con una variable y una observación.
-    Los datos tabulares están *ordenados* si cada valor se coloca en su propia "celda", cada variable en su propia columna y cada observación en su propia fila.
-
-Hasta ahora, todos los datos que ha visto han estado ordenados.
-En la vida real, la mayoría de los datos no están ordenados, por lo que volveremos a estas ideas nuevamente en @sec-rectangling.
 
 ## Variación
 
@@ -89,8 +73,8 @@ En la vida real, la mayoría de los datos no están ordenados, por lo que volver
 Puedes ver la variación fácilmente en la vida real; si mide cualquier variable continua dos veces, obtendrá dos resultados diferentes.
 Esto es cierto incluso si mide cantidades que son constantes, como la velocidad de la luz.
 Cada una de sus medidas incluirá una pequeña cantidad de error que varía de una medida a otra.
-Las variables también pueden variar si mide diferentes temas (p. ej., los colores de ojos de diferentes personas) o diferentes momentos (p. ej., los niveles de energía de un electrón en diferentes momentos).
-Cada variable tiene su propio patrón de variación, que puede revelar información interesante sobre cómo varía esa variable entre mediciones en la misma observación, así como entre observaciones.
+Las variables también pueden variar si mide diferentes sujetos (por ejemplo, el color de los ojos de diferentes personas) o en diferentes momentos (por ejemplo, los niveles de energía de un electrón en diferentes momentos).
+Cada variable tiene su propio patrón de variación, que puede revelar información interesante sobre cómo varía entre mediciones en la misma observación, así como entre observaciones.
 La mejor forma de comprender ese patrón es visualizar la distribución de los valores de la variable, que aprendiste en @sec-data-visualization.
 
 Comenzaremos nuestra exploración visualizando la distribución de pesos (quilates `carat`) de \~54,000 diamantes del conjunto de datos `diamonds`.
@@ -130,11 +114,7 @@ Para convertir esta información en preguntas útiles, busque cualquier cosa ine
 -   ¿Puedes ver algún patrón inusual?
     ¿Qué podría explicarlos?
 
-Como ejemplo, el siguiente histograma sugiere varias preguntas interesantes:
-
--   ¿Por qué hay más diamantes en quilates enteros y fracciones comunes de quilates?
-
--   ¿Por qué hay más diamantes ligeramente a la derecha de cada pico que ligeramente a la izquierda de cada pico?
+Echemos un vistazo a la distribución de quilates, `carat`, para diamantes más pequeños.
 
 ```{r}
 #| fig-alt: >
@@ -151,10 +131,16 @@ ggplot(smaller, aes(x = carat)) +
   geom_histogram(binwidth = 0.01)
 ```
 
-Los grupos de valores similares sugieren que existen subgrupos en sus datos.
+Este histograma sugiere varias preguntas interesantes:
+
+-   ¿Por qué hay más diamantes en quilates enteros y fracciones comunes de quilates?
+
+-   ¿Por qué hay más diamantes ligeramente a la derecha de cada pico que ligeramente a la izquierda de cada pico?
+
+Las visualizaciones también pueden revelar grupos, lo que sugiere que existen subgrupos en sus datos.
 Para comprender los subgrupos, pregunte:
 
--   ¿En qué se parecen las observaciones dentro de cada grupo?
+-   ¿En qué se parecen las observaciones dentro de cada subgrupo?
 
 -   ¿En qué se diferencian entre sí las observaciones en grupos separados?
 
@@ -162,26 +148,14 @@ Para comprender los subgrupos, pregunte:
 
 -   ¿Por qué la apariencia de los clústeres podría ser engañosa?
 
-El siguiente histograma muestra la duración (en minutos) de 272 erupciones del géiser Old Faithful en el Parque Nacional de Yellowstone.
-Los tiempos de erupción parecen estar agrupados en dos grupos: hay erupciones cortas (de alrededor de 2 minutos) y erupciones largas (4-5 minutos), pero poco en el medio.
-
-```{r}
-#| fig-alt: >
-#|   Un histograma de tiempos de erupción. El eje x va desde aproximadamente 1,5 a 5,
-#|   y el eje y varía de 0 a aproximadamente 40. La distribución es bimodal
-#|   con picos alrededor de 1.75 y 4.5.
-
-ggplot(faithful, aes(x = eruptions)) + 
-  geom_histogram(binwidth = 0.25)
-```
-
-Muchas de las preguntas anteriores lo llevarán a explorar una relación *entre* variables, por ejemplo, para ver si los valores de una variable pueden explicar el comportamiento de otra variable.
+Algunas de estas preguntas se pueden responder con los datos, mientras que otras requerirán experiencia en el dominio de los datos.
+Muchos de ellos le pedirán que explore una relación *entre* variables, por ejemplo, para ver si los valores de una variable pueden explicar el comportamiento de otra variable.
 Llegaremos a eso en breve.
 
 ### Valores inusuales
 
 Los valores atípicos son observaciones que son inusuales; puntos de datos que no parecen ajustarse al patrón.
-A veces, los valores atípicos son errores de entrada de datos; otras veces, los valores atípicos sugieren nueva ciencia importante.
+A veces, los valores atípicos son errores de entrada de datos, a veces son simplemente valores en los extremos que se observaron en esta recopilación de datos, y otras veces sugieren nuevos descubrimientos importantes.
 Cuando tiene muchos datos, los valores atípicos a veces son difíciles de ver en un histograma.
 Por ejemplo, tome la distribución de la variable `y` del conjunto de datos de diamantes.
 La única evidencia de valores atípicos son los límites inusualmente amplios en el eje x.
@@ -240,6 +214,8 @@ options(old)
 
 La variable `y` mide una de las tres dimensiones de estos diamantes, en mm.
 Sabemos que los diamantes no pueden tener un ancho de 0 mm, por lo que estos valores deben ser incorrectos.
+Al hacer EDA, hemos descubierto datos faltantes que estaban codificados como 0, que nunca hubiéramos encontrado simplemente buscando `NA`s.
+En el futuro, podríamos optar por volver a codificar estos valores como "NA" para evitar cálculos engañosos.
 También podemos sospechar que las medidas de 32 mm y 59 mm son inverosímiles: esos diamantes miden más de una pulgada de largo, ¡pero no cuestan cientos de miles de dólares!
 
 Es una buena práctica repetir su análisis con y sin los valores atípicos.
@@ -278,7 +254,7 @@ Si ha encontrado valores inusuales en su conjunto de datos y simplemente desea c
       filter(between(y, 3, 20))
     ```
 
-    No recomendamos esta opción porque el hecho de que una medida no sea válida no significa que todas las medidas lo sean.
+    No recomendamos esta opción porque un valor no válido no implica que todos los demás valores de esa observación también lo sean.
     Además, si tiene datos de baja calidad, en el momento en que haya aplicado este enfoque a cada variable, es posible que no le queden datos.
 
 2.  En su lugar, recomendamos reemplazar los valores inusuales con valores faltantes.
@@ -289,13 +265,6 @@ Si ha encontrado valores inusuales en su conjunto de datos y simplemente desea c
     diamonds2 <- diamonds |> 
       mutate(y = if_else(y < 3 | y > 20, NA, y))
     ```
-
-`if_else()` tiene tres argumentos.
-El primer argumento `test` debe ser un vector lógico.
-El resultado contendrá el valor del segundo argumento, `yes`, cuando `test` es `TRUE`, y el valor del tercer argumento, `no`, cuando es falso.
-Como alternativa a `if_else()`, utilice `case_when()`.
-`case_when()` es particularmente útil dentro de mutate cuando desea crear una nueva variable que se basa en una combinación compleja de variables existentes o que de otro modo requeriría múltiples declaraciones `if_else()` anidadas una dentro de otra.
-Aprenderá más sobre vectores lógicos en @sec-logicals.
 
 It's not obvious where you should plot missing values, so ggplot2 doesn't include them in the plot, but it does warn that they've been removed:
 
@@ -323,7 +292,7 @@ ggplot(diamonds2, aes(x = x, y = y)) +
 Otras veces, desea comprender qué hace que las observaciones con valores faltantes sean diferentes a las observaciones con valores registrados.
 Por ejemplo, en `nycflights13::flights`[^eda-1], los valores faltantes en la variable `dep_time` indican que el vuelo fue cancelado.
 Por lo tanto, es posible que desee comparar los horarios de salida programados para los horarios cancelados y no cancelados.
-Puedes hacer esto creando una nueva variable con `is.na()`.
+Puede hacer esto creando una nueva variable, usando `is.na()` para verificar si falta `dep_time`.
 
 [^eda-1]: Recuerda que cuando necesitemos ser explícito sobre el origen de una función (o conjunto de datos), usaremos la forma especial `package::funcion()` o `package::conjuntodedatos`.
 
@@ -356,6 +325,10 @@ En la siguiente sección exploraremos algunas técnicas para mejorar esta compar
 
 2.  ¿Qué hace `na.rm = TRUE` en `mean()` y `sum()`?
 
+3.  Vuelva a crear el diagrama de frecuencia de `scheduled_dep_time` coloreado según si el vuelo se canceló o no.
+    También facetado por la variable `cancelled`.
+    Experimente con diferentes valores de la variable `scales` en la función de creación de facetas para mitigar el efecto de más vuelos no cancelados que vuelos cancelados.
+
 ## Covariación
 
 Si la variación describe el comportamiento *dentro* de una variable, la covariación describe el comportamiento *entre* variables.
@@ -379,17 +352,10 @@ ggplot(diamonds, aes(x = price)) +
   geom_freqpoly(aes(color = cut), binwidth = 500, linewidth = 0.75)
 ```
 
-La apariencia predeterminada de `geom_freqpoly()` no es tan útil para ese tipo de comparación porque la altura viene dada por el conteo y los conteos generales de `cut` difieren mucho, lo que dificulta ver las diferencias en las formas de sus distribuciones:
+Tenga en cuenta que ggplot2 usa una escala de colores ordenada por `cut` porque está definida como una variable de factor ordenada en los datos.
+Aprenderá más sobre estos en @sec-ordered-factors.
 
-```{r}
-#| fig-alt: >
-#|   Gráfico de barras de cortes de diamantes que muestra una gran variabilidad entre los
-#|   frecuencias de varios cortes. Los diamantes Regulares tienen la frecuencia más baja,
-#|   luego Bueno, luego Muy Bueno, luego Premium y luego Ideal.
-
-ggplot(diamonds, aes(x = cut)) + 
-  geom_bar()
-```
+La apariencia predeterminada de `geom_freqpoly()` no es tan útil aquí porque la altura, determinada por el conteo general, difiere mucho entre los cortes, `cut`, lo que dificulta ver las diferencias en las formas de sus distribuciones.
 
 Para facilitar la comparación, necesitamos intercambiar lo que se muestra en el eje y.
 En lugar de mostrar el conteo, mostraremos la **densidad**, que es el conteo estandarizado para que el área debajo de cada polígono de frecuencia sea uno.
@@ -416,7 +382,6 @@ Pero tal vez eso se deba a que los polígonos de frecuencia son un poco difícil
 Una gráfica visualmente más simple para explorar esta relación es usar diagramas de caja uno al lado del otro.
 
 ```{r}
-#| fig-height: 3
 #| fig-alt: >
 #|   Gráficos de caja uno al lado del otro de los precios de los diamantes por corte. La distribución de
 #|   los precios están sesgados a la derecha para cada corte (Regular, Bueno, Muy bueno, Premium y
@@ -433,8 +398,8 @@ En los ejercicios, se le desafiará a averiguar por qué.
 
 `cut` es un factor ordenado: regular es peor que bueno, que es peor que muy bueno y así sucesivamente.
 Muchas variables categóricas no tienen ese orden intrínseco, por lo que es posible que desee reordenarlas para que la visualización sea más informativa.
-Una forma de hacerlo es con la función `fct_reorder()`.
-
+Una forma de hacerlo es con `fct_reorder()`.
+Aprenderá más sobre esa función en @sec-modifying-factor-order, pero queríamos darle una vista previa rápida aquí porque es muy útil.
 Por ejemplo, tome la variable `class` en el conjunto de datos `mpg`.
 Puede que le interese saber cómo varía el kilometraje en carretera según las clases:
 
@@ -451,7 +416,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
 Para que la tendencia sea más fácil de ver, podemos reordenar `class` en función del valor medio de carretera `hwy`:
 
 ```{r}
-#| fig-height: 3
 #| fig-alt: >
 #|   Gráficas de caja, uno al lado del otro, de kilometraje en carretera de automóviles por clase. Las clases son
 #|   en el eje x y ordenadas por kilometraje medio creciente en carretera (recogida,
@@ -477,7 +441,7 @@ ggplot(mpg, aes(x = hwy, y = fct_reorder(class, hwy, median))) +
 
 1.  Utilice lo que ha aprendido para mejorar la visualización de las horas de salida de los vuelos cancelados frente a los no cancelados.
 
-2.  ¿Qué variable en el conjunto de datos de diamantes es más importante para predecir el precio de un diamante?
+2.  Con base en EDA, ¿qué variable en el conjunto de datos de diamantes parece ser la más importante para predecir el precio de un diamante?
     ¿Cómo se correlaciona esa variable con el corte?
     ¿Por qué la combinación de esas dos relaciones hace que los diamantes de menor calidad sean más caros?
 
@@ -490,11 +454,11 @@ ggplot(mpg, aes(x = hwy, y = fct_reorder(class, hwy, median))) +
     ¿Qué aprendes?
     ¿Cómo interpretas las gráficas?
 
-5.  Cree una visualización de los precios de los diamantes frente a una variable categórica del conjunto de datos `diamonds` usando `geom_violin()`, luego un `geom_histogram()` facetado y luego un `geom_freqpoly()` coloreado.
-    Compara y contrasta las tres gráficas.
+5.  Cree una visualización de los precios de los diamantes frente a una variable categórica del conjunto de datos `diamoonds` usando `geom_violin()`, luego `geom_histogram()` facetado, luego `geom_freqpoly()` coloreado y luego `geom_density()` coloreado.
+    Compara y contrasta las cuatro gráficas.
     ¿Cuáles son los pros y los contras de cada método para visualizar la distribución de una variable numérica en función de los niveles de una variable categórica?
 
-6.  Si tiene un conjunto de datos pequeño, a veces es útil usar `geom_jitter()` para ver la relación entre una variable continua y categórica.
+6.  Si tiene un conjunto de datos pequeño, a veces es útil usar `geom_jitter()` para evitar el trazado excesivo y ver más fácilmente la relación entre una variable continua y categórica.
     El paquete ggbeeswarm proporciona una serie de métodos similares a `geom_jitter()`.
     Enumérelos y describa brevemente lo que hace cada uno.
 
@@ -548,20 +512,19 @@ Para gráficas más grandes, es posible que desee probar el paquete heatmaply, q
 
 1.  ¿Cómo podría cambiar la escala del conjunto de datos de conteo anterior para mostrar más claramente la distribución del corte dentro del color o el color dentro del corte?
 
-2.  ¿Cómo cambia el gráfico de barras segmentado si el color se asigna a la estética `x` y `cut` se asigna a la estética `fill`?
+2.  ¿Qué perspectivas de datos diferentes obtiene con un gráfico de barras segmentado si el color se asigna a la estética `x` y `cut` se asigna a la estética `fill`?
     Calcular las cuentas que caen en cada uno de los segmentos.
 
 3.  Utilice `geom_tile()` junto con dplyr para explorar cómo varían los retrasos promedio en la salida de los vuelos según el destino y el mes del año.
     ¿Qué hace que la trama sea difícil de leer?
     ¿Cómo podrías mejorarlo?
 
-4.  ¿Por qué es ligeramente mejor usar `aes(x = color, y = cut)` en lugar de `aes(x = cut, y = color)` en el ejemplo anterior?
-
 ### Dos variables numericas
 
 Ya has visto una excelente forma de visualizar la covariación entre dos variables numéricas: dibujar un diagrama de dispersión con `geom_point()`.
 Puede ver la covariación como un patrón en los puntos.
-Por ejemplo, puedes ver una relación exponencial entre el tamaño en quilates y el precio de un diamante:
+Por ejemplo, puedes ver una relación positiva entre el tamaño en quilates y el precio de un diamante: los diamantes con más quilates tienen un precio más alto.
+La relación es exponencial.
 
 ```{r}
 #| dev: "png"
@@ -575,7 +538,7 @@ ggplot(smaller, aes(x = carat, y = price)) +
 
 (En esta sección, usaremos el conjunto de datos `smaller` para centrarnos en la mayor parte de los diamantes que tienen menos de 3 quilates)
 
-Los diagramas de dispersión se vuelven menos útiles a medida que crece el tamaño de su conjunto de datos, porque los puntos comienzan a superponerse y se acumulan en áreas de negro uniforme (como se muestra arriba).
+Los diagramas de dispersión se vuelven menos útiles a medida que crece el tamaño de su conjunto de datos, porque los puntos comienzan a superponerse y se acumulan en áreas de negro uniforme, lo que dificulta juzgar las diferencias en la densidad de los datos en el espacio bidimensional, además de hacerlo difícil detectar la tendencia.
 Ya ha visto una forma de solucionar el problema: usar la estética `alpha` para agregar transparencia.
 
 ```{r}
@@ -602,7 +565,7 @@ Deberá instalar el paquete hexbin para usar `geom_hex()`.
 
 ```{r}
 #| layout-ncol: 2
-#| eval: false
+#| fig-width: 3
 #| fig-alt: >
 #|   Gráfico 1: Un gráfico de densidad agrupada de precio frente a quilates. Parcela 2: Un gráfico hexagonal
 #|   agrupado de precio vs quilate. Ambas gráficas muestran que la mayor densidad de
@@ -675,7 +638,6 @@ Una forma de demostrarlo es hacer que el ancho del diagrama de caja sea proporci
 
 ## Patrones y modelos
 
-Los patrones en sus datos brindan pistas sobre las relaciones.
 Si existe una relación sistemática entre dos variables, aparecerá como un patrón en los datos.
 Si detecta un patrón, pregúntese:
 
@@ -689,22 +651,7 @@ Si detecta un patrón, pregúntese:
 
 -   ¿Cambia la relación si observa subgrupos individuales de datos?
 
-Un gráfico de dispersión de la duración de las erupciones de Old Faithful frente al tiempo de espera entre erupciones muestra un patrón: los tiempos de espera más largos se asocian con erupciones más largas.
-El diagrama de dispersión también muestra los dos grupos que notamos arriba.
-
-```{r}
-#| fig-height: 2
-#| fig-alt: >
-#|   Un gráfico de dispersión del tiempo de erupción frente al tiempo de espera para la siguiente erupción del
-#|   Old Faithful geyser. Hay dos grupos de puntos: uno con baja
-#|   tiempos de erupción y tiempos de espera cortos y uno con tiempos de erupción largos y
-#|   largos tiempos de espera.
-
-ggplot(faithful, aes(x = eruptions, y = waiting)) + 
-  geom_point()
-```
-
-Los patrones proporcionan una de las herramientas más útiles para los científicos de datos porque revelan la covariación.
+Los patrones en sus datos brindan pistas sobre las relaciones, es decir, revelan la covariación.
 Si piensas en la variación como un fenómeno que crea incertidumbre, la covariación es un fenómeno que la reduce.
 Si dos variables covarían, puede usar los valores de una variable para hacer mejores predicciones sobre los valores de la segunda.
 Si la covariación se debe a una relación causal (un caso especial), puede usar el valor de una variable para controlar el valor de la segunda.

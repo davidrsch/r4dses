@@ -36,6 +36,7 @@ No olvides que necesitarás instalar esos paquetes con `install.packages()` si a
 #| message: false
 
 library(tidyverse)
+library(scales)
 library(ggrepel)
 library(patchwork)
 ```
@@ -44,55 +45,6 @@ library(patchwork)
 
 El lugar más fácil para comenzar a convertir un gráfico exploratorio en un gráfico expositivo es con buenas etiquetas.
 Agregas etiquetas con la función `labs()`.
-Este ejemplo agrega un título de gráfica:
-
-```{r}
-#| message: false
-#| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
-#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
-#|   el tamaño del motor de los automóviles está superpuesto. La gráfica se titula "Eficiencia de combustible
-#|   generalmente disminuye con el tamaño del motor".
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(title = "Eficiencia de combustible generalmente disminuye con el tamaño del motor")
-```
-
-El propósito del título de una gráfica es resumir el hallazgo principal.
-Evite títulos que solo describan cuál es la gráfica, por ejemplo "Un diagrama de dispersión de la cilindrada del motor frente a la economía de combustible".
-
-Si necesita agregar más texto, hay otras dos etiquetas útiles:
-
--   `subtítulo` agrega detalles adicionales en una fuente más pequeña debajo del título.
-
--   `caption` agrega texto en la parte inferior derecha de la gráfica, que a menudo se usa para describir la fuente de los datos.
-
-```{r}
-#| message: false
-#| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
-#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
-#|   el tamaño del motor de los automóviles está superpuesto. La gráfica se titula "Eficiencia de combustible
-#|   generalmente disminuye con el tamaño del motor". El subtítulo es "Dos plazas
-#|   (automóviles deportivos) son una excepción debido a su peso ligero" y la
-#|   descripción es "Datos de fueleconomy.gov".
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Eficiencia de combustible generalmente disminuye con el tamaño del motor",
-    subtitle = "Dos plazas son una excepción debido a su peso ligero",
-    caption = "Datos de fueleconomy.gov"
-  )
-```
-
-También puede usar `labs()` para reemplazar los títulos de los ejes y las leyendas.
-Por lo general, es una buena idea reemplazar los nombres cortos de las variables con descripciones más detalladas e incluir las unidades.
 
 ```{r}
 #| message: false
@@ -102,7 +54,10 @@ Por lo general, es una buena idea reemplazar los nombres cortos de las variables
 #|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
 #|   el tamaño del motor de los automóviles está superpuesto. El eje x está etiquetado como "Motor
 #|   desplazamiento (L)" y el eje y está etiquetado como "Economía de combustible en carretera (mpg)".
-#|   La leyenda está etiquetada como "Tipo de coche".
+#|   La leyenda está etiquetada como "Tipo de coche". La gráfica se titula "Eficiencia de combustible
+#|   generalmente disminuye con el tamaño del motor". El subtítulo es "Dos plazas
+#|   (automóviles deportivos) son una excepción debido a su peso ligero" y la
+#|   descripción es "Datos de fueleconomy.gov".
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
@@ -110,9 +65,19 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   labs(
     x = "Motor desplazamiento (L)",
     y = "Economía de combustible en carretera (mpg)",
-    color = "Tipo de coche"
+    color = "Tipo de coche",
+    title = "Eficiencia de combustible generalmente disminuye con el tamaño del motor",
+    subtitle = "Dos plazas son una excepción debido a su peso ligero",
+    caption = "Datos de fueleconomy.gov"
   )
 ```
+
+El propósito del título de una trama es resumir el hallazgo principal.
+Evite títulos que solo describan cuál es la trama, p. "Un diagrama de dispersión de la cilindrada del motor frente a la economía de combustible".
+
+Si necesita agregar más texto, hay otras dos etiquetas útiles: `subtitle` agrega detalles adicionales en una fuente más pequeña debajo del título y `caption` agrega texto en la parte inferior derecha de la trama, que a menudo se usa para describir la fuente del datos.
+También puede usar `labs()` para reemplazar los títulos de los ejes y las leyendas.
+Por lo general, es una buena idea reemplazar los nombres cortos de las variables con descripciones más detalladas e incluir las unidades.
 
 Es posible usar ecuaciones matemáticas en lugar de cadenas de texto.
 Simplemente cambia `""` por `quote()` y lee acerca de las opciones disponibles en `?plotmath`:
@@ -123,19 +88,18 @@ Simplemente cambia `""` por `quote()` y lee acerca de las opciones disponibles e
 #| fig-width: 3
 #| fig-alt: >
 #|   Diagrama de dispersión con texto matemático en las etiquetas de los ejes x e y. etiqueta del eje X
-#|   dice suma de x_i al cuadrado, para i de 1 a n. La etiqueta del eje Y dice alfa +
-#|   beta + delta sobre theta.
+#|   dice x_i, la etiqueta del eje y dice suma de x_i al cuadrado, para i de 1 a n.
 
 df <- tibble(
   x = 1:10,
-  y = x ^ 2
+  y = cumsum(x^2)
 )
 
 ggplot(df, aes(x, y)) +
   geom_point() +
   labs(
-    x = quote(sum(x[i] ^ 2, i == 1, n)),
-    y = quote(alpha + beta + frac(delta, theta))
+    x = quote(x[i]),
+    y = quote(sum(x[i] ^ 2, i == 1, n))
   )
 ```
 
@@ -195,7 +159,7 @@ label_info
 Luego, usamos este nuevo data frame para etiquetar directamente los tres grupos para reemplazar la leyenda con etiquetas colocadas directamente en la gráfica.
 Usando los argumentos `fontface` y `size` podemos personalizar el aspecto de las etiquetas de texto.
 Son más grandes que el resto del texto de la gráfica y están en negrita.
-(`theme(legend.position = "none"`) desactiva la leyenda --- hablaremos de ello más adelante).
+(`theme(legend.position = "none"`) desactiva todas las leyenda --- hablaremos de ello más adelante).
 
 ```{r}
 #| fig-alt: >
@@ -214,32 +178,8 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   theme(legend.position = "none")
 ```
 
-Tenga en cuenta el uso de `hjust` y `vjust` para controlar la alineación de la etiqueta.
-
-Sin embargo, el gráfico anotado que hicimos arriba es difícil de leer porque las etiquetas se superponen entre sí y con los puntos.
-Podemos mejorar un poco las cosas cambiando a `geom_label()` que dibuja un rectángulo detrás del texto.
-También usamos el parámetro `nudge_y` para mover las etiquetas ligeramente por encima de los puntos correspondientes:
-
-```{r}
-#| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Algunos puntos están etiquetados
-#|   con el nombre del coche. Las etiquetas son recuadros con fondo blanco transparente.
-
-ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(se = FALSE) +
-  geom_label(
-    data = label_info, 
-    aes(x = displ, y = hwy, label = drive_type),
-    fontface = "bold", size = 5, hjust = "right", alpha = 0.5, nudge_y = 2,
-  ) +
-  theme(legend.position = "none")
-```
-
-Eso ayuda un poco, pero dos de las etiquetas aún se superponen entre sí.
-Esto es difícil de arreglar aplicando la misma transformación para cada etiqueta.
-En su lugar, podemos usar la función `geom_label_repel()` del paquete ggrepel.
+Tenga en cuenta el uso de `hjust` (justificación horizontal) y `vjust` (justificación vertical) para controlar la alineación de la etiqueta.
+Podemos usar la función `geom_label_repel()` del paquete ggrepel para solucionar ambos problemas.
 Este útil paquete ajustará automáticamente las etiquetas para que no se superpongan:
 
 ```{r}
@@ -280,69 +220,48 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(data = potential_outliers, color = "red", size = 3, shape = "circle open")
 ```
 
-Alternativamente, es posible que solo desee agregar una sola etiqueta al gráfico, pero aún necesitará crear un data frame.
-A menudo, desea que la etiqueta esté en la esquina del gráfico, por lo que es conveniente crear un nuevo data frame usando `summarize()` para calcular los valores máximos de x e y.
+Recuerde, además de `geom_text()` y `geom_label()`, tiene muchos otros geoms en ggplot2 disponibles para ayudar a anotar su gráfico.
+Un par de ideas:
+
+-   Use `geom_hline()` y `geom_vline()` para agregar líneas de referencia.
+    A menudo los hacemos gruesos (`linewidth = 2`) y blancos (`color = white`), y los dibujamos debajo de la capa de datos principal.
+    Eso los hace fáciles de ver, sin desviar la atención de los datos.
+
+-   Usa `geom_rect()` para dibujar un rectángulo alrededor de los puntos de interés.
+    Los límites del rectángulo están definidos por la estética `xmin`, `xmax`, `ymin`, `ymax`.
+    Alternativamente, consulte el [paquete ggforce](https://ggforce.data-imaginist.com/index.html), específicamente [`geom_mark_hull()`](https://ggforce.data-imaginist.com/reference/%20geom_mark_hull.html), que le permite anotar subconjuntos de puntos con cascos.
+
+-   Usa `geom_segment()` con el argumento `arrow` para llamar la atención sobre un punto con una flecha.
+    Use la estética `x` e `y` para definir la ubicación inicial, y `xend` y `yend` para definir la ubicación final.
+
+Otra función útil para agregar anotaciones a los gráficos es `annotate()`.
+Como regla general, los geoms son generalmente útiles para resaltar un subconjunto de datos, mientras que `annotate()` es útil para agregar uno o algunos elementos de anotación a una gráfica.
+
+Para demostrar el uso de `annotate()`, creemos un texto para agregar a nuestra trama.
+El texto es un poco largo, por lo que usaremos `stringr::str_wrap()` para agregar automáticamente saltos de línea dado el número de caracteres que desea por línea:
 
 ```{r}
-#| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Sobre el
-#|   esquina superior derecha, insertada un poco desde la esquina, hay una anotación que
-#|   dice "El aumento del tamaño del motor está relacionado con la disminución de la economía de combustible".
-#|   El texto ocupa dos líneas.
-
-label_info <- mpg |>
-  summarize(
-    displ = max(displ),
-    hwy = max(hwy),
-    label = "El aumento del tamaño del motor está \nrelacionado con la disminución de la economía de combustible."
-  )
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_text(
-    data = label_info, aes(label = label), 
-    vjust = "top", hjust = "right"
-  )
+trend_text <- "Los tamaños de motor más grandes tienden a\ntener menor economía de combustible." |>
+  str_wrap(width = 30)
+trend_text
 ```
 
-Si desea colocar el texto exactamente en los bordes del gráfico, puede usar set `displ = Inf` y `hwy = Inf` en el cuadro anterior, en lugar de los valores máximos calculados.
-
-Alternativamente, podemos agregar la anotación sin crear un nuevo data frame, usando `annotate()`.
-Esta función agrega un geom a un gráfico, pero no asigna variables de un data frame a una estética.
-El primer argumento de esta función, `geom`, es el objeto geométrico que desea utilizar para la anotación.
-
-```{r}
-#| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Sobre el
-#|   esquina superior derecha, al ras de la esquina, es una anotación que
-#|   dice "El aumento del tamaño del motor está relacionado con la disminución de la economía de combustible".
-#|   El texto ocupa dos líneas..
-
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  annotate(
-    geom = "text", x = Inf, y = Inf,
-    label = "El aumento del tamaño del motor está \nrelacionado con la disminución de la economía de combustible.",
-    vjust = "top", hjust = "right"
-  )
-```
-
-También puede usar una geom de etiqueta en lugar de una geom de texto como hicimos antes, establecer la estética como el color.
-Otro enfoque para llamar la atención sobre una característica de la gráfica es usar un segmento geom con el argumento `arrow`.
-La estética `x` e `y` definen la ubicación inicial del segmento y `xend` y `yend` para definir la ubicación final.
+Luego, agregamos dos capas de anotación: una con una etiqueta geom y la otra con un segmento geom.
+La estética `x` e `y` en ambos definen dónde debe comenzar la anotación, y la estética `xend` y `yend` en la anotación del segmento definen la ubicación inicial de la ubicación final del segmento.
+Tenga en cuenta también que el segmento tiene el estilo de una flecha.
 
 ```{r}
 #| fig-alt: >
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Un flecha
 #|   roja que apunta hacia abajo sigue la tendencia de los puntos y la anotación
-#|   junto a la flecha dice "El aumento del tamaño del motor está relacionado con
-#|   la disminución de la economía de combustible". La flecha y el texto de la anotación son rojos.
+#|   junto a la flecha dice "Los tamaños de motor más grandes tienden a tener menor
+#|   economía de combustible". La flecha y el texto de la anotación son rojos.
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   annotate(
     geom = "label", x = 3.5, y = 38,
-    label = "El aumento del tamaño del motor está \nrelacionado con la disminución de la economía de combustible.",
+    label = trend_text,
     hjust = "left", color = "red"
   ) +
   annotate(
@@ -352,28 +271,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 ```
 
-En estos ejemplos, dividimos manualmente la etiqueta en líneas usando `"\n"`.
-Otro enfoque es usar `stringr::str_wrap()` para agregar automáticamente saltos de línea, dada la cantidad de caracteres que desea por línea:
-
-```{r}
-"El aumento del tamaño del motor está relacionado con la disminución de la economía de combustible." |>
-  str_wrap(width = 40) |>
-  writeLines()
-```
-
-Recuerde, además de `geom_text()`, tiene muchos otros geoms en ggplot2 disponibles para ayudar a anotar su gráfico.
-Un par de ideas:
-
--   Use `geom_hline()` y `geom_vline()` para agregar líneas de referencia.
-    A menudo los hacemos gruesos (`linewidth = 2`) y blancos (`color = white`), y los dibujamos debajo de la capa de datos principal.
-    Eso los hace fáciles de ver, sin desviar la atención de los datos.
-
--   Usa `geom_rect()` para dibujar un rectángulo alrededor de los puntos de interés.
-    Los límites del rectángulo están definidos por la estética `xmin`, `xmax`, `ymin`, `ymax`.
-
--   Usa `geom_segment()` con el argumento `arrow` para llamar la atención sobre un punto con una flecha.
-    Use la estética `x` e `y` para definir la ubicación inicial, y `xend` y `yend` para definir la ubicación final.
-
+La anotación es una herramienta poderosa para comunicar los puntos principales y las características interesantes de sus visualizaciones.
 ¡El único límite es su imaginación (y su paciencia con las anotaciones de posicionamiento para que sean estéticamente agradables)!
 
 ### Ejercicios
@@ -386,7 +284,7 @@ Un par de ideas:
 3.  ¿Cómo interactúan las etiquetas con `geom_text()` con las facetas?
     ¿Cómo se puede agregar una etiqueta a una sola faceta?
     ¿Cómo se puede poner una etiqueta diferente en cada faceta?
-    (Sugerencia: piense en los datos subyacentes).
+    (Sugerencia: piense en el conjunto de datos que se pasa a `geom_text()`.).
 
 4.  ¿Qué argumentos de `geom_label()` controlan la apariencia del cuadro de fondo?
 
@@ -397,7 +295,7 @@ Un par de ideas:
 ## Escalas
 
 La tercera forma en que puede mejorar su gráfica para la comunicación es ajustar las escalas.
-Las escalas controlan el mapeo de valores de datos a cosas que puedes percibir.
+Las escalas controlan cómo los mapeos estéticos se manifiestan visualmente.
 
 ### Escalas predeterminadas
 
@@ -426,6 +324,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 Tenga en cuenta el esquema de nombres para las escalas: `scale_` seguido del nombre de la estética, luego `_`, luego el nombre de la escala.
 Las escalas predeterminadas se nombran según el tipo de variable con la que se alinean: continuous, discrete, datetime, o date.
+`scale_x_continuous()` coloca los valores numéricos de `displ` en una recta numérica continua en el eje x, `scale_color_discrete()` elige colores para cada una de las `clases` de automóviles, etc.
 Hay muchas escalas no predeterminadas que aprenderá a continuación.
 
 Las escalas predeterminadas se eligieron cuidadosamente para hacer un buen trabajo con una amplia gama de entradas.
@@ -438,6 +337,9 @@ Sin embargo, es posible que desee anular los valores predeterminados por dos raz
     A menudo, puede hacerlo mejor que el predeterminado porque sabe más sobre los datos.
 
 ### Marcas de eje y teclas de leyenda
+
+En conjunto, los ejes y las leyendas se denominan **guías**.
+Los ejes se utilizan para la estética x e y; las leyendas se usan para todo lo demás.
 
 Hay dos argumentos principales que afectan la apariencia de las marcas en los ejes y las teclas en la leyenda: `breaks` y `labels`.
 Con `breaks` controla la posición de los ticks o los valores asociados con las teclas.
