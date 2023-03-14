@@ -350,24 +350,31 @@ El uso más común de `breaks` es anular la opción predeterminada:
 #| fig-alt: >
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
 #|   El eje y tiene rupturas que comienzan en 15 y terminan en 40, aumentando en 5.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
+#|   coloreado por conducción. El eje y tiene rupturas que comienzan en 15 y terminan en 40,
+#|   aumentando en 5.
 
-ggplot(mpg, aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   scale_y_continuous(breaks = seq(15, 40, by = 5))
 ```
 
 Puede usar `labels` de la misma manera (un vector de caracteres de la misma longitud que `breaks`), pero también puede establecerlo en `NULL` para suprimir las etiquetas por completo.
-Esto es útil para mapas o para publicar gráficas donde no puede compartir los números absolutos.
+Esto puede ser útil para mapas o para publicar gráficas donde no puede compartir los números absolutos.
+También puede usar `breaks` y `labels` para controlar la apariencia de las leyendas.
+Para escalas discretas para variables categóricas, las etiquetas, `labels`, pueden ser una lista con nombre de los nombres de los niveles existentes y las etiquetas deseadas para ellos.
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
-#|   Los ejes x e y no tienen ninguna etiqueta en las marcas del eje.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, coloreado 
+#|   por conducción. Los ejes x e y no tienen ninguna etiqueta en las marcas del eje. 
+#|   La leyenda tiene etiquetas personalizadas: 4 ruedas, delantera, trasera.
 
-ggplot(mpg, aes(x = displ, y = hwy)) +
+ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   scale_x_continuous(labels = NULL) +
-  scale_y_continuous(labels = NULL)
+  scale_y_continuous(labels = NULL) +
+  scale_color_discrete(labels = c("4" = "4 ruedas", "f" = "delantera", "r" = "trasera"))
 ```
 
 El argumento `labels` junto con las funciones de etiquetado del paquete scales también es útil para formatear números como moneda, porcentaje, etc.
@@ -377,23 +384,24 @@ Tenga en cuenta que las rupturas (`breaks`) están en la escala original de los 
 
 ```{r}
 #| layout-ncol: 2
+#| fig-width: 4
 #| fig-alt: >
 #|   Dos diagramas de caja de lado a lado de precio versus corte de diamantes. Los valores atípicos
-#|   son transparentes. En ambos gráficos, las etiquetas del eje y tienen formato de dólares.
+#|   son transparentes. En ambos gráficos, las etiquetas del eje x tienen formato de dólares.
 #|   Las etiquetas del eje y en la gráfica de la izquierda comienzan en $0 y van hasta $15,000, aumentando
-#|   por $5,000. Las etiquetas del eje y en la gráfica de la derecha comienzan en $1K y van a
+#|   por $5,000. Las etiquetas del eje x en la gráfica de la derecha comienzan en $1K y van a
 #|   $19K, aumentando $6K.
 
 # Izquierda
-ggplot(diamonds, aes(x = cut, y = price)) +
+ggplot(diamonds, aes(x = price, y = cut)) +
   geom_boxplot(alpha = 0.05) +
-  scale_y_continuous(labels = scales::label_dollar())
+  scale_x_continuous(labels = label_dollar())
 
 # Derecha
-ggplot(diamonds, aes(x = cut, y = price)) +
+ggplot(diamonds, aes(x = price, y = cut)) +
   geom_boxplot(alpha = 0.05) +
-  scale_y_continuous(
-    labels = scales::label_dollar(scale = 1/1000, suffix = "K"), 
+  scale_x_continuous(
+    labels = label_dollar(scale = 1/1000, suffix = "K"), 
     breaks = seq(1000, 19000, by = 6000)
   )
 ```
@@ -408,15 +416,8 @@ Otra función de etiqueta útil es `label_percent()`:
 
 ggplot(diamonds, aes(x = cut, fill = clarity)) +
   geom_bar(position = "fill") +
-  scale_y_continuous(
-    name = "Porcentaje", 
-    labels = scales::label_percent()
-  )
+  scale_y_continuous(name = "Porcentaje", labels = label_percent())
 ```
-
-También puede usar `breaks` y `labels` para controlar la apariencia de las leyendas.
-En conjunto, los ejes y las leyendas se denominan **guías**.
-Los ejes se utilizan para la estética x e y; las leyendas se usan para todo lo demás.
 
 Otro uso de las rupturas (`breaks`) es cuando tiene relativamente pocos puntos de datos y desea resaltar exactamente dónde ocurren las observaciones.
 Por ejemplo, tome esta gráfica que muestra cuándo comenzó y terminó su mandato cada presidente de EE.
@@ -437,7 +438,8 @@ presidential |>
   scale_x_date(name = NULL, breaks = presidential$start, date_labels = "'%y")
 ```
 
-Tenga en cuenta que la especificación de rupturas y etiquetas para las escalas de fecha y hora es un poco diferente:
+Tenga en cuenta que para el argumento `breaks` sacamos la variable `start` como un vector con `presidential$start` porque no podemos hacer un mapeo estético para este argumento.
+También tenga en cuenta que la especificación de rupturas y etiquetas para las escalas de fecha y hora es un poco diferente:
 
 -   `date_labels` toma una especificación de formato, de la misma forma que `parse_datetime()`.
 
@@ -455,21 +457,25 @@ La configuración del tema `legend.position` controla dónde se dibuja la leyend
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-height: 2
 #| fig-alt: >
 #|   Cuatro diagramas de dispersión de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
 #|   donde los puntos están coloreados según la clase de automóvil. En el sentido de las agujas del reloj, la leyenda
-#|   se coloca a la izquierda, arriba, abajo y a la derecha del gráfico.
+#|   se coloca a la derecha, izquierda, arriba y abajo del gráfico.
 
 base <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class))
 
-base + theme(legend.position = "left")
-base + theme(legend.position = "top")
-base + theme(legend.position = "bottom")
 base + theme(legend.position = "right") # por defecto
+base + theme(legend.position = "left")
+base + 
+  theme(legend.position = "top") +
+  guides(col = guide_legend(nrow = 3))
+base + 
+  theme(legend.position = "bottom") +
+  guides(col = guide_legend(nrow = 3))
 ```
 
+Si su diagrama es corto y ancho, coloque la leyenda en la parte superior o inferior, y si es alto y angosto, coloque la leyenda a la izquierda o a la derecha.
 También puede usar `legend.position = "none"` para suprimir la visualización de la leyenda por completo.
 
 Para controlar la visualización de leyendas individuales, use `guides()` junto con `guide_legend()` o `guide_colorbar()`.
@@ -481,7 +487,7 @@ Esto es particularmente útil si ha usado un `alpha` bajo para mostrar muchos pu
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
 #|   donde los puntos están coloreados según la clase de automóvil. Superpuesto en la gráfica hay un
 #|   curva suave. La leyenda está en la parte inferior y las clases se enumeran
-#|   horizontalmente en una fila. Los puntos en la leyenda son más grandes que los puntos
+#|   horizontalmente en dos filas. Los puntos en la leyenda son más grandes que los puntos
 #|   en la gráfica
 
 
@@ -489,8 +495,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   theme(legend.position = "bottom") +
-  guides(color = guide_legend(nrow = 1, override.aes = list(size = 4)))
+  guides(color = guide_legend(nrow = 2, override.aes = list(size = 4)))
 ```
+
+Tenga en cuenta que el nombre del argumento en `guides()` coincide con el nombre de la estética, al igual que en `labs()`.
 
 ### Sustitución de una escala
 
@@ -504,8 +512,7 @@ Por ejemplo, es más fácil ver la relación precisa entre quilate,`carat`, y pr
 ```{r}
 #| fig-align: default
 #| layout-ncol: 2
-#| fig-width: 4
-#| fig-height: 3
+#| fig-width: 3
 #| fig-alt: >
 #|   Dos gráficas de precio frente a quilates de diamantes. Datos agrupados y el color de
 #|   los rectángulos que representan cada contenedor en función del número de puntos que
@@ -541,13 +548,14 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 Otra escala que se personaliza con frecuencia es el color.
 La escala categórica predeterminada selecciona colores que están espaciados uniformemente alrededor de la rueda de colores.
 Las alternativas útiles son las escalas ColorBrewer que se han ajustado a mano para que funcionen mejor para las personas con tipos comunes de daltonismo.
-Los dos gráficos a continuación se ven similares, pero hay suficiente diferencia en los tonos de rojo y verde para que los puntos de la derecha puedan ser distinguidos incluso por personas con daltonismo rojo-verde.
+Los dos gráficos a continuación se ven similares, pero hay suficiente diferencia en los tonos de rojo y verde para que los puntos de la derecha puedan ser distinguidos incluso por personas con daltonismo rojo-verde.[^communication-1]
+
+[^communication-1]: puede usar una herramienta como [SimDaltonism](https://michelf.ca/projects/sim-daltonism/) para simular el daltonismo para probar estas imágenes.
 
 ```{r}
 #| fig-align: default
 #| layout-ncol: 2
-#| fig-width: 4
-#| fig-height: 3
+#| fig-width: 3
 #| fig-alt: >
 #|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde los puntos son
 #|   coloreado por tipo de unidad. El gráfico de la izquierda utiliza el valor predeterminado
@@ -562,7 +570,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   scale_color_brewer(palette = "Set1")
 ```
 
-No olvides las técnicas más simples.
+No olvides las técnicas más simples para mejorar la accesibilidad.
 Si solo hay unos pocos colores, puede agregar un mapeo de forma redundante.
 Esto también ayudará a garantizar que su gráfica sea interpretable en blanco y negro.
 
@@ -598,7 +606,8 @@ RColorBrewer::display.brewer.all()
 ```
 
 Cuando tenga un mapeo predefinido entre valores y colores, use `scale_color_manual()`.
-Por ejemplo, si mapeamos el partido presidencial al color, queremos usar el mapeo estándar de rojo para los republicanos y azul para los demócratas:
+Por ejemplo, si mapeamos el partido presidencial al color, queremos usar el mapeo estándar de rojo para los republicanos y azul para los demócratas.
+Un enfoque para asignar estos colores es usar códigos de color hexadecimales:
 
 ```{r}
 #| fig-alt: >
@@ -612,7 +621,7 @@ presidential |>
   ggplot(aes(x = start, y = id, color = party)) +
   geom_point() +
   geom_segment(aes(xend = end, yend = id)) +
-  scale_color_manual(values = c(Republican = "red", Democratic = "blue"))
+  scale_color_manual(values = c(Republican = "#E81B23", Democratic = "#00AEF3"))
 ```
 
 Para el color continuo, puede utilizar `scale_color_gradient()` o `scale_fill_gradient()` integrados.
@@ -627,8 +636,8 @@ Estas escalas están disponibles como paletas continuas (`c`), discretas (`d`) y
 ```{r}
 #| fig-align: default
 #| layout-ncol: 2
-#| fig-width: 4
-#| fig-asp: 1
+#| fig-width: 3
+#| fig-asp: 0.75
 #| fig-alt: >
 #|   Tres diagramas hexadecimales donde el color de los hexágonos muestra el número de observaciones
 #|   que caen en ese contenedor hexagonal. El primer gráfico utiliza el valor continuo predeterminado.
@@ -643,22 +652,22 @@ df <- tibble(
 ggplot(df, aes(x, y)) +
   geom_hex() +
   coord_fixed() +
-  labs(title = "Default, continuous")
+  labs(title = "Default, continuous", x = NULL, y = NULL)
 
 ggplot(df, aes(x, y)) +
   geom_hex() +
   coord_fixed() +
   scale_fill_viridis_c() +
-  labs(title = "Viridis, continuous")
+  labs(title = "Viridis, continuous", x = NULL, y = NULL)
 
 ggplot(df, aes(x, y)) +
   geom_hex() +
   coord_fixed() +
   scale_fill_viridis_b() +
-  labs(title = "Viridis, binned")
+  labs(title = "Viridis, binned", x = NULL, y = NULL)
 ```
 
-Tenga en cuenta que todas las escalas de color vienen en dos variedades: `scale_color_x()` y `scale_fill_x()` para la estética `color` y `fill` respectivamente (las escalas de color están disponibles en la ortografía del Reino Unido y EE. UU.).
+Tenga en cuenta que todas las escalas de color vienen en dos variedades: `scale_color_*()` y `scale_fill_*()` para la estética `color` y `fill` respectivamente (las escalas de color están disponibles en la ortografía del Reino Unido y EE. UU.).
 
 ### Zoom
 
@@ -668,38 +677,59 @@ Hay tres formas de controlar los límites de la gráfica:
 2.  Fijación de los límites en cada escala.
 3.  Configuración de `xlim` y `ylim` en `coord_cartesian()`.
 
-Para acercar una región de la gráfica, generalmente es mejor usar `coord_cartesian()`.
-Compara las dos gráficas siguientes:
+Demostraremos estas opciones en una serie de gráficos.
+La gráfica de la izquierda muestra la relación entre el tamaño del motor y la eficiencia del combustible, coloreada por tipo de tren de transmisión.
+El gráfico de la derecha muestra las mismas variables, pero subconjuntos de los datos que se trazan.
+La creación de subconjuntos de datos ha afectado las escalas x e y, así como la curva suave.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-height: 3
 #| message: false
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth() +
-  coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))
+  geom_point(aes(color = drv)) +
+  geom_smooth()
 
 # Derecha
 mpg |>
-  filter(displ >= 5, displ <= 7, hwy >= 10, hwy <= 30) |>
+  filter(displ >= 5 & displ <= 6 & hwy >= 10 & hwy <= 25) |>
   ggplot(aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
+  geom_point(aes(color = drv)) +
   geom_smooth()
 ```
 
-También puede establecer los "límites" en escalas individuales.
-Reducir los límites es básicamente equivalente a dividir los datos en subconjuntos.
-Por lo general, es más útil si desea *expandir* los límites, por ejemplo, para hacer coincidir escalas en diferentes gráficos.
+Comparemos esto con los dos gráficos a continuación, donde el gráfico de la izquierda establece los límites, `limits`, en las escalas individuales y el gráfico de la derecha los establece en `coord_cartesian()`.
+Podemos ver que reducir los límites es equivalente a dividir los datos en subconjuntos.
+Por lo tanto, para ampliar una región de la gráfica, generalmente es mejor usar `coord_cartesian()`.
+
+```{r}
+#| layout-ncol: 2
+#| fig-width: 4
+#| message: false
+#| warning: false
+ 
+# Left
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = drv)) +
+  geom_smooth() +
+  scale_x_continuous(limits = c(5, 6)) +
+  scale_y_continuous(limits = c(10, 25))
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = drv)) +
+  geom_smooth() +
+  coord_cartesian(xlim = c(5, 6), ylim = c(10, 25))
+```
+
+Por otro lado, establecer los límites, `limits` en escalas individuales generalmente es más útil si desea *expandir* los límites, por ejemplo, para hacer coincidir las escalas en diferentes gráficos.
 Por ejemplo, si extraemos dos clases de autos y los representamos por separado, es difícil comparar los gráficos porque las tres escalas (el eje X, el eje Y y la estética del color) tienen rangos diferentes.
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-height: 3
 
 suv <- mpg |> filter(class == "suv")
 compact <- mpg |> filter(class == "compact")
@@ -718,7 +748,6 @@ Una forma de superar este problema es compartir escalas en varias gráficas, ent
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-height: 3
 
 x_scale <- scale_x_continuous(limits = range(mpg$displ))
 y_scale <- scale_y_continuous(limits = range(mpg$hwy))
@@ -764,21 +793,17 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
 
 3.  Cambie la visualización de los términos presidenciales por:
 
-    a.  Combinando las dos variantes mostradas arriba.
+    a.  Combinando las dos variantes que personalizan los colores y las separaciones del eje x.
     b.  Mejorando la visualización del eje y.
     c.  Etiquetar cada término con el nombre del presidente.
     d.  Adición de etiquetas de gráfica informativas.
     e.  Colocar descansos cada 4 años (¡es más complicado de lo que parece!).
 
-4.  Use `override.aes` para hacer que la leyenda en el siguiente gráfico sea más fácil de ver.
+4.  Primero, crea la siguiente gráfica.
+    Luego, modifique el código usando `override.aes` para que la leyenda sea más fácil de ver.
 
     ```{r}
-    #| fig-format: "png"
-    #| out-width: "50%"
-    #| fig-alt: >
-    #|   Diagrama de dispersión de precio versus quilate de diamantes. Los puntos son de colores.
-    #|   por corte de los diamantes y son muy transparentes.
-
+    #| fig-show: hide
 
     ggplot(diamonds, aes(x = carat, y = price)) +
       geom_point(aes(color = cut), alpha = 1/20)
@@ -797,9 +822,15 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   theme_bw()
 ```
 
-ggplot2 incluye ocho temas por defecto, como se muestra en @fig-themes.
+ggplot2 incluye los ocho temas que se muestran en @fig-themes, con `theme_gray()` como predeterminado.[^communication-2]
 Muchos más están incluidos en paquetes complementarios como **ggthemes** (<https://jrnold.github.io/ggthemes>), de Jeffrey Arnold.
 También puede crear sus propios temas, si está tratando de hacer coincidir un estilo corporativo o de revista en particular.
+
+[^communication-2]: muchas personas se preguntan por qué el tema predeterminado tiene un fondo gris.
+    Esta fue una elección deliberada porque presenta los datos sin dejar de hacer visibles las líneas de la cuadrícula.
+    Las líneas de cuadrícula blancas son visibles (lo cual es importante porque ayudan significativamente a los juicios de posición), pero tienen poco impacto visual y podemos ignorarlas fácilmente.
+    El fondo gris le da a la trama un color tipográfico similar al del texto, asegurando que los gráficos encajen con el flujo de un documento sin sobresalir con un fondo blanco brillante.
+    Finalmente, el fondo gris crea un campo continuo de color que asegura que la trama se perciba como una sola entidad visual.
 
 ```{r}
 #| label: fig-themes
@@ -820,25 +851,30 @@ También puede crear sus propios temas, si está tratando de hacer coincidir un 
 knitr::include_graphics("images/visualization-themes.png")
 ```
 
-Muchas personas se preguntan por qué el tema predeterminado tiene un fondo gris.
-Esta fue una elección deliberada porque presenta los datos sin dejar de hacer visibles las líneas de la cuadrícula.
-Las líneas de cuadrícula blancas son visibles (lo cual es importante porque ayudan significativamente a los juicios de posición), pero tienen poco impacto visual y podemos ignorarlas fácilmente.
-El fondo gris le da a la gráfica un color tipográfico similar al del texto, asegurando que los gráficos encajen con el flujo de un documento sin sobresalir con un fondo blanco brillante.
-Finalmente, el fondo gris crea un campo continuo de color que asegura que la gráfica se perciba como una sola entidad visual.
-
 También es posible controlar los componentes individuales de cada tema, como el tamaño y el color de la fuente utilizada para el eje y.
 Ya hemos visto que `legend.position` controla dónde se dibuja la leyenda.
 Hay muchos otros aspectos de la leyenda que se pueden personalizar con `theme()`.
 Por ejemplo, en el siguiente gráfico, cambiamos la dirección de la leyenda y le ponemos un borde negro alrededor.
+Tenga en cuenta que la personalización del cuadro de leyenda y los elementos del título de la trama del tema se realizan con las funciones `element_*()`.
+Estas funciones especifican el estilo de los componentes que no son datos, por ejemplo, el texto del título está en negrita en el argumento `face` de `element_text()` y el color del borde de la leyenda está definido en el argumento `color` de `element_rect()`.
+Los elementos del tema que controlan la posición del título y la leyenda son `plot.title.position` y `plot.caption.position`, respectivamente.
+En el gráfico siguiente, estos se establecen en `"plot"` para indicar que estos elementos están alineados con toda el área del gráfico, en lugar del panel de gráfico (el valor predeterminado).
 Se utilizan algunos otros componentes de `theme()` útiles para cambiar la ubicación del formato del título y el texto del subtítulo.
 
 ```{r}
+#| fig-alt: >
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, coloreado 
+#|   por conducción. El gráfico se titula "Los tamaños de motor más grandes tienden a tener una economía de combustible
+#|   más baja" con la descripción que apunta a la fuente de los datos, fueleconomy.gov.
+#|   La descripción y el título están justificados a la izquierda, la leyenda está dentro de la trama con un borde negro.
+
+
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point() +
   labs(
-    title = "El kilometraje en carretera disminuye a medida que aumenta el tamaño del motor",
+    title = "Los tamaños de motor más grandes tienden a tener una menor economía de combustible",
     caption = "Source: https://fueleconomy.gov."
-    ) +
+  ) +
   theme(
     legend.position = c(0.6, 0.7),
     legend.direction = "horizontal",
@@ -847,7 +883,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
     plot.title.position = "plot",
     plot.caption.position = "plot",
     plot.caption = element_text(hjust = 0)
-    )
+  )
 ```
 
 Para obtener una descripción general de todos los componentes `theme()`, consulte la ayuda con `?theme`.
@@ -870,6 +906,8 @@ Tenga en cuenta que primero debe crear los gráficos y guardarlos como objetos (
 Luego, los colocas uno al lado del otro con `+`.
 
 ```{r}
+#| fig-width: 6
+#| fig-asp: 0.5
 #| fig-alt: >
 #|   Dos diagramas (un diagrama de dispersión del kilometraje en carretera versus el tamaño del motor y un
 #|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión) colocados a continuación
@@ -887,10 +925,12 @@ p1 + p2
 Es importante tener en cuenta que en el fragmento de código anterior no usamos una nueva función del paquete patchwork.
 En cambio, el paquete agregó una nueva funcionalidad al operador `+`.
 
-También puede crear diseños de gráfica arbitrarios con patchwork.
+También puede crear diseños de trama complejos con patchwork.
 A continuación, `|` coloca `p1` y `p3` uno al lado del otro y `/` mueve `p2` a la siguiente línea.
 
 ```{r}
+#| fig-width: 6
+#| fig-asp: 0.8
 #| fig-alt: >
 #|   Tres gráficas dispuestas de manera que la primera y la tercera gráfica estén una al lado de la otra
 #|   y la segunda gráfica se extendía debajo de ellos. La primera gráfica es una
@@ -906,7 +946,7 @@ p3 <- ggplot(mpg, aes(x = cty, y = hwy)) +
 ```
 
 Además, patchwork le permite recopilar leyendas de varias gráficas en una leyenda común, personalizar la ubicación de la leyenda y las dimensiones de las gráficas, y agregar un título, subtítulo, descripción, etc. común a sus gráficas.
-A continuación, tenemos 5 gráficas.
+A continuación creamos 5 parcelas.
 Desactivamos las leyendas en los diagramas de caja y el diagrama de dispersión y recopilamos las leyendas para los diagramas de densidad en la parte superior del diagrama con `& theme(legend.position = "top")`.
 Tenga en cuenta el uso del operador `&` aquí en lugar del habitual `+`.
 Esto se debe a que estamos modificando el tema de la gráfica de retazos en lugar de las ggplots individuales.
@@ -915,7 +955,8 @@ Finalmente, también hemos personalizado las alturas de los diversos componentes
 Patchwork divide el área que ha asignado para su gráfica utilizando esta escala y coloca los componentes en consecuencia.
 
 ```{r}
-#| fig-width: 10
+#| fig-width: 8
+#| fig-asp: 1
 #| fig-alt: >
 #|   Cinco gráficas distribuidas de manera que las dos primeras gráficas estén una al lado de la otra. gráficas
 #|   tres y cuatro están debajo de ellos. Y la quinta gráfica se extiende debajo de ellos.
@@ -967,7 +1008,7 @@ Si desea obtener más información sobre la combinación y el diseño de varias 
     ¿Puedes explicar por qué sucede esto?
 
     ```{r}
-    #| results: hide
+    #| fig-show: hide
 
     p1 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
       geom_point() + 
@@ -985,6 +1026,8 @@ Si desea obtener más información sobre la combinación y el diseño de varias 
 2.  Usando las tres gráficas del ejercicio anterior, recrea el siguiente mosaico.
 
     ```{r}
+    #| fig-width: 7
+    #| fig-asp: 0.8
     #| echo: false
     #| fig-alt: >
     #|   Tres gráficas: La gráfica 1 es una gráfica de dispersión del kilometraje en carretera versus el tamaño del motor.
