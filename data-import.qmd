@@ -34,10 +34,12 @@ library(tidyverse)
 Para comenzar, nos centraremos en el tipo de archivo de datos más rectangular más común: CSV, que es la abreviatura de valores separados por comas.
 Así es como se ve un archivo CSV simple.
 La primera fila, comúnmente llamada fila de encabezado, proporciona los nombres de las columnas y las seis filas siguientes proporcionan los datos.
+Las columnas están separadas, también conocidas como delimitadas, por comas.
 
 ```{r}
 #| echo: false
 #| message: false
+#| comment: ""
 
 read_lines("data/students.csv") |> cat(sep = "\n")
 ```
@@ -55,7 +57,8 @@ read_csv("data/students.csv") |>
 ```
 
 Podemos leer este archivo en R usando `read_csv()`.
-El primer argumento es el más importante: es la ruta al archivo.
+El primer argumento es el más importante: la ruta al archivo.
+Puede pensar en la ruta como la dirección del archivo: el archivo se llama `students.csv` y vive en la carpeta `data`.
 
 ```{r}
 #| message: true
