@@ -66,6 +66,15 @@ Puede pensar en la ruta como la dirección del archivo: el archivo se llama `stu
 students <- read_csv("data/students.csv")
 ```
 
+El código anterior funcionará si tiene el archivo `students.csv` en una carpeta `data` en su proyecto.
+Puede descargar el archivo `students.csv` desde <https://pos.it/r4ds-students-csv> o puede leerlo directamente desde esa URL con:
+
+```{r}
+#| eval: false
+ 
+students <- read_csv("https://pos.it/r4ds-students-csv")
+```
+
 Cuando ejecuta `read_csv()`, imprime un mensaje que le indica el número de filas y columnas de datos, el delimitador que se usó y las especificaciones de las columnas (nombres de columnas organizados por el tipo de datos que contiene la columna).
 También imprime información sobre cómo recuperar la especificación de columna completa y cómo silenciar este mensaje.
 Este mensaje es una parte integral de readr, y regresaremos a él en @sec-col-types.
@@ -75,8 +84,13 @@ Este mensaje es una parte integral de readr, y regresaremos a él en @sec-col-ty
 Una vez que lee los datos, el primer paso generalmente consiste en transformarlos de alguna manera para que sea más fácil trabajar con ellos en el resto de su análisis.
 Echemos otro vistazo a los datos de `students` con eso en mente.
 
+```{r}
+students
+```
+
 En la columna `favourite.food`, hay un montón de artículos de comida, y luego la cadena de caracteres `N/A`, que debería haber sido un `NA` real que R reconocerá como "no disponible".
 Esto es algo que podemos abordar usando el argumento `na`.
+Por defecto `read_csv()` solo reconoce cadenas vacías (`""`) como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A`.
 
 ```{r}
 #| message: false
@@ -86,8 +100,8 @@ students
 ```
 
 También puede notar que las columnas `Student ID` y `Full Name` están rodeadas de acentos graves.
-Eso es porque contienen espacios, rompiendo las reglas usuales de R para nombres de variables.
-Para referirse a ellos, debe usar esos acentos graves:
+Eso es porque contienen espacios, rompiendo las reglas usuales de R para nombres de variables; son nombres **no sintácticos**.
+Para hacer referencia a estas variables, debe rodearlas con acentos graves, `` ` ``:
 
 ```{r}
 students |> 
