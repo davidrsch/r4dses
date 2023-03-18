@@ -120,19 +120,20 @@ table1 |>
   mutate(rate = cases / population * 10000)
 
 # Calcular casos por año
-table1 |>
-  count(year, wt = cases)
+table1 |> 
+  group_by(year) |> 
+  summarize(total_cases = sum(cases))
 
 # Visualice los cambios a lo largo del tiempo
 ggplot(table1, aes(x = year, y = cases)) +
   geom_line(aes(group = country), color = "grey50") +
   geom_point(aes(color = country, shape = country)) +
-  scale_x_continuous(breaks = c(1999, 2000))
+  scale_x_continuous(breaks = c(1999, 2000)) # x-axis breaks at 1999 and 2000
 ```
 
 ### Ejercicios
 
-1.  Usando palabras, describa cómo se organizan las variables y las observaciones en cada una de las tablas de muestra.
+1.  Para cada una de las tablas de muestra, describa lo que representa cada observación y cada columna.
 
 2.  Haz un bosquejo del proceso que usarías para calcular la `rate` para `table2` y `table3`.
     Deberá realizar cuatro operaciones:
@@ -174,17 +175,12 @@ billboard
 
 En este conjunto de datos, cada observación es una canción.
 Las primeras tres columnas (`artist`, `track` y `date.entered`) son variables que describen la canción.
-Luego tenemos 76 columnas (`wk1`-`wk76`) que describen el rango de la canción en cada semana.
+Luego tenemos 76 columnas (`wk1`-`wk76`) que describen el rango de la canción en cada semana[^data-tidy-1].
 Aquí, los nombres de las columnas son una variable (la `semana`) y los valores de las celdas son otra (el `rango`).
 
-Para ordenar estos datos, usaremos `pivot_longer()`.
-Después de los datos, hay tres argumentos clave:
+[^data-tidy-1]: La canción se incluirá siempre que haya estado entre las 100 mejores en algún momento del año 2000, y se rastreará hasta 72 semanas después de su aparición.
 
--   `cols` especifica qué columnas deben girarse, es decir, qué columnas no son variables. Este argumento usa la misma sintaxis que `select()`, así que aquí podríamos usar `!c(artist, track, date.entered)` o `starts_with("wk")`.
--   `names_to` nombres de la variable almacenada en la columna nombres, aquí `"week"`.
--   `values_to` nombra la variable almacenada en los valores de celda, aquí `"rank"`.
-
-Eso da la siguiente llamada:
+Para ordenar estos datos, usaremos `pivot_longer()`:
 
 ```{r, R.options=list(pillar.print_min = 10)}
 billboard |> 
@@ -195,12 +191,21 @@ billboard |>
   )
 ```
 
+Después de los datos, hay tres argumentos clave:
+
+-   `cols` especifica qué columnas deben girarse, es decir, qué columnas no son variables. Este argumento usa la misma sintaxis que `select()`, así que aquí podríamos usar `!c(artist, track, date.entered)` o `starts_with("wk")`.
+-   `names_to` nombres de la variable almacenada en la columna nombres, llamamos a esa variable `week`.
+-   `values_to` nombra la variable almacenada en los valores de celda, llamamos a esa variable `rank`.
+
+Tenga en cuenta que en el código se citan `"week"` y `"rank"` porque son variables nuevas que estamos creando, aún no existen en los datos cuando ejecutamos la llamada `pivot_longer()`.
+
+Ahora dirijamos nuestra atención al marco de datos más largo resultante.
 ¿Qué sucede si una canción está en el top 100 durante menos de 76 semanas?
 Tome "Baby Don't Cry" de 2 Pac, por ejemplo.
-El resultado anterior sugiere que fue solo el top 100 durante 7 semanas, y todas las semanas restantes se completan con valores faltantes.
-Estas NA no representan realmente observaciones desconocidas; están obligados a existir por la estructura del conjunto de datos [^data-tidy-1], por lo que podemos pedirle a `pivot_longer()` que se deshaga de ellos configurando `values_drop_na = TRUE`:
+El resultado anterior sugiere que estuvo solo en el top 100 durante 7 semanas, y todas las semanas restantes se completan con valores faltantes.
+Estas NA no representan realmente observaciones desconocidas; están obligados a existir por la estructura del conjunto de datos [^data-tidy-2], por lo que podemos pedirle a `pivot_longer()` que se deshaga de ellos configurando `values_drop_na = TRUE`:
 
-[^data-tidy-1]: Volveremos sobre esta idea en @sec-missing-values.
+[^data-tidy-2]: Volveremos sobre esta idea en @sec-missing-values.
 
 ```{r}
 billboard |> 
@@ -212,6 +217,8 @@ billboard |>
   )
 ```
 
+El número de filas ahora es mucho menor, lo que indica que se eliminaron muchas filas con `NA`.
+
 También puede preguntarse qué sucede si una canción está en el top 100 durante más de 76 semanas.
 No podemos decirlo a partir de estos datos, pero puede suponer que se agregarán columnas adicionales `wk77`, `wk78`, ... al conjunto de datos.
 
@@ -219,7 +226,7 @@ Estos datos ahora están ordenados, pero podríamos hacer que el cálculo futuro
 `parse_number()` es una función útil que extraerá el primer número de una cadena, ignorando el resto del texto.
 
 ```{r}
-billboard_tidy <- billboard |> 
+billboard_longer <- billboard |> 
   pivot_longer(
     cols = starts_with("wk"), 
     names_to = "week", 
@@ -229,11 +236,12 @@ billboard_tidy <- billboard |>
   mutate(
     week = parse_number(week)
   )
-billboard_tidy
+billboard_longer
 ```
 
-Ahora estamos en una buena posición para ver cómo varían los rangos de las canciones con el tiempo dibujando una trama.
-El código se muestra a continuación y el resultado es @fig-billboard-ranks.
+Ahora que tenemos todos los números de semana en una variable y todos los valores de clasificación en otra, estamos en una buena posición para visualizar cómo varían las clasificaciones de las canciones con el tiempo.
+El código se muestra a continuación y el resultado está en @fig-billboard-ranks.
+Podemos ver que muy pocas canciones permanecen en el top 100 por más de 20 semanas.
 
 ```{r}
 #| label: fig-billboard-ranks
@@ -246,41 +254,43 @@ El código se muestra a continuación y el resultado es @fig-billboard-ranks.
 #|   sorprendentemente pocas pistas en la región cuando la semana es >20 y el rango es
 #|   >50.
 
-billboard_tidy |> 
+billboard_longer |> 
   ggplot(aes(x = week, y = rank, group = track)) + 
-  geom_line(alpha = 1/3) + 
+  geom_line(alpha = 0.25) + 
   scale_y_reverse()
 ```
 
 ### ¿Cómo funciona el pivoteo?
 
-Ahora que ha visto lo que puede hacer pivotar por usted, vale la pena tomarse un poco de tiempo para adquirir cierta intuición sobre lo que hace con los datos.
-Comencemos con un conjunto de datos muy simple para que sea más fácil ver lo que está sucediendo:
+Ahora que ha visto cómo podemos usar el pivote para remodelar nuestros datos, tomemos un poco de tiempo para ganar algo de intuición sobre lo que hace el pivote con los datos.
+Comencemos con un conjunto de datos muy simple para que sea más fácil ver lo que está sucediendo.
+Supongamos que tenemos tres pacientes con `id`s A, B y C, y tomamos dos medidas de presión arterial en cada paciente.
+Crearemos los datos con `tribble()`, una función útil para construir pequeños tibbles a mano:
 
 ```{r}
 df <- tribble(
-  ~var, ~col1, ~col2,
-   "A",     1,     2,
-   "B",     3,     4,
-   "C",     5,     6
+  ~id,  ~bp1, ~bp2,
+  "A",  100,  120,
+  "B",  140,  115,
+  "C",  120,  125
 )
 ```
 
-Aquí diremos que hay tres variables: `var` (ya en una variable), `name` (los nombres de las columnas en los nombres de las columnas) y `value` (los valores de las celdas).
-Entonces podemos ordenarlo con:
+Queremos que nuestro nuevo conjunto de datos tenga tres variables: `id` (ya existe), `measurement` (los nombres de las columnas) y `value` (los valores de las celdas).
+Para lograr esto, necesitamos pivotear `df` por más tiempo:
 
 ```{r}
 df |> 
   pivot_longer(
-    cols = col1:col2,
-    names_to = "name",
+    cols = bp1:bp2,
+    names_to = "measurement",
     values_to = "value"
   )
 ```
 
-¿Cómo se produce esta transformación?
-Es más fácil ver si lo tomamos componente por componente.
-Las columnas que ya son variables deben repetirse, una vez por cada columna en `cols`, como se muestra en @fig-pivot-variables.
+¿Cómo funciona la remodelación?
+Es más fácil verlo si lo pensamos columna por columna.
+Como se muestra en @fig-pivot-variables, los valores en la columna que ya era una variable en el conjunto de datos original (`var`) deben repetirse, una vez por cada columna que se pivote.
 
 ```{r}
 #| label: fig-pivot-variables
@@ -290,31 +300,31 @@ Las columnas que ya son variables deben repetirse, una vez por cada columna en `
 #|   cada columna que se pivota.
 #| fig-alt: > 
 #|   Un diagrama que muestra cómo `pivot_longer()` transforma un simple
-#|   conjunto de datos, usando color para resaltar cómo los valores en la columna `var`
+#|   conjunto de datos, usando color para resaltar cómo los valores en la columna `id`
 #|   ("A", "B", "C") se repiten cada uno dos veces en la salida porque hay
-#|   dos columnas giradas ("col1" y "col2").
+#|   dos columnas giradas ("bp1" y "bp2").
 
 knitr::include_graphics("diagrams/tidy-data/variables.png", dpi = 270)
 ```
 
-Los nombres de las columnas se convierten en valores en una nueva variable, cuyo nombre viene dado por `names_to`, como se muestra en @fig-pivot-names.
+Los nombres de las columnas se convierten en valores en una nueva variable, cuyo nombre es definido por `names_to`, como se muestra en @fig-pivot-names.
 Deben repetirse una vez para cada fila en el conjunto de datos original.
 
 ```{r}
 #| label: fig-pivot-names
 #| echo: false
 #| fig-cap: >
-#|   Los nombres de columna de las columnas pivoteadas se convierten en una nueva columna. Los valores necesitan repetirse una vez por cada fila en el conjunto de datos original
+#|   Los nombres de columna de las columnas pivoteadas se convierten en valores en una nueva columna. Los valores necesitan repetirse una vez por cada fila en el conjunto de datos original
 #| fig-alt: >
 #|   Un diagrama que muestra cómo `pivot_longer()` transforma un simple
-#|   conjunto de datos, usando color para resaltar cómo los nombres de las columnas ("col1" y
-#|   "col2") se convierten en los valores en una nueva columna `var`. se repiten
+#|   conjunto de datos, usando color para resaltar cómo los nombres de las columnas ("bp1" y
+#|   "bp2") se convierten en los valores en una nueva columna `measurement`. se repiten
 #|   tres veces porque había tres filas en la entrada.
 
 knitr::include_graphics("diagrams/tidy-data/column-names.png", dpi = 270)
 ```
 
-Los valores de celda también se convierten en valores en una nueva variable, con un nombre dado por `values_to`.
+Los valores de celda también se convierten en valores en una nueva variable, con un nombre definido por `values_to`.
 Se desenrollan fila por fila.
 @fig-pivot-values ilustra el proceso.
 
@@ -326,32 +336,32 @@ Se desenrollan fila por fila.
 #|   fila por fila.
 #| fig-alt: >
 #|   Un diagrama que muestra cómo `pivot_longer()` transforma los datos,
-#|   usando color para resaltar los valores de la celda (los números del 1 al 6)
+#|   usando color para resaltar los valores de la celda (mediciones de la presión arterial)
 #|   convertirse en los valores en una nueva columna `valor`. Se desenrollan fila por fila,
-#|   entonces las filas originales (1,2), luego (3,4), luego (5,6), se convierten en una columna
-#|   va del 1 al 6.
+#|   entonces las filas originales (100,120), luego (140,115), se convierten en una columna
+#|   va del 100 al 125.
 
 knitr::include_graphics("diagrams/tidy-data/cell-values.png", dpi = 270)
 ```
 
 ### Muchas variables en los nombres de las columnas
 
-Una situación más desafiante ocurre cuando tiene múltiples variables metidas en los nombres de las columnas.
+Una situación más desafiante ocurre cuando tiene múltiples piezas de información abarrotadas en los nombres de las columnas y desea almacenarlas en nuevas variables separadas.
 Por ejemplo, tome el conjunto de datos `who2`, la fuente de `table_1` y amigos que vió con anterioridad:
 
 ```{r}
 who2
 ```
 
-Este conjunto de datos registra información sobre los datos de tuberculosis recopilados por la OMS.
+Este conjunto de datos, recopilado por la Organización Mundial de la Salud, registra información sobre diagnósticos de tuberculosis.
 Hay dos columnas que ya son variables y son fáciles de interpretar: `country` y `year`.
 Les siguen 56 columnas como `sp_m_014`, `ep_m_4554` y `rel_m_3544`.
 Si observa estas columnas durante el tiempo suficiente, notará que hay un patrón.
 Cada nombre de columna se compone de tres piezas separadas por `_`.
-La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico (`diagnosis`), la segunda pieza, `m`/`f` es el género (`gender`), y la tercera pieza, `014`/`1524`/`2535`/`3544`/`4554`/`65` es el rango de edad (`age`).
+La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico, la segunda pieza, `m`/`f` es el `género` (codificado como una variable binaria en este conjunto de datos) , y la tercera pieza, `014`/`1524`/`2535`/`3544`/`4554`/`65` es el rango de `edad` (`014` representa 0-14, por ejemplo).
 
-Entonces, en este caso, tenemos seis variables: dos variables ya son columnas, tres variables están contenidas en el nombre de la columna y una variable está en el valor de la celda.
-Esto requiere dos cambios en nuestra llamada a `pivot_longer()`: `names_to` obtiene un vector de nombres de columnas y `names_sep` describe cómo dividir el nombre de la variable en partes:
+Entonces, en este caso, tenemos seis piezas de información registradas en `who2`: el país y el año (ya columnas); el método de diagnóstico, la categoría de género y la categoría de rango de edad (contenidas en los otros nombres de columna); y el recuento de pacientes en esa categoría (valores de celda).
+Para organizar estas seis piezas de información en seis columnas separadas, usamos `pivot_longer()` con un vector de nombres de columna para `names_to` e instructores para dividir los nombres de las variables originales en partes para `names_sep`, así como un nombre de columna para `values_to`:
 
 ```{r}
 who2 |> 
@@ -367,14 +377,15 @@ Una alternativa a `names_sep` es `names_pattern`, que puede usar para extraer va
 
 Conceptualmente, esta es solo una variación menor del caso más simple que ya ha visto.
 @fig-pivot-multiple-names muestra la idea básica: ahora, en lugar de que los nombres de las columnas giren en una sola columna, giran en varias columnas.
-Puede imaginar que esto suceda en dos pasos (primero girando y luego separando), pero debajo del capó sucede en un solo paso porque eso brinda un mejor rendimiento.
+Puede imaginar que esto suceda en dos pasos (primero girando y luego separando), pero debajo del capó sucede en un solo paso porque eso es más rápido.
 
 ```{r}
 #| label: fig-pivot-multiple-names
 #| echo: false
 #| fig-cap: >
-#|   Girar con muchas variables en los nombres de las columnas significa que cada
-#|   nombre de la columna ahora completa los valores en varias columnas de salida.
+#|   Girar columnas con múltiples piezas de información en los nombres 
+#|   significa que cada nombre de columna ahora completa valores en múltiples columnas
+#|   de salida.
 #| fig-alt: >
 #|   Un diagrama que usa color para ilustrar cómo proporcionar `names_sep`
 #|   y multiple `names_to` crea múltiples variables en la salida.
@@ -397,7 +408,7 @@ household
 
 Este conjunto de datos contiene información sobre cinco familias, con los nombres y fechas de nacimiento de hasta dos niños.
 El nuevo desafío en este conjunto de datos es que los nombres de las columnas contienen los nombres de dos variables (`dob`, `name)` y los valores de otra (`child,` con valores 1 o 2).
-Para resolver este problema, nuevamente necesitamos proporcionar un vector a `names_to` pero esta vez usamos el centinela especial `".value"`.
+Para resolver este problema, nuevamente necesitamos proporcionar un vector a `names_to` pero esta vez usamos el centinela especial `".value"`; este no es el nombre de una variable sino un valor único que le dice a `pivot_longer()` que haga algo diferente.
 Esto anula el argumento `values_to` habitual para usar el primer componente del nombre de la columna dinámica como nombre de variable en la salida.
 
 ```{r}
@@ -407,13 +418,10 @@ household |>
     names_to = c(".value", "child"), 
     names_sep = "_", 
     values_drop_na = TRUE
-  ) |> 
-  mutate(
-    child = parse_number(child)
   )
 ```
 
-Nuevamente usamos `values_drop_na = TRUE`, ya que la forma de la entrada fuerza la creación de variables faltantes explícitas (por ejemplo, para familias con un solo hijo), y `parse_number()` para convertir (por ejemplo) `child1` en 1.
+Nuevamente usamos `values_drop_na = TRUE`, ya que la forma de la entrada fuerza la creación de variables faltantes explícitas (por ejemplo, para familias con un solo hijo).
 
 @fig-pivot-names-and-values ilustra la idea básica con un ejemplo más simple.
 Cuando usa `".value"` en `names_to`, los nombres de las columnas en la entrada contribuyen tanto a los valores como a los nombres de las variables en la salida.
@@ -447,7 +455,7 @@ Comenzaremos analizando `cms_patient_experience`, un conjunto de datos de los se
 cms_patient_experience
 ```
 
-Una observación es una organización, pero cada organización se distribuye en seis filas, con una fila para cada variable o medida.
+La unidad central que se estudia es una organización, pero cada organización se distribuye en seis filas, con una fila para cada medición realizada en la organización de la encuesta.
 Podemos ver el conjunto completo de valores para `measure_cd` y `measure_title` usando `distinct()`:
 
 ```{r}
@@ -456,9 +464,9 @@ cms_patient_experience |>
 ```
 
 Ninguna de estas columnas hará nombres de variables particularmente buenos: `measure_cd` no sugiere el significado de la variable y `measure_title` es una oración larga que contiene espacios.
-Usaremos `measure_cd` por ahora, pero en un análisis real es posible que desee crear sus propios nombres de variables que sean breves y significativos.
+Usaremos `measure_cd` como la fuente para nuestros nuevos nombres de columna por ahora, pero en un análisis real, es posible que desee crear sus propios nombres de variables que sean cortos y significativos.
 
-`pivot_wider()` tiene la interfaz opuesta a `pivot_longer()`: necesitamos proporcionar las columnas existentes que definen los valores (`values_from`) y el nombre de la columna (`names_from`):
+\``pivot_wider()` tiene la interfaz opuesta a `pivot_longer()`: en lugar de elegir nuevos nombres de columna, debemos proporcionar las columnas existentes que definen los valores (`values_from`) y el nombre de la columna (`names_from)`:
 
 ```{r}
 cms_patient_experience |> 
@@ -469,8 +477,7 @@ cms_patient_experience |>
 ```
 
 La salida no se ve muy bien; todavía parece que tenemos varias filas para cada organización.
-Esto se debe a que, de forma predeterminada, `pivot_wider()` intentará conservar todas las columnas existentes, incluida `measure_title`, que tiene seis observaciones distintas para cada organización.
-Para arreglar este problema necesitamos decirle a `pivot_wider()` qué columnas identifican cada fila; en este caso esas son las variables que comienzan con `"org"`:
+Eso es porque, también necesitamos decirle a `pivot_wider()` qué columna o columnas tienen valores que identifican de manera única cada fila; en este caso esas son las variables que comienzan con `"org"`:
 
 ```{r}
 cms_patient_experience |> 
@@ -485,47 +492,46 @@ Esto nos da la salida que estamos buscando.
 
 ### ¿Cómo funciona `pivot_wider()`?
 
-Para entender cómo funciona `pivot_wider()`, comencemos nuevamente con un conjunto de datos muy simple:
+Para entender cómo funciona `pivot_wider()`, comencemos nuevamente con un conjunto de datos muy simple.
+Esta vez tenemos dos pacientes con `id`s A y B, tenemos tres mediciones de presión arterial en el paciente A y dos en el paciente B:
 
 ```{r}
 df <- tribble(
-  ~id, ~name, ~value,
-  "A", "x", 1,
-  "B", "y", 2,
-  "B", "x", 3, 
-  "A", "y", 4,
-  "A", "z", 5,
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115, 
+  "A",        "bp2",    120,
+  "A",        "bp3",    105
 )
 ```
 
-Tomaremos los valores de la columna `value` y los nombres de la columna `name`:
+Tomaremos los valores de la columna `value` y los nombres de la columna `measurement`:
 
 ```{r}
 df |> 
   pivot_wider(
-    names_from = name,
+    names_from = measurement,
     values_from = value
   )
 ```
 
-La conexión entre la posición de la fila en la entrada y la celda en la salida es más débil que en `pivot_longer()` porque las filas y columnas en la salida están determinadas principalmente por los valores de las variables, no por sus ubicaciones.
-
 Para comenzar el proceso, `pivot_wider()` necesita primero averiguar qué irá en las filas y columnas.
-Encontrar los nombres de las columnas es fácil: son solo los valores únicos de `name`.
+Los nuevos nombres de columna serán los valores únicos de `measurement`.
 
 ```{r}
 df |> 
-  distinct(name) |> 
+  distinct(measurement) |> 
   pull()
 ```
 
-De forma predeterminada, las filas de la salida están formadas por todas las variables que no se incluyen en los nombres o valores.
+De forma predeterminada, las filas de la salida están determinadas por todas las variables que no se incluirán en los nuevos nombres o valores.
 Estos se llaman `id_cols`.
 Aquí solo hay una columna, pero en general puede haber cualquier cantidad de columnas.
 
 ```{r}
 df |> 
-  select(-name, -value) |> 
+  select(-measurement, -value) |> 
   distinct()
 ```
 
@@ -533,45 +539,46 @@ df |>
 
 ```{r}
 df |> 
-  select(-name, -value) |> 
+  select(-measurement, -value) |> 
   distinct() |> 
   mutate(x = NA, y = NA, z = NA)
 ```
 
 Luego completa todos los valores faltantes usando los datos en la entrada.
-En este caso, no todas las celdas de la salida tienen el valor correspondiente en la entrada, ya que no hay una entrada para la identificación "B" y el nombre "z", por lo que esa celda sigue sin aparecer.
+En este caso, no todas las celdas de la salida tienen un valor correspondiente en la entrada, ya que no hay una tercera medición de la presión arterial para el paciente B, por lo que falta esa celda.
 Volveremos a esta idea de que `pivot_wider()` puede "hacer" valores faltantes en @sec-missing-values.
 
 También puede preguntarse qué sucede si hay varias filas en la entrada que corresponden a una celda en la salida.
-El siguiente ejemplo tiene dos filas que corresponden a la identificación "A" y al nombre "x":
+El siguiente ejemplo tiene dos filas que corresponden a la identificación "A" y al nombre "bp1":
 
 ```{r}
 df <- tribble(
-  ~id, ~name, ~value,
-  "A", "x", 1,
-  "A", "x", 2,
-  "A", "y", 3,
-  "B", "x", 4, 
-  "B", "y", 5, 
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "A",        "bp1",    102,
+  "A",        "bp2",    120,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115
 )
 ```
 
 Si intentamos pivotar esto, obtenemos una salida que contiene columnas de lista, sobre las que aprenderá más en @sec-rectangling:
 
 ```{r}
-df |> pivot_wider(
-  names_from = name,
-  values_from = value
-)
+df |> 
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
 ```
 
 Como aún no sabe cómo trabajar con este tipo de datos, querrá seguir la sugerencia de la advertencia para averiguar dónde está el problema:
 
 ```{r}
 df |> 
-  group_by(id, name) |> 
+  group_by(id, measurement) |> 
   summarize(n = n(), .groups = "drop") |> 
-  filter(n > 1L) 
+  filter(n > 1) 
 ```
 
 Luego, depende de usted averiguar qué salió mal con sus datos y reparar el daño subyacente o usar sus habilidades de agrupación y resumen para asegurarse de que cada combinación de valores de fila y columna solo tenga una fila.
@@ -579,11 +586,17 @@ Luego, depende de usted averiguar qué salió mal con sus datos y reparar el da�
 ## Resumen
 
 En este capítulo aprendiste sobre datos ordenados: datos que tienen variables en columnas y observaciones en filas.
-Tidy data hace que trabajar en tidyverse sea más fácil, porque es una estructura consistente que la mayoría de las funciones entienden: el principal desafío son los datos de cualquier estructura en la que los recibas en un formato ordenado.
+Los datos ordenados facilitan el trabajo en el tidyverse, porque es una estructura consistente que la mayoría de las funciones entienden, el principal desafío es transformar los datos de cualquier estructura en la que los reciba a un formato ordenado.
 Con ese fin, aprendió sobre `pivot_longer()` y `pivot_wider()`, que le permiten ordenar muchos conjuntos de datos desordenados.
-Los ejemplos que usamos aquí son solo una selección de los de `vignette("pivot", package = "tidyr")`, por lo que si encuentra un problema con el que este capítulo no le ayuda, esa viñeta es un buen lugar para intentarlo a continuación.
+Los ejemplos que presentamos aquí son una selección de los de `vignette("pivot", package = "tidyr")`, por lo que si encuentra un problema con el que este capítulo no le ayuda, esa viñeta es un buen lugar para probar próximo.
 
-Si disfrutó especialmente este capítulo y desea obtener más información sobre la teoría subyacente, puede obtener más información sobre la historia y los fundamentos teóricos en el artículo [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) publicado en el Journal of Statistical Software.
+Otro desafío es que, para un conjunto de datos dado, puede ser imposible etiquetar la versión más larga o más amplia como la "ordenada".
+Esto es en parte un reflejo de nuestra definición de datos ordenados, donde dijimos que los datos ordenados tienen una variable en cada columna, pero en realidad no definimos qué es una variable (y es sorprendentemente difícil hacerlo).
+Está totalmente bien ser pragmático y decir que una variable es lo que hace que su análisis sea más fácil.
+Entonces, si no sabe cómo hacer algunos cálculos, considere cambiar la organización de sus datos; ¡no tenga miedo de desordenar, transformar y volver a ordenar según sea necesario!
+
+Si disfrutó de este capítulo y desea obtener más información sobre la teoría subyacente, puede obtener más información sobre la historia y los fundamentos teóricos en el artículo [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) publicado.
+en el Journal of Statistical Software.
 
 Ahora que está escribiendo una cantidad sustancial de código R, es hora de aprender más sobre cómo organizar su código en archivos y directorios.
 En el próximo capítulo, aprenderá todo acerca de las ventajas de los scripts y proyectos, y algunas de las muchas herramientas que brindan para facilitarle la vida.
