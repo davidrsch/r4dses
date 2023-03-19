@@ -194,7 +194,7 @@ billboard |>
 Después de los datos, hay tres argumentos clave:
 
 -   `cols` especifica qué columnas deben girarse, es decir, qué columnas no son variables. Este argumento usa la misma sintaxis que `select()`, así que aquí podríamos usar `!c(artist, track, date.entered)` o `starts_with("wk")`.
--   `names_to` nombres de la variable almacenada en la columna nombres, llamamos a esa variable `week`.
+-   `names_to` nombra la variable almacenada en los nombres de columna, llamamos a esa variable `week`.
 -   `values_to` nombra la variable almacenada en los valores de celda, llamamos a esa variable `rank`.
 
 Tenga en cuenta que en el código se citan `"week"` y `"rank"` porque son variables nuevas que estamos creando, aún no existen en los datos cuando ejecutamos la llamada `pivot_longer()`.

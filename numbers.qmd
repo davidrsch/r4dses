@@ -374,7 +374,7 @@ x <- 1:10
 cumsum(x)
 ```
 
-Si necesita agregados rodantes o deslizantes más complejos, pruebe el paquete [slider](https://davisvaughan.github.io/slider/) de Davis Vaughan.
+Si necesita agregados rodantes o deslizantes más complejos, pruebe el paquete [slider](https://slider.r-lib.org/) de Davis Vaughan.
 
 ### Ejercicios
 

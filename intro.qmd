@@ -201,7 +201,7 @@ En otras palabras, el complemento del tidyverse no es el desordenado sino muchos
 A medida que aborde más proyectos de ciencia de datos con R, aprenderá nuevos paquetes y nuevas formas de pensar sobre los datos.
 
 Usaremos muchos paquetes de fuera del tidyverse en este libro.
-Por ejemplo, usamos los siguientes paquetes para proporcionar conjuntos de datos interesantes:
+Por ejemplo, usaremos los siguientes paquetes porque proporcionan conjuntos de datos interesantes para que trabajemos en el proceso de aprendizaje de R:
 
 ```{r}
 #| eval: false
