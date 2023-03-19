@@ -10,7 +10,7 @@ status("complete")
 
 ## Introducción
 
-La visualización es una herramienta importante para generar información, pero es raro que obtenga los datos exactamente en la forma correcta para visualizarla.
+La visualización es una herramienta importante para generar información, pero es raro que obtenga los datos exactamente en la forma correcta que necesita para hacer el gráfico que desea.
 A menudo, necesitará crear nuevas variables o resúmenes para responder a tus preguntas con tus datos, o tal vez solo quiera cambiar el nombre de las variables o reordenar las observaciones para que sea un poco más fácil trabajar con los datos.
 Aprenderá cómo hacer todo eso (¡y más!) en este capítulo, que lo introducirá a la transformación de datos utilizando el paquete **dplyr** y un nuevo conjunto de datos en vuelos que partieron de la ciudad de Nueva York en 2013.
 
@@ -71,10 +71,10 @@ Pero antes de discutir sus diferencias individuales, vale la pena señalar lo qu
 
 2.  Los argumentos subsiguientes normalmente describen en qué columnas operar, utilizando los nombres de las variables (sin comillas).
 
-3.  El resultado es siempre un nuevo data frame.
+3.  La salida es siempre un nuevo data frame.
 
 Debido a que cada verbo hace una cosa bien, resolver problemas complejos generalmente requerirá combinar varios verbos, y lo haremos con la canalización `|>`.
-Hablaremos más sobre las canalizaciones en @the-pipe, pero en resumen, una canalización toma la cosa a su izquierda y la pasa a la función a su derecha para que `x |> f(y)` sea equivalente a `f(x, y)`, y `x |> f(y) |> g(z)` es equivalente a `g(f(x, y), z)`.
+Hablaremos más sobre las canalizaciones en @sec-the-pipe, pero en resumen, una canalización toma la cosa a su izquierda y la pasa a la función a su derecha para que `x |> f(y)` sea equivalente a `f(x, y)`, y `x |> f(y) |> g(z)` es equivalente a `g(f(x, y), z)`.
 La forma más fácil de leer *pipe* es "entonces".
 Eso hace posible tener una idea del siguiente código aunque aún no haya aprendido los detalles:
 
@@ -114,7 +114,7 @@ flights |>
 ```
 
 Además de `>` (mayor que), puede usar `>=` (mayor o igual que), `<` (menor que), `<=` (menor o igual que), `==` (igual a) y `!=` (no igual a).
-También puede usar `&` (y) o `|` (o) para combinar varias condiciones:
+También puede combinar condiciones con `&` o `,` para indicar "y" (verifique ambas condiciones) o con `|` para indicar "o" (verifique cualquiera de las dos condiciones):
 
 ```{r}
 # Vuelos que partieron el 1 de enero
@@ -183,8 +183,8 @@ flights |>
   arrange(year, month, day, dep_time)
 ```
 
-Puede usar `desc()` para reordenar el data frame basandose en una columna, en orden descendente.
-Por ejemplo, este código muestra los vuelos más retrasados primero:
+Puede usar `desc()` en una columna dentro de `arrange()` para reordenar el marco de datos en función de esa columna en orden descendente (de mayor a menor).
+Por ejemplo, este código ordena los vuelos de mayor a menor retraso:
 
 ```{r}
 flights |> 
@@ -199,16 +199,31 @@ Tenga en cuenta que la cantidad de filas no ha cambiado: solo estamos organizand
 Sin embargo, la mayoría de las veces, querrá la combinación distinta de algunas variables, por lo que también puede proporcionar opcionalmente nombres de columna:
 
 ```{r}
-# Esto eliminaría cualquier fila duplicada si hubiera alguna
+# Eliminar filas duplicadas, si las hay
 flights |> 
   distinct()
 
-# Esto encuentra todos los pares únicos de origen y destino
+# Encuentre todos los pares únicos de origen y destino
 flights |> 
   distinct(origin, dest)
 ```
 
-Tenga en cuenta que si desea encontrar la cantidad de duplicados o filas que no se duplicaron, es mejor que cambie `distinct()` por `count()`, lo que le dará la cantidad de observaciones por nivel único, y luego filtre según sea necesario.
+Alternativamente, si desea mantener otras columnas al filtrar filas únicas, puede usar la opción `.keep_all = TRUE`.
+
+```{r}
+flights |> 
+  distinct(origin, dest, .keep_all = TRUE)
+```
+
+No es una coincidencia que todos estos vuelos distintos sean el 1 de enero: `distinct()` encontrará la primera aparición de una fila única en el conjunto de datos y descartará el resto.
+
+Si quieres encontrar el número de ocurrencias, es mejor que cambies `distinct()` por `count()`, y con el argumento `sort = TRUE` puedes organizarlas en orden descendente según el número de ocurrencias.
+Aprenderá más sobre el conteo en @sec-counts.
+
+```{r}
+flights |>
+  count(origin, dest, sort = TRUE)
+```
 
 ### Ejercicios
 
@@ -282,7 +297,7 @@ flights |>
 ```
 
 Alternativamente, puede controlar qué variables se mantienen con el argumento `.keep`.
-Un argumento particularmente útil es `"used"`, que le permite mantener solo las entradas y salidas de sus cálculos.
+Un argumento particularmente útil es `"used"`, que especifica que solo mantenemos las columnas involucradas o creadas en el paso `mutate()`.
 Por ejemplo, la siguiente salida contendrá solo las variables `dep_delay`, `arr_delay`, `air_time`, `gain`, `hours` y `gain_per_hour`.
 
 ```{r}
@@ -305,8 +320,7 @@ A menudo, la respuesta correcta es un nuevo objeto que se nombra de manera infor
 
 No es raro obtener conjuntos de datos con cientos o incluso miles de variables.
 En esta situación, el primer desafío suele ser centrarse en las variables que le interesan.
-`select()` le permite acercarse rápidamente a un subconjunto útil utilizando operaciones basadas en los nombres de las variables.
-`select()` no es muy útil con los datos de los vuelos porque solo tenemos 19 variables, pero aún puedes hacerte una idea general de cómo funciona:
+`select()` le permite acercarse rápidamente a un subconjunto útil utilizando operaciones basadas en los nombres de las variables:
 
 -   Seleccionar columnas por nombre
 
@@ -334,6 +348,8 @@ flights |>
 flights |> 
   select(!year:day)
 ```
+
+También puede usar `-` en lugar de `!` (y es probable que lo vea en la naturaleza); recomendamos `!` porque se lee como "no" y combina bien con `&` y `|`.
 
 -   Seleccionar todas las columnas que son caracteres
 
@@ -418,7 +434,7 @@ ggplot(flights, aes(x = air_time - airtime2)) + geom_histogram()
 
 2.  Haga una lluvia de ideas sobre tantas formas como sea posible para seleccionar `dep_time`, `dep_delay`, `arr_time` y `arr_delay` de `flights`.
 
-3.  ¿Qué sucede si especifica el nombre de una variable varias veces en una llamada `select()`?
+3.  ¿Qué sucede si especifica el nombre de la misma variable varias veces en una llamada `select()`?
 
 4.  ¿Qué hace la función `any_of()`?
     ¿Por qué podría ser útil junto con este vector?
@@ -449,7 +465,7 @@ ggplot(flights, aes(x = air_time - airtime2)) + geom_histogram()
       arrange(arr_delay)
     ```
 
-## Canalizaciones o pipe {#the-pipe}
+## Canalizaciones o pipe {#sec-the-pipe}
 
 Le mostramos ejemplos simples de las canalizaciones anteriormente, pero su verdadero poder surge cuando comienza a combinar varios verbos.
 Por ejemplo, imagine que desea encontrar vuelos rápidos al aeropuerto IAH de Houston: debe combinar `filter()`, `mutate()`, `select()` y `arrange()`:
@@ -553,9 +569,9 @@ flights |>
   group_by(month)
 ```
 
-`group_by()` no cambia los datos pero, si observa detenidamente el resultado, notará que ahora está "agrupado por" mes.
+`group_by()` no cambia los datos pero, si observa detenidamente el resultado, notará que la salida indica que está "agrupado por" mes (`Groups: month [12]`).
 Esto significa que las operaciones posteriores ahora funcionarán "por mes".
-`group_by()` no hace nada por sí mismo; en cambio, cambia el comportamiento de los verbos posteriores.
+`group_by()` agrega esta característica agrupada (referida como clase) al marco de datos, lo que cambia el comportamiento de los verbos subsiguientes aplicados a los datos.
 
 ### `summarize()` {#sec-summarize}
 
@@ -619,12 +635,17 @@ flights |>
   relocate(dest)
 ```
 
-Esto es similar a calcular el retraso máximo con `summarize()`, pero obtiene la fila correspondiente completa en lugar de la estadística de resumen única:
+Tenga en cuenta que hay 105 destinos, pero aquí tenemos 108 filas.
+¿Qué pasa?
+`slice_min()` y `slice_max()` mantienen valores empatados por lo que `n = 1` significa darme todas las filas con el valor más alto.
+Si desea exactamente una fila por grupo, puede configurar `keep_ties = FALSE`.
+
+Esto es similar a calcular el retraso máximo con `summarize()`, pero obtienes la fila correspondiente completa (o filas si hay un empate) en lugar de la estadística de resumen única.
 
 ### Agrupación por múltiples variables
 
 Puede crear grupos utilizando más de una variable.
-For example, we could make a group for each day.
+Por ejemplo, podríamos hacer un grupo para cada fecha.
 
 ```{r}
 daily <- flights |>  
@@ -677,6 +698,41 @@ daily |>
 ```
 
 Como puede ver, cuando resume un data frame sin agrupar, obtiene una sola fila porque dplyr trata todas las filas en un data frame sin agrupar como pertenecientes a un grupo.
+
+### `.by`
+
+dplyr 1.1.0 incluye una nueva sintaxis experimental para la agrupación por operación, el argumento `.by`.
+`group_by()` y `ungroup()` no van a desaparecer, pero ahora también puedes usar el argumento `.by` para agrupar dentro de una sola operación:
+
+```{r}
+#| results: false
+
+flights |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n(),
+    .by = month
+  )
+```
+
+O si desea agrupar por múltiples variables:
+
+```{r}
+#| results: false
+
+flights |> 
+  summarize(
+    delay = mean(dep_delay, na.rm = TRUE), 
+    n = n(),
+    .by = c(origin, dest)
+  )
+```
+
+`.by` funciona con todos los verbos y tiene la ventaja de que no necesita usar el argumento `.groups` para suprimir el mensaje de agrupación o `ungroup()` cuando haya terminado.
+
+No nos enfocamos en esta sintaxis en este capítulo porque era muy nueva cuando se escribió el libro.
+Queríamos mencionarlo porque creemos que es muy prometedor y es probable que sea bastante popular.
+Puede obtener más información al respecto en la \[publicación de blog de dplyr 1.1.0\] (https://www.tidyverse.org/blog/2023/02/dplyr-1-1-0-per-operation-grouping/).
 
 ### Ejercicios
 
@@ -793,7 +849,7 @@ Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, `p
 1.  La variación en el `performance` es mayor entre los jugadores con menos turnos al bate.
     La forma de esta gráfica es muy característica: cada vez que grafica una media (u otras estadísticas de resumen) frente al tamaño del grupo, verá que la variación disminuye a medida que aumenta el tamaño de la muestra [^data-transform-4].
 
-2.  Hay una correlación positiva entre la habilidad (`perf`) y las oportunidades de golpear la pelota (`n`) porque los equipos quieren dar a sus mejores bateadores la mayor cantidad de oportunidades para golpear la pelota.
+2.  Hay una correlación positiva entre la habilidad (`performance`) y las oportunidades de golpear la pelota (`n`) porque los equipos quieren dar a sus mejores bateadores la mayor cantidad de oportunidades para golpear la pelota.
 
 [^data-transform-4]: \*cough\* the law of large numbers \*cough\*.
 
@@ -817,7 +873,7 @@ Tenga en cuenta el práctico patrón para combinar ggplot2 y dplyr.
 Solo debe recordar cambiar de `|>`, para el procesamiento de conjuntos de datos, a `+` para agregar capas a su gráfico.
 
 Esto también tiene implicaciones importantes para la clasificación.
-Si selecciona ingenuamente `desc(performance)`, las personas con los mejores promedios de bateo son claramente afortunadas, no hábiles:
+Si clasifica ingenuamente en `desc (performance)`, las personas con los mejores promedios de bateo son claramente las que intentaron poner la pelota en juego muy pocas veces y dieron un hit, no son necesariamente los jugadores más hábiles :
 
 ```{r}
 batters |> 

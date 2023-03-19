@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -680,6 +681,7 @@ Esto sugiere que es poco probable que la media sea un buen resumen y que preferi
 #|   salen un par de minutos antes), pero todavía hay una pendiente muy empinada
 #|   que decaee después de eso.
 #| fig-asp: 0.5
+
 library(patchwork)
 
 full <- flights |>
@@ -695,19 +697,15 @@ full + delayed120
 ```
 
 También es una buena idea verificar que las distribuciones de los subgrupos se parezcan al todo.
-@fig-flights-dist-daily superpone un polígono de frecuencia para cada día.
+En el gráfico siguiente se superponen 365 polígonos de frecuencia de `dep_delay`, uno para cada día.
 Las distribuciones parecen seguir un patrón común, lo que sugiere que está bien usar el mismo resumen para cada día.
 
 ```{r}
-#| label: fig-flights-dist-daily
-#| fig-cap: >
-#|   365 polígonos de frecuencia de `dep_delay`, uno para cada día. La frecuencia
-#|   los polígonos parecen tener la misma forma, lo que sugiere que es razonable
-#|   para comparar días mirando solo algunas estadísticas resumidas.
 #| fig-alt: >
-#|   La distribución de `dep_delay` está muy sesgada a la derecha con un fuerte
-#|   pico ligeramente inferior a 0. Los 365 polígonos de frecuencia son en su mayoría
-#|   superpuestas formando una espesa capa negra insulsa.
+#|   La distribución de `dep_delay` está muy sesgada hacia la derecha con un pico fuerte
+#|    ligeramente inferior a 0. Los 365 polígonos de frecuencia se superponen en 
+#|    su mayoría formando una espesa capa negra.
+
 flights |>
   filter(dep_delay < 120) |> 
   ggplot(aes(x = dep_delay, group = interaction(day, month))) + 
@@ -773,6 +771,7 @@ Por ejemplo:
 
 3.  Crea una gráfica para explorar más a fondo las aventuras de EGE.
     ¿Puedes encontrar alguna evidencia de que el aeropuerto cambió de ubicación?
+    ¿Puedes encontrar otra variable que pueda explicar la diferencia?
 
 ## Resumen
 

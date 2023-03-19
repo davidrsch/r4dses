@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -125,35 +126,10 @@ Quarto supports a variety of presentation formats, including:
 
 You can read more about creating presentations with Quarto at [https://quarto.org/docs/presentations](https://quarto.org/docs/presentations/).
 
-## Dashboards
-
-Dashboards are a useful way to communicate information visually and quickly.
-A dashboard-like look can be achieved with Quarto using document layout options like sidebars, tabsets, multi-column layouts, etc.
-
-For example, you can produce this dashboard:
-
-```{r}
-#| echo: false
-#| fig-alt: |
-#|   Quarto dashboard with the title "Diamonds dashboard". The first 
-#|   tab shows four plots of the diamonds dataset. The second tab 
-#|   shows summary statistics for price and carat of diamonds. The third 
-#|   tab shows an interactive data table of the first 100 diamonds.
-
-knitr::include_graphics("quarto/quarto-dashboard.png")
-```
-
-Using this code:
-
-```{r comment = "", echo = FALSE}
-cat(readr::read_file("quarto/quarto-dashboard.qmd"))
-```
-
-To learn more about Quarto component layouts, visit <https://quarto.org/docs/interactive/layout.html>.
-
 ## Interactivity
 
-Any HTML document can contain interactive components.
+Just like any HTML document, HTML documents created with Quarto can contain interactive components as well.
+Here we introduce two options for including interactivity in your Quarto documents: htmlwidgets and Shiny.
 
 ### htmlwidgets
 
@@ -175,13 +151,13 @@ All the details are wrapped inside the package, so you don't need to worry about
 
 There are many packages that provide htmlwidgets, including:
 
--   **dygraphs**, [https://rstudio.github.io/dygraphs](https://rstudio.github.io/dygraphs/){.uri}, for interactive time series visualizations.
+-   [**dygraphs**](https://rstudio.github.io/dygraphs) for interactive time series visualizations.
 
--   **DT**, [https://rstudio.github.io/DT/](https://rstudio.github.io/DT){.uri}, for interactive tables.
+-   [**DT**](https://rstudio.github.io/DT/) for interactive tables.
 
--   **threejs**, [https://bwlewis.github.io/rthreejs](https://bwlewis.github.io/rthreejs/){.uri} for interactive 3d plots.
+-   [**threejs**](https://bwlewis.github.io/rthreejs) for interactive 3d plots.
 
--   **DiagrammeR**, <https://rich-iannone.github.io/DiagrammeR> for diagrams (like flow charts and simple node-link diagrams).
+-   [**DiagrammeR**](https://rich-iannone.github.io/DiagrammeR) for diagrams (like flow charts and simple node-link diagrams).
 
 To learn more about htmlwidgets and see a complete list of packages that provide them visit <https://www.htmlwidgets.org>.
 
@@ -284,7 +260,9 @@ Quarto offers even more output formats:
 
 See <https://quarto.org/docs/output-formats/all-formats.html> for a list of even more formats.
 
-## Learning more
+## Summary
+
+In this chapter we presented you a variety of options for communicating your results with Quarto, from static and interactive documents to presentations to websites and books.
 
 To learn more about effective communication in these different formats, we recommend the following resources:
 

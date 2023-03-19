@@ -39,7 +39,7 @@ Cinco capítulos se centran en las herramientas de la ciencia de datos:
 -   Antes de que pueda transformar y visualizar sus datos, primero debe obtener sus datos en R.
     En @sec-data-import aprenderá los conceptos básicos para obtener archivos `.csv` en R.
 
-Entre estos capítulos se encuentran otros cinco capítulos que se centran en su flujo de trabajo de R.
-En @sec-workflow-basics, @sec-workflow-pipes, @sec-workflow-style y @sec-workflow-scripts-projects aprenderá buenas prácticas de flujo de trabajo para escribir y organizar su código de R.
+Entre estos capítulos se encuentran otros cuatro capítulos que se centran en su flujo de trabajo de R.
+En @sec-workflow-basics, @sec-workflow-style y @sec-workflow-scripts-projects aprenderá buenas prácticas de flujo de trabajo para escribir y organizar su código R.
 Estos te prepararán para el éxito a largo plazo, ya que te darán las herramientas para mantenerte organizado cuando abordes proyectos reales.
-Finalmente, @sec-workflow-getting-help le enseñará cómo obtener ayuda para seguir aprendiendo.
+Finalmente, @sec-workflow-getting-help le enseñará cómo obtener ayuda y seguir aprendiendo.

@@ -74,13 +74,29 @@ Vamos a crear visualizaciones que podamos usar para responder estas preguntas.
 Puedes probar tu respuesta con el **data frame** `penguins` que se encuentra en palmerpenguins (a.k.a. `palmerpenguins::penguins`).
 Un data frame es una colección rectangular de variables (en las columnas) y observaciones (en las filas).
 `penguins` contiene observaciones `r nrow(penguins)` recopiladas y puestas a disposición por la Dra.
-Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2]. En este contexto, una variable se refiere a un atributo de todos los pingüinos y una observación se refiere a todos los atributos de un solo pingüino.
+Kristen Gorman y la Estación Palmer, Antártida LTER[^data-visualize-2].
 
 [^data-visualize-2]: Horst AM, Hill AP, Gorman KB (2020).
     palmerpenguins: Datos de pingüinos del Archipiélago Palmer (Antártida).
     version 0.1.0.
     del paquete de R <https://allisonhorst.github.io/palmerpenguins/>.
     doi: 10.5281/zenodo.3960218.
+
+Para facilitar la discusión, definamos algunos términos:
+
+-   Una **variable** es una cantidad, calidad o propiedad que puedes medir.
+
+-   Un **valor** es el estado de una variable cuando la mides.
+    El valor de una variable puede cambiar de una medida a otra.
+
+-   Una **observación** es un conjunto de mediciones realizadas en condiciones similares (usualmente realiza todas las mediciones en una observación al mismo tiempo y en el mismo objeto).
+    Una observación contendrá varios valores, cada uno asociado con una variable diferente.
+    A veces nos referiremos a una observación como un punto de datos.
+
+-   **Datos tabulares** es un conjunto de valores, cada uno asociado con una variable y una observación.
+    Los datos tabulares están *ordenados* si cada valor se coloca en su propia "celda", cada variable en su propia columna y cada observación en su propia fila.
+
+En este contexto, una variable se refiere a un atributo de todos los pingüinos y una observación se refiere a todos los atributos de un solo pingüino.
 
 Escriba el nombre del data frame en la consola y R imprimirá una vista previa de su contenido.
 Tenga en cuenta que dice "tibble" en la parte superior de esta vista previa.
@@ -155,7 +171,7 @@ ggplot(data = penguins)
 
 A continuación, debemos decirle a `ggplot()` cómo se representará visualmente la información de nuestros datos.
 El argumento `mapping` de la función `ggplot()` define cómo las variables en su conjunto de datos se asignan a las propiedades visuales (**aesthetics**) de su gráfico.
-El argumento `mapping` siempre se define usando la función `aes()`, y los argumentos `x` e `y` de `aes()` especifican qué variables asignar a los ejes x e y.
+El argumento `mapping` siempre se define en la función `aes()`, y los argumentos `x` e `y` de `aes()` especifican qué variables asignar a los ejes x e y.
 Por ahora, solo asignaremos la longitud de las aletas a la aesthetic `x` y la masa corporal a la aesthetic `y`.
 ggplot2 busca las variables mapeadas en el argumento `data`, en este caso, `penguins`.
 
@@ -522,7 +538,6 @@ Una visualización de uso común para distribuciones de variables continuas es u
 
 ```{r}
 #| warning: false
-#| layout-ncol: 2
 #| fig-alt: >
 #|   Un histograma de masas corporales de pingüinos. La distribución es unimodal.
 #|   y sesgada a la derecha, oscilando entre aproximadamente 2500 a 6500 gramos.
@@ -542,18 +557,16 @@ Un binwidth de 200 proporciona un equilibrio razonable.
 
 ```{r}
 #| warning: false
-#| layout-ncol: 3
+#| layout-ncol: 2
+#| fig-width: 3
 #| fig-alt: >
-#|   Tres histogramas de masas corporales de pingüinos, uno con binwidth de 20
-#|   (derecha), uno con binwidth de 200 (centro) y otro con binwidth de
-#|   2000 (izquierda). El histograma con binwidth de 20 muestra muchas subidas y
-#|   bajadas en las alturas de los contenedores, creando un contorno irregular. El histograma
-#|   con binwidth de 2000 muestra solo tres barras.
+#|   Dos histogramas de masas corporales de pingüinos, uno con un ancho de bin de 20 
+#|   (izquierda) y otro con un ancho de bin de 2000 (derecha). El histograma con binwidth 
+#|   de 20 muestra muchos altibajos en las alturas de los bins, creando un
+#|   contorno irregular. El histograma con binwidth de 2000 muestra solo tres bins.
 
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 20)
-ggplot(penguins, aes(x = body_mass_g)) +
-  geom_histogram(binwidth = 200)
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 2000)
 ```
@@ -687,25 +700,29 @@ Tenga en cuenta la terminología que hemos utilizado aquí:
 ### Dos variables categóricas
 
 Podemos usar diagramas de barras apiladas para visualizar la relación entre dos variables categóricas.
+Por ejemplo, los siguientes dos diagramas de barras apiladas muestran la relación entre "isla" y "especies", o específicamente, visualizan la distribución de "especies" dentro de cada isla.
 
-Los dos diagramas de barras apiladas a continuación muestran la relación entre `island` y `species`, o específicamente, visualizan la distribución de `species` dentro de cada isla.
-El diagrama de la izquierda muestra las frecuencias de cada especie de pingüinos en cada isla y el diagrama de la derecha muestra las frecuencias relativas (proporciones) de cada especie dentro de cada isla (a pesar del eje y etiquetado incorrectamente que dice "count").
+El primer gráfico muestra las frecuencias de cada especie de pingüinos en cada isla y el gráfico de la derecha muestra las frecuencias relativas (proporciones) de cada especie dentro de cada isla (a pesar del eje y etiquetado incorrectamente que dice "count").
 El gráfico de frecuencias muestra que hay un número igual de Adelia en cada isla.
 Pero no tenemos una buena idea del equilibrio porcentual dentro de cada isla.
 En el gráfico de proporciones, hemos perdido nuestra noción de pingüinos totales, pero hemos ganado la ventaja del "desglose por isla".
 
-El diagrama de frecuencia relativa, creado al establecer `position = "fill"` en la geom, es más útil para comparar las distribuciones de especies en las islas, ya que no se ve afectado por el número desigual de pingüinos en las islas.
-Según el gráfico de la izquierda, podemos ver que todos los pingüinos Gentoo viven en la isla Biscoe y constituyen aproximadamente el 75 % de los pingüinos de esa isla, Chinstrap todos viven en la isla Dream y constituyen aproximadamente el 50 % de los pingüinos de esa isla , y Adelie viven en las tres islas y forman todos los pingüinos en Torgersen.
-
 ```{r}
-#| layout-ncol: 2
 #| fig-alt: >
-#|   Gráficas de barras de especies de pingüinos por isla (Biscoe, Dream y Torgersen).
-#|   A la derecha, se muestran las frecuencias de las especies. A la izquierda, relativo
-#|   se muestran las frecuencias de las especies.
+#|   Gráficas de barras de especies de pingüinos por isla (Biscoe, Dream y Torgersen)
 
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar()
+```
+
+El segundo gráfico es un gráfico de frecuencia relativa, creado al configurar `position = "fill"` en la geom, es más útil para comparar las distribuciones de especies en las islas, ya que no se ve afectado por el número desigual de pingüinos en las islas.
+Usando este gráfico, podemos ver que todos los pingüinos Gentoo viven en la isla Biscoe y constituyen aproximadamente el 75% de los pingüinos en esa isla, Chinstrap todos viven en la isla Dream y constituyen aproximadamente el 50% de los pingüinos en esa isla, y Adelie vive en las tres islas y componen todos los pingüinos en Torgersen.
+
+```{r}
+#| fig-alt: >
+#|   Gráficos de barras de especies de pingüinos por isla (Biscoe, Dream y Torgersen) 
+#|   las barras están escaladas a la misma altura, lo que lo convierte en un gráfico de frecuencias
+#|   relativas
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(position = "fill")
 ```
@@ -776,7 +793,8 @@ Aprenderá sobre muchas otros geoms para visualizar distribuciones de variables 
 
 ### Ejercicios
 
-1.  ¿Qué variables en `mpg` son categóricas?
+1.  El marco de datos `mpg` que se incluye con el paquete ggplot2 contiene observaciones `r nrow(mpg)` recopiladas por la Agencia de Protección Ambiental de los EE.
+    ¿Qué variables en `mpg` son categóricas?
     ¿Qué variables son númericas?
     (Sugerencia: escriba `?mpg` para leer la documentación del conjunto de datos).
     ¿Cómo puedes ver esta información cuando ejecutas `mpg`?
@@ -841,7 +859,7 @@ ggsave(filename = "penguin-plot.png")
 ```{r}
 #| include: false
 
-file.remove("mi-grafica.png")
+file.remove("penguin-plot.png")
 ```
 
 Esto guardará su gráfica en su directorio de trabajo, un concepto sobre el que aprenderá más en @sec-workflow-scripts-projects.

@@ -15,15 +15,15 @@ Quarto documents are fully reproducible and support dozens of output formats, li
 
 Quarto files are designed to be used in three ways:
 
-1.  For communicating to decision makers, who want to focus on the conclusions, not the code behind the analysis.
+1.  For communicating to decision-makers, who want to focus on the conclusions, not the code behind the analysis.
 
 2.  For collaborating with other data scientists (including future you!), who are interested in both your conclusions, and how you reached them (i.e. the code).
 
-3.  As an environment in which to *do* data science, as a modern day lab notebook where you can capture not only what you did, but also what you were thinking.
+3.  As an environment in which to *do* data science, as a modern-day lab notebook where you can capture not only what you did, but also what you were thinking.
 
 Quarto is a command line interface tool, not an R package.
 This means that help is, by-and-large, not available through `?`.
-Instead, as you work through this chapter, and use Quarto in the future, you should refer to the Quarto documentation page at [https://quarto.org](https://quarto.org/){.uri} for help.
+Instead, as you work through this chapter, and use Quarto in the future, you should refer to the [Quarto documentation](https://quarto.org).
 
 If you're an R Markdown user, you might be thinking "Quarto sounds a lot like R Markdown".
 You're not wrong!
@@ -57,33 +57,40 @@ It contains three important types of content:
 2.  **Chunks** of R code surrounded by ```` ``` ````.
 3.  Text mixed with simple text formatting like `# heading` and `_italics_`.
 
-When you open a `.qmd`, you get a notebook interface where code and output are interleaved.
+@fig-diamond-sizes-notebook shows a `.qmd` document in RStudio with notebook interface where code and output are interleaved.
 You can run each code chunk by clicking the Run icon (it looks like a play button at the top of the chunk), or by pressing Cmd/Ctrl + Shift + Enter.
-RStudio executes the code and displays the results inline with the code:
+RStudio executes the code and displays the results inline with the code.
 
 ```{r}
+#| label: fig-diamond-sizes-notebook
 #| echo: false
 #| out-width: "90%"
+#| fig-cap: |
+#|   A Quarto document in RStudio. Code and output interleaved in 
+#|   the document, with the plot output appearing right underneath the code.
 #| fig-alt: |
 #|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
 #|   on the left and a blank Viewer window on the right. The Quarto 
 #|   document has a code chunk that creates a frequency plot of diamonds 
-#|   that weigh less then 2.5 carats. The plot shows that the frequency 
+#|   that weigh less than 2.5 carats. The plot shows that the frequency 
 #|   decreases as the weight increases.
 
 knitr::include_graphics("quarto/diamond-sizes-notebook.png")
 ```
 
-If you don't like seeing your plots and output in your document and would rather make use of RStudio's console and plot panes, you can click on the gear icon next to "Render" and switch to "Chunk Output in Console".
+If you don't like seeing your plots and output in your document and would rather make use of RStudio's console and plot panes, you can click on the gear icon next to "Render" and switch to "Chunk Output in Console", as shown in @fig-diamond-sizes-console-output.
 
 ```{r}
+#| label: fig-diamond-sizes-console-output
 #| echo: false
 #| out-width: "90%"
+#| fig-cap: |
+#|   A Quarto document in RStudio with the plot output in the Plots pane.
 #| fig-alt: |
 #|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
 #|   on the left and the Plot pane on the bottom right. The Quarto 
 #|   document has a code chunk that creates a frequency plot of diamonds 
-#|   that weigh less then 2.5 carats. The plot is displayed in the Plot 
+#|   that weigh less than 2.5 carats. The plot is displayed in the Plot 
 #|   pane and shows that the frequency decreases as the weight increases. 
 #|   The RStudio option to show Chunk Output in Console is also 
 #|   highlighted.
@@ -93,11 +100,15 @@ knitr::include_graphics("quarto/diamond-sizes-console-output.png")
 
 To produce a complete report containing all text, code, and results, click "Render" or press Cmd/Ctrl + Shift + K.
 You can also do this programmatically with `quarto::quarto_render("diamond-sizes.qmd")`.
-This will display the report in the viewer pane and create an HTML file.
+This will display the report in the viewer pane as shown in @fig-diamond-sizes-report and create an HTML file.
 
 ```{r}
+#| label: fig-diamond-sizes-report
 #| echo: false
 #| out-width: "90%"
+#| fig-cap: |
+#|   A Quarto document in RStudio with the rendered document in the 
+#|   Viewer pane.
 #| fig-alt: |
 #|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
 #|   on the left and the Plot pane on the bottom right. The rendered 
@@ -109,14 +120,19 @@ knitr::include_graphics("quarto/diamond-sizes-report.png")
 
 When you render the document, Quarto sends the `.qmd` file to **knitr**, [https://yihui.name/knitr](https://yihui.name/knitr/){.uri}, which executes all of the code chunks and creates a new markdown (`.md`) document which includes the code and its output.
 The markdown file generated by knitr is then processed by **pandoc**, [https://pandoc.org](https://pandoc.org/){.uri}, which is responsible for creating the finished file.
+This process is shown in @fig-quarto-flow.
 The advantage of this two step workflow is that you can create a very wide range of output formats, as you'll learn about in @sec-quarto-formats.
 
 ```{r}
+#| label: fig-quarto-flow
 #| echo: false
 #| out-width: "75%"
-#| fig-alt: |
+#| fig-alt: >
 #|   Workflow diagram starting with a qmd file, then knitr, then md, 
 #|   then pandoc, then PDF, MS Word, or HTML.
+#| fig-cap: >
+#|   Diagram of Quarto workflow from qmd, to knitr, to md, to pandoc, 
+#|   to output in PDF, MS Word, or HTML formats.
 
 knitr::include_graphics("images/quarto-flow.png")
 ```
@@ -149,11 +165,14 @@ While Markdown is designed to be easy to read and write, as you will see in @sec
 Therefore, if you're new to computational documents like `.qmd` files but have experience using tools like Google Docs or MS Word, the easiest way to get started with Quarto in RStudio is the visual editor.
 
 In the visual editor you can either use the buttons on the menu bar to insert images, tables, cross-references, etc. or you can use the catch-all <kbd>⌘ /</kbd> shortcut to insert just about anything.
-If you are at the beginning of a line (as shown below), you can also enter just <kbd>/</kbd> to invoke the shortcut.
+If you are at the beginning of a line (as shown in @fig-visual-editor), you can also enter just <kbd>/</kbd> to invoke the shortcut.
 
 ```{r}
+#| label: fig-visual-editor
 #| echo: false
 #| out-width: "75%"
+#| fig-cap: |
+#|   Quarto visual editor.
 #| fig-alt: |
 #|   A Quarto document displaying various features of the 
 #|   visual editor such as text formatting (italic, bold, 
@@ -180,7 +199,13 @@ Most importantly, while the visual editor displays your content with formatting,
 
 ### Exercises
 
-<!--# TO DO: Add exercises. -->
+1.  Re-create the document in @fig-visual-editor using the visual editor.
+2.  Using the visual editor, insert a code chunk using the Insert menu and then the insert anything tool.
+3.  Using the visual editor, figure out how to:
+    a.  Add a footnote.
+    b.  Add a horizontal rule.
+    c.  Add a block quote.
+4.  In the visual editor, go to Insert \> Citation and insert a citation to the paper titled [Welcome to the Tidyverse](https://joss.theoj.org/papers/10.21105/joss.01686) using its DOI (digital object identifier), which is [10.21105/joss.01686](https://doi.org/10.21105/joss.01686). Render the document and observe how the reference shows up in the document. What change do you observe in the YAML of your document?
 
 ## Source editor {#sec-source-editor}
 
@@ -208,20 +233,18 @@ If you forget, you can get to a handy reference sheet with *Help \> Markdown Qui
     Each of the sections should include a bulleted list of jobs/degrees.
     Highlight the year in bold.
 
-2.  Using the visual editor, figure out how to:
+2.  Using the source editor and the Markdown quick reference, figure out how to:
 
     a.  Add a footnote.
     b.  Add a horizontal rule.
     c.  Add a block quote.
 
-3.  Now, using the source editor and the Markdown quick reference, figure out how to:
-
-    a.  Add a footnote.
-    b.  Add a horizontal rule.
-    c.  Add a block quote.
-
-4.  Copy and paste the contents of `diamond-sizes.qmd` from <https://github.com/hadley/r4ds/tree/main/quarto> in to a local R Quarto document.
+3.  Copy and paste the contents of `diamond-sizes.qmd` from <https://github.com/hadley/r4ds/tree/main/quarto> in to a local R Quarto document.
     Check that you can run it, then add text after the frequency polygon that describes its most striking features.
+
+4.  Create a document in a Google doc or MS Word (or locate a document you have created previously) with some content in it such as headings, hyperlinks, formatted text, etc.
+    Copy the contents of this document and paste it into a Quarto document in the visual editor.
+    Then, switch over to the source editor and inspect the source code.
 
 ## Code chunks
 
@@ -328,13 +351,13 @@ The following table summarizes which types of output each option suppresses:
 
 | Option           | Run code | Show code | Output | Plots | Messages | Warnings |
 |------------------|:--------:|:---------:|:------:|:-----:|:--------:|:--------:|
-| `eval: false`    |    \-    |           |   \-   |  \-   |    \-    |    \-    |
-| `include: false` |          |    \-     |   \-   |  \-   |    \-    |    \-    |
-| `echo: false`    |          |    \-     |        |       |          |          |
-| `results: hide`  |          |           |   \-   |       |          |          |
-| `fig-show: hide` |          |           |        |  \-   |          |          |
-| `message: false` |          |           |        |       |    \-    |          |
-| `warning: false` |          |           |        |       |          |    \-    |
+| `eval: false`    |    X     |           |   X    |   X   |    X     |    X     |
+| `include: false` |          |     X     |   X    |   X   |    X     |    X     |
+| `echo: false`    |          |     X     |        |       |          |          |
+| `results: hide`  |          |           |   X    |       |          |          |
+| `fig-show: hide` |          |           |        |   X   |          |          |
+| `message: false` |          |           |        |       |    X     |          |
+| `warning: false` |          |           |        |       |          |    X     |
 
 ### Global options
 
@@ -418,8 +441,6 @@ The biggest challenge of graphics in Quarto is getting your figures the right si
 There are five main options that control figure sizing: `fig-width`, `fig-height`, `fig-asp`, `out-width` and `out-height`.
 Image sizing is challenging because there are two sizes (the size of the figure created by R and the size at which it is inserted in the output document), and multiple ways of specifying the size (i.e. height, width, and aspect ratio: pick two of three).
 
-<!-- TODO: https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/ -->
-
 We recommend three of the five options:
 
 -   Plots tend to be more aesthetically pleasing if they have consistent width.
@@ -427,11 +448,11 @@ We recommend three of the five options:
     Then in individual chunks, only adjust `fig-asp`.
 
 -   Control the output size with `out-width` and set it to a percentage of the line width.
-    We suggest to `out-width: "70%"` and `fig-align: "center"`.
+    We suggest to `out-width: "70%"` and `fig-align: center`.
     That gives plots room to breathe, without taking up too much space.
 
--   To put multiple plots in a single row, set the `out-width` to `50%` for two plots, `33%` for 3 plots, or `25%` to 4 plots, and set `fig-align: "default"`.
-    Depending on what you're trying to illustrate (e.g. show data or show plot variations), you might also tweak `fig-width`, as discussed below.
+-   To put multiple plots in a single row, set the `layout-ncol` to 2 for two plots, 3 for three plots, etc.
+    Depending on what you're trying to illustrate (e.g., show data or show plot variations), you might also tweak `fig-width`, as discussed below.
 
 If you find that you're having to squint to read the text in your plot, you need to tweak `fig-width`.
 If `fig-width` is larger than the size the figure is rendered in the final doc, the text will be too small; if `fig-width` is smaller, the text will be too big.
@@ -471,9 +492,12 @@ plot
 If you want to make sure the font size is consistent across all your figures, whenever you set `out-width`, you'll also need to adjust `fig-width` to maintain the same ratio with your default `out-width`.
 For example, if your default `fig-width` is 6 and `out-width` is 0.7, when you set `out-width: "50%"` you'll need to set `fig-width` to 4.3 (6 \* 0.5 / 0.7).
 
+Figure sizing and scaling is an art and science and getting things right can require an iterative trial-and-error approach.
+You can learn more about figure sizing in the [taking control of plot scaling blog post](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/).
+
 ### Other important options
 
-When mingling code and text, like in this book, you can set `fig-show: "hold"` so that plots are shown after the code.
+When mingling code and text, like in this book, you can set `fig-show: hold` so that plots are shown after the code.
 This has the pleasant side effect of forcing you to break up large blocks of code with their explanations.
 
 To add a caption to the plot, use `fig-cap`.
@@ -486,11 +510,20 @@ In that case, set `fig-format: "png"` to force the use of PNGs.
 They are slightly lower quality, but will be much more compact.
 
 It's a good idea to name code chunks that produce figures, even if you don't routinely label other chunks.
-The chunk label is used to generate the file name of the graphic on disk, so naming your chunks makes it much easier to pick out plots and reuse in other circumstances (i.e. if you want to quickly drop a single plot into an email or a tweet).
+The chunk label is used to generate the file name of the graphic on disk, so naming your chunks makes it much easier to pick out plots and reuse in other circumstances (i.e. if you want to quickly drop a single plot into an email).
 
 ### Exercises
 
-<!--# TO DO: Add exercises -->
+1.  Open `diamond-sizes.qmd` in the visual editor, find an image of a diamond, copy it, and paste it into the document. Double click on the image and add a caption. Resize the image and render your document. Observe how the image is saved in your current working directory.
+2.  Edit the label of the code chunk in `diamond-sizes.qmd` that generates a plot to start with the suffix `fig-` and add a caption to the figure with the chunk option `fig-cap`. Then, edit the text above the code chunk to add a cross-reference to the figure with Insert \> Cross Reference.
+3.  Change the size of the figure with the following chunk options, one at a time, render your document, and describe how the figure changes.
+    a.  `fig-width: 10`
+
+    b.  `fig-height: 3`
+
+    c.  `out-width: "100%"`
+
+    d.  `out-width: "20%"`
 
 ## Tables
 
@@ -520,7 +553,9 @@ Each provides a set of tools for returning formatted tables from R code.
 
 ### Exercises
 
-<!--# TO DO: Add exercises -->
+1.  Open `diamond-sizes.qmd` in the visual editor, insert a code chunk, and add a table with `knitr::kable()` that shows the first 5 rows of the `diamonds` data frame.
+2.  Display the same table with `gt::gt()` instead.
+3.  Add a chunk label that starts with the suffix `tbl-` and add a caption to the table with the chunk option `tbl-cap`. Then, edit the text above the code chunk to add a cross-reference to the table with Insert \> Cross Reference.
 
 ## Caching {#sec-caching}
 
@@ -598,16 +633,16 @@ Then you can write:
     rawdata <- readr::read_csv("a_very_large_file.csv")
     `r chunk`
 
-As your caching strategies get progressively more complicated, it's a good idea to regularly clear out all your caches with `knitr::clean_cache()`.
-
 We've followed the advice of [David Robinson](https://twitter.com/drob/status/738786604731490304) to name these chunks: each chunk is named after the primary object that it creates.
 This makes it easier to understand the `dependson` specification.
+
+As your caching strategies get progressively more complicated, it's a good idea to regularly clear out all your caches with `knitr::clean_cache()`.
 
 ### Exercises
 
 1.  Set up a network of chunks where `d` depends on `c` and `b`, and both `b` and `c` depend on `a`. Have each chunk print `lubridate::now()`, set `cache: true`, then verify your understanding of caching.
 
-> > > > > > > 7ff2b1502187f15a978d74f59a88534fa6f1012e \## Troubleshooting
+## Troubleshooting
 
 Troubleshooting Quarto documents can be challenging because you are no longer in an interactive R environment, and you will need to learn some new tricks.
 Additionally, the error could be due to issues with the Quarto document itself or due to the R code in the Quarto document.
@@ -797,8 +832,14 @@ We've drawn on our own experiences and Colin Purrington's advice on lab notebook
     How are you going to organize them so you can find them again in the future?
     We recommend storing them in individual projects, and coming up with a good naming scheme.
 
-## Learning more
+## Summary
 
+In this chapter introduced you to Quarto for authoring and publishing reproducible computational documents that include your code and your prose in one place.
+You've learned about writing Quarto documents in RStudio with the visual or the source editor, how code chunks work and how to customize options for them, how to include figures and tables in your Quarto documents, and options for caching for computations.
+Additionally, you've learned about adjusting YAML header options for creating self-contained or parametrized documents as well as including citations and bibliography.
+We have also given you some troubleshooting and workflow tips.
+
+While this introduction should be sufficient to get you started with Quarto, there is still a lot more to learn.
 Quarto is still relatively young, and is still growing rapidly.
 The best place to stay on top of innovations is the official Quarto website: [https://quarto.org](https://quarto.org/){.uri}.
 

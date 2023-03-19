@@ -59,14 +59,14 @@ y <- 1:4
 mean(y)
 ```
 
-Luego llame a `reprex()`, donde el lugar de destino predeterminado es GitHub:
+Luego llame a `reprex()`, donde la salida predeterminada tiene formato para GitHub:
 
 ``` r
 reprex::reprex()
 ```
 
 Se mostrará una vista previa de HTML muy bien representada en el Visor de RStudio (si está en RStudio) o en su navegador predeterminado de lo contrario.
-El bit relevante de Markdown con sabor a GitHub está listo para pegarse desde su portapapeles (en RStudio Server o Cloud, deberá copiarlo usted mismo):
+El reprex se copia automáticamente en su portapapeles (en RStudio Server o Cloud, deberá copiarlo usted mismo):
 
     ``` r
     y <- 1:4
@@ -74,7 +74,8 @@ El bit relevante de Markdown con sabor a GitHub está listo para pegarse desde s
     #> [1] 2.5
     ```
 
-Así es como se vería ese Markdown representado en un problema de GitHub:
+Este texto tiene un formato especial, llamado Markdown, que se puede pegar en sitios como StackOverflow o Github y automáticamente lo renderizarán para que parezca código.
+Así es como se vería ese Markdown representado en GitHub:
 
 ```{r}
 #| eval: false
@@ -99,7 +100,7 @@ Hay tres cosas que debe incluir para que su ejemplo sea reproducible: paquetes r
     2.  Copie la salida
     3.  En reprex, escriba `mtcars <-`, luego pegue.
 
-    Intente encontrar el subconjunto más pequeño de sus datos que aún revele el problema.
+    Trate de usar el subconjunto más pequeño de sus datos que aún revele el problema.
 
 3.  Dedique un poco de tiempo a asegurarse de que su **código** sea fácil de leer para otros:
 
@@ -123,10 +124,6 @@ También debe pasar algún tiempo preparándose para resolver problemas antes de
 Invertir un poco de tiempo en aprender R cada día valdrá la pena a largo plazo.
 Una forma es seguir lo que hace el equipo de tidyverse en el [blog de tidyverse](https://www.tidyverse.org/blog/).
 Para mantenerse al día con la comunidad R de manera más amplia, recomendamos leer [R Weekly](https://rweekly.org): es un esfuerzo de la comunidad para agregar las noticias más interesantes de la comunidad de R cada semana.
-
-Si es un usuario activo de Twitter, también puede seguir a Hadley ([\@hadleywickham](https://twitter.com/hadleywickham)), Mine ([\@minebocek](https://twitter.com%20/minebocek)), Garrett ([\@statgarrett](https://twitter.com/statgarrett)), o siga [\@rstudiotips](https://twitter.com/rstudiotips) para mantenerse al día con las nuevas funciones en el IDE.
-Si desea conocer todos los nuevos desarrollos, también puede leer el hashtag ([`#rstats`](https://twitter.com/search?q=%23rstats)).
-Esta es una de las herramientas clave que Hadley y Mine usan para mantenerse al día con los nuevos desarrollos en la comunidad.
 
 ## Resumen
 

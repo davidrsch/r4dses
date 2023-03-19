@@ -41,7 +41,7 @@ Puedes **c**combinar múltiples elementos en un vector con `c()`:
 primos <- c(2, 3, 5, 7, 11, 13)
 ```
 
-Y las operaciones aplicadas al vector se aplican a cada elemento del mismo:
+Y la aritmética básica sobre vectores se aplica a cada elemento del vector:
 
 ```{r}
 primos * 2
@@ -72,7 +72,7 @@ A veces incluiremos comentarios en ejemplos que explican lo que sucede con el c�
 Los comentarios pueden ser útiles para describir brevemente lo que hace el siguiente código.
 
 ```{r}
-# define números primos
+# crea vector de números primos
 primos <- c(2, 3, 5, 7, 11, 13)
 
 # multiplica primos por 2

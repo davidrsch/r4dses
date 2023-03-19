@@ -26,6 +26,7 @@ A continuación se incluye un breve resumen de los cambios más importantes:
     Nunca tuvimos suficiente espacio para hacer justicia a las distintas técnicas de modelación por completo, y ahora hay muchos y mejores recursos disponibles.
     Por lo general, recomendamos utilizar el paquete [tidymodels](https://www.tidymodels.org/) y leer [Tidy Modeling with R](https://www.tmwr.org/) de Max Kuhn y Julia Silge.
 
--   La parte de comunicación también continúa, pero presenta Quarto en lugar de R Markdown como la herramienta elegida para crear documentos computacionales reproducibles.
+-   La parte de comunicación también continúa, pero presenta [Quarto](https://quarto.org/) en lugar de R Markdown.
+    Esta edición del libro ha sido escrita en Quarto y es claramente la herramienta del futuro.
 
 Otros cambios incluyen cambiar de la canalización o pipe de Magrittr (`%>%`) a la canalización base (`|>`) y cambiar el código fuente del libro de RMarkdown a Quarto.

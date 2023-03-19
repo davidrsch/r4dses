@@ -16,8 +16,9 @@ Ese es un excelente lugar para comenzar, pero encontrará que se atasca bastante
 Para disponer de más espacio para trabajar, utilice el editor de secuencias de comandos.
 Ábralo haciendo clic en el menú Archivo, seleccionando Nuevo archivo, luego R script, o usando el atajo de teclado Cmd/Ctrl + Shift + N.
 Ahora verá cuatro paneles, como en @fig-rstudio-script.
-El editor de secuencias de comandos es un excelente lugar para colocar el código que le interesa.
-Siga experimentando en la consola, pero una vez que haya escrito un código que funcione y haga lo que desea, colóquelo en el editor de secuencias de comandos.
+El editor de secuencias de comandos es un gran lugar para experimentar con su código.
+Cuando desee cambiar algo, no tiene que volver a escribirlo todo, simplemente puede editar el script y volver a ejecutarlo.
+Y una vez que haya escrito el código que funciona y hace lo que desea, puede guardarlo como un archivo de secuencia de comandos para volver fácilmente a él más tarde.
 
 ```{r}
 #| label: fig-rstudio-script
@@ -37,9 +38,6 @@ El editor de secuencias de comandos es un lugar excelente para crear gráficas d
 La clave para usar el editor de secuencias de comandos de manera efectiva es memorizar uno de los atajos de teclado más importantes: Cmd/Ctrl + Enter.
 Esto ejecuta la expresión de R actual en la consola.
 Por ejemplo, tome el siguiente código.
-Si su cursor está en █, al presionar Cmd/Ctrl + Enter se ejecutará el comando completo que genera `not_cancelled`.
-También moverá el cursor a la siguiente declaración (comenzando con `not_cancelled |>`).
-Eso hace que sea más fácil recorrer el script completo presionando repetidamente Cmd/Ctrl + Enter.
 
 ```{r}
 #| eval: false
@@ -55,13 +53,17 @@ not_cancelled |>
   summarize(mean = mean(dep_delay))
 ```
 
+Si su cursor está en █, al presionar Cmd/Ctrl + Enter se ejecutará el comando completo que genera `not_cancelled`.
+También moverá el cursor a la siguiente declaración (comenzando con `not_cancelled |>`).
+Eso hace que sea más fácil recorrer el script completo presionando repetidamente Cmd/Ctrl + Enter.
+
 En lugar de ejecutar su código expresión por expresión, también puede ejecutar el script completo en un solo paso con Cmd/Ctrl + Shift + S.
 Hacer esto regularmente es una excelente manera de asegurarse de haber capturado todas las partes importantes de su código en el script.
 
 Le recomendamos que siempre comience su script con los paquetes que necesita.
 De esa forma, si comparte su código con otras personas, pueden ver fácilmente qué paquetes necesitan instalar.
 Tenga en cuenta, sin embargo, que nunca debe incluir `install.packages()` en un script que comparta.
-¡Es muy antisocial cambiar la configuración en la computadora de otra persona!
+¡Es desconsiderado entregar un script que hará algo en su computadora si no tienen cuidado!
 
 Cuando trabaje en capítulos futuros, le recomendamos que comience con el editor de scripts y practique los atajos de teclado.
 Con el tiempo, enviar código a la consola de esta manera se volverá tan natural que ni siquiera pensará en ello.
@@ -148,6 +150,7 @@ Aquí hay una mejor manera de nombrar y organizar el mismo conjunto de archivos:
 
 La numeración de los scripts clave hace que sea obvio en qué orden ejecutarlos y un esquema de nombres consistente hace que sea más fácil ver qué varía.
 Además, las cifras se etiquetan de manera similar, los informes se distinguen por las fechas incluidas en los nombres de los archivos y se cambia el nombre de `temp` a `report-draft-notes` para describir mejor su contenido.
+Si tiene muchos archivos en un directorio, se recomienda llevar la organización un paso más allá y colocar diferentes tipos de archivos (guiones, figuras, etc.) en diferentes directorios.
 
 ## Proyectos
 
@@ -164,15 +167,15 @@ Para manejar estas situaciones de la vida real, debe tomar dos decisiones:
 
 ### ¿Cuál es la fuente de la verdad?
 
-Como usuario principiante de R, está bien considerar su entorno (es decir, los objetos enumerados en el panel de entorno) como su análisis.
-Sin embargo, a la larga, estará mucho mejor si se asegura de que sus scripts R sean la fuente de la verdad.
+Como principiante, está bien confiar en su entorno actual para contener todos los objetos que ha creado a lo largo de su análisis.
+Sin embargo, para que sea más fácil trabajar en proyectos más grandes o colaborar con otros, su fuente de verdad deben ser los scripts R.
 Con sus scripts de R (y sus archivos de datos), puede recrear el entorno.
 Solo con su entorno, es mucho más difícil recrear sus scripts de R: tendrá que volver a escribir una gran cantidad de código de la memoria (inevitablemente cometiendo errores en el camino) o tendrá que extraer cuidadosamente su historial de R.
 
 Para ayudar a mantener sus scripts de R como la fuente de la verdad para su análisis, le recomendamos que indique a RStudio que no conserve su espacio de trabajo entre sesiones.
-Puede hacer esto ejecutando `usethis::use_blank_slate()`[^workflow-scripts-1] o imitando las opciones que se muestran en @fig-blank-slate. Esto le causará un poco de dolor a corto plazo, porque ahora, cuando reinicie RStudio, ya no recordará el código que ejecutó la última vez.
-Pero este dolor a corto plazo le ahorra una agonía a largo plazo porque lo obliga a capturar todas las interacciones importantes en su código.
-No hay nada peor que descubrir tres meses después del hecho de que solo almacenó los resultados de un cálculo importante en su espacio de trabajo, no el cálculo en sí mismo en su código.
+Puede hacer esto ejecutando `usethis::use_blank_slate()`[^workflow-scripts-1] o imitando las opciones que se muestran en @fig-blank-slate. Esto le causará un poco de dolor a corto plazo, porque ahora, cuando reinicie RStudio, ya no recordará el código que ejecutó la última vez ni los objetos que creó o los conjuntos de datos que leyó estarán disponibles para su uso.
+Pero este dolor a corto plazo le ahorra una agonía a largo plazo porque lo obliga a capturar todas los procedimientos importantes en su código.
+No hay nada peor que descubrir tres meses después del hecho de que solo almacenó los resultados de un cálculo importante en su entorno, no el cálculo en sí mismo en su código.
 
 [^workflow-scripts-1]: Si no tiene instalado usethis, puede instalarlo con `install.packages("usethis")`.
 
@@ -183,7 +186,7 @@ No hay nada peor que descubrir tres meses después del hecho de que solo almacen
 #|   Copie estas opciones en sus opciones de RStudio para iniciar siempre su
 #|   sesión de RStudio con borrón y cuenta nueva.
 #| fig-alt: >
-#|   Ventana de preferencias de RStudio donde aparece la opción Restaurar .RData en el espacio de trabajo
+#|   Ventana de opciones globales de RStudio donde la opción Restaurar .RData en el espacio de trabajo
 #|   al inicio no está marcado. Además, la opción Guardar espacio de trabajo en .RData
 #|   al salir se establece en Nunca.
 #| out-width: ~
@@ -193,10 +196,12 @@ knitr::include_graphics("diagrams/rstudio/clean-slate.png", dpi = 270)
 
 Hay un gran par de atajos de teclado que funcionarán juntos para asegurarse de que ha capturado las partes importantes de su código en el editor:
 
-1.  Presione Cmd/Ctrl + Shift + F10 para reiniciar R.
+1.  Presione Cmd/Ctrl + Shift + 0 para reiniciar R.
 2.  Presione Cmd/Ctrl + Shift + S para volver a ejecutar el script actual.
 
 Usamos colectivamente este patrón cientos de veces a la semana.
+
+Alternativamente, si no usa atajos de teclado, puede ir a Sesión \> Reiniciar R y luego resaltar y volver a ejecutar su secuencia de comandos actual.
 
 ::: callout-note
 ## Servidor RStudio
@@ -217,7 +222,7 @@ RStudio muestra su directorio de trabajo actual en la parte superior de la conso
 #| echo: false
 #| fig-alt: >
 #|   La pestaña Consola muestra el directorio de trabajo actual como
-#|   ~/Documents/r4ds/r4ds.
+#|   ~/Documents/r4ds.
 #| out-width: ~
 knitr::include_graphics("screenshots/rstudio-wd.png")
 ```
@@ -227,11 +232,14 @@ Y puede imprimir esto en código de R ejecutando `getwd()`:
 ```{r}
 #| eval: false
 getwd()
-#> [1] "/Users/hadley/Documents/r4ds/r4ds"
+#> [1] "/Users/hadley/Documents/r4ds"
 ```
 
+En esta sesión de R, el directorio de trabajo actual (piense en él como "inicio") está en la carpeta Documentos de hadley, en una subcarpeta llamada r4ds.
+Este código devolverá un resultado diferente cuando lo ejecute, porque su computadora tiene una estructura de directorio diferente a la de Hadley.
+
 Como usuario principiante de R, está bien dejar que su directorio de trabajo sea su directorio de inicio, directorio de documentos o cualquier otro directorio extraño en su computadora.
-Pero llevas nueve capítulos en este libro y ya no eres un principiante de rango.
+Pero llevas siete capítulos en este libro y ya no eres un principiante de rango.
 Muy pronto debería evolucionar para organizar sus proyectos en directorios y, cuando trabaje en un proyecto, establecer el directorio de trabajo de R en el directorio asociado.
 
 Puede configurar el directorio de trabajo desde R pero **nosotros** **no lo recomendamos**:
@@ -254,12 +262,9 @@ Haga clic en Archivo \> Nuevo proyecto, luego siga los pasos que se muestran en 
 #| label: fig-new-project
 #| echo: false
 #| fig-cap: > 
-#|   Cree un nuevo proyecto siguiendo estos tres pasos.
-#| fig-subcap: 
-#|   - Primero haga clic en Nuevo directorio.
-#|   - Luego haga clic en Nuevo proyecto.
-#|   - Finalmente, complete el nombre del directorio (proyecto), elija un buen
-#|     subdirectorio para su inicio y haga clic en Crear proyecto.
+#|   Para crear un nuevo proyecto: (arriba) primero haga clic en Nuevo directorio, 
+#|   luego (en el medio) haga clic en Nuevo proyecto, luego (abajo) complete el nombre del
+#|   directorio (proyecto), elija un buen subdirectorio para su inicio y haga clic en Crear proyecto.
 #| fig-alt: >
 #|   Tres capturas de pantalla del menú Nuevo proyecto. En la primera captura de pantalla,
 #|   se muestra la ventana Crear Proyecto y se selecciona Nuevo Directorio.
@@ -269,9 +274,7 @@ Haga clic en Archivo \> Nuevo proyecto, luego siga los pasos que se muestran en 
 #|   el proyecto se está creando como subdirectorio del Escritorio.
 #| out-width: ~
 
-knitr::include_graphics("screenshots/rstudio-project-1.png")
-knitr::include_graphics("screenshots/rstudio-project-2.png")
-knitr::include_graphics("screenshots/rstudio-project-3.png")
+knitr::include_graphics("diagrams/new-project.png")
 ```
 
 Llame a su proyecto `r4ds` y piense detenidamente en qué subdirectorio coloca el proyecto.
@@ -283,11 +286,13 @@ Verifique que el "hogar" de su proyecto sea el directorio de trabajo actual:
 ```{r}
 #| eval: false
 getwd()
-#> [1] /Users/hadley/Documents/r4ds/r4ds
+#> [1] /Users/hadley/Documents/r4ds
 ```
 
 Ahora ingrese los siguientes comandos en el editor de secuencias de comandos y guarde el archivo, llamándolo "diamantes.R".
-A continuación, ejecute el script completo que guardará un archivo PDF y CSV en el directorio de su proyecto.
+Luego, cree una nueva carpeta llamada "datos".
+Puede hacerlo haciendo clic en el botón "Nueva carpeta" en el panel Archivos en RStudio.
+Finalmente, ejecute el script completo que guardará un archivo PNG y CSV en el directorio de su proyecto.
 No se preocupe por los detalles, los aprenderá más adelante en el libro.
 
 ```{r}
@@ -298,9 +303,9 @@ library(tidyverse)
 
 ggplot(diamonds, aes(x = carat, y = price)) + 
   geom_hex()
-ggsave("diamonds.pdf")
+ggsave("diamonds.png")
 
-write_csv(diamonds, "diamonds.csv")
+write_csv(diamonds, "datos/diamonds.csv")
 ```
 
 Salga de RStudio.
@@ -309,7 +314,7 @@ Haga doble clic en ese archivo para volver a abrir el proyecto.
 Observe que vuelve a donde lo dejó: es el mismo directorio de trabajo e historial de comandos, y todos los archivos en los que estaba trabajando todavía están abiertos.
 Sin embargo, debido a que siguió nuestras instrucciones anteriores, tendrá un entorno completamente nuevo, lo que garantiza que está comenzando desde cero.
 
-De la forma específica de su sistema operativo favorito, busque `diamonds.pdf` en su computadora y encontrará el PDF (no es de extrañar), pero *también el script que lo creó* (`diamonds.R`).
+De la forma específica de su sistema operativo favorito, busque `diamonds.png` en su computadora y encontrará el PNG (no es de extrañar), pero *también el script que lo creó* (`diamonds.R`).
 ¡Esta es una gran victoria!
 Un día querrás rehacer una figura o simplemente entender de dónde vino.
 Si guarda rigurosamente las figuras en archivos **con código de R** y nunca con el mouse o el portapapeles, ¡podrá reproducir trabajos antiguos con facilidad!
@@ -318,10 +323,10 @@ Si guarda rigurosamente las figuras en archivos **con código de R** y nunca con
 
 Una vez que esté dentro de un proyecto, solo debe usar rutas relativas, no rutas absolutas.
 ¿Cual es la diferencia?
-Una ruta relativa es **relativa** al directorio de trabajo, es decir, el hogar del proyecto.
-Cuando Hadley escribió `diamonds.R` arriba, era un atajo para `/Users/hadley/Documents/r4ds/r4ds/diamonds.R`.
-Pero lo que es más importante, si Mine ejecutara este código en su computadora, apuntaría a `/Users/Mine/Documents/r4ds/r4ds/diamonds.R`.
-Esta es la razón por la que las rutas relativas son importantes: funcionarán independientemente de dónde termine el proyecto.
+Una ruta relativa es relativa al directorio de trabajo, es decir, el hogar del proyecto.
+Cuando Hadley escribió `data/diamonds.csv` arriba, era un atajo para `/Users/hadley/Documents/r4ds/data/diamonds.csv`.
+Pero lo que es más importante, si Mine ejecutara este código en su computadora, apuntaría a `/Users/Mine/Documents/r4ds/data/diamonds.csv`.
+Esta es la razón por la que las rutas relativas son importantes: funcionarán independientemente de dónde termine la carpeta del proyecto R.
 
 Las rutas absolutas apuntan al mismo lugar independientemente de su directorio de trabajo.
 Se ven un poco diferentes dependiendo de su sistema operativo.
@@ -329,7 +334,7 @@ En Windows, comienzan con una letra de unidad (por ejemplo, `C:`) o dos barras i
 **Nunca** debe usar rutas absolutas en sus scripts, porque dificultan el uso compartido: nadie más tendrá exactamente la misma configuración de directorio que usted.
 
 Hay otra diferencia importante entre los sistemas operativos: cómo se separan los componentes de la ruta.
-Mac y Linux usan barras inclinadas (por ejemplo, `plots/diamonds.pdf`) y Windows usa barras invertidas (por ejemplo, `plots\diamonds.pdf`).
+Mac y Linux usan barras inclinadas (por ejemplo, `data/diamonds.csv`) y Windows usa barras invertidas (por ejemplo, `data\diamonds.csv`).
 R puede funcionar con cualquier tipo (sin importar qué plataforma esté usando actualmente), pero desafortunadamente, las barras invertidas significan algo especial para R, y para obtener una sola barra invertida en la ruta, ¡debe escribir dos barras invertidas!
 Eso hace que la vida sea frustrante, por lo que recomendamos usar siempre el estilo Linux/Mac con barras diagonales.
 
@@ -342,6 +347,10 @@ Eso hace que la vida sea frustrante, por lo que recomendamos usar siempre el est
     Lea <https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics> para averiguarlo.
 
 ## Resumen
+
+En este capítulo, ha aprendido a organizar su código R en scripts (archivos) y proyectos (directorios).
+Al igual que el estilo de código, esto puede parecer un trabajo pesado al principio.
+Pero a medida que acumule más código en múltiples proyectos, aprenderá a apreciar cómo un poco de organización inicial puede ahorrarle mucho tiempo en el futuro.
 
 En resumen, los guiones y los proyectos le brindan un flujo de trabajo sólido que le será útil en el futuro:
 

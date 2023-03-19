@@ -34,6 +34,8 @@ Abra la paleta presionando Cmd/Ctrl + Shift + P, luego escriba "styler" para ver
 knitr::include_graphics("screenshots/rstudio-palette.png")
 ```
 
+Usaremos los paquetes tidyverse y nycflights13 para ejemplos de código en este capítulo.
+
 ```{r}
 #| label: setup
 #| message: false
@@ -112,7 +114,7 @@ flights |>
 ## Pipes {#sec-pipes}
 
 `|>` siempre debe tener un espacio antes y, por lo general, debe ser lo último en una línea.
-Esto hace que sea más fácil agregar nuevos pasos, reorganizar pasos existentes, modificar elementos dentro de un paso y obtener una vista general leyendo los verbos en el lado izquierdo.
+Esto hace que sea más fácil agregar nuevos pasos, reorganizar pasos existentes, modificar elementos dentro de un paso y obtener una vista de 10,000 pies hojeando los verbos en el lado izquierdo.
 
 ```{r}
 #| eval: false
@@ -149,6 +151,7 @@ flights |>
 ```
 
 Después del primer paso de la canalización, sangra cada línea con dos espacios.
+RStudio colocará automáticamente los espacios después de un salto de línea después de `\>` .
 Si está colocando cada argumento en su propia línea, sangre con dos espacios adicionales.
 Asegúrese de que `)` esté en su propia línea y sin sangría para que coincida con la posición horizontal del nombre de la función.
 
@@ -171,6 +174,7 @@ flights|>
              n = n()
            )
 
+# Avoid
 flights|>
   group_by(tailnum) |> 
   summarize(
@@ -199,7 +203,7 @@ df |>
 Finalmente, tenga cuidado al escribir canalizaciones muy largas, digamos más de 10-15 líneas.
 Trate de dividirlas en subtareas más pequeñas, dando a cada tarea un nombre informativo.
 Los nombres ayudarán al lector a comprender lo que está sucediendo y facilitarán la verificación de que los resultados intermedios son los esperados.
-Siempre que pueda dar a algo un nombre informativo, debe darle un nombre informativo.
+Siempre que pueda dar a algo un nombre informativo, debe darle un nombre informativo, por ejemplo, cuando cambia fundamentalmente la estructura de los datos, por ejemplo, después de pivotar o resumir.
 ¡No esperes hacerlo bien la primera vez!
 Esto significa romper canalizacionesías largas si hay estados intermedios que pueden obtener buenos nombres.
 

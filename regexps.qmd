@@ -136,10 +136,6 @@ Por ejemplo, el siguiente fragmento calcula y visualiza la proporción de nombre
 [^regexps-4]: Esto nos da la proporción de **nombres** que contienen una "x"; si quisiera la proporción de bebés con un nombre que contiene una x, necesitaría realizar una media ponderada.
 
 ```{r}
-#| label: fig-x-names
-#| fig-cap: >
-#|   Una serie de tiempo que muestra la proporción de nombres de bebés que contienen un
-#|   "x" minúscula.
 #| fig-alt: >
 #|   Una serie temporal que muestra la proporción de nombres de bebés que contienen la letra x.
 #|   La proporción desciende gradualmente del 8 por 1000 en 1880 al 4 por 1000 en
@@ -152,23 +148,20 @@ babynames |>
   geom_line()
 ```
 
-Hay dos funciones que están estrechamente relacionadas con `str_detect()`, a saber, `str_subset()` que devuelve solo las cadenas que contienen una coincidencia y `str_which()` que devuelve los índices de las cadenas que tienen una coincidencia:
-
-```{r}
-str_subset(c("a", "b", "c"), "[aeiou]")
-str_which(c("a", "b", "c"), "[aeiou]")
-```
+Hay dos funciones que están estrechamente relacionadas con `str_detect()`: `str_subset()` y `str_which()`.
+`str_subset()` devuelve solo las cadenas que contienen coincidencia.
+`str_which()` devuelve los índices de las cadenas que tienen coincidencia:
 
 ### Contar coincidencias
 
-El siguiente paso en complejidad de `str_detect()` es `str_count()`: en lugar de un simple verdadero o falso, te dice cuántas coincidencias hay en cada cadena.
+El siguiente paso en complejidad de `str_detect()` es `str_count()`: en lugar de verdadero o falso, le dice cuántas coincidencias hay en cada cadena.
 
 ```{r}
 x <- c("apple", "banana", "pear")
 str_count(x, "p")
 ```
 
-Tenga en cuenta que cada coincidencia comienza al final de la coincidencia anterior; es decir, las coincidencias de expresiones regulares nunca se superponen.
+Tenga en cuenta que cada coincidencia comienza al final de la coincidencia anterior, es decir, las coincidencias de expresiones regulares nunca se superponen.
 Por ejemplo, en `"abababa"`, ¿cuántas veces coincidirá el patrón `"aba"`?
 Las expresiones regulares dicen dos, no tres:
 
@@ -222,7 +215,7 @@ x <- c("apple", "pear", "banana")
 str_replace_all(x, "[aeiou]", "-")
 ```
 
-`str_remove()` y `str_remove_all()` son atajos útiles para `str_replace(x, patrón, "")`.
+`str_remove()` y `str_remove_all()` son atajos útiles para `str_replace(x, patrón, "")`:
 
 ```{r}
 x <- c("apple", "pear", "banana")
@@ -303,12 +296,13 @@ No siempre son los más evocadores de su propósito, pero es muy útil conocer l
 
 ### Escapar {#sec-regexp-escaping}
 
-Para hacer coincidir un `.` literal, necesita un **escape** que le indique a la expresión regular que coincida con los metacaracteres literalmente.
+Para hacer coincidir un `.` literal, necesita un **escape** que le indique a la expresión regular que coincida con los metacaracteres[^regexps-6] literalmente.
 Al igual que las cadenas, las expresiones regulares usan la barra invertida para escapar.
-Entonces, para hacer coincidir un `.`, necesita la expresión regular `\.`.
-Desafortunadamente esto crea un problema.
+Entonces, para hacer coincidir un `.`, necesita la expresión regular `\.`. Desafortunadamente esto crea un problema.
 Usamos cadenas para representar expresiones regulares, y `\` también se usa como símbolo de escape en cadenas.
 Así que para crear la expresión regular `\.` necesitamos la cadena `"\\."`, como muestra el siguiente ejemplo.
+
+[^regexps-6]: El conjunto completo de metacaracteres es `.^$\|*+?{}[]()`
 
 ```{r}
 # Para crear la expresión regular \., necesitamos usar \\.
@@ -350,13 +344,10 @@ str_view(c("abc", "a.c", "a*c", "a c"), "a[.]c")
 str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
 ```
 
-El conjunto completo de metacaracteres es `.^$\|*+?{}[]()`.
-En general, mire los caracteres de puntuación con suspicacia; si su expresión regular no coincide con lo que cree que debería, compruebe si ha utilizado alguno de estos caracteres.
-
 ### Anclajes
 
 De forma predeterminada, las expresiones regulares coincidirán con cualquier parte de una cadena.
-Si desea hacer coincidir al principio del final, necesita **anclar** la expresión regular usando `^` para que coincida con el comienzo de la cadena o `$` para que coincida con el final de la cadena:
+Si desea hacer coincidir al principio del final, necesita **anclar** la expresión regular usando `^` para que coincida con el comienzo de la cadena o `$` para que coincida con el final:
 
 ```{r}
 str_view(fruit, "^a")
@@ -420,9 +411,9 @@ str_view("a-b-c", "[a\\-c]")
 
 Algunas clases de caracteres se usan con tanta frecuencia que obtienen su propio atajo.
 Ya has visto `.`, que coincide con cualquier carácter excepto una nueva línea.
-Hay otros tres pares particularmente útiles[^regexps-6]:
+Hay otros tres pares particularmente útiles[^regexps-7]:
 
-[^regexps-6]: Recuerde, para crear una expresión regular que contenga `\d` o `\s`, deberá escapar del `\` para la cadena, por lo que escribirá `"\\d"` o `"\\s "`.
+[^regexps-7]: Recuerde, para crear una expresión regular que contenga `\d` o `\s`, deberá escapar del `\` para la cadena, por lo que escribirá `"\\d"` o `"\\s "`.
 
 -   `\d` coincide con cualquier dígito;\
     `\D` coincide con cualquier cosa que no sea un dígito.
@@ -453,18 +444,6 @@ También puede especificar el número de coincidencias con precisión con `{}`:
 -   `{n}` coincide exactamente n veces.
 -   `{n,}` coincide al menos n veces.
 -   `{n,m}` coincide entre n y m veces.
-
-El siguiente código muestra cómo funciona esto para algunos ejemplos simples:
-
-```{r}
-x <- "-- -x- -xx- -xxx- -xxxx- -xxxxx-"
-str_view(x, "-x?-")      # [0, 1]
-str_view(x, "-x+-")      # [1, Inf)
-str_view(x, "-x*-")      # [0, Inf)
-str_view(x, "-x{2}-")    # [2. 2]
-str_view(x, "-x{2,}-")   # [2, Inf)
-str_view(x, "-x{2,3}-")  # [2, 3]
-```
 
 ### Precedencia de operadores y paréntesis
 
@@ -507,9 +486,9 @@ sentences |>
 ```
 
 Si desea extraer las coincidencias para cada grupo, puede usar `str_match()`.
-Pero `str_match()` devuelve una matriz, por lo que no es particularmente fácil trabajar con [^regexps-7]:
+Pero `str_match()` devuelve una matriz, por lo que no es particularmente fácil trabajar con [^regexps-8]:
 
-[^regexps-7]: ¡Sobre todo porque nunca hablamos de matrices en este libro!
+[^regexps-8]: `comments = TRUE` es particularmente efectivo en combinación con una cadena sin procesar, como la que usamos aquí.
 
 ```{r}
 sentences |> 
@@ -611,9 +590,9 @@ Si está trabajando mucho con cadenas multilínea (es decir, cadenas que contien
 
 Finalmente, si está escribiendo una expresión regular complicada y le preocupa no entenderla en el futuro, puede probar `comentarios = TRUE`.
 Ajusta el lenguaje de patrones para ignorar los espacios y las líneas nuevas, así como todo lo que se encuentra después de `#`.
-Esto le permite usar comentarios y espacios en blanco para hacer que las expresiones regulares complejas sean más comprensibles[^regexps-8], como en el siguiente ejemplo:
+Esto le permite usar comentarios y espacios en blanco para hacer que las expresiones regulares complejas sean más comprensibles[^regexps-9], como en el siguiente ejemplo:
 
-[^regexps-8]: `comments = TRUE` es particularmente efectivo en combinación con una cadena sin procesar, como la que usamos aquí.
+[^regexps-9]: `comments = TRUE` es particularmente efectivo en combinación con una cadena sin procesar, como la que usamos aquí.
 
 ```{r}
 phone <- regex(

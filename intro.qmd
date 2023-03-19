@@ -14,7 +14,7 @@ Después de leer este libro, tendrá las herramientas para abordar una amplia va
 
 La ciencia de datos es un campo amplio, y no hay forma de que puedas dominarlo todo leyendo un solo libro.
 Este libro tiene como objetivo brindarle una base sólida en las herramientas más importantes y el conocimiento suficiente para encontrar los recursos para aprender más cuando sea necesario.
-Nuestro modelo de las herramientas necesarias en un proyecto típico de ciencia de datos se parece a @fig-ds-diagram.
+Nuestro modelo de los pasos de un proyecto típico de ciencia de datos se parece a @fig-ds-diagram.
 
 ```{r}
 #| label: fig-ds-diagram
@@ -48,12 +48,12 @@ La transformación incluye la reducción de las observaciones de interés (como 
 Juntos, ordenar y transformar se denominan **disputar** (o manipular) porque obtener sus datos en una forma en la que es natural trabajar con ellos a menudo se siente como una pelea.
 
 Una vez que tenga datos ordenados con las variables que necesita, hay dos motores principales de generación de conocimiento: visualización y modelado.
-Estos tienen fortalezas y debilidades complementarias, por lo que cualquier análisis real iterará entre ellos muchas veces.
+Estos tienen fortalezas y debilidades complementarias, por lo que cualquier análisis de datos real iterará entre ellos muchas veces.
 
 **La visualización** es una actividad fundamentalmente humana.
 Una buena visualización le mostrará cosas que no esperaba o le generará nuevas preguntas sobre los datos.
 Una buena visualización también podría indicar que está haciendo la pregunta incorrecta o que necesita recopilar datos diferentes.
-Las visualizaciones pueden sorprenderlo y no se escalan particularmente bien porque requieren que un ser humano las interprete.
+Las visualizaciones pueden sorprenderlo, pero no se escalan particularmente bien porque requieren que un ser humano las interprete.
 
 **Los modelos** son herramientas complementarias a la visualización.
 Una vez que haya hecho sus preguntas lo suficientemente precisas, puede usar un modelo para responderlas.
@@ -76,12 +76,12 @@ A lo largo de este libro, le indicaremos los recursos donde puede obtener más i
 ## Cómo está organizado este libro
 
 La descripción anterior de las herramientas de la ciencia de datos está organizada aproximadamente según el orden en que las usa en un análisis (aunque, por supuesto, las repetirá varias veces).
-En nuestra experiencia, sin embargo, aprender a ingerir y ordenar datos primero no es óptimo porque el 80 % del tiempo es rutinario y aburrido, y el otro 20 % del tiempo es raro y frustrante.
+En nuestra experiencia, sin embargo, aprender a importar y ordenar datos primero no es óptimo porque el 80 % del tiempo es rutinario y aburrido, y el otro 20 % del tiempo es raro y frustrante.
 ¡Ese es un mal lugar para comenzar a aprender un nuevo tema!
 En su lugar, comenzaremos con la visualización y transformación de datos que ya se han importado y ordenado.
 De esa manera, cuando ingiere y ordena sus propios datos, su motivación se mantendrá alta porque sabe que el esfuerzo vale la pena.
 
-Dentro de cada capítulo, tratamos de adherirnos a un patrón similar: comience con algunos ejemplos motivadores para que pueda ver el panorama general y luego profundice en los detalles.
+Dentro de cada capítulo, tratamos de adherirnos a un patrón concistente: comience con algunos ejemplos motivadores para que pueda ver el panorama general y luego profundice en los detalles.
 Cada sección del libro está emparejada con ejercicios para ayudarte a practicar lo que has aprendido.
 Aunque puede ser tentador saltarse los ejercicios, no hay mejor manera de aprender que practicar con problemas reales.
 
@@ -145,7 +145,9 @@ Para este libro, asegúrese de tener al menos RStudio 2022.02.0.
 
 Cuando inicie RStudio, @fig-rstudio-console, verá dos regiones clave en la interfaz: el panel de la consola y el panel de salida.
 Por ahora, todo lo que necesita saber es que escribe el código R en el panel de la consola y presiona enter para ejecutarlo.
-¡Aprenderás más a medida que avancemos!
+¡Aprenderás más a medida que avancemos![^intro-1]
+
+[^intro-1]: Si desea obtener una descripción general completa de todas las funciones de RStudio, consulte la Guía del usuario de RStudio en <https://docs.posit.co/ide/user>.
 
 ```{r}
 #| label: fig-rstudio-console
@@ -199,7 +201,7 @@ En otras palabras, el complemento del tidyverse no es el desordenado sino muchos
 A medida que aborde más proyectos de ciencia de datos con R, aprenderá nuevos paquetes y nuevas formas de pensar sobre los datos.
 
 Usaremos muchos paquetes de fuera del tidyverse en este libro.
-Por ejemplo, utilizamos los siguientes cuatro paquetes de datos para proporcionar aplicaciones interesantes:
+Por ejemplo, usamos los siguientes paquetes para proporcionar conjuntos de datos interesantes:
 
 ```{r}
 #| eval: false
@@ -252,20 +254,7 @@ A lo largo del libro, usamos un conjunto consistente de convenciones para referi
 ## Reconocimientos
 
 Este libro no es solo el producto de Hadley, Mine y Garrett, sino que es el resultado de muchas conversaciones (en persona y en línea) que hemos tenido con muchas personas en la comunidad de R.
-Hay algunas personas a las que nos gustaría agradecer en particular porque han pasado muchas horas respondiendo nuestras preguntas y ayudándonos a pensar mejor sobre la ciencia de datos:
-
--   Jenny Bryan y Lionel Henry por muchas discusiones útiles sobre el trabajo con listas y columnas de lista.
-
--   Los tres capítulos sobre el flujo de trabajo fueron adaptados (con permiso) de <https://stat545.com/block002_hello-r-workspace-wd-project.html> por Jenny Bryan.
-
--   Yihui Xie por su trabajo con el paquete [bookdown](https://github.com/rstudio/bookdown) y por responder incansablemente a mis solicitudes de funciones.
-
--   Bill Behrman por su atenta lectura de todo el libro y por probarlo con su clase de ciencia de datos en Stanford.
-
--   La comunidad de Twitter #rstats que revisó todos los borradores de los capítulos y brindó toneladas de comentarios útiles.
-
-Este libro fue escrito abiertamente y muchas personas contribuyeron con solicitudes de incorporación de cambios para solucionar problemas menores.
-Un agradecimiento especial a todos los que contribuyeron a través de GitHub:
+Estamos increíblemente agradecidos por todas las conversaciones que hemos tenido con todos ustedes; ¡muchas gracias!
 
 ```{r}
 #| eval: false
@@ -319,9 +308,7 @@ contributors <- contributors %>%
     desc = ifelse(is.na(name), login, paste0(name, " (", login, ")"))
   )
 
-cat("Un gran agradecimiento a todos las ", nrow(contributors), " personas que contribuyeron con mejoras específicas a través de solicitudes de extracción de GitHub (en orden alfabético por nombre de usuario):", sep = "")
-cat(paste0(contributors$desc, collapse = ", "))
-cat(".\n")
+cat("Este libro fue escrito abiertamente, y muchas personas contribuyeron a través de solicitudes de extracción. Un agradecimiento especial a todos ",nrow(contributors), " de ustedes que contribuyeron con mejoras a través de solicitudes de extracción de GitHub (en orden alfabético por nombre de usuario): " , sep = "")
 ```
 
 ## Colofón
@@ -331,9 +318,8 @@ Continuará evolucionando entre las reimpresiones del libro físico.
 El código fuente del libro está disponible en <https://github.com/hadley/r4ds>.
 El libro funciona con [Quarto](https://quarto.org), lo que facilita la escritura de libros que combinan texto y código ejecutable.
 
-Este libro fue construido con:
-
 ```{r}
+#| eval: false
 #| echo: false
 #| results: asis
 
