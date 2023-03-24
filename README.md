@@ -30,6 +30,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   15 Números
     -   16 Caracteres
     -   17 Expresiones regulares
+    -   18 Fechas y horas
 
 ## Sobre otras versiones
 
@@ -125,6 +126,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   15 Numbers
     -   16 Strings
     -   17 Regular expressions
+    -   18 Dates and times
 
 ## About other versions
 

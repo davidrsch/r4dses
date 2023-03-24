@@ -1,4 +1,4 @@
-# Dates and times {#sec-dates-and-times}
+# Fechas y horas {#sec-dates-and-times}
 
 ```{r}
 #| results: "asis"
@@ -10,33 +10,33 @@ status("complete")
 options(warnPartialMatchArgs = FALSE)
 ```
 
-## Introduction
+## Introducción
 
-This chapter will show you how to work with dates and times in R.
-At first glance, dates and times seem simple.
-You use them all the time in your regular life, and they don't seem to cause much confusion.
-However, the more you learn about dates and times, the more complicated they seem to get!
+Este capítulo le mostrará cómo trabajar con fechas y horas en R.
+A primera vista, las fechas y horas parecen simples.
+Los usa todo el tiempo en su vida normal y no parecen causar mucha confusión.
+Sin embargo, cuanto más aprendes sobre las fechas y las horas, ¡más complicadas parecen volverse!
 
-To warm up think about how many days there are in a year, and how many hours there are in a day.
-You probably remembered that most years have 365 days, but leap years have 366.
-Do you know the full rule for determining if a year is a leap year[^datetimes-1]?
-The number of hours in a day is a little less obvious: most days have 24 hours, but in places that use daylight saving time (DST), one day each year has 23 hours and another has 25.
+Para entrar en calor, piensa en cuántos días hay en un año y cuántas horas hay en un día.
+Probablemente recordó que la mayoría de los años tienen 365 días, pero los años bisiestos tienen 366.
+¿Conoces la regla completa para determinar si un año es bisiesto[^datetimes-1]?
+La cantidad de horas en un día es un poco menos obvia: la mayoría de los días tienen 24 horas, pero en lugares que usan el horario de verano (DST), un día cada año tiene 23 horas y otro tiene 25.
 
-[^datetimes-1]: A year is a leap year if it's divisible by 4, unless it's also divisible by 100, except if it's also divisible by 400.
-    In other words, in every set of 400 years, there's 97 leap years.
+[^datetimes-1]: Un año es bisiesto si es divisible por 4, a menos que también sea divisible por 100, excepto si también es divisible por 400.
+    En otras palabras, en cada conjunto de 400 años, hay 97 años bisiestos.
 
-Dates and times are hard because they have to reconcile two physical phenomena (the rotation of the Earth and its orbit around the sun) with a whole raft of geopolitical phenomena including months, time zones, and DST.
-This chapter won't teach you every last detail about dates and times, but it will give you a solid grounding of practical skills that will help you with common data analysis challenges.
+Las fechas y las horas son difíciles porque tienen que conciliar dos fenómenos físicos (la rotación de la Tierra y su órbita alrededor del sol) con toda una serie de fenómenos geopolíticos, incluidos los meses, las zonas horarias y el horario de verano.
+Este capítulo no le enseñará hasta el último detalle sobre fechas y horas, pero le brindará una base sólida de habilidades prácticas que lo ayudarán con los desafíos comunes de análisis de datos.
 
-We'll begin by showing you how to create date-times from various inputs, and then once you've got a date-time, how you can extract components like year, month, and day.
-We'll then dive into the tricky topic of working with time spans, which come in a variety of flavors depending on what you're trying to do.
-We'll conclude with a brief discussion of the additional challenges posed by time zones.
+Comenzaremos mostrándole cómo crear fechas y horas a partir de varias entradas y luego, una vez que tenga una fecha y hora, cómo puede extraer componentes como año, mes y día.
+Luego nos sumergiremos en el tema complicado de trabajar con intervalos de tiempo, que vienen en una variedad de sabores dependiendo de lo que esté tratando de hacer.
+Concluiremos con una breve discusión de los desafíos adicionales que plantean las zonas horarias.
 
-### Prerequisites
+### Requisitos previos
 
-This chapter will focus on the **lubridate** package, which makes it easier to work with dates and times in R.
-As of the latest tidyverse release, lubridate is part of core tidyverse so.
-We will also need nycflights13 for practice data.
+Este capítulo se centrará en el paquete **lubridate**, que facilita el trabajo con fechas y horas en R.
+A partir de la última versión de tidyverse, lubridate es parte del núcleo de tidyverse.
+También necesitaremos nycflights13 para datos de práctica.
 
 ```{r}
 #| message: false
@@ -44,7 +44,7 @@ library(tidyverse)
 library(nycflights13)
 ```
 
-## Creating date/times {#sec-creating-datetimes}
+## Creando fecha/horas {#sec-creating-datetimes}
 
 There are three types of date/time data that refer to an instant in time:
 
