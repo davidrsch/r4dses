@@ -46,40 +46,40 @@ library(nycflights13)
 
 ## Creando fecha/horas {#sec-creating-datetimes}
 
-There are three types of date/time data that refer to an instant in time:
+Hay tres tipos de datos de fecha/hora que se refieren a un instante en el tiempo:
 
--   A **date**.
-    Tibbles print this as `<date>`.
+-   Una **fecha**.
+    Tibbles imprime esto como `<date>`.
 
--   A **time** within a day.
-    Tibbles print this as `<time>`.
+-   Una **hora** en un d'ia.
+    Tibbles impreme esto como `<time>`.
 
--   A **date-time** is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second).
-    Tibbles print this as `<dttm>`.
-    Base R calls these POSIXct, but doesn't exactly trip off the tongue.
+-   Una **fecha-hora** es una fecha más una hora: identifica de manera única un instante en el tiempo (generalmente al segundo más cercano).
+    Tibbles imprime esto como `<dttm>`.
+    Base R los llama POSIXct, pero no se sale de la lengua exactamente.
 
-In this chapter we are going to focus on dates and date-times as R doesn't have a native class for storing times.
-If you need one, you can use the **hms** package.
+En este capítulo nos vamos a centrar en fechas y fechas y horas, ya que R no tiene una clase nativa para almacenar horas.
+Si necesita uno, puede usar el paquete **hms**.
 
-You should always use the simplest possible data type that works for your needs.
-That means if you can use a date instead of a date-time, you should.
-Date-times are substantially more complicated because of the need to handle time zones, which we'll come back to at the end of the chapter.
+Siempre debe usar el tipo de datos más simple posible que funcione para sus necesidades.
+Eso significa que si puede usar una fecha en lugar de una fecha y hora, debería hacerlo.
+Las fechas y horas son sustancialmente más complicadas debido a la necesidad de manejar las zonas horarias, a lo que volveremos al final del capítulo.
 
-To get the current date or date-time you can use `today()` or `now()`:
+Para obtener la fecha actual o la fecha y hora, puede usar `today()` o `now()`:
 
 ```{r}
 today()
 now()
 ```
 
-Otherwise, the following sections describe the four ways you're likely to create a date/time:
+De lo contrario, las siguientes secciones describen las cuatro formas en las que es probable que cree una fecha/hora:
 
--   While reading a file with readr.
--   From a string.
--   From individual date-time components.
--   From an existing date/time object.
+-   Al leer un archivo con readr.
+-   De una cuerda.
+-   A partir de componentes individuales de fecha y hora.
+-   De un objeto de fecha/hora existente.
 
-### During import
+### Durante la importación
 
 If your CSV contains an ISO8601 date or date-time, you don't need to do anything; readr will automatically recognize it:
 
