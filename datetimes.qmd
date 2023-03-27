@@ -75,13 +75,13 @@ now()
 De lo contrario, las siguientes secciones describen las cuatro formas en las que es probable que cree una fecha/hora:
 
 -   Al leer un archivo con readr.
--   De una cuerda.
+-   De una cadena de caracteres.
 -   A partir de componentes individuales de fecha y hora.
 -   De un objeto de fecha/hora existente.
 
 ### Durante la importación
 
-If your CSV contains an ISO8601 date or date-time, you don't need to do anything; readr will automatically recognize it:
+Si su CSV contiene una fecha ISO8601 o una fecha y hora, no necesita hacer nada; readr lo reconocerá automáticamente:
 
 ```{r}
 #| message: false
@@ -92,39 +92,40 @@ csv <- "
 read_csv(csv)
 ```
 
-If you haven't heard of **ISO8601** before, it's an international standard[^datetimes-2] for writing dates where the components of a date are organized from biggest to smallest separated by `-`. For example, in ISO8601 March 5 2022 is `2022-05-03`. ISO8601 dates can also include times, where hour, minute, and second are separated by `:`, and the date and time components are separated by either a `T` or a space.
-For example, you could write 4:26pm on March 5 2022 as either `2022-05-03 16:26` or `2022-05-03T16:26`.
+Si no ha oído hablar de **ISO8601** antes, es un estándar internacional[^datetimes-2] para escribir fechas donde los componentes de una fecha se organizan de mayor a menor separados por `-`. Por ejemplo, en ISO8601 el 5 de marzo de 2022 es `2022-05-03`. Las fechas ISO8601 también pueden incluir horas, donde la hora, el minuto y el segundo están separados por `:`, y los componentes de fecha y hora están separados por una `T` o un espacio.
+Por ejemplo, podría escribir 4:26 p. m.
+el 5 de marzo de 2022 como `2022-05-03 16:26` o `2022-05-03T16:26`.
 
 [^datetimes-2]: <https://xkcd.com/1179/>
 
-For other date-time formats, you'll need to use `col_types` plus `col_date()` or `col_datetime()` along with a date-time format.
-The date-time format used by readr is a standard used across many programming languages, describing a date component with a `%` followed by a single character.
-For example, `%Y-%m-%d` specifies a date that's a year, `-`, month (as number) `-`, day.
-Table @tbl-date-formats lists all the options.
+Para otros formatos de fecha y hora, necesitará usar `col_types` más `col_date()` o `col_datetime()` junto con un formato de fecha y hora.
+El formato de fecha y hora utilizado por readr es un estándar utilizado en muchos lenguajes de programación, que describe un componente de fecha con un `%` seguido de un solo carácter.
+Por ejemplo, `%Y-%m-%d` especifica una fecha que es un año, `-`, mes (como número) `-`, día.
+La tabla @tbl-date-formats enumera todas las opciones.
 
-| Type  | Code  | Meaning                        | Example         |
-|-------|-------|--------------------------------|-----------------|
-| Year  | `%Y`  | 4 digit year                   | 2021            |
-|       | `%y`  | 2 digit year                   | 21              |
-| Month | `%m`  | Number                         | 2               |
-|       | `%b`  | Abbreviated name               | Feb             |
-|       | `%B`  | Full name                      | Februrary       |
-| Day   | `%d`  | Two digits                     | 02              |
-|       | `%e`  | One or two digits              | 2               |
-| Time  | `%H`  | 24-hour hour                   | 13              |
-|       | `%I`  | 12-hour hour                   | 1               |
-|       | `%p`  | AM/PM                          | pm              |
-|       | `%M`  | Minutes                        | 35              |
-|       | `%S`  | Seconds                        | 45              |
-|       | `%OS` | Seconds with decimal component | 45.35           |
-|       | `%Z`  | Time zone name                 | America/Chicago |
-|       | `%z`  | Offset from UTC                | +0800           |
-| Other | `%.`  | Skip one non-digit             | :               |
-|       | `%*`  | Skip any number of non-digits  |                 |
+| Type  | Code  | Meaning                               | Example         |
+|-------|-------|---------------------------------------|-----------------|
+| Año   | `%Y`  | año de 4 digitos                      | 2021            |
+|       | `%y`  | año de 2 digitos                      | 21              |
+| Mes   | `%m`  | Número                                | 2               |
+|       | `%b`  | Nombre abreviado                      | Feb             |
+|       | `%B`  | Nombre completo                       | Februrary       |
+| Día   | `%d`  | Dos digitos                           | 02              |
+|       | `%e`  | Uno o dos digitos                     | 2               |
+| Hora  | `%H`  | Horas en 24-horas                     | 13              |
+|       | `%I`  | Horas en 12-horas                     | 1               |
+|       | `%p`  | AM/PM                                 | pm              |
+|       | `%M`  | Minutos                               | 35              |
+|       | `%S`  | Segundos                              | 45              |
+|       | `%OS` | Segundos con componente decimal       | 45.35           |
+|       | `%Z`  | Nombre de la zona horaria             | America/Chicago |
+|       | `%z`  | Desplazamiento de UTC                 | +0800           |
+| Otros | `%.`  | Evitar un no digito                   | :               |
+|       | `%*`  | Evitar cualquier número de no digitos |                 |
 
-: All date formats understood by readr {#tbl-date-formats}
+: Todos los formatos de fecha entendidos por readr {#tbl-date-formats}
 
-And this code shows a few options applied to a very ambiguous date:
+Y este código muestra algunas opciones aplicadas a una fecha muy ambigua:
 
 ```{r}
 #| messages: false
@@ -141,12 +142,12 @@ read_csv(csv, col_types = cols(date = col_date("%d/%m/%y")))
 read_csv(csv, col_types = cols(date = col_date("%y/%m/%d")))
 ```
 
-Note that no matter how you specify the date format, it's always displayed the same way once you get it into R.
+Tenga en cuenta que no importa cómo especifique el formato de fecha, siempre se muestra de la misma manera una vez que lo ingresa en R.
 
-If you're using `%b` or `%B` and working with non-English dates, you'll also need to provide a `locale()`.
-See the list of built-in languages in `date_names_langs()`, or create your own with `date_names()`,
+Si está utilizando `%b` o `%B` y trabaja con fechas que no están en inglés, también deberá proporcionar un `locale()`.
+Vea la lista de idiomas integrados en `date_names_langs()`, o cree el suyo propio con `date_names()`.
 
-### From strings
+### De una cadena de caracteres
 
 The date-time specification language is powerful, but requires careful analysis of the date format.
 An alternative approach is to use lubridate's helpers which attempt to automatically determine the format once you specify the order of the component.
