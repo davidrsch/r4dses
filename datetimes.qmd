@@ -149,11 +149,11 @@ Vea la lista de idiomas integrados en `date_names_langs()`, o cree el suyo propi
 
 ### De una cadena de caracteres
 
-The date-time specification language is powerful, but requires careful analysis of the date format.
-An alternative approach is to use lubridate's helpers which attempt to automatically determine the format once you specify the order of the component.
-To use them, identify the order in which year, month, and day appear in your dates, then arrange "y", "m", and "d" in the same order.
-That gives you the name of the lubridate function that will parse your date.
-For example:
+El lenguaje de especificación de fecha y hora es poderoso, pero requiere un análisis cuidadoso del formato de fecha.
+Un enfoque alternativo es usar los ayudantes de lubridate que intentan determinar automáticamente el formato una vez que especifica el orden del componente.
+Para usarlos, identifique el orden en que aparecen el año, el mes y el día en sus fechas, luego organice "y", "m" y "d" en el mismo orden.
+Eso le da el nombre de la función lubridate que analizará su fecha.
+Por ejemplo:
 
 ```{r}
 ymd("2017-01-31")
@@ -161,30 +161,30 @@ mdy("January 31st, 2017")
 dmy("31-Jan-2017")
 ```
 
-`ymd()` and friends create dates.
-To create a date-time, add an underscore and one or more of "h", "m", and "s" to the name of the parsing function:
+`ymd()` y amigos crean fechas.
+Para crear una fecha y hora, agregue un guión bajo y uno o más de "h", "m" y "s" al nombre de la función de análisis:
 
 ```{r}
 ymd_hms("2017-01-31 20:11:59")
 mdy_hm("01/31/2017 08:01")
 ```
 
-You can also force the creation of a date-time from a date by supplying a timezone:
+También puede forzar la creación de una fecha y hora a partir de una fecha proporcionando una zona horaria:
 
 ```{r}
 ymd("2017-01-31", tz = "UTC")
 ```
 
-Here I use the UTC[^datetimes-3] timezone which you might also know as GMT, or Greenwich Mean Time, the time at 0° longitude[^datetimes-4]
-. It doesn't use daylight savings time, making it a bit easier to compute with
+Aquí utilizo la zona horaria UTC[^datetimes-3] que también puede conocer como GMT, o Greenwich Mean Time, la hora en 0° de longitud[^datetimes-4]
+. No utiliza el horario de verano, por lo que es un poco más fácil de calcular
 .
 
-[^datetimes-3]: You might wonder what UTC stands for.
-    It's a compromise between the English "Coordinated Universal Time" and French "Temps Universel Coordonné".
+[^datetimes-3]: Quizás se pregunte qué significa UTC.
+    Es un compromiso entre el "Coordinated Universal Time" inglés y el "Temps Universel Coordonné" francés.
 
-[^datetimes-4]: No prizes for guessing which country came up with the longitude system.
+[^datetimes-4]: No hay premios por adivinar a qué país se le ocurrió el sistema de longitud.
 
-### From individual components
+### De componentes individuales
 
 Instead of a single string, sometimes you'll have the individual components of the date-time spread across multiple columns.
 This is what we have in the `flights` data:
