@@ -186,15 +186,15 @@ Aquí utilizo la zona horaria UTC[^datetimes-3] que también puede conocer como 
 
 ### De componentes individuales
 
-Instead of a single string, sometimes you'll have the individual components of the date-time spread across multiple columns.
-This is what we have in the `flights` data:
+En lugar de una sola cadena, a veces tendrá los componentes individuales de la fecha y hora distribuidos en varias columnas.
+Esto es lo que tenemos en los datos de `flights`:
 
 ```{r}
 flights |> 
   select(year, month, day, hour, minute)
 ```
 
-To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times:
+Para crear una fecha/hora a partir de este tipo de entrada, usa `make_date()` para fechas, o `make_datetime()` para fechas y horas:
 
 ```{r}
 flights |> 
@@ -202,9 +202,9 @@ flights |>
   mutate(departure = make_datetime(year, month, day, hour, minute))
 ```
 
-Let's do the same thing for each of the four time columns in `flights`.
-The times are represented in a slightly odd format, so we use modulus arithmetic to pull out the hour and minute components.
-Once we've created the date-time variables, we focus in on the variables we'll explore in the rest of the chapter.
+Hagamos lo mismo para cada una de las cuatro columnas de tiempo en `flights`.
+Los tiempos se representan en un formato ligeramente extraño, por lo que usamos aritmética de módulo para extraer los componentes de hora y minuto.
+Una vez que hayamos creado las variables de fecha y hora, nos centraremos en las variables que exploraremos en el resto del capítulo.
 
 ```{r}
 make_datetime_100 <- function(year, month, day, time) {
@@ -224,61 +224,62 @@ flights_dt <- flights |>
 flights_dt
 ```
 
-With this data, we can visualize the distribution of departure times across the year:
+Con estos datos, podemos visualizar la distribución de los horarios de salida a lo largo del año:
 
 ```{r}
 #| fig.alt: >
-#|   A frequency polyon with departure time (Jan-Dec 2013) on the x-axis
-#|   and number of flights on the y-axis (0-1000). The frequency polygon
-#|   is binned by day so you see a time series of flights by day. The
-#|   pattern is dominated by a weekly pattern; there are fewer flights 
-#|   on weekends. The are few days that stand out as having a surprisingly
-#|   few flights in early Februrary, early July, late November, and late
-#|   December.
+#|   Un polígono de frecuencia con hora de salida (enero-diciembre de 2013) en
+#|    el eje x y número de vuelos en el eje y (0-1000). El polígono de frecuencia está
+#|     agrupado por día para que vea una serie temporal de vuelos por día. El patrón está
+#|      dominado por un patrón semanal; hay menos vuelos los fines de semana. Son pocos los
+#|       días que se destacan por tener sorprendentemente pocos vuelos a principios de
+#|        febrero, principios de julio, finales de noviembre y finales de diciembre.
+
 flights_dt |> 
   ggplot(aes(x = dep_time)) + 
   geom_freqpoly(binwidth = 86400) # 86400 seconds = 1 day
 ```
 
-Or within a single day:
+O dentro de un solo día:
 
 ```{r}
 #| fig.alt: >
-#|   A frequency polygon with departure time (6am - midnight Jan 1) on the
-#|   x-axis, number of flights on the y-axis (0-17), binned into 10 minute
-#|   increments. It's hard to see much pattern because of high variability,
-#|   but most bins have 8-12 flights, and there are markedly fewer flights 
-#|   before 6am and after 8pm.
+#|   Un polígono de frecuencia con hora de salida (6 am - medianoche del 1 de enero) en
+#|    el eje x, número de vuelos en el eje y (0-17), agrupados en incrementos de 10
+#|     minutos. Es difícil ver muchos patrones debido a la gran variabilidad, pero la 
+#|     mayoría de los contenedores tienen de 8 a 12 vuelos, y hay muchos menos vuelos antes
+#|     de las 6 a. m. y después de las 8 p. m.
+
 flights_dt |> 
   filter(dep_time < ymd(20130102)) |> 
   ggplot(aes(x = dep_time)) + 
   geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
 ```
 
-Note that when you use date-times in a numeric context (like in a histogram), 1 means 1 second, so a binwidth of 86400 means one day.
-For dates, 1 means 1 day.
+Tenga en cuenta que cuando usa fecha y hora en un contexto numérico (como en un histograma), 1 significa 1 segundo, por lo que un ancho de bin de 86400 significa un día.
+Para fechas, 1 significa 1 día.
 
-### From other types
+### De otros tipos
 
-You may want to switch between a date-time and a date.
-That's the job of `as_datetime()` and `as_date()`:
+Es posible que desee cambiar entre una fecha y hora y una fecha.
+Ese es el trabajo de `as_datetime()` y `as_date()`:
 
 ```{r}
 as_datetime(today())
 as_date(now())
 ```
 
-Sometimes you'll get date/times as numeric offsets from the "Unix Epoch", 1970-01-01.
-If the offset is in seconds, use `as_datetime()`; if it's in days, use `as_date()`.
+A veces obtendrá la fecha/hora como compensaciones numéricas de la "época de Unix", 1970-01-01.
+Si el desplazamiento está en segundos, use `as_datetime()`; si es en días, usa `as_date()`.
 
 ```{r}
 as_datetime(60 * 60 * 10)
 as_date(365 * 10 + 2)
 ```
 
-### Exercises
+### Ejercicios
 
-1.  What happens if you parse a string that contains invalid dates?
+1.  ¿Qué sucede si analiza una cadena que contiene fechas no válidas?
 
     ```{r}
     #| eval: false
@@ -286,10 +287,10 @@ as_date(365 * 10 + 2)
     ymd(c("2010-10-10", "bananas"))
     ```
 
-2.  What does the `tzone` argument to `today()` do?
-    Why is it important?
+2.  ¿Qué hace el argumento `tzone` para `today()`?
+    ¿Por qué es importante?
 
-3.  For each of the following date-times show how you'd parse it using a readr column-specification and a lubridate function.
+3.  Para cada una de las siguientes fechas y horas, muestre cómo las analizaría utilizando una especificación de columna readr y una función lubridate.
 
     ```{r}
     d1 <- "January 1, 2010"
@@ -301,16 +302,16 @@ as_date(365 * 10 + 2)
     t2 <- "11:15:10.12 PM"
     ```
 
-## Date-time components
+## Componentes de fecha y hora
 
-Now that you know how to get date-time data into R's date-time data structures, let's explore what you can do with them.
-This section will focus on the accessor functions that let you get and set individual components.
-The next section will look at how arithmetic works with date-times.
+Ahora que sabe cómo obtener datos de fecha y hora en las estructuras de datos de fecha y hora de R, exploremos qué puede hacer con ellos.
+Esta sección se centrará en las funciones de acceso que le permiten obtener y configurar componentes individuales.
+La siguiente sección verá cómo funciona la aritmética con fechas y horas.
 
-### Getting components
+### Obtener componentes
 
-You can pull out individual parts of the date with the accessor functions `year()`, `month()`, `mday()` (day of the month), `yday()` (day of the year), `wday()` (day of the week), `hour()`, `minute()`, and `second()`.
-These are effectively the opposites of `make_datetime()`.
+Puede extraer partes individuales de la fecha con las funciones de acceso `year()`, `month()`, `mday()` (día del mes), `yday()` (día del año), `wday()` (día de la semana), `hour()`, `minute()` y `second()`.
+Estos son efectivamente los opuestos de `make_datetime()`.
 
 ```{r}
 datetime <- ymd_hms("2026-07-08 12:34:56")
@@ -323,40 +324,40 @@ yday(datetime)
 wday(datetime)
 ```
 
-For `month()` and `wday()` you can set `label = TRUE` to return the abbreviated name of the month or day of the week.
-Set `abbr = FALSE` to return the full name.
+Para `month()` y `wday()` puede configurar `label = TRUE` para devolver el nombre abreviado del mes o día de la semana.
+Establezca `abbr = FALSE` para devolver el nombre completo.
 
 ```{r}
 month(datetime, label = TRUE)
 wday(datetime, label = TRUE, abbr = FALSE)
 ```
 
-We can use `wday()` to see that more flights depart during the week than on the weekend:
+Podemos usar `wday()` para ver que salen más vuelos durante la semana que el fin de semana:
 
 ```{r}
 #| fig-alt: >
-#|   A bar chart with days of the week on the x-axis and number of 
-#|   flights on the y-axis. Monday-Friday have roughly the same number of
-#|   flights, ~48,0000, decreasingly slightly over the course of the week.
-#|   Sunday is a little lower (~45,000), and Saturday is much lower 
-#|   (~38,000).
+#|   Un gráfico de barras con los días de la semana en el eje x y el número de vuelos
+#|    en el eje y. De lunes a viernes tienen aproximadamente la misma cantidad de vuelos, 
+#|    ~48,0000, disminuyendo ligeramente en el transcurso de la semana. El domingo es un 
+#|    poco más bajo (~45 000) y el sábado es mucho más bajo (~38 000).
+
 flights_dt |> 
   mutate(wday = wday(dep_time, label = TRUE)) |> 
   ggplot(aes(x = wday)) +
   geom_bar()
 ```
 
-There's an interesting pattern if we look at the average departure delay by minute within the hour.
-It looks like flights leaving in minutes 20-30 and 50-60 have much lower delays than the rest of the hour!
+Hay un patrón interesante si observamos el retraso de salida promedio por minuto dentro de la hora.
+¡Parece que los vuelos que salen en los minutos 20-30 y 50-60 tienen retrasos mucho menores que el resto de la hora!
 
 ```{r}
 #| fig-alt: > 
-#|   A line chart with minute of actual departure (0-60) on the x-axis and
-#|   average delay (4-20) on the y-axis. Average delay starts at (0, 12),
-#|   steadily increases to (18, 20), then sharply drops, hitting at minimum
-#|   at ~23 minute past the hour and 9 minutes of delay. It then increases
-#|   again to (17, 35), and sharply decreases to (55, 4). It finishes off
-#|   with an increase to (60, 9).
+#|   Un gráfico de líneas con el minuto de salida real (0-60) en el eje x y el retraso 
+#|   promedio (4-20) en el eje y. El retraso promedio comienza en (0, 12), aumenta 
+#|   constantemente a (18, 20), luego cae bruscamente, alcanzando un mínimo de ~23 
+#|   minutos después de la hora y 9 minutos de retraso. Luego aumenta de nuevo a (17, 
+#|   35), y disminuye bruscamente a (55, 4). Termina con un aumento a (60, 9).
+
 flights_dt |> 
   mutate(minute = minute(dep_time)) |> 
   group_by(minute) |> 
@@ -368,14 +369,15 @@ flights_dt |>
   geom_line()
 ```
 
-Interestingly, if we look at the *scheduled* departure time we don't see such a strong pattern:
+Curiosamente, si observamos la hora de salida *programada*, no vemos un patrón tan fuerte:
 
 ```{r}
 #| fig-alt: > 
-#|   A line chart with minute of scheduled departure (0-60) on the x-axis
-#|   and average delay (4-16). There is relatively little pattern, just a
-#|   small suggestion that the average delay decreases from maybe 10 minutes
-#|   to 8 minutes over the course of the hour.
+#|   Un gráfico de líneas con minutos de salida programada (0-60) en el eje x y demora 
+#|   promedio (4-16). Hay un patrón relativamente pequeño, solo una pequeña sugerencia 
+#|   de que el retraso promedio disminuye de quizás 10 minutos a 8 minutos en el 
+#|   transcurso de la hora.
+
 sched_dep <- flights_dt |> 
   mutate(minute = minute(sched_dep_time)) |> 
   group_by(minute) |> 
@@ -388,40 +390,42 @@ ggplot(sched_dep, aes(x = minute, y = avg_delay)) +
   geom_line()
 ```
 
-So why do we see that pattern with the actual departure times?
-Well, like much data collected by humans, there's a strong bias towards flights leaving at "nice" departure times, as @fig-human-rounding shows.
-Always be alert for this sort of pattern whenever you work with data that involves human judgement!
+Entonces, ¿por qué vemos ese patrón con los horarios de salida reales?
+Bueno, como gran parte de los datos recopilados por humanos, hay un fuerte sesgo hacia los vuelos que salen en "buenos" horarios de salida, como muestra @fig-human-rounding.
+¡Esté siempre alerta a este tipo de patrón cada vez que trabaje con datos que involucran el juicio humano!
 
 ```{r}
 #| label: fig-human-rounding
 #| fig-cap: >
-#|   A frequency polygon showing the number of flights scheduled to 
-#|   depart each hour. You can see a strong preference for round numbers
-#|   like 0 and 30 and generally for numbers that are a multiple of five.
+#|   Un polígono de frecuencia que muestra el número de vuelos programados para salir 
+#|   cada hora. Puede ver una fuerte preferencia por los números redondos como el 0 y 
+#|   el 30 y, en general, por los números que son múltiplos de cinco.
 #| fig-alt: >
-#|   A line plot with departure minute (0-60) on the x-axis and number of
-#|   flights (0-60000) on the y-axis. Most flights are scheduled to depart
-#|   on either the hour (~60,000) or the half hour (~35,000). Otherwise,
-#|   all most all flights are scheduled to depart on multiples of five, 
-#|   with a few extra at 15, 45, and 55 minutes.
+#|   Un gráfico de líneas con el minuto de salida (0-60) en el eje x y el número de vuelos 
+#|   (0-60000) en el eje y. La mayoría de los vuelos están programados para salir a la hora 
+#|   (~60 000) o a la media hora (~35 000). De lo contrario, la mayoría de los vuelos están 
+#|   programados para salir en múltiplos de cinco, con algunos adicionales a los 15, 
+#|   45 y 55 minutos.
 #| echo: false
+
 ggplot(sched_dep, aes(x = minute, y = n)) +
   geom_line()
 ```
 
-### Rounding
+### Redondeo
 
-An alternative approach to plotting individual components is to round the date to a nearby unit of time, with `floor_date()`, `round_date()`, and `ceiling_date()`.
-Each function takes a vector of dates to adjust and then the name of the unit round down (floor), round up (ceiling), or round to.
-This, for example, allows us to plot the number of flights per week:
+Un enfoque alternativo para trazar componentes individuales es redondear la fecha a una unidad de tiempo cercana, con `floor_date()`, `round_date()` y `ceiling_date()`.
+Cada función toma un vector de fechas para ajustar y luego el nombre de la unidad redondea hacia abajo (floor), redondea hacia arriba (ceiling) o redondea a.
+Esto, por ejemplo, nos permite graficar el número de vuelos por semana:
 
 ```{r}
 #| fig-alt: >
-#|   A line plot with week (Jan-Dec 2013) on the x-axis and number of
-#|   flights (2,000-7,000) on the y-axis. The pattern is fairly flat from
-#|   February to November with around 7,000 flights per week. There are
-#|   far fewer flights on the first (approximately 4,500 flights) and last
-#|   weeks of the year (approximately 2,500 flights).
+#|   Un gráfico de líneas con la semana (enero-diciembre de 2013) en el eje x y el número 
+#|   de vuelos (2000-7000) en el eje y. El patrón es bastante plano de febrero a 
+#|   noviembre con alrededor de 7.000 vuelos por semana. Hay muchos menos vuelos en la 
+#|   primera (aproximadamente 4.500 vuelos) y la última semana del año (aproximadamente 
+#|   2.500 vuelos).
+
 flights_dt |> 
   count(week = floor_date(dep_time, "week")) |> 
   ggplot(aes(x = week, y = n)) +
@@ -429,39 +433,42 @@ flights_dt |>
   geom_point()
 ```
 
-You can use rounding to show the distribution of flights across the course of a day by computing the difference between `dep_time` and the earliest instant of that day:
+Puede usar el redondeo para mostrar la distribución de vuelos a lo largo de un día calculando la diferencia entre `dep_time` y el primer instante de ese día:
 
 ```{r}
 #| fig-alt: >
-#|   A line plot with depature time on the x-axis. This is units of seconds
-#|   since midnight so it's hard to interpret.
+#|   Un gráfico de líneas con el tiempo de salida en el eje x. Estas son unidades de 
+#|   segundos desde la medianoche, por lo que es difícil de interpretar.
+
 flights_dt |> 
   mutate(dep_hour = dep_time - floor_date(dep_time, "day")) |> 
   ggplot(aes(x = dep_hour)) +
   geom_freqpoly(binwidth = 60 * 30)
 ```
 
-Computing the difference between a pair of date-times yields a difftime (more on that in @sec-intervals).
-We can convert that to an `hms` object to get a more useful x-axis:
+Calcular la diferencia entre un par de fechas y horas produce un tiempo de diferencia (más sobre eso en @sec-intervals).
+Podemos convertir eso en un objeto `hms` para obtener un eje x más útil:
 
 ```{r}
 #| fig-alt: >
-#|   A line plot with depature time (midnight to midnight) on the x-axis
-#|   and number of flights on the y-axis (0 to 15,000). There are very few
-#|   (<100) flights before 5am. The number of flights then rises rapidly 
-#|   to 12,000 / hour, peaking at 15,000 at 9am, before falling to around
-#|   8,000 / hour for 10am to 2pm. Number of flights then increases to
-#|   around 12,000 per hour until 8pm, when they rapidly drop again. 
+#|   Un gráfico de líneas con la hora de salida (medianoche a medianoche) en el eje x 
+#|   y el número de vuelos en el eje y (0 a 15 000). Hay muy pocos (<100) vuelos antes 
+#|   de las 5 am. El número de vuelos luego aumenta rápidamente a 12 000 por 
+#|   hora, con un máximo de 15 000 a las 9 a. m., antes de caer a alrededor de 8 000 
+#|   por hora entre las 10 a. m. y las 2 p. m. Luego, el número de vuelos aumenta 
+#|   a alrededor de 12,000 por hora hasta las 8:00 p. m., cuando vuelven a caer 
+#|   rápidamente.. 
+
 flights_dt |> 
   mutate(dep_hour = hms::as_hms(dep_time - floor_date(dep_time, "day"))) |> 
   ggplot(aes(x = dep_hour)) +
   geom_freqpoly(binwidth = 60 * 30)
 ```
 
-### Modifying components
+### Modificación de componentes
 
-You can also use each accessor function to modify the components of a date/time.
-This doesn't come up much in data analysis, but can be useful when cleaning data that has clearly incorrect dates.
+También puede utilizar cada función de acceso para modificar los componentes de una fecha/hora.
+Esto no aparece mucho en el análisis de datos, pero puede ser útil cuando se limpian datos que tienen fechas claramente incorrectas.
 
 ```{r}
 (datetime <- ymd_hms("2026-07-08 12:34:56"))

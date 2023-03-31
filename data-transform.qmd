@@ -638,7 +638,7 @@ flights |>
 Tenga en cuenta que hay 105 destinos, pero aquí tenemos 108 filas.
 ¿Qué pasa?
 `slice_min()` y `slice_max()` mantienen valores empatados por lo que `n = 1` significa darme todas las filas con el valor más alto.
-Si desea exactamente una fila por grupo, puede configurar `keep_ties = FALSE`.
+Si desea exactamente una fila por grupo, puede configurar `whit_ties = FALSE`.
 
 Esto es similar a calcular el retraso máximo con `summarize()`, pero obtienes la fila correspondiente completa (o filas si hay un empate) en lugar de la estadística de resumen única.
 
