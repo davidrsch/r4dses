@@ -1,4 +1,4 @@
-# Spreadsheets {#sec-import-spreadsheets}
+# Hojas de calculo {#sec-import-spreadsheets}
 
 ```{r}
 #| results: "asis"
@@ -8,14 +8,14 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-In @sec-data-import you learned about importing data from plain text files like `.csv` and `.tsv`.
-Now it's time to learn how to get data out of a spreadsheet, either an Excel spreadsheet or a Google Sheet.
-This will build on much of what you've learned in @sec-data-import, but we will also discuss additional considerations and complexities when working with data from spreadsheets.
+En @sec-data-import, aprendió a importar datos de archivos de texto sin formato como `.csv` y `.tsv`.
+Ahora es el momento de aprender cómo obtener datos de una hoja de cálculo, ya sea una hoja de cálculo de Excel o una hoja de cálculo de Google.
+Esto se basará en gran parte de lo que ha aprendido en @sec-data-import, pero también analizaremos consideraciones y complejidades adicionales al trabajar con datos de hojas de cálculo.
 
-If you or your collaborators are using spreadsheets for organizing data, we strongly recommend reading the paper "Data Organization in Spreadsheets" by Karl Broman and Kara Woo: <https://doi.org/10.1080/00031305.2017.1375989>.
-The best practices presented in this paper will save you much headache when you import data from a spreadsheet into R to analyze and visualize.
+Si usted o sus colaboradores utilizan hojas de cálculo para organizar datos, le recomendamos leer el documento "Organización de datos en hojas de cálculo" de Karl Broman y Kara Woo: <https://doi.org/10.1080/00031305.2017.1375989>.
+Las mejores prácticas presentadas en este documento le ahorrarán muchos dolores de cabeza cuando importe datos de una hoja de cálculo a R para analizarlos y visualizarlos.
 
 ## Excel
 

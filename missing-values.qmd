@@ -116,27 +116,27 @@ stocks <- tibble(
 )
 ```
 
-This dataset has two missing observations:
+Este conjunto de datos tiene dos observaciones faltantes:
 
--   The `price` in the fourth quarter of 2020 is explicitly missing, because its value is `NA`.
+-   Falta explícitamente el `precio` en el cuarto trimestre de 2020, porque su valor es `NA`.
 
--   The `price` for the first quarter of 2021 is implicitly missing, because it simply does not appear in the dataset.
+-   El 'precio' para el primer trimestre de 2021 falta implícitamente, porque simplemente no aparece en el conjunto de datos.
 
-One way to think about the difference is with this Zen-like koan:
+Una forma de pensar en la diferencia es con este koan de estilo zen:
 
-> An explicit missing value is the presence of an absence.\
+> Un valor perdido explícito es la presencia de una ausencia.\
 >
-> An implicit missing value is the absence of a presence.
+> Un valor perdido implícito es la ausencia de una presencia.
 
-Sometimes you want to make implicit missings explicit in order to have something physical to work with.
-In other cases, explicit missings are forced upon you by the structure of the data and you want to get rid of them.
-The following sections discuss some tools for moving between implicit and explicit missingness.
+A veces, desea hacer explícitos los faltantes implícitos para tener algo físico con lo que trabajar.
+En otros casos, la estructura de los datos le impone faltas explícitas y desea deshacerse de ellas.
+Las siguientes secciones discuten algunas herramientas para moverse entre faltantes implícitos y explícitos.
 
-### Pivoting
+### Pivotar
 
-You've already seen one tool that can make implicit missings explicit and vice versa: pivoting.
-Making data wider can make implicit missing values explicit because every combination of the rows and new columns must have some value.
-For example, if we pivot `stocks` to put the `quarter` in the columns, both missing values become explicit:
+Ya ha visto una herramienta que puede hacer explícitas las faltas implícitas y viceversa: pivotar.
+Ampliar los datos puede hacer que los valores faltantes implícitos sean explícitos porque cada combinación de filas y columnas nuevas debe tener algún valor.
+Por ejemplo, si hacemos pivotar `stocks` para colocar el `qtr` en las columnas, ambos valores faltantes se vuelven explícitos:
 
 ```{r}
 stocks |>
@@ -146,40 +146,40 @@ stocks |>
   )
 ```
 
-By default, making data longer preserves explicit missing values, but if they are structurally missing values that only exist because the data is not tidy, you can drop them (make them implicit) by setting `values_drop_na = TRUE`.
-See the examples in @sec-tidy-data for more details.
+De forma predeterminada, hacer que los datos duren más tiempo conserva los valores faltantes explícitos, pero si son valores faltantes estructuralmente que solo existen porque los datos no están ordenados, puede descartarlos (hacerlos implícitos) configurando `values_drop_na = TRUE`.
+Consulte los ejemplos en @sec-tidy-data para obtener más detalles.
 
-### Complete
+### Completo
 
-`tidyr::complete()` allows you to generate explicit missing values by providing a set of variables that define the combination of rows that should exist.
-For example, we know that all combinations of `year` and `qtr` should exist in the `stocks` data:
+`tidyr::complete()` te permite generar valores perdidos explícitos proporcionando un conjunto de variables que definen la combinación de filas que deberían existir.
+Por ejemplo, sabemos que todas las combinaciones de `year` y `qtr` deben existir en los datos de `stocks`:
 
 ```{r}
 stocks |>
   complete(year, qtr)
 ```
 
-Typically, you'll call `complete()` with names of existing variables, filling in the missing combinations.
-However, sometimes the individual variables are themselves incomplete, so you can instead provide your own data.
-For example, you might know that the `stocks` dataset is supposed to run from 2019 to 2021, so you could explicitly supply those values for `year`:
+Por lo general, llamará a `complete()` con los nombres de las variables existentes, completando las combinaciones que faltan.
+Sin embargo, a veces las variables individuales están incompletas, por lo que puede proporcionar sus propios datos.
+Por ejemplo, es posible que sepa que se supone que el conjunto de datos de `stocks` se ejecutará desde 2019 hasta 2021, por lo que podría proporcionar explícitamente esos valores para `year`:
 
 ```{r}
 stocks |>
   complete(year = 2019:2021, qtr)
 ```
 
-If the range of a variable is correct, but not all values are present, you could use `full_seq(x, 1)` to generate all values from `min(x)` to `max(x)` spaced out by 1.
+Si el rango de una variable es correcto, pero no todos los valores están presentes, puede usar `full_seq(x, 1)` para generar todos los valores desde `min(x)` hasta `max(x)` separados por 1.
 
-In some cases, the complete set of observations can't be generated by a simple combination of variables.
-In that case, you can do manually what `complete()` does for you: create a data frame that contains all the rows that should exist (using whatever combination of techniques you need), then combine it with your original dataset with `dplyr::full_join()`.
+En algunos casos, el conjunto completo de observaciones no puede generarse mediante una simple combinación de variables.
+En ese caso, puede hacer manualmente lo que `complete()` hace por usted: crear un marco de datos que contenga todas las filas que deberían existir (usando cualquier combinación de técnicas que necesite), luego combínelo con su conjunto de datos original con `dplyr ::full_join()`.
 
-### Joins
+### Uniones
 
-This brings us to another important way of revealing implicitly missing observations: joins.
-You'll learn more about joins in @sec-joins, but we wanted to quickly mention them to you here since you can often only know that values are missing from one dataset when you compare it another.
+Esto nos lleva a otra forma importante de revelar observaciones que faltan implícitamente: las uniones.
+Aprenderá más sobre las uniones en @sec-joins, pero queríamos mencionarlas rápidamente aquí, ya que a menudo solo puede saber que faltan valores en un conjunto de datos cuando lo compara con otro.
 
-`dplyr::anti_join(x, y)` is a particularly useful tool here because it selects only the rows in `x` that don't have a match in `y`.
-For example, we can use two `anti_join()`s to reveal that we're missing information for four airports and 722 planes mentioned in `flights`:
+`dplyr::anti_join(x, y)` es una herramienta particularmente útil aquí porque selecciona solo las filas en `x` que no tienen una coincidencia en `y`.
+Por ejemplo, podemos usar dos `anti_join()`s para revelar que nos falta información para cuatro aeropuertos y 722 aviones mencionados en `flights`:
 
 ```{r}
 library(nycflights13)
@@ -193,14 +193,14 @@ flights |>
   anti_join(planes)
 ```
 
-### Exercises
+### Ejercicios
 
-1.  Can you find any relationship between the carrier and the rows that appear to be missing from `planes`?
+1.  ¿Puedes encontrar alguna relación entre el portaaviones y las filas que parecen faltar en `planes`?
 
-## Factors and empty groups
+## Factores y grupos vacíos
 
-A final type of missingness is the empty group, a group that doesn't contain any observations, which can arise when working with factors.
-For example, imagine we have a dataset that contains some health information about people:
+Un último tipo de ausencia es el grupo vacío, un grupo que no contiene ninguna observación, que puede surgir cuando se trabaja con factores.
+Por ejemplo, imagina que tenemos un conjunto de datos que contiene información sobre la salud de las personas:
 
 ```{r}
 health <- tibble(
@@ -210,30 +210,31 @@ health <- tibble(
 )
 ```
 
-And we want to count the number of smokers with `dplyr::count()`:
+Y queremos contar el número de fumadores con `dplyr::count()`:
 
 ```{r}
 health |> count(smoker)
 ```
 
-This dataset only contains non-smokers, but we know that smokers exist; the group of non-smoker is empty.
-We can request `count()` to keep all the groups, even those not seen in the data by using `.drop = FALSE`:
+Este conjunto de datos solo contiene no fumadores, pero sabemos que existen fumadores; el grupo de no fumadores está vacío.
+Podemos solicitar a `count()` que mantenga todos los grupos, incluso aquellos que no se ven en los datos usando `.drop = FALSE`:
 
 ```{r}
 health |> count(smoker, .drop = FALSE)
 ```
 
-The same principle applies to ggplot2's discrete axes, which will also drop levels that don't have any values.
-You can force them to display by supplying `drop = FALSE` to the appropriate discrete axis:
+El mismo principio se aplica a los ejes discretos de ggplot2, que también eliminarán los niveles que no tengan ningún valor.
+Puede obligarlos a que se muestren proporcionando `drop = FALSE` en el eje discreto apropiado:
 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 3
 #| fig-alt: >
-#|   A bar chart with a single value on the x-axis, "no".
+#|   Un gráfico de barras con un solo valor en el eje x, "no".
 #| 
-#|   The same bar chart as the last plot, but now with two values on
-#|   the x-axis, "yes" and "no". There is no bar for the "yes" category.
+#|   El mismo gráfico de barras que el gráfico anterior, pero ahora con dos valores 
+#|   en el eje x, "sí" y "no". No hay barra para la categoría "sí".
+
 ggplot(health, aes(x = smoker)) +
   geom_bar() +
   scale_x_discrete()
@@ -243,11 +244,12 @@ ggplot(health, aes(x = smoker)) +
   scale_x_discrete(drop = FALSE)
 ```
 
-The same problem comes up more generally with `dplyr::group_by()`.
-And again you can use `.drop = FALSE` to preserve all factor levels:
+El mismo problema surge de manera más general con `dplyr::group_by()`.
+Y de nuevo puedes usar `.drop = FALSE` para conservar todos los niveles de los factores:
 
 ```{r}
 #| warning: false
+
 health |> 
   group_by(smoker, .drop = FALSE) |> 
   summarize(
@@ -259,26 +261,24 @@ health |>
   )
 ```
 
-We get some interesting results here because when summarizing an empty group, the summary functions are applied to zero-length vectors.
-There's an important distinction between empty vectors, which have length 0, and missing values, each of which has length 1.
+Aquí obtenemos algunos resultados interesantes porque al resumir un grupo vacío, las funciones de resumen se aplican a vectores de longitud cero.
+Hay una distinción importante entre los vectores vacíos, que tienen una longitud de 0, y los valores faltantes, cada uno de los cuales tiene una longitud de 1.
 
 ```{r}
-# A vector containing two missing values
+# Un vector que contiene dos valores faltantes
 x1 <- c(NA, NA)
 length(x1)
 
-# A vector containing nothing
+# Un vector que no contiene nada
 x2 <- numeric()
 length(x2)
 ```
 
-All summary functions work with zero-length vectors, but they may return results that are surprising at first glance.
-Here we see `mean(age)` returning `NaN` because `mean(age)` = `sum(age)/length(age)` which here is 0/0.
-`max()` and `min()` return -Inf and Inf for empty vectors so if you combine the results with a non-empty vector of new data and recompute you'll get the minimum or maximum of the new data[^missing-values-1].
+Todas las funciones de resumen funcionan con vectores de longitud cero, pero pueden devolver resultados sorprendentes a primera vista.
+Aquí vemos que `mean(age)` devuelve `NaN` porque `mean(age)` = `sum(age)/length(age)` que aquí es 0/0.
+`max()` y `min()` devuelven -Inf e Inf para vectores vacíos, por lo que si combina los resultados con un vector no vacío de nuevos datos y vuelve a calcular, obtendrá el mínimo o el máximo de los nuevos datos\[\^ valores perdidos-1\].
 
-[^missing-values-1]: In other words, `min(c(x, y))` is always equal to `min(min(x), min(y))`.
-
-Sometimes a simpler approach is to perform the summary and then make the implicit missings explicit with `complete()`.
+A veces, un enfoque más simple es realizar el resumen y luego hacer explícitas las faltas implícitas con `complete()`.
 
 ```{r}
 health |> 
@@ -293,13 +293,13 @@ health |>
   complete(smoker)
 ```
 
-The main drawback of this approach is that you get an `NA` for the count, even though you know that it should be zero.
+El principal inconveniente de este enfoque es que obtienes un `NA` para el conteo, aunque sabes que debería ser cero.
 
-## Summary
+## Resumen
 
-Missing values are weird!
-Sometimes they're recorded as an explicit `NA` but other times you only notice them by their absence.
-This chapter has given you some tools for working with explicit missing values, tools for uncovering implicit missing values, and discussed some of the ways that implicit can become explicit and vice versa.
+¡Los valores perdidos son raros!
+A veces se registran como un 'NA' explícito, pero otras veces solo se notan por su ausencia.
+Este capítulo le ha brindado algunas herramientas para trabajar con valores perdidos explícitos, herramientas para descubrir valores perdidos implícitos y discutido algunas de las formas en que lo implícito puede volverse explícito y viceversa.
 
-In the next chapter, we tackle the final chapter in this part of the book: joins.
-This is a bit of a change from the chapters so far because we're going to discuss tools that work with data frames as a whole, not something that you put inside a data frame.
+En el siguiente capítulo, abordamos el último capítulo de esta parte del libro: las uniones.
+Este es un pequeño cambio con respecto a los capítulos hasta ahora porque vamos a discutir las herramientas que funcionan con marcos de datos como un todo, no algo que se coloca dentro de un marco de datos.
