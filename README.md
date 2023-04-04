@@ -28,6 +28,7 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   Transformar
 -   Importar
     -   21 Hojas de calculo
+    -   22 Bases de datos
 
 ## Sobre otras versiones
 
@@ -121,6 +122,7 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Transform
 -   Import
     -   21 Spreadsheets
+    -   22 Databases
 
 ## About other versions
 
