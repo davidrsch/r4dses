@@ -30,6 +30,8 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
     -   21 Hojas de calculo
     -   22 Bases de datos
     -   23 Arrow
+    -   24 Datos jerárquicos
+    -   25 Web scraping
 
 ## Sobre otras versiones
 
@@ -125,6 +127,8 @@ Note that this is a verbatim translation of the book so when the authors refer t
     -   21 Spreadsheets
     -   22 Databases
     -   23 Arrow
+    -   24 Hierarchical data
+    -   25 Web scraping
 
 ## About other versions
 

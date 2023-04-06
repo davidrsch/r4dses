@@ -113,7 +113,7 @@ Jan,12
 Feb,56
 Mar,12"
 
-df <- read_csv(csv, col_types = cols(month = col_factor(month_levels)))
+df <- read_csv(csv, col_types = cols(month = col_factor(meses_levels)))
 df$month
 ```
 

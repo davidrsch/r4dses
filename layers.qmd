@@ -602,14 +602,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
     #| fig-show: hide
     #| message: false
 
-    ggplot(mpg) + 
-      geom_point(aes(x = displ)) + 
-      geom_histogram() +  
-      facet_grid(drv ~ .)
-
-    ggplot(mpg) + 
-      geom_point(aes(x = displ)) + 
+    ggplot(mpg, aes(x = displ)) + 
       geom_histogram() + 
+      facet_grid(drv ~ .)
+    
+    ggplot(mpg, aes(x = displ)) + 
+      geom_histogram() +
       facet_grid(. ~ drv)
     ```
 
@@ -697,7 +695,6 @@ Sin embargo, hay tres razones por las que podría necesitar usar una estadístic
     diamonds |>
       count(cut) |>
       ggplot(aes(x = cut, y = n)) +
-      ggplot(cut_frequencies, aes(x = cut, y = freq)) +
       geom_bar(stat = "identity")
     ```
 
