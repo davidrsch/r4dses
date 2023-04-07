@@ -1,4 +1,4 @@
-# Functions {#sec-functions}
+# Funciones {#sec-functions}
 
 ```{r}
 #| results: "asis"
@@ -7,35 +7,35 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-One of the best ways to improve your reach as a data scientist is to write functions.
-Functions allow you to automate common tasks in a more powerful and general way than copy-and-pasting.
-Writing a function has three big advantages over using copy-and-paste:
+Una de las mejores formas de mejorar su alcance como científico de datos es escribir funciones.
+Las funciones le permiten automatizar tareas comunes de una manera más potente y general que copiar y pegar.
+Escribir una función tiene tres grandes ventajas sobre el uso de copiar y pegar:
 
-1.  You can give a function an evocative name that makes your code easier to understand.
+1.  Puede dar a una función un nombre sugerente que haga que su código sea más fácil de entender.
 
-2.  As requirements change, you only need to update code in one place, instead of many.
+2.  A medida que cambian los requisitos, solo necesita actualizar el código en un lugar, en lugar de muchos.
 
-3.  You eliminate the chance of making incidental mistakes when you copy and paste (i.e. updating a variable name in one place, but not in another).
+3.  Elimina la posibilidad de cometer errores incidentales al copiar y pegar (es decir, actualizar el nombre de una variable en un lugar, pero no en otro).
 
-4.  It makes it easier to reuse work from project-to-project, increasing your productivity over time.
+4.  Hace que sea más fácil reutilizar el trabajo de un proyecto a otro, aumentando su productividad con el tiempo.
 
-A good rule of thumb is to consider writing a function whenever you've copied and pasted a block of code more than twice (i.e. you now have three copies of the same code).
-In this chapter, you'll learn about three useful types of functions:
+Una buena regla general es considerar escribir una función siempre que haya copiado y pegado un bloque de código más de dos veces (es decir, ahora tiene tres copias del mismo código).
+En este capítulo, aprenderá acerca de tres tipos útiles de funciones:
 
--   Vector functions take one or more vectors as input and return a vector as output.
--   Data frame functions take a data frame as input and return a data frame as output.
--   Plot functions that take a data frame as input and return a plot as output.
+-   Las funciones vectoriales toman uno o más vectores como entrada y devuelven un vector como salida.
+-   Las funciones de marco de datos toman un marco de datos como entrada y devuelven un marco de datos como salida.
+-   Funciones gráficas que toman un marco de datos como entrada y devuelven un gráfico como salida.
 
-Each of these sections include many examples to help you generalize the patterns that you see.
-These examples wouldn't be possible without the help of folks of twitter, and we encourage follow the links in the comment to see original inspirations.
-You might also want to read the original motivating tweets for [general functions](https://twitter.com/hadleywickham/status/1571603361350164486) and [plotting functions](https://twitter.com/hadleywickham/status/1574373127349575680) to see even more functions.
+Cada una de estas secciones incluye muchos ejemplos para ayudarlo a generalizar los patrones que ve.
+Estos ejemplos no serían posibles sin la ayuda de la gente de Twitter, y le recomendamos que siga los enlaces en el comentario para ver inspiraciones originales.
+También puede leer los tweets motivadores originales para [funciones generales](https://twitter.com/hadleywickham/status/1571603361350164486) y [funciones de gráficas](https://twitter.com/hadleywickham/status/1574373127349575680) para ver aún más funciones.
 
-### Prerequisites
+### Requisitos previos
 
-We'll wrap up a variety of functions from around the tidyverse.
-We'll also use nycflights13 as a source of familiar data to use our functions with.
+Agruparemos una variedad de funciones de todo el tidyverse.
+También usaremos nycflights13 como fuente de datos familiares para usar nuestras funciones.
 
 ```{r}
 #| message: false

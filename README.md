@@ -18,6 +18,9 @@ Esta traducción de "R para la Ciencia de Datos" es un proyecto personal de [Dav
 
 Señalar que esta es una traducción textual del libro por lo que cuando los autores se refieren así mismo en primera persona, será Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund y no el traductor.
 
+La traducción fue realizada usando Google Translate y fueron corregidos algunos errores gramaticales y de coherencia.
+Si detecta algún error relacionado con contenido de la traducción, siéntase libre de abrir un issue o un pull request en este [repositorio](https://github.com/davidrsch/r4dses).
+
 ### Traducido hasta ahora
 
 -   0.1 Bienvenida
@@ -27,11 +30,8 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 -   Visualizar
 -   Transformar
 -   Importar
-    -   21 Hojas de calculo
-    -   22 Bases de datos
-    -   23 Arrow
-    -   24 Datos jerárquicos
-    -   25 Web scraping
+-   Programa
+    -   26 Funciones
 
 ## Sobre otras versiones
 
@@ -99,7 +99,7 @@ Luego confirme y empuje al atlas.
 
 ## R for Data Science
 
-<a href="https://amzn.to/2aHLAQ1"><img src="cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
+<a href="https://www.amazon.com/Data-Science-Transform-Visualize-Model/dp/1492097403"><img src="cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
 The book is built using [Quarto](https://quarto.org/).
 This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it and visualize.
 
@@ -115,6 +115,9 @@ This translation of "R for Data Science" is a personal project by [David Díaz R
 
 Note that this is a verbatim translation of the book so when the authors refer to themselves in the first person, it will be Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund and not the translator.
 
+The translation was done using Google Translate and some grammar and coherence errors were corrected.
+If you spot any issue related to the translation content, feel free to open an issue or pull request on this [repository](https://github.com/davidrsch/r4dses).
+
 ### Translated so far
 
 -   0.1 Wellcome
@@ -124,11 +127,8 @@ Note that this is a verbatim translation of the book so when the authors refer t
 -   Visualize
 -   Transform
 -   Import
-    -   21 Spreadsheets
-    -   22 Databases
-    -   23 Arrow
-    -   24 Hierarchical data
-    -   25 Web scraping
+-   Program
+    -   26 Functions
 
 ## About other versions
 

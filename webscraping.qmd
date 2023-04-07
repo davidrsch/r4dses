@@ -22,11 +22,11 @@ En este capítulo, primero discutiremos la ética y la legalidad del scraping an
 Luego, aprenderá los conceptos básicos de los selectores de CSS para ubicar elementos específicos en la página y cómo usar funciones rvest para obtener datos de texto y atributos de HTML y en R.
 Luego discutiremos algunas técnicas para descubrir qué selector de CSS necesita para la página de la que desee extraer los datos, antes de terminar verá un par de casos de estudio y una breve discusión de sitios web dinámicos.
 
-### Prerequisites
+### Requisitos previos
 
-In this chapter, we'll focus on tools provided by rvest.
-rvest is a member of the tidyverse, but is not a core member so you'll need to load it explicitly.
-We'll also load the full tidyverse since we'll find it generally useful working with the data we've scraped.
+En este capítulo, nos centraremos en las herramientas proporcionadas por rvest.
+rvest es miembro de tidyverse, pero no es un miembro central, por lo que deberá cargarlo explícitamente.
+También cargaremos el tidyverse completo, ya que lo encontraremos generalmente útil para trabajar con los datos que hemos recopilado.
 
 ```{r}
 #| label: setup
@@ -36,68 +36,71 @@ library(tidyverse)
 library(rvest)
 ```
 
-## Scraping ethics and legalities
+## Scraping éticas y legalidades
 
-Before we get started discussing the code you'll need to perform web scraping, we need to talk about whether it's legal and ethical for you to do so.
-Overall, the situation is complicated with regards to both of these.
+Antes de comenzar a analizar el código que necesitará para realizar el web scraping, debemos analizar si es legal y ético que lo haga.
+En general, la situación es complicada con respecto a ambos.
 
-Legalities depend a lot on where you live.
-However, as a general principle, if the data is public, non-personal, and factual, you're likely to be ok[^webscraping-2].
-These three factors are important because they're connected to the site's terms and conditions, personally identifiable information, and copyright, as we'll discuss below.
+La legalidad depende mucho del lugar donde vivas.
+Sin embargo, como principio general, si los datos son públicos, no personales y fácticos, es probable que esté bien [^webscraping-2].
+Estos tres factores son importantes porque están relacionados con los términos y condiciones del sitio, la información de identificación personal y los derechos de autor, como veremos a continuación.
 
-[^webscraping-2]: Obviously we're not lawyers, and this is not legal advice.
-    But this is the best summary we can give having read a bunch about this topic.
+[^webscraping-2]: Obviamente no somos abogados, y esto no es un consejo legal.
+    Pero este es el mejor resumen que podemos dar después de haber leído mucho sobre este tema.
 
-If the data isn't public, non-personal, or factual or you're scraping the data specifically to make money with it, you'll need to talk to a lawyer.
-In any case, you should be respectful of the resources of the server hosting the pages you are scraping.
-Most importantly, this means that if you're scraping many pages, you should make sure to wait a little between each request.
-One easy way to do so is to use the [**polite**](https://dmi3kno.github.io/polite/) package by Dmytro Perepolkin.
-It will automatically pause between requests and cache the results so you never ask for the same page twice.
+Si los datos no son públicos, no personales o fácticos, o si los extrae específicamente para ganar dinero con ellos, deberá hablar con un abogado.
+En cualquier caso, debe ser respetuoso con los recursos del servidor que aloja las páginas de las que está haciendo scraping.
+Lo que es más importante, esto significa que si está extrayendo datos de muchas páginas, debe asegurarse de esperar un poco entre cada solicitud.
+Una forma fácil de hacerlo es usar el paquete [**polite**](https://dmi3kno.github.io/polite/) de Dmytro Perepolkin.
+Se pausará automáticamente entre las solicitudes y almacenará en caché los resultados para que nunca solicite la misma página dos veces.
 
-### Terms of service
+### Términos de servicio
 
-If you look closely, you'll find many websites include a "terms and conditions" or "terms of service" link somewhere on the page, and if you read that page closely you'll often discover that the site specifically prohibits web scraping.
-These pages tend to be a legal land grab where companies make very broad claims.
-It's polite to respect these terms of service where possible, but take any claims with a grain of salt.
+Si observa detenidamente, encontrará que muchos sitios web incluyen un enlace de "términos y condiciones" o "términos de servicio" en algún lugar de la página, y si lee esa página detenidamente, a menudo descubrirá que el sitio prohíbe específicamente el web scraping.
+Estas páginas tienden a ser una apropiación legal de tierras donde las empresas hacen reclamos muy amplios.
+Es educado respetar estos términos de servicio siempre que sea posible, pero tome cualquier reclamo con pinzas.
 
-US courts[^webscraping-3] have generally found that simply putting the terms of service in the footer of the website isn't sufficient for you to be bound by them.
-Generally, to be bound to the terms of service, you must have taken some explicit action like creating an account or checking a box.
-This is why whether or not the data is **public** is important; if you don't need an account to access them, it is unlikely that you are bound to the terms of service.
-Note, however, the situation is rather different in Europe where courts have found that terms of service are enforceable even if you don't explicitly agree to them.
+Los tribunales estadounidenses[^webscraping-3] generalmente han determinado que simplemente poner los términos de servicio en el pie de página del sitio web no es suficiente para que usted esté sujeto a ellos.
+En general, para estar sujeto a los términos del servicio, debe haber realizado alguna acción explícita, como crear una cuenta o marcar una casilla.
+Por eso es importante si los datos son **públicos** o no; si no necesita una cuenta para acceder a ellos, es poco probable que esté sujeto a los términos del servicio.
+Tenga en cuenta, sin embargo, que la situación es bastante diferente en Europa, donde los tribunales han determinado que los términos de servicio son exigibles incluso si no los acepta explícitamente.
 
-[^webscraping-3]: e.g. <https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn>
+[^webscraping-3]: por eje.
+    <https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn>
 
-### Personally identifiable information
+### Información de identificación personal
 
-Even if the data is public, you should be extremely careful about scraping personally identifiable information like names, email addresses, phone numbers, dates of birth, etc.
-Europe has particularly strict laws about the collection or storage of such data ([GDPR](https://gdpr-info.eu/)), and regardless of where you live you're likely to be entering an ethical quagmire.
-For example, in 2016, a group of researchers scraped public profile information (e.g. usernames, age, gender, location, etc.) about 70,000 people on the dating site OkCupid and they publicly released these data without any attempts for anonymization.
-While the researchers felt that there was nothing wrong with this since the data were already public, this work was widely condemned due to ethics concerns around identifiability of users whose information was released in the dataset.
-If your work involves scraping personally identifiable information, we strongly recommend reading about the OkCupid study[^webscraping-4] as well as similar studies with questionable research ethics involving the acquisition and release of personally identifiable information.
+Incluso si los datos son públicos, debe tener mucho cuidado al recopilar información de identificación personal, como nombres, direcciones de correo electrónico, números de teléfono, fechas de nacimiento, etc.
+Europa tiene leyes particularmente estrictas sobre la recopilación o el almacenamiento de dichos datos ([GDPR](https://gdpr-info.eu/)), e independientemente de dónde viva, es probable que esté entrando en un atolladero ético.
+Por ejemplo, en 2016, un grupo de investigadores recopiló información de perfil público (por ejemplo, nombres de usuario, edad, sexo, ubicación, etc.) de unas 70 000 personas en el sitio de citas OkCupid y publicaron estos datos sin intentar anonimizarlos.
+Si bien los investigadores sintieron que esto no tenía nada de malo ya que los datos ya eran públicos, este trabajo fue ampliamente condenado debido a preocupaciones éticas sobre la identificabilidad de los usuarios cuya información se publicó en el conjunto de datos.
+Si su trabajo consiste en recopilar información de identificación personal, le recomendamos leer sobre el estudio OkCupid[^webscraping-4], así como estudios similares con ética de investigación cuestionable que involucran la adquisición y divulgación de información de identificación personal.
 
-[^webscraping-4]: One example of an article on the OkCupid study was published by the [https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science](https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science/).
+[^webscraping-4]: Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el [https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science](https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science/).
 
-### Copyright
+### Derechos de autor
 
-Finally, you also need to worry about copyright law.
-Copyright law is complicated, but it's worth taking a look at the [US law](https://www.law.cornell.edu/uscode/text/17/102) which describes exactly what's protected: "\[...\] original works of authorship fixed in any tangible medium of expression, \[...\]".
-It then goes on to describe specific categories that it applies like literary works, musical works, motion pictures and more.
-Notably absent from copyright protection are data.
-This means that as long as you limit your scraping to facts, copyright protection does not apply.
-(But note that Europe has a separate "[sui generis](https://en.wikipedia.org/wiki/Database_right)" right that protects databases.)
+Finalmente, también debe preocuparse por la ley de derechos de autor.
+La ley de derechos de autor es complicada, pero vale la pena echar un vistazo a la \[ley de EE.
+UU.\] (https://www.law.cornell.edu/uscode/text/17/102) que describe exactamente lo que está protegido: "\[... \] obras originales de autoría fijadas en cualquier medio tangible de expresión, \[...\]".
+Luego pasa a describir categorías específicas que aplica, como obras literarias, obras musicales, películas y más.
+Los datos están notablemente ausentes de la protección de los derechos de autor.
+Esto significa que mientras limite su extracción a datos, la protección de derechos de autor no se aplica.
+(Pero tenga en cuenta que Europa tiene un derecho "[sui generis](https://en.wikipedia.org/wiki/Database_right)" separado que protege las bases de datos).
 
-As a brief example, in the US, lists of ingredients and instructions are not copyrightable, so copyright can not be used to protect a recipe.
-But if that list of recipes is accompanied by substantial novel literary content, that is copyrightable.
-This is why when you're looking for a recipe on the internet there's always so much content beforehand.
+Como un breve ejemplo, en los EE.
+UU., las listas de ingredientes y las instrucciones no tienen derechos de autor, por lo que los derechos de autor no se pueden usar para proteger una receta.
+Pero si esa lista de recetas va acompañada de un contenido literario novedoso sustancial, eso tiene derechos de autor.
+Por eso, cuando buscas una receta en Internet, siempre hay mucho contenido de antemano.
 
-If you do need to scrape original content (like text or images), you may still be protected under the [doctrine of fair use](https://en.wikipedia.org/wiki/Fair_use).
-Fair use is not a hard and fast rule, but weighs up a number of factors.
-It's more likely to apply if you are collecting the data for research or non-commercial purposes and if you limit what you scrape to just what you need.
+Si necesita extraer contenido original (como texto o imágenes), aún puede estar protegido por la \[doctrina de uso justo\] (https://en.wikipedia.org/wiki/Fair_use).
+El uso justo no es una regla estricta y rápida, pero sopesa una serie de factores.
+Es más probable que se aplique si está recopilando los datos con fines de investigación o no comerciales y si limita lo que extrae a solo lo que necesita.
 
-## HTML basics
+## HTML básico
 
-To scrape webpages, you need to first understand a little bit about **HTML**, the language that describes web pages.
-HTML stands for **H**yper**T**ext **M**arkup **L**anguage and looks something like this:
+Para hacer web scraping, primero debe comprender un poco sobre **HTML**, el lenguaje que describe las páginas web.
+HTML significa **H**yper**T**ext **M**arkup **L**idioma y se parece a esto:
 
 ``` html
 <html>
@@ -111,67 +114,65 @@ HTML stands for **H**yper**T**ext **M**arkup **L**anguage and looks something li
 </body>
 ```
 
-HTML has a hierarchical structure formed by **elements** which consist of a start tag (e.g. `<tag>`), optional **attributes** (`id='first'`), an end tag[^webscraping-5] (like `</tag>`), and **contents** (everything in between the start and end tag).
+HTML tiene una estructura jerárquica formada por **elementos** que consisten en una etiqueta de inicio (por ejemplo, `<etiqueta>`), **atributos** opcionales (`id='primero'`), una etiqueta final\[\^webscraping- 5\] (como `</etiqueta>`) y **contenido** (todo lo que se encuentra entre la etiqueta de inicio y final).
 
-[^webscraping-5]: A number of tags (including `<p>` and `<li>)` don't require end tags, but we think it's best to include them because it makes seeing the structure of the HTML a little easier.
+Dado que `<` y `>` se utilizan para las etiquetas de inicio y finalización, no puede escribirlas directamente.
+En su lugar, debe utilizar los **escapes** de HTML `&gt;` (mayor que) y `&lt;` (menor que).
+Y dado que esos escapes usan `&`, si quieres un ampersand literal, tienes que escapar como `&amp;`.
+Hay una amplia gama de posibles escapes de HTML, pero no necesita preocuparse demasiado por ellos porque rvest los maneja automáticamente por usted.
 
-Since `<` and `>` are used for start and end tags, you can't write them directly.
-Instead you have to use the HTML **escapes** `&gt;` (greater than) and `&lt;` (less than).
-And since those escapes use `&`, if you want a literal ampersand you have to escape it as `&amp;`.
-There are a wide range of possible HTML escapes but you don't need to worry about them too much because rvest automatically handles them for you.
+Web scraping es posible porque la mayoría de las páginas que contienen datos que desea extraer generalmente tienen una estructura consistente.
 
-Web scraping is possible because most pages that contain data that you want to scrape generally have a consistent structure.
+### Elementos
 
-### Elements
+Hay más de 100 elementos HTML.
+Algunos de los más importantes son:
 
-There are over 100 HTML elements.
-Some of the most important are:
+-   Cada página HTML debe estar en un elemento `<html>` y debe tener dos elementos secundarios: `<head>`, que contiene metadatos del documento como el título de la página, y `<body>`, que contiene el contenido que ve en el navegador.
 
--   Every HTML page must be in an `<html>` element, and it must have two children: `<head>`, which contains document metadata like the page title, and `<body>`, which contains the content you see in the browser.
+-   Las etiquetas de bloque como `<h1>` (título 1), `<section>` (sección), `<p>` (párrafo) y `<ol>` (lista ordenada) forman la estructura general de la página.
 
--   Block tags like `<h1>` (heading 1), `<section>` (section), `<p>` (paragraph), and `<ol>` (ordered list) form the overall structure of the page.
+-   Las etiquetas en línea como `<b>` (negrita), `<i>` (cursiva) y `<a>` (enlace) dan formato al texto dentro de las etiquetas de bloque.
 
--   Inline tags like `<b>` (bold), `<i>` (italics), and `<a>` (link) format text inside block tags.
+Si encuentra una etiqueta que nunca ha visto antes, puede averiguar qué hace con un poco de google.
+Otro buen lugar para comenzar son los [MDN Web Docs](https://developer.mozilla.org/es/docs/Web/HTML) que describen casi todos los aspectos de la programación web.
 
-If you encounter a tag that you've never seen before, you can find out what it does with a little googling.
-Another good place to start are the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML) which describe just about every aspect of web programming.
-
-Most elements can have content in between their start and end tags.
-This content can either be text or more elements.
-For example, the following HTML contains paragraph of text, with one word in bold.
+La mayoría de los elementos pueden tener contenido entre sus etiquetas de inicio y fin.
+Este contenido puede ser texto o más elementos.
+Por ejemplo, el siguiente HTML contiene un párrafo de texto, con una palabra en negrita.
 
 ```         
 <p>
-  Hi! My <b>name</b> is Hadley.
+  ¡Hola! Mi <b>nombre</b> es Hadley.
 </p>
 ```
 
-The **children** are the elements it contains, so the `<p>` element above has one child, the `<b>` element.
-The `<b>` element has no children, but it does have contents (the text "name").
+Los **hijos** son los elementos que contiene, por lo que el elemento `<p>` de arriba tiene un hijo, el elemento `<b>`.
+El elemento `<b>` no tiene hijos, pero sí tiene contenidos (el texto "nombre").
 
-### Attributes
+### Atributos
 
-Tags can have named **attributes** which look like `name1='value1' name2='value2'`.
-Two of the most important attributes are `id` and `class`, which are used in conjunction with CSS (Cascading Style Sheets) to control the visual appearance of the page.
-These are often useful when scraping data off a page.
-Attributes are also used to record the destination of links (the `href` attribute of `<a>` elements) and the source of images (the `src` attribute of the `<img>` element).
+Las etiquetas pueden tener **atributos** con nombre que se parecen a `name1='value1' name2='value2'`.
+Dos de los atributos más importantes son `id` y `class`, que se utilizan junto con CSS (hojas de estilo en cascada) para controlar la apariencia visual de la página.
+Suelen ser útiles cuando se extraen datos de una página.
+Los atributos también se utilizan para registrar el destino de los enlaces (el atributo `href` de los elementos `<a>`) y la fuente de las imágenes (el atributo `src` del elemento `<img>`).
 
-## Extracting data
+## Extrayendo datos
 
-To get started scraping, you'll need the URL of the page you want to scrape, which you can usually copy from your web browser.
-You'll then need to read the HTML for that page into R with `read_html()`.
-This returns an `xml_document`[^webscraping-6] object which you'll then manipulate using rvest functions:
+Para comenzar a extraer, necesitará la URL de la página que desea, que generalmente puede copiar desde su navegador web.
+Luego deberá leer el HTML de esa página en R con `read_html()`.
+Esto devuelve un objeto `xml_document`[^webscraping-5] que luego manipularás usando las funciones rvest:
 
-[^webscraping-6]: This class comes from the [xml2](https://xml2.r-lib.org) package.
-    xml2 is a low-level package that rvest builds on top of.
+[^webscraping-5]: Esta clase viene del paquete [xml2](https://xml2.r-lib.org).
+    xml2 es un paquete de bajo nivel en el que se basa rvest.
 
 ```{r}
 html <- read_html("http://rvest.tidyverse.org/")
 html
 ```
 
-rvest also includes a function that lets you write HTML inline.
-We'll use this a bunch in this chapter as we teach how the various rvest functions work with simple examples.
+rvest también incluye una función que te permite escribir HTML en línea.
+Usaremos esto un montón en este capítulo mientras enseñamos cómo funcionan las diversas funciones rvest con ejemplos simples.
 
 ```{r}
 html <- minimal_html("
@@ -183,26 +184,26 @@ html <- minimal_html("
 html
 ```
 
-Now that you have the HTML in R, it's time to extract the data of interest.
-You'll first learn about the CSS selectors that allow you to identify the elements of interest and the rvest functions that you can use to extract data from them.
-Then we'll briefly cover HTML tables, which have some special tools.
+Ahora que tiene el HTML en R, es hora de extraer los datos de interés.
+Primero aprenderá sobre los selectores de CSS que le permiten identificar los elementos de interés y las funciones rvest que puede usar para extraer datos de ellos.
+Luego cubriremos brevemente las tablas HTML, que tienen algunas herramientas especiales.
 
-### Find elements
+### Buscar elementos
 
-CSS is short for cascading style sheets, and is a tool for defining the visual styling of HTML documents.
-CSS includes a miniature language for selecting elements on a page called **CSS selectors**.
-CSS selectors define patterns for locating HTML elements, and are useful for scraping because they provide a concise way of describing which elements you want to extract.
+CSS es la abreviatura de hojas de estilo en cascada y es una herramienta para definir el estilo visual de los documentos HTML.
+CSS incluye un lenguaje en miniatura para seleccionar elementos en una página llamado **selectores de CSS**.
+Los selectores de CSS definen patrones para ubicar elementos HTML y son útiles para la extracción de datos porque brindan una forma concisa de describir qué elementos desea extraer.
 
-We'll come back to CSS selectors in more detail in @sec-css-selectors, but luckily you can get a long way with just three:
+Volveremos a los selectores de CSS con más detalle en @sec-css-selectors, pero afortunadamente puedes recorrer un largo camino con solo tres:
 
--   `p` selects all `<p>` elements.
+-   `p` selecciona todos los elementos `<p>`.
 
--   `.title` selects all elements with `class` "title".
+-   `.title` selecciona todos los elementos con clase, `class`, que equivale a "title".
 
--   `#title` selects the element with the `id` attribute that equals "title".
-    Id attributes must be unique within a document, so this will only ever select a single element.
+-   `#title` selecciona el elemento con el atributo `id` que equivale a "title".
+    Los atributos de identificación deben ser únicos dentro de un documento, por lo que esto solo seleccionará un solo elemento.
 
-Lets try out these selectors with a simple example:
+Probemos estos selectores con un ejemplo simple:
 
 ```{r}
 html <- minimal_html("
@@ -212,7 +213,7 @@ html <- minimal_html("
 ")
 ```
 
-Use `html_elements()` to find all elements that match the selector:
+Usa `html_elements()` para encontrar todos los elementos que coincidan con el selector:
 
 ```{r}
 html |> html_elements("p")
@@ -220,74 +221,74 @@ html |> html_elements(".important")
 html |> html_elements("#first")
 ```
 
-Another important function is `html_element()` which always returns the same number of outputs as inputs.
-If you apply it to a whole document it'll give you the first match:
+Otra función importante es `html_element()` que siempre devuelve el mismo número de salidas que de entradas.
+Si lo aplica a un documento completo, obtendrá la primera coincidencia:
 
 ```{r}
 html |> html_element("p")
 ```
 
-There's an important difference between `html_element()` and `html_elements()` when you use a selector that doesn't match any elements.
-`html_elements()` returns a vector of length 0, where `html_element()` returns a missing value.
-This will be important shortly.
+Hay una diferencia importante entre `html_element()` y `html_elements()` cuando usas un selector que no coincide con ningún elemento.
+`html_elements()` devuelve un vector de longitud 0, donde `html_element()` devuelve un valor faltante.
+Esto será importante en breve.
 
 ```{r}
 html |> html_elements("b")
 html |> html_element("b")
 ```
 
-### Nesting selections
+### Anidar selecciones
 
-In most cases, you'll use `html_elements()` and `html_element()` together, typically using `html_elements()` to identify elements that will become observations then using `html_element()` to find elements that will become variables.
-Let's see this in action using a simple example.
-Here we have an unordered list (`<ul>)` where each list item (`<li>`) contains some information about four characters from StarWars:
+En la mayoría de los casos, usará `html_elements()` y `html_element()` juntos, generalmente usando `html_elements()` para identificar elementos que se convertirán en observaciones y luego usará `html_element()` para encontrar elementos que se convertirán en variables.
+Veamos esto en acción usando un ejemplo simple.
+Aquí tenemos una lista desordenada (`<ul>)` donde cada elemento de la lista (`<li>`) contiene información sobre cuatro personajes de StarWars:
 
 ```{r}
 html <- minimal_html("
   <ul>
-    <li><b>C-3PO</b> is a <i>droid</i> that weighs <span class='weight'>167 kg</span></li>
-    <li><b>R4-P17</b> is a <i>droid</i></li>
-    <li><b>R2-D2</b> is a <i>droid</i> that weighs <span class='weight'>96 kg</span></li>
-    <li><b>Yoda</b> weighs <span class='weight'>66 kg</span></li>
+    <li><b>C-3PO</b> es un <i>androide</i> que pesa <span class='weight'>167 kg</span></li>
+    <li><b>R4-P17</b> es un <i>androide</i></li>
+    <li><b>R2-D2</b> es un <i>androide</i> que pesa <span class='weight'>96 kg</span></li>
+    <li><b>Yoda</b> pesa <span class='weight'>66 kg</span></li>
   </ul>
   ")
 ```
 
-We can use `html_elements()` to make a vector where each element corresponds to a different character:
+Podemos usar `html_elements()` para hacer un vector donde cada elemento corresponde a un carácter diferente:
 
 ```{r}
 characters <- html |> html_elements("li")
 characters
 ```
 
-To extract the name of each character, we use `html_element()`, because when applied to the output of `html_elements()` its guaranteed to return one response per element:
+Para extraer el nombre de cada carácter, usamos `html_element()`, porque cuando se aplica a la salida de `html_elements()` se garantiza que devolverá una respuesta por elemento:
 
 ```{r}
 characters |> html_element("b")
 ```
 
-The distinction between `html_element()` and `html_elements()` isn't important for name, but it is important for weight.
-We want to get one weight for each character, even if there's no weight `<span>`.
-That's what `html_element()` does:
+La distinción entre `html_element()` y `html_elements()` no es importante para el nombre, pero sí lo es para el peso.
+Queremos obtener un peso para cada carácter, incluso si no hay peso `<span>`.
+Eso es lo que hace `html_element()`:
 
 ```{r}
 characters |> html_element(".weight")
 ```
 
-`html_elements()` finds all weight `<span>`s that are children of `characters`.
-There's only three of these, so we lose the connection between names and weights:
+`html_elements()` encuentra todos los `<span>` de peso que son hijos de `characters`.
+Solo hay tres de estos, por lo que perdemos la conexión entre nombres y pesos:
 
 ```{r}
 characters |> html_elements(".weight")
 ```
 
-Now that you've selected the elements of interest, you'll need to extract the data, either from the text contents or some attributes.
+Ahora que ha seleccionado los elementos de interés, deberá extraer los datos, ya sea del contenido del texto o de algunos atributos.
 
-### Text and attributes
+### Texto y atributos
 
-`html_text2()`[^webscraping-7] extracts the plain text contents of an HTML element:
+`html_text2()`[^webscraping-6] extrae el contenido de texto sin formato de un elemento HTML:
 
-[^webscraping-7]: rvest also provides `html_text()` but you should almost always use `html_text2()` since it does a better job of converting nested HTML to text.
+[^webscraping-6]: rvest también proporciona `html_text()` pero casi siempre debe usar `html_text2()` ya que hace un mejor trabajo al convertir HTML anidado en texto.
 
 ```{r}
 characters |> 
@@ -299,9 +300,9 @@ characters |>
   html_text2()
 ```
 
-Note that any escapes will be automatically handled; you'll only ever see HTML escapes in the source HTML, not in the data returned by rvest.
+Tenga en cuenta que cualquier escape se manejará automáticamente; solo verá escapes de HTML en el HTML de origen, no en los datos devueltos por rvest.
 
-`html_attr()` extracts data from attributes:
+`html_attr()` extrae datos de atributos:
 
 ```{r}
 html <- minimal_html("
@@ -315,15 +316,15 @@ html |>
   html_attr("href")
 ```
 
-`html_attr()` always returns a string, so if you're extracting numbers or dates, you'll need to do some post-processing.
+`html_attr()` siempre devuelve una cadena, por lo que si está extrayendo números o fechas, deberá realizar un procesamiento posterior.
 
-### Tables
+### Tablas
 
-If you're lucky, your data will be already stored in an HTML table, and it'll be a matter of just reading it from that table.
-It's usually straightforward to recognize a table in your browser: it'll have a rectangular structure of rows and columns, and you can copy and paste it into a tool like Excel.
+Si tiene suerte, sus datos ya estarán almacenados en una tabla HTML, y solo será cuestión de leerlos de esa tabla.
+Por lo general, es sencillo reconocer una tabla en su navegador: tendrá una estructura rectangular de filas y columnas, y puede copiarla y pegarla en una herramienta como Excel.
 
-HTML tables are built up from four main elements: `<table>`, `<tr>` (table row), `<th>` (table heading), and `<td>` (table data).
-Here's a simple HTML table with two columns and three rows:
+Las tablas HTML se construyen a partir de cuatro elementos principales: `<table>`, `<tr>` (fila de la tabla), `<th>` (encabezado de la tabla) y `<td>` (datos de la tabla).
+Aquí hay una tabla HTML simple con dos columnas y tres filas:
 
 ```{r}
 html <- minimal_html("
@@ -336,9 +337,9 @@ html <- minimal_html("
   ")
 ```
 
-rvest provides a function that knows how to read this sort of data: `html_table()`.
-It returns a list containing one tibble for each table found on the page.
-Use `html_element()` to identify the table you want to extract:
+rvest proporciona una función que sabe cómo leer este tipo de datos: `html_table()`.
+Devuelve una lista que contiene un tibble para cada tabla que se encuentra en la página.
+Use `html_element()` para identificar la tabla que desea extraer:
 
 ```{r}
 html |> 
@@ -346,45 +347,45 @@ html |>
   html_table()
 ```
 
-Note that `x` and `y` have automatically been converted to numbers.
-This automatic conversion doesn't always work, so in more complex scenarios you may want to turn it off with `convert = FALSE` and then do your own conversion.
+Tenga en cuenta que `x` e `y` se han convertido automáticamente en números.
+Esta conversión automática no siempre funciona, por lo que en situaciones más complejas es posible que desee desactivarla con `convert = FALSE` y luego hacer su propia conversión.
 
-## Finding the right selectors {#sec-css-selectors}
+## Encontrar los selectores apropiados {#sec-css-selectors}
 
-Figuring out the selector you need for your data is typically the hardest part of the problem.
-You'll often need to do some experimenting to find a selector that is both specific (i.e. it doesn't select things you don't care about) and sensitive (i.e. it does select everything you care about).
-Lots of trial and error is a normal part of the process!
-There are two main tools that are available to help you with this process: SelectorGadget and your browser's developer tools.
+Averiguar el selector que necesita para sus datos suele ser la parte más difícil del problema.
+A menudo tendrá que experimentar un poco para encontrar un selector que sea específico (es decir, que no seleccione cosas que no le interesen) y sensible (es decir, que seleccione todo lo que le interese).
+¡Muchas pruebas y errores son una parte normal del proceso!
+Hay dos herramientas principales disponibles para ayudarlo con este proceso: SelectorGadget y las herramientas de desarrollo de su navegador.
 
-[SelectorGadget](https://rvest.tidyverse.org/articles/selectorgadget.html) is a javascript bookmarklet that automatically generates CSS selectors based on the positive and negative examples that you provide.
-It doesn't always work, but when it does, it's magic!
-You can learn how to install and use SelectorGadget either by reading <https://rvest.tidyverse.org/articles/selectorgadget.html> or watching Mine's video at <https://www.youtube.com/watch?v=PetWV5g1Xsc>.
+[SelectorGadget](https://rvest.tidyverse.org/articles/selectorgadget.html) es un bookmarklet de javascript que genera automáticamente selectores de CSS en función de los ejemplos positivos y negativos que proporcione.
+No siempre funciona, pero cuando lo hace, ¡es mágico!
+Puede aprender a instalar y usar SelectorGadget leyendo <https://rvest.tidyverse.org/articles/selectorgadget.html> o viendo el video de Mine en <https://www.youtube.com/watch?v=PetWV5g1Xsc>.
 
-Every modern browser comes with some toolkit for developers, but we recommend Chrome, even if it isn't your regular browser: its web developer tools are some of the best and they're immediately available.
-Right click on an element on the page and click `Inspect`.
-This will open an expandable view of the complete HTML page, centered on the element that you just clicked.
-You can use this to explore the page and get a sense of what selectors might work.
-Pay particular attention to the class and id attributes, since these are often used to form the visual structure of the page, and hence make for good tools to extract the data that you're looking for.
+Todos los navegadores modernos vienen con un conjunto de herramientas para desarrolladores, pero recomendamos Chrome, incluso si no es su navegador habitual: sus herramientas para desarrolladores web son algunas de las mejores y están disponibles de inmediato.
+Haga clic con el botón derecho en un elemento de la página y haga clic en `Inspeccionar`.
+Esto abrirá una vista ampliable de la página HTML completa, centrada en el elemento en el que acaba de hacer clic.
+Puede usar esto para explorar la página y tener una idea de qué selectores podrían funcionar.
+Preste especial atención a los atributos class e id, ya que estos se usan a menudo para formar la estructura visual de la página y, por lo tanto, son buenas herramientas para extraer los datos que está buscando.
 
-Inside the Elements view, you can also right click on an element and choose `Copy as Selector` to generate a selector that will uniquely identify the element of interest.
+Dentro de la vista Elementos, también puede hacer clic con el botón derecho en un elemento y elegir "Copiar como selector" para generar un selector que identificará de forma única el elemento de interés.
 
-If either SelectorGadget or Chrome DevTools have generated a CSS selector that you don't understand, try [Selectors Explained](https://kittygiraudel.github.io/selectors-explained/){.uri} which translates CSS selectors into plain English.
-If you find yourself doing this a lot, you might want to learn more about CSS selectors generally.
-We recommend starting with the fun [CSS dinner](https://flukeout.github.io/) tutorial and then referring to the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+Si SelectorGadget o Chrome DevTools han generado un selector de CSS que no comprende, pruebe [Explicación de los selectores](https://kittygiraudel.github.io/selectors-explained/){.uri} que traduce los selectores de CSS al inglés.
+Si te encuentras haciendo esto mucho, es posible que desees obtener más información sobre los selectores de CSS en general.
+Recomendamos comenzar con el divertido tutorial [CSS Dinner](https://flukeout.github.io/) y luego consultar los [documentos web de MDN](https://developer.mozilla.org/es/docs/Web/CSS/CSS_Selectors).
 
-## Putting it all together
+## Poniendolo todo junto
 
-Lets put this all together to scrape some websites.
-There's some risk that these examples may no longer work when you run them --- that's the fundamental challenge of web scraping; if the structure of the site changes, then you'll have to change your scraping code.
+Pongamos todo esto junto para extraer datos de algunos sitios web.
+Existe cierto riesgo de que estos ejemplos ya no funcionen cuando los ejecute; ese es el desafío fundamental del web scraping; si la estructura del sitio cambia, entonces tendrá que cambiar su código de raspado.
 
 ### StarWars
 
-rvest includes a very simple example in `vignette("starwars")`.
-This is simple page with minimal HTML so it's a good place to start.
-I'd encourage you to navigate to that page now and use "Inspect Element" to inspect one of the headings that's the title of a Star Wars movie.
-Use the keyboard or mouse to explore the hierarchy of the HTML and see if you can get a sense of the shared structure used by each movie.
+rvest incluye un ejemplo muy simple en `vignette("starwars")`.
+Esta es una página simple con HTML mínimo, por lo que es un buen lugar para comenzar.
+Te animo a navegar a esa página ahora y usar "Inspeccionar elemento" para inspeccionar uno de los encabezados que es el título de una película de Star Wars.
+Use el teclado o el mouse para explorar la jerarquía del HTML y vea si puede tener una idea de la estructura compartida que usa cada película.
 
-You should be able to see that each movie has a shared structure that looks like this:
+Debería poder ver que cada película tiene una estructura compartida que se ve así:
 
 ``` html
 <section>
@@ -400,8 +401,8 @@ You should be able to see that each movie has a shared structure that looks like
 </section>
 ```
 
-Our goal is to turn this data into a 7 row data frame with variables `title`, `year`, `director`, and `intro`.
-We'll start by reading the HTML and extracting all the `<section>` elements:
+Nuestro objetivo es convertir estos datos en un marco de datos de 7 filas con las variables `title`, `year`, `director` e `intro`.
+Comenzaremos leyendo el HTML y extrayendo todos los elementos `<sectionn>`:
 
 ```{r}
 url <- "https://rvest.tidyverse.org/articles/starwars.html"
@@ -411,9 +412,9 @@ section <- html |> html_elements("section")
 section
 ```
 
-This retrieves seven elements matching the seven movies found on that page, suggesting that using `section` as a selector is good.
-Extracting the individual elements is straightforward since the data is always found in the text.
-It's just a matter of finding the right selector:
+Esto recupera siete elementos que coinciden con las siete películas que se encuentran en esa página, lo que sugiere que usar `section` como selector es bueno.
+La extracción de los elementos individuales es sencilla ya que los datos siempre se encuentran en el texto.
+Solo es cuestión de encontrar el selector adecuado:
 
 ```{r}
 section |> html_element("h2") |> html_text2()
@@ -421,7 +422,7 @@ section |> html_element("h2") |> html_text2()
 section |> html_element(".director") |> html_text2()
 ```
 
-Once we've done that for each component, we can wrap all the results up into a tibble:
+Una vez que hayamos hecho eso para cada componente, podemos envolver todos los resultados en un tibble:
 
 ```{r}
 tibble(
@@ -442,28 +443,28 @@ tibble(
 )
 ```
 
-We did a little more processing of `released` to get a variable that will be easy to use later in our analysis.
+Hicimos un poco más de procesamiento de `released` para obtener una variable que será fácil de usar más adelante en nuestro análisis.
 
-### IMDB top films
+### Las mejores películas de IMDB
 
-For our next task we'll tackle something a little trickier, extracting the top 250 movies from the internet movie database (IMDb).
-At the time we wrote this chapter, the page looked like @fig-scraping-imdb.
+Para nuestra próxima tarea, abordaremos algo un poco más complicado, extrayendo las 250 mejores películas de la base de datos de películas de Internet (IMDb).
+Cuando escribimos este capítulo, la página se parecía a @fig-scraping-imdb.
 
 ```{r}
 #| label: fig-scraping-imdb
 #| echo: false
 #| fig-cap: > 
-#|   Screenshot of the IMDb top movies web page taken on 2022-12-05.
+#|   Captura de pantalla de la página web de las mejores películas de IMDb tomada el 2022-12-05.
 #| fig-alt: >
-#|   The screenshot shows a table with columns "Rank and Title",
-#|   "IMDb Rating", and "Your Rating". 9 movies out of the top 250
-#|   are shown. The top 5 are the Shawshank Redemption, The Godfather,
-#|   The Dark Knight, The Godfather: Part II, and 12 Angry Men.
+#|   La captura de pantalla muestra una tabla con las columnas "Rank and Title", 
+#|   "IMDb Rating" y "Your Rating". Se muestran 9 películas de las 250 principales. 
+#|   Los 5 primeros son Shawshank Redemption, The Godfather, The Dark Knight, The 
+#|   Godfather: Part II y 12 Angry Men.
 
 knitr::include_graphics("screenshots/scraping-imdb.png", dpi = 300)
 ```
 
-This data has a clear tabular structure so it's worth starting with `html_table()`:
+Estos datos tienen una estructura tabular clara, por lo que vale la pena comenzar con `html_table()`:
 
 ```{r}
 url <- "https://www.imdb.com/chart/top"
@@ -475,11 +476,11 @@ table <- html |>
 table
 ```
 
-This includes a few empty columns, but overall does a good job of capturing the information from the table.
-However, we need to do some more processing to make it easier to use.
-First, we'll rename the columns to be easier to work with, and remove the extraneous whitespace in rank and title.
-We will do this with `select()` (instead of `rename()`) to do the renaming and selecting of just these two columns in one step.
-Then we'll remove the new lines and extra spaces, and then apply `separate_wider_regex()` (from @sec-extract-variables) to pull out the title, year, and rank into their own variables.
+Esto incluye algunas columnas vacías, pero en general hace un buen trabajo al capturar la información de la tabla.
+Sin embargo, necesitamos hacer un poco más de procesamiento para que sea más fácil de usar.
+Primero, cambiaremos el nombre de las columnas para que sea más fácil trabajar con ellas y eliminaremos los espacios en blanco superfluos en la clasificación y el título.
+Haremos esto con `select()` (en lugar de `rename()`) para renombrar y seleccionar solo estas dos columnas en un solo paso.
+Luego, eliminaremos las líneas nuevas y los espacios adicionales, y luego aplicaremos `separate_wider_regex()` (de @sec-extract-variables) para extraer el título, el año y la clasificación en sus propias variables.
 
 ```{r}
 ratings <- table |>
@@ -501,9 +502,9 @@ ratings <- table |>
 ratings
 ```
 
-Even in this case where most of the data comes from table cells, it's still worth looking at the raw HTML.
-If you do so, you'll discover that we can add a little extra data by using one of the attributes.
-This is one of the reasons it's worth spending a little time spelunking the source of the page; you might find extra data, or might find a parsing route that's slightly easier.
+Incluso en este caso, donde la mayoría de los datos provienen de las celdas de la tabla, vale la pena mirar el código HTML sin formato.
+Si lo hace, descubrirá que podemos agregar un poco de información adicional usando uno de los atributos.
+Esta es una de las razones por las que vale la pena dedicar un poco de tiempo a explorar el origen de la página; puede encontrar datos adicionales o puede encontrar una ruta de análisis que sea un poco más fácil.
 
 ```{r}
 html |> 
@@ -512,7 +513,7 @@ html |>
   html_attr("title")
 ```
 
-We can combine this with the tabular data and again apply `separate_wider_regex()` to extract out the bit of data we care about:
+Podemos combinar esto con los datos tabulares y aplicar de nuevo `separate_wider_regex()` para extraer los datos que nos interesan:
 
 ```{r}
 ratings |>
@@ -532,26 +533,26 @@ ratings |>
   )
 ```
 
-## Dynamic sites
+## Sitios dinámicos
 
-So far we have focused on websites where `html_elements()` returns what you see in the browser and discussed how to parse what it returns and how to organize that information in tidy data frames.
-From time-to-time, however, you'll hit a site where `html_elements()` and friends don't return anything like what you see in the browser.
-In many cases, that's because you're trying to scrape a website that dynamically generates the content of the page with javascript.
-This doesn't currently work with rvest, because rvest downloads the raw HTML and doesn't run any javascript.
+Hasta ahora nos hemos centrado en sitios web donde `html_elements()` devuelve lo que ve en el navegador y discutimos cómo analizar lo que devuelve y cómo organizar esa información en marcos de datos ordenados.
+De vez en cuando, sin embargo, llegarás a un sitio donde `html_elements()` y tus amigos no devuelven nada parecido a lo que ves en el navegador.
+En muchos casos, eso se debe a que intenta extraer datos de un sitio web que genera dinámicamente el contenido de la página con javascript.
+Actualmente, esto no funciona con rvest, porque rvest descarga el HTML sin formato y no ejecuta ningún javascript.
 
-It's still possible to scrape these types of sites, but rvest needs to use a more expensive process: fully simulating the web browser including running all javascript.
-This functionality is not available at the time of writing, but it's something we're actively working on and might be available by the time you read this.
-It uses the [chromote package](https://rstudio.github.io/chromote/index.html) which actually runs the Chrome browser in the background, and gives you additional tools to interact with the site, like a human typing text and clicking buttons.
-Check out the [rvest website](http://rvest.tidyverse.org/) for more details.
+Todavía es posible raspar este tipo de sitios, pero rvest necesita usar un proceso más costoso: simular completamente el navegador web, incluida la ejecución de todo javascript.
+Esta funcionalidad no está disponible en el momento de escribir este artículo, pero es algo en lo que estamos trabajando activamente y podría estar disponible para cuando lea esto.
+Utiliza el \[paquete chromote\] (https://rstudio.github.io/chromote/index.html) que en realidad ejecuta el navegador Chrome en segundo plano y le brinda herramientas adicionales para interactuar con el sitio, como un texto de escritura humano y haciendo clic en los botones.
+Consulte el [sitio web de rvest](http://rvest.tidyverse.org/) para obtener más detalles.
 
-## Summary
+## Resumen
 
-In this chapter, you've learned about the why, the why not, and the how of scraping data from web pages.
-First, you've learned about the basics of HTML and using CSS selectors to refer to specific elements, then you've learned about using the rvest package to get data out of HTML into R.
-We then demonstrated web scraping with two case studies: a simpler scenario on scraping data on StarWars films from the rvest package website and a more complex scenario on scraping the top 250 films from IMDB.
+En este capítulo, ha aprendido sobre por qué, por qué no y cómo extraer datos de páginas web.
+Primero, aprendió los conceptos básicos de HTML y el uso de selectores de CSS para hacer referencia a elementos específicos, luego aprendió a usar el paquete rvest para obtener datos de HTML en R.
+Luego demostramos el web scraping con dos casos de estudio: un escenario más simple sobre la extracción de datos sobre películas de StarWars del sitio web del paquete rvest y un escenario más complejo sobre el scraping de las 250 películas principales de IMDB.
 
-Technical details of scraping data off the web can be complex, particularly when dealing with sites, however legal and ethical considerations can be even more complex.
-It's important for you to educate yourself about both of these before setting out to scrape data.
+Los detalles técnicos de la extracción de datos de la web pueden ser complejos, especialmente cuando se trata de sitios; sin embargo, las consideraciones legales y éticas pueden ser aún más complejas.
+Es importante que se eduque sobre ambos antes de comenzar a recopilar datos.
 
-This brings us to the end of the import part of the book where you've learned techniques to get data from where it lives (spreadsheets, databases, JSON files, and web sites) into a tidy form in R.
-Now it's time to turn our sights to a new topic: making the most of R as a programming language.
+Esto nos lleva al final de la parte de importación del libro donde aprendió técnicas para obtener datos desde donde se encuentran (hojas de cálculo, bases de datos, archivos JSON y sitios web) en una forma ordenada en R.
+Ahora es el momento de dirigir nuestra mirada a un nuevo tema: sacar el máximo provecho de R como lenguaje de programación.

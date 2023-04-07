@@ -1,4 +1,4 @@
-# Program {#sec-program-intro .unnumbered}
+# Programa {#sec-program-intro .unnumbered}
 
 ```{r}
 #| results: "asis"
@@ -6,47 +6,47 @@
 source("_common.R")
 ```
 
-In this part of the book, you'll improve your programming skills.
-Programming is a cross-cutting skill needed for all data science work: you must use a computer to do data science; you cannot do it in your head, or with pencil and paper.
+En esta parte del libro, mejorará sus habilidades de programación.
+La programación es una habilidad transversal necesaria para todo el trabajo de ciencia de datos: debe usar una computadora para hacer ciencia de datos; no puedes hacerlo en tu cabeza, o con lápiz y papel.
 
 ```{r}
 #| label: fig-ds-program
 #| echo: false
 #| out.width: ~
 #| fig-cap: >
-#|   Programming is the water in which all the other components swim.
+#|   La programación es el agua en la que nadan todos los demás componentes.
 #| fig-alt: >
-#|   Our model of the data science process with program (import, tidy,
-#|   transform, visualize, model, and communicate, i.e. everything) 
-#|   highlighted in blue.
+#|   Nuestro modelo del proceso de ciencia de datos con programa
+#|   (importar, ordenar, transformar, visualizar, modelar y comunicar,
+#|   es decir, todo) resaltado en azul.
 
 knitr::include_graphics("diagrams/data-science/program.png", dpi = 270)
 ```
 
-Programming produces code, and code is a tool of communication.
-Obviously code tells the computer what you want it to do.
-But it also communicates meaning to other humans.
-Thinking about code as a vehicle for communication is important because every project you do is fundamentally collaborative.
-Even if you're not working with other people, you'll definitely be working with future-you!
-Writing clear code is important so that others (like future-you) can understand why you tackled an analysis in the way you did.
-That means getting better at programming also involves getting better at communicating.
-Over time, you want your code to become not just easier to write, but easier for others to read.
+La programación produce código, y el código es una herramienta de comunicación.
+Obviamente, el código le dice a la computadora lo que quieres que haga.
+Pero también comunica significado a otros humanos.
+Pensar en el código como un vehículo para la comunicación es importante porque cada proyecto que haces es fundamentalmente colaborativo.
+Incluso si no está trabajando con otras personas, ¡definitivamente estará trabajando con usted en el futuro!
+Escribir un código claro es importante para que otros (como usted en el futuro) puedan entender por qué abordó un análisis de la forma en que lo hizo.
+Eso significa que mejorar en la programación también implica mejorar en la comunicación.
+Con el tiempo, desea que su código sea no solo más fácil de escribir, sino más fácil de leer para los demás.
 
-In the following three chapters, you'll learn skills to improve your programming skills:
+En los siguientes tres capítulos, aprenderá habilidades para mejorar sus habilidades de programación:
 
-1.  Copy-and-paste is a powerful tool, but you should avoid doing it more than twice.
-    Repeating yourself in code is dangerous because it can easily lead to errors and inconsistencies.
-    Instead, in @sec-functions, you'll learn how to write **functions** which let you extract out repeated tidyverse code so that it can be easily reused.
+1.  Copiar y pegar es una herramienta poderosa, pero debes evitar hacerlo más de dos veces.
+    Repetirse en el código es peligroso porque puede conducir fácilmente a errores e inconsistencias.
+    En cambio, en @sec-functions, aprenderá a escribir **funciones** que le permitirán extraer código tidyverse repetido para que pueda reutilizarse fácilmente.
 
-2.  Functions extract out repeated code, but you often need to repeat the same actions on different inputs.
-    You need tools for **iteration** that let you do similar things again and again.
-    These tools include for loops and functional programming, which you'll learn about in @sec-iteration.
+2.  Las funciones extraen código repetido, pero a menudo necesita repetir las mismas acciones en diferentes entradas.
+    Necesita herramientas para **iteración** que le permitan hacer cosas similares una y otra vez.
+    Estas herramientas incluyen bucles for y programación funcional, que aprenderá en @sec-iteration.
 
-3.  As you read more code written by others, you'll see more code that doesn't use the tidyverse.
-    In @sec-base-r, you'll learn some of the most important base R functions that you'll see in the wild.
+3.  A medida que lea más código escrito por otros, verá más código que no usa el tidyverse.
+    En @sec-base-r, aprenderá algunas de las funciones básicas de R más importantes que verá en la naturaleza.
 
-The goal of these chapters is to teach you the minimum about programming that you need for data science.
-Once you have mastered the material here, we strongly recommend that you continue to invest in your programming skills.
-We've written two books that you might find helpful.
-[*Hands on Programming with R*](https://rstudio-education.github.io/hopr/), by Garrett Grolemund, is an introduction to R as a programming language and is a great place to start if R is your first programming language.
-[*Advanced R*](https://adv-r.hadley.nz/) by Hadley Wickham dives into the details of R the programming language; it's great place to start if you have existing programming experience and great next step once you've internalized the ideas in these chapters.
+El objetivo de estos capítulos es enseñarle lo mínimo sobre programación que necesita para la ciencia de datos.
+Una vez que haya dominado el material aquí, le recomendamos que continúe invirtiendo en sus habilidades de programación.
+Hemos escrito dos libros que pueden resultarle útiles.
+[*Hands on Programming with R*](https://rstudio-education.github.io/hopr/), de Garrett Grolemund, es una introducción a R como lenguaje de programación y es un excelente lugar para comenzar si R es su primer lenguaje de programación.
+[*Advanced R*](https://adv-r.hadley.nz/) por Hadley Wickham se sumerge en los detalles de el lenguaje de programación R; es un excelente lugar para comenzar si ya tiene experiencia en programación y un excelente próximo paso una vez que haya interiorizado las ideas de estos capítulos.
