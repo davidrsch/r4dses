@@ -105,7 +105,7 @@ Esto hace que sea más fácil hojear el código.
 
 flights |> 
   mutate(
-    speed      = air_time / distance,
+    speed      = distance/air_time,
     dep_hour   = dep_time %/% 100,
     dep_minute = dep_time %%  100
   )
@@ -151,7 +151,7 @@ flights |>
 ```
 
 Después del primer paso de la canalización, sangra cada línea con dos espacios.
-RStudio colocará automáticamente los espacios después de un salto de línea después de `\>` .
+RStudio colocará automáticamente los espacios después de un salto de línea después de `|>` .
 Si está colocando cada argumento en su propia línea, sangre con dos espacios adicionales.
 Asegúrese de que `)` esté en su propia línea y sin sangría para que coincida con la posición horizontal del nombre de la función.
 
@@ -233,7 +233,7 @@ flights |>
   group_by(dest) |> 
   summarize(
     distance = mean(distance),
-    speed = mean(air_time / distance, na.rm = TRUE)
+    speed = mean(distance / air_time, na.rm = TRUE)
   ) |> 
   ggplot(aes(x = distance, y = speed)) +
   geom_smooth(

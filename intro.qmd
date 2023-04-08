@@ -250,8 +250,7 @@ A lo largo del libro, usamos un conjunto consistente de convenciones para referi
 
 -   Otros objetos R (como datos o argumentos de funciones) están en una fuente de código, sin paréntesis, como `flights` o `x`.
 
--   A veces, para dejar claro de qué paquete proviene un objeto, usaremos el nombre del paquete seguido de dos puntos, como `dplyr::mutate()` o\
-    `nycflights13::flights`.
+-   A veces, para dejar claro de qué paquete proviene un objeto, usaremos el nombre del paquete seguido de dos puntos, como `dplyr::mutate()` o `nycflights13::flights`.
     Este también es un código R válido.
 
 ## Reconocimientos

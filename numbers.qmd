@@ -580,7 +580,7 @@ Una alternativa es usar `median()`, que encuentra un valor que se encuentra en e
 Dependiendo de la forma de la distribución de la variable que le interese, la media o la mediana pueden ser una mejor medida del centro.
 Por ejemplo, para distribuciones simétricas generalmente informamos la media, mientras que para distribuciones asimétricas generalmente informamos la mediana.
 
-@fig-mean-vs-median compara la media frente a la mediana al observar el retraso de salida por hora frente a la mediana para cada destino.
+@fig-mean-vs-median compara la media con la mediana del retraso de salida (en minutos) para cada destino.
 El retraso mediano siempre es menor que el retraso medio porque los vuelos a veces salen varias horas tarde, pero nunca salen varias horas antes.
 
 ```{r}

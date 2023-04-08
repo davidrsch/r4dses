@@ -702,10 +702,9 @@ Tenga en cuenta la terminología que hemos utilizado aquí:
 Podemos usar diagramas de barras apiladas para visualizar la relación entre dos variables categóricas.
 Por ejemplo, los siguientes dos diagramas de barras apiladas muestran la relación entre "isla" y "especies", o específicamente, visualizan la distribución de "especies" dentro de cada isla.
 
-El primer gráfico muestra las frecuencias de cada especie de pingüinos en cada isla y el gráfico de la derecha muestra las frecuencias relativas (proporciones) de cada especie dentro de cada isla (a pesar del eje y etiquetado incorrectamente que dice "count").
+El primer gráfico muestra las frecuencias de cada especie de pingüinos en cada isla.
 El gráfico de frecuencias muestra que hay un número igual de Adelia en cada isla.
 Pero no tenemos una buena idea del equilibrio porcentual dentro de cada isla.
-En el gráfico de proporciones, hemos perdido nuestra noción de pingüinos totales, pero hemos ganado la ventaja del "desglose por isla".
 
 ```{r}
 #| fig-alt: >
@@ -929,7 +928,7 @@ Comenzamos con la idea básica que sustenta ggplot2: una visualización es un ma
 Luego aprendió a aumentar la complejidad y mejorar la presentación de sus gráficos capa por capa.
 También aprendió sobre las gráficas de uso común para visualizar la distribución de una sola variable, así como para visualizar las relaciones entre dos o más variables, aprovechando mapeos estéticos adicionales y/o dividiendo su gráfica en pequeños múltiplos usando facetas.
 
-Usaremos visualizaciones una y otra vez a lo largo de este libro, presentaremos nuevas técnicas a medida que las necesitemos y profundizaremos en la creación de visualizaciones con ggplot2 en @sec-layers a través de @sec-exploratory-data-analysis.
+Usaremos visualizaciones una y otra vez a lo largo de este libro, presentaremos nuevas técnicas a medida que las necesitemos y profundizaremos en la creación de visualizaciones con ggplot2 en @sec-layers a través de @sec-communication.
 
 Con los conceptos básicos de visualización en su haber, en el próximo capítulo vamos a cambiar un poco de tema y le daremos algunos consejos prácticos sobre el flujo de trabajo.
 Intercalamos consejos de flujo de trabajo con herramientas de ciencia de datos a lo largo de esta parte del libro porque lo ayudará a mantenerse organizado a medida que escribe cantidades crecientes de código de R.

@@ -63,7 +63,7 @@ Hacer esto regularmente es una excelente manera de asegurarse de haber capturado
 Le recomendamos que siempre comience su script con los paquetes que necesita.
 De esa forma, si comparte su código con otras personas, pueden ver fácilmente qué paquetes necesitan instalar.
 Tenga en cuenta, sin embargo, que nunca debe incluir `install.packages()` en un script que comparta.
-¡Es desconsiderado entregar un script que hará algo en su computadora si no tienen cuidado!
+¡Es desconsiderado entregar un script que cambiará algo en su computadora si no tienen cuidado!
 
 Cuando trabaje en capítulos futuros, le recomendamos que comience con el editor de scripts y practique los atajos de teclado.
 Con el tiempo, enviar código a la consola de esta manera se volverá tan natural que ni siquiera pensará en ello.
@@ -124,29 +124,33 @@ Tres principios importantes para la denominación de archivos son los siguientes
 
 Por ejemplo, suponga que tiene los siguientes archivos en una carpeta de proyecto.
 
-    alternative model.R
-    code for exploratory analysis.r
-    finalreport.qmd
-    FinalReport.qmd
-    fig 1.png
-    Figure_02.png
-    model_first_try.R
-    run-first.r
-    temp.txt
+```         
+alternative model.R
+code for exploratory analysis.r
+finalreport.qmd
+FinalReport.qmd
+fig 1.png
+Figure_02.png
+model_first_try.R
+run-first.r
+temp.txt
+```
 
 Hay una variedad de problemas aquí: es difícil encontrar qué archivo ejecutar primero, los nombres de los archivos contienen espacios, hay dos archivos con el mismo nombre pero con mayúsculas diferentes (`finalreport` vs. `FinalReport`\[\^workflow-scripts-1 \]), y algunos nombres no describen su contenido (`run-first` y `temp`).
 
 Aquí hay una mejor manera de nombrar y organizar el mismo conjunto de archivos:
 
-    01-load-data.R
-    02-exploratory-analysis.R
-    03-model-approach-1.R
-    04-model-approach-2.R
-    fig-01.png
-    fig-02.png
-    report-2022-03-20.qmd
-    report-2022-04-02.qmd
-    report-draft-notes.txt
+```         
+01-load-data.R
+02-exploratory-analysis.R
+03-model-approach-1.R
+04-model-approach-2.R
+fig-01.png
+fig-02.png
+report-2022-03-20.qmd
+report-2022-04-02.qmd
+report-draft-notes.txt
+```
 
 La numeración de los scripts clave hace que sea obvio en qué orden ejecutarlos y un esquema de nombres consistente hace que sea más fácil ver qué varía.
 Además, las cifras se etiquetan de manera similar, los informes se distinguen por las fechas incluidas en los nombres de los archivos y se cambia el nombre de `temp` a `report-draft-notes` para describir mejor su contenido.
@@ -196,7 +200,7 @@ knitr::include_graphics("diagrams/rstudio/clean-slate.png", dpi = 270)
 
 Hay un gran par de atajos de teclado que funcionarán juntos para asegurarse de que ha capturado las partes importantes de su código en el editor:
 
-1.  Presione Cmd/Ctrl + Shift + 0 para reiniciar R.
+1.  Presione Cmd/Ctrl + Shift + 0/F10 para reiniciar R.
 2.  Presione Cmd/Ctrl + Shift + S para volver a ejecutar el script actual.
 
 Usamos colectivamente este patrón cientos de veces a la semana.
