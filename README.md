@@ -32,6 +32,7 @@ Si detecta algún error relacionado con contenido de la traducción, siéntase l
 -   Importar
 -   Programa
     -   26 Funciones
+    -   27 Iteración
 
 ## Sobre otras versiones
 
@@ -129,6 +130,7 @@ If you spot any issue related to the translation content, feel free to open an i
 -   Import
 -   Program
     -   26 Functions
+    -   27 Iteration
 
 ## About other versions
 

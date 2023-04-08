@@ -1,4 +1,4 @@
-# Iteration {#sec-iteration}
+# Iteración {#sec-iteration}
 
 ```{r}
 #| results: "asis"
@@ -7,27 +7,27 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-In this chapter, you'll learn tools for iteration, repeatedly performing the same action on different objects.
-Iteration in R generally tends to look rather different from other programming languages because so much of it is implicit and we get it for free.
-For example, if you want to double a numeric vector `x` in R, you can just write `2 * x`.
-In most other languages, you'd need to explicitly double each element of `x` using some sort of for loop.
+En este capítulo, aprenderá herramientas para la iteración, realizando repetidamente la misma acción en diferentes objetos.
+La iteración en R generalmente tiende a verse bastante diferente de otros lenguajes de programación porque gran parte de ella está implícita y la obtenemos de forma gratuita.
+Por ejemplo, si desea duplicar un vector numérico `x` en R, simplemente puede escribir `2 * x`.
+En la mayoría de los otros idiomas, necesitaría duplicar explícitamente cada elemento de `x` usando algún tipo de bucle for.
 
-This book has already given you a small but powerful number of tools that perform the same action for multiple "things":
+Este libro ya le ha brindado una pequeña pero poderosa cantidad de herramientas que realizan la misma acción para múltiples "cosas":
 
--   `facet_wrap()` and `facet_grid()` draws a plot for each subset.
--   `group_by()` plus `summarize()` computes a summary statistics for each subset.
--   `unnest_wider()` and `unnest_longer()` create new rows and columns for each element of a list-column.
+-   `facet_wrap()` y `facet_grid()` dibuja una gráfica para cada subconjunto.
+-   `group_by()` más `summarize()` calcula un resumen de estadísticas para cada subconjunto.
+-   `unnest_wider()` y `unnest_longer()` crear nuevas filas y columnas para cada elemento de una lista-columna.
 
-Now it's time to learn some more general tools, often called **functional programming** tools because they are built around functions that take other functions as inputs.
-Learning functional programming can easily veer into the abstract, but in this chapter we'll keep things concrete by focusing on three common tasks: modifying multiple columns, reading multiple files, and saving multiple objects.
+Ahora es el momento de aprender algunas herramientas más generales, a menudo llamadas herramientas de **programación funcional** porque están construidas alrededor de funciones que toman otras funciones como entradas.
+El aprendizaje de la programación funcional puede pasar fácilmente a lo abstracto, pero en este capítulo mantendremos las cosas concretas centrándonos en tres tareas comunes: modificar varias columnas, leer varios archivos y guardar varios objetos.
 
-### Prerequisites
+### Requisitos previos
 
-In this chapter, we'll focus on tools provided by dplyr and purrr, both core members of the tidyverse.
-You've seen dplyr before, but [purrr](http://purrr.tidyverse.org/) is new.
-We're just going to use a couple of purrr functions in this chapter, but it's a great package to explore as you improve your programming skills.
+En este capítulo, nos centraremos en las herramientas proporcionadas por dplyr y purrr, ambos miembros principales de tidyverse.
+Has visto dplyr antes, pero [purrr](http://purrr.tidyverse.org/) es nuevo.
+Solo vamos a usar un par de funciones purrr en este capítulo, pero es un gran paquete para explorar a medida que mejora sus habilidades de programación.
 
 ```{r}
 #| label: setup

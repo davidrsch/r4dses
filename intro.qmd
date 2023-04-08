@@ -158,6 +158,7 @@ Por ahora, todo lo que necesita saber es que escribe el código R en el panel de
 #|   a la izquierda y busque gráficos en el panel de salida a la derecha.
 #| fig-alt: >
 #|   El IDE de RStudio con los paneles Consola y Salida resaltados.
+
 knitr::include_graphics("diagrams/rstudio/console.png", dpi = 270)
 ```
 
@@ -233,8 +234,10 @@ El código en el libro se ve así:
 
 Si ejecuta el mismo código en su consola local, se verá así:
 
-    > 1 + 2
-    [1] 3
+```         
+> 1 + 2
+[1] 3
+```
 
 Hay dos diferencias principales.
 En su consola, escribe después de `>`, llamado **prompt**; no mostramos el aviso en el libro.
