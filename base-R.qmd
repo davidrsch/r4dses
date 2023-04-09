@@ -1,4 +1,4 @@
-# A field guide to base R {#sec-base-r}
+# Una guía para R base {#sec-base-r}
 
 ```{r}
 #| results: "asis"
@@ -8,26 +8,26 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-To finish off the programming section, we're going to give you a quick tour of the most important base R functions that we don't otherwise discuss in the book.
-These tools are particularly useful as you do more programming and will help you read code you'll encounter in the wild.
+Para finalizar la sección de programación, le daremos un recorrido rápido por las funciones básicas de R más importantes que no trataremos en este libro.
+Estas herramientas son particularmente útiles a medida que programa más y lo ayudarán a leer el código que encontrará en la naturaleza.
 
-This is a good place to remind you that the tidyverse is not the only way to solve data science problems.
-We teach the tidyverse in this book because tidyverse packages share a common design philosophy, increasing the consistency across functions, and making each new function or package a little easier to learn and use.
-It's not possible to use the tidyverse without using base R, so we've actually already taught you a **lot** of base R functions: from `library()` to load packages, to `sum()` and `mean()` for numeric summaries, to the factor, date, and POSIXct data types, and of course all the basic operators like `+`, `-`, `/`, `*`, `|`, `&`, and `!`.
-What we haven't focused on so far is base R workflows, so we will highlight a few of those in this chapter.
+Este es un buen lugar para recordarle que tidyverse no es la única forma de resolver problemas de ciencia de datos.
+Enseñamos el tidyverse en este libro porque los paquetes de tidyverse comparten una filosofía de diseño común, aumentando la consistencia entre las funciones y haciendo que cada nueva función o paquete sea un poco más fácil de aprender y usar.
+No es posible usar tidyverse sin usar base R, por lo que en realidad ya te hemos enseñado un **montón** de funciones base R: desde `library()` para cargar paquetes, hasta `sum()` y `mean ()` para resúmenes numéricos, hasta los tipos de datos factor, fecha y POSIXct y, por supuesto, todos los operadores básicos como `+`, `-`, `/`, `*`, `|`, `&`, y `!`.
+En lo que no nos hemos centrado hasta ahora son los flujos de trabajo básicos de R, por lo que destacaremos algunos de ellos en este capítulo.
 
-After you read this book, you'll learn other approaches to the same problems using base R, data.table, and other packages.
-You'll undoubtedly encounter these other approaches when you start reading R code written by others, particularly if you're using StackOverflow.
-It's 100% okay to write code that uses a mix of approaches, and don't let anyone tell you otherwise!
+Después de leer este libro, aprenderá otros enfoques para los mismos problemas usando base R, data.table y otros paquetes.
+Sin duda, encontrará estos otros enfoques cuando comience a leer el código R escrito por otros, especialmente si está usando StackOverflow.
+Está 100 % bien escribir código que use una combinación de enfoques, ¡y no dejes que nadie te diga lo contrario!
 
-In this chapter, we'll focus on four big topics: subsetting with `[`, subsetting with `[[` and `$`, the apply family of functions, and `for` loops.
-To finish off, we'll briefly discuss two essential plotting functions.
+En este capítulo, nos centraremos en cuatro grandes temas: creación de subconjuntos con `[`, creación de subconjuntos con `[[` y `$`, la familia de funciones apply y bucles `for`.
+Para terminar, discutiremos brevemente dos funciones de gráficas esenciales.
 
-### Prerequisites
+### Requisitos previos
 
-This package focuses on base R so doesn't have any real prerequisites, but we'll load the tidyverse in order to explain some of the differences.
+Este paquete se centra en la base R, por lo que no tiene requisitos previos reales, pero cargaremos el tidyverse para explicar algunas de las diferencias.
 
 ```{r}
 #| label: setup

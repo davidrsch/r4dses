@@ -36,9 +36,9 @@ Solo vamos a usar un par de funciones purrr en este capítulo, pero es un gran p
 library(tidyverse)
 ```
 
-## Modifying multiple columns {#sec-across}
+## Modificar varias columnas {#sec-across}
 
-Imagine you have this simple tibble and you want to count the number of observations and compute the median of every column.
+Imagina que tienes este tibble simple y quieres contar el número de observaciones y calcular la mediana de cada columna.
 
 ```{r}
 df <- tibble(
@@ -49,7 +49,7 @@ df <- tibble(
 )
 ```
 
-You could do it with copy-and-paste:
+Podrías hacerlo con copiar y pegar:
 
 ```{r}
 df |> summarize(
@@ -61,8 +61,8 @@ df |> summarize(
 )
 ```
 
-That breaks our rule of thumb to never copy and paste more than twice, and you can imagine that this will get very tedious if you have tens or even hundreds of columns.
-Instead, you can use `across()`:
+Eso rompe nuestra regla general de nunca copiar y pegar más de dos veces, y puedes imaginar que esto se volverá muy tedioso si tienes decenas o incluso cientos de columnas.
+En su lugar, puedes usar `across()`:
 
 ```{r}
 df |> summarize(
@@ -71,18 +71,17 @@ df |> summarize(
 )
 ```
 
-`across()` has three particularly important arguments, which we'll discuss in detail in the following sections.
-You'll use the first two every time you use `across()`: the first argument, `.cols`, specifies which columns you want to iterate over, and the second argument, `.fns`, specifies what to do with each column.
-You can use the `.names` argument when you need additional control over the names of output columns, which is particularly important when you use `across()` with `mutate()`.
-We'll also discuss two important variations, `if_any()` and `if_all()`, which work with `filter()`.
+`across()` tiene tres argumentos particularmente importantes, que discutiremos en detalle en las siguientes secciones.
+Usará los dos primeros cada vez que use `across()`: el primer argumento, `.cols`, especifica sobre qué columnas desea iterar, y el segundo argumento, `.fns`, especifica qué hacer con cada columna Puedes usar el argumento `.names` cuando necesites un control adicional sobre los nombres de las columnas de salida, lo cual es particularmente importante cuando usas `across()` con `mutate()`.
+También discutiremos dos variaciones importantes, `if_any()` y `if_all()`, que funcionan con `filter()`.
 
-### Selecting columns with `.cols`
+### Selección de columnas con `.cols`
 
-The first argument to `across()`, `.cols`, selects the columns to transform.
-This uses the same specifications as `select()`, @sec-select, so you can use functions like `starts_with()` and `ends_with()` to select columns based on their name.
+El primer argumento de `across()`, `.cols`, selecciona las columnas para transformar.
+Esto usa las mismas especificaciones que `select()`, @sec-select, por lo que puede usar funciones como `starts_with()` y `ends_with()` para seleccionar columnas según su nombre.
 
-There are two additional selection techniques that are particularly useful for `across()`: `everything()` and `where()`.
-`everything()` is straightforward: it selects every (non-grouping) column:
+Hay dos técnicas de selección adicionales que son particularmente útiles para `across()`: `everything()` y `where()`.
+`everything()` es sencillo: selecciona todas las columnas (no agrupadas):
 
 ```{r}
 df <- tibble(
@@ -98,29 +97,29 @@ df |>
   summarize(across(everything(), median))
 ```
 
-Note grouping columns (`grp` here) are not included in `across()`, because they're automatically preserved by `summarize()`.
+Tenga en cuenta que las columnas de agrupación (`grp` aquí) no se incluyen en `across()`, porque `summarize()` las conserva automáticamente.
 
-`where()` allows you to select columns based on their type:
+`where()` le permite seleccionar columnas según su tipo:
 
--   `where(is.numeric)` selects all numeric columns.
--   `where(is.character)` selects all string columns.
--   `where(is.Date)` selects all date columns.
--   `where(is.POSIXct)` selects all date-time columns.
--   `where(is.logical)` selects all logical columns.
+-   `where(is.numeric)` selecciona todas las columnas numéricas.
+-   `where(is.character)` selecciona todas las columnas de cadena.
+-   `where(is.Date)` selecciona todas las columnas de fecha.
+-   `where(is.POSIXct)` selecciona todas las columnas de fecha y hora.
+-   `where(is.logical)` selecciona todas las columnas lógicas.
 
-Just like other selectors, you can combine these with Boolean algebra.
-For example, `!where(is.numeric)` selects all non-numeric columns, and `starts_with("a") & where(is.logical)` selects all logical columns whose name starts with "a".
+Al igual que otros selectores, puede combinarlos con álgebra booleana.
+Por ejemplo, `!where(is.numeric)` selecciona todas las columnas no numéricas, y `starts_with("a") & where(is.logical)` selecciona todas las columnas lógicas cuyo nombre comienza con "a".
 
-### Calling a single function
+### Llamar a una sola función
 
-The second argument to `across()` defines how each column will be transformed.
-In simple cases, as above, this will be a single existing function.
-This is a pretty special feature of R: we're passing one function (`median`, `mean`, `str_flatten`, ...) to another function (`across`).
-This is one of the features that makes R a functional programming language.
+El segundo argumento de `across()` define cómo se transformará cada columna.
+En casos simples, como el anterior, esta será una sola función existente.
+Esta es una característica bastante especial de R: estamos pasando una función (`median`, `mean`, `str_flatten`, ...) a otra función (`across`).
+Esta es una de las características que hace de R un lenguaje de programación funcional.
 
-It's important to note that we're passing this function to `across()`, so `across()` can call it; we're not calling it ourselves.
-That means the function name should never be followed by `()`.
-If you forget, you'll get an error:
+Es importante tener en cuenta que estamos pasando esta función a `across()`, por lo que `across()` puede llamarla; no lo estamos llamando nosotros mismos.
+Eso significa que el nombre de la función nunca debe ir seguido de `()`.
+Si lo olvida, obtendrá un error:
 
 ```{r}
 #| error: true
@@ -129,18 +128,18 @@ df |>
   summarize(across(everything(), median()))
 ```
 
-This error arises because you're calling the function with no input, e.g.:
+Este error surge porque está llamando a la función sin entrada, por ejemplo:
 
 ```{r}
 #| error: true
 median()
 ```
 
-### Calling multiple functions
+### Llamar a múltiples funciones
 
-In more complex cases, you might want to supply additional arguments or perform multiple transformations.
-Let's motivate this problem with a simple example: what happens if we have some missing values in our data?
-`median()` propagates those missing values, giving us a suboptimal output:
+En casos más complejos, es posible que desee proporcionar argumentos adicionales o realizar varias transformaciones.
+Motivemos este problema con un ejemplo simple: ¿qué sucede si tenemos algunos valores faltantes en nuestros datos?
+`median()` propaga esos valores perdidos, dándonos un resultado subóptimo:
 
 ```{r}
 rnorm_na <- function(n, n_na, mean = 0, sd = 1) {
@@ -160,8 +159,8 @@ df_miss |>
   )
 ```
 
-It would be nice if we could pass along `na.rm = TRUE` to `median()` to remove these missing values.
-To do so, instead of calling `median()` directly, we need to create a new function that calls `median()` with the desired arguments:
+Sería bueno si pudiéramos pasar `na.rm = TRUE` a `median()` para eliminar estos valores faltantes.
+Para hacerlo, en lugar de llamar a `median()` directamente, necesitamos crear una nueva función que llame a `median()` con los argumentos deseados:
 
 ```{r}
 df_miss |> 
@@ -171,14 +170,10 @@ df_miss |>
   )
 ```
 
-This is a little verbose, so R comes with a handy shortcut: for this sort of throw away, or **anonymous**[^iteration-1], function you can replace `function` with `\`[^iteration-2]:
+Esto es un poco detallado, por lo que R viene con un atajo útil: para este tipo de función desechable, o **anónima**[^iteration-1], puede reemplazar `función` con `\`\[\^iteration-2 \]:
 
-[^iteration-1]: Anonymous, because we never explicitly gave it a name with `<-`.
-    Another term programmers use for this is "lambda function".
-
-[^iteration-2]: In older code you might see syntax that looks like `~ .x + 1`.
-    This is another way to write anonymous functions but it only works inside tidyverse functions and always uses the variable name `.x`.
-    We now recommend the base syntax, `\(x) x + 1`.
+[^iteration-1]: Anónimo, porque nunca le dimos explícitamente un nombre con `<-`.
+    Otro término que usan los programadores para esto es "función lambda".
 
 ```{r}
 #| results: false
@@ -189,7 +184,7 @@ df_miss |>
   )
 ```
 
-In either case, `across()` effectively expands to the following code:
+En cualquier caso, `across()` se expande efectivamente al siguiente código:
 
 ```{r}
 #| eval: false
@@ -204,9 +199,9 @@ df_miss |>
   )
 ```
 
-When we remove the missing values from the `median()`, it would be nice to know just how many values were removed.
-We can find that out by supplying two functions to `across()`: one to compute the median and the other to count the missing values.
-You supply multiple functions by using a named list to `.fns`:
+Cuando eliminamos los valores que faltan de la mediana, `median()`, sería bueno saber cuántos valores se eliminaron.
+Podemos averiguarlo proporcionando dos funciones a `across()`: una para calcular la mediana y la otra para contar los valores que faltan.
+Proporciona múltiples funciones usando una lista con nombre para `.fns`:
 
 ```{r}
 df_miss |> 
@@ -219,16 +214,16 @@ df_miss |>
   )
 ```
 
-If you look carefully, you might intuit that the columns are named using using a glue specification (@sec-glue) like `{.col}_{.fn}` where `.col` is the name of the original column and `.fn` is the name of the function.
-That's not a coincidence!
-As you'll learn in the next section, you can use `.names` argument to supply your own glue spec.
+Si observa detenidamente, puede intuir que las columnas se nombran utilizando una especificación de pegamento (@sec-glue) como `{.col}_{.fn}`, donde `.col` es el nombre de la columna original y `.fn` es el nombre de la función.
+¡Eso no es una coincidencia!
+Como aprenderá en la siguiente sección, puede usar el argumento `.names` para proporcionar su propia especificación de pegamento.
 
-### Column names
+### Nombres de columna
 
-The result of `across()` is named according to the specification provided in the `.names` argument.
-We could specify our own if we wanted the name of the function to come first[^iteration-3]:
+El resultado de `across()` se nombra de acuerdo con la especificación provista en el argumento `.names`.
+Podríamos especificar el nuestro si quisiéramos que el nombre de la función fuera primero [^iteration-2]:
 
-[^iteration-3]: You can't currently change the order of the columns, but you could reorder them after the fact using `relocate()` or similar.
+[^iteration-2]: actualmente no puede cambiar el orden de las columnas, pero podría reordenarlas después usando `relocate()` o similar.
 
 ```{r}
 df_miss |> 
@@ -245,10 +240,10 @@ df_miss |>
   )
 ```
 
-The `.names` argument is particularly important when you use `across()` with `mutate()`.
-By default, the output of `across()` is given the same names as the inputs.
-This means that `across()` inside of `mutate()` will replace existing columns.
-For example, here we use `coalesce()` to replace `NA`s with `0`:
+El argumento `.names` es particularmente importante cuando usas `across()` con `mutate()`.
+Por defecto, la salida de `across()` recibe los mismos nombres que las entradas.
+Esto significa que `across()` dentro de `mutate()` reemplazará las columnas existentes.
+Por ejemplo, aquí usamos `coalesce()` para reemplazar `NA`s con `0`:
 
 ```{r}
 df_miss |> 
@@ -257,7 +252,7 @@ df_miss |>
   )
 ```
 
-If you'd like to instead create new columns, you can use the `.names` argument to give the output new names:
+Si desea crear nuevas columnas, puede usar el argumento `.names` para dar nuevos nombres a la salida:
 
 ```{r}
 df_miss |> 
@@ -266,24 +261,24 @@ df_miss |>
   )
 ```
 
-### Filtering
+### Filtrando
 
-`across()` is a great match for `summarize()` and `mutate()` but it's more awkward to use with `filter()`, because you usually combine multiple conditions with either `|` or `&`.
-It's clear that `across()` can help to create multiple logical columns, but then what?
-So dplyr provides two variants of `across()` called `if_any()` and `if_all()`:
+`across()` es una gran combinación para `summarize()` y `mutate()`, pero es más incómodo de usar con `filter()`, porque generalmente combina varias condiciones con `|` o `&`.
+Está claro que `across()` puede ayudar a crear varias columnas lógicas, pero ¿entonces qué?
+Así que dplyr proporciona dos variantes de `across()` llamadas `if_any()` y `if_all()`:
 
 ```{r}
-# same as df_miss |> filter(is.na(a) | is.na(b) | is.na(c) | is.na(d))
+# igual que df_miss |> filter(is.na(a) | is.na(b) | is.na(c) | is.na(d))
 df_miss |> filter(if_any(a:d, is.na))
 
-# same as df_miss |> filter(is.na(a) & is.na(b) & is.na(c) & is.na(d))
+# igual que df_miss |> filter(is.na(a) & is.na(b) & is.na(c) & is.na(d))
 df_miss |> filter(if_all(a:d, is.na))
 ```
 
-### `across()` in functions
+### `across()` en funciones
 
-`across()` is particularly useful to program with because it allows you to operate on multiple columns.
-For example, [Jacob Scott](https://twitter.com/_wurli/status/1571836746899283969) uses this little helper which wraps a bunch of lubridate function to expand all date columns into year, month, and day columns:
+`across()` es particularmente útil para programar porque te permite operar en múltiples columnas.
+Por ejemplo, [Jacob Scott](https://twitter.com/_wurli/status/1571836746899283969) usa este pequeño ayudante que envuelve un montón de funciones de lubridate para expandir todas las columnas de fecha en columnas de año, mes y día:
 
 ```{r}
 expand_dates <- function(df) {
@@ -302,9 +297,9 @@ df_date |>
   expand_dates()
 ```
 
-`across()` also makes it easy to supply multiple columns in a single argument because the first argument uses tidy-select; you just need to remember to embrace that argument, as we discussed in @sec-embracing.
-For example, this function will compute the means of numeric columns by default.
-But by supplying the second argument you can choose to summarize just selected columns:
+`across()` también facilita el suministro de múltiples columnas en un solo argumento porque el primer argumento usa tidy-select; solo necesita recordar abrazar ese argumento, como discutimos en @sec-embracing.
+Por ejemplo, esta función calculará las medias de las columnas numéricas de forma predeterminada.
+Pero al proporcionar el segundo argumento, puede optar por resumir solo las columnas seleccionadas:
 
 ```{r}
 summarize_means <- function(df, summary_vars = where(is.numeric)) {
@@ -325,16 +320,16 @@ diamonds |>
 
 ### Vs `pivot_longer()`
 
-Before we go on, it's worth pointing out an interesting connection between `across()` and `pivot_longer()` (@sec-pivoting).
-In many cases, you perform the same calculations by first pivoting the data and then performing the operations by group rather than by column.
-For example, take this multi-function summary:
+Antes de continuar, vale la pena señalar una conexión interesante entre `across()` y `pivot_longer()` (@sec-pivoting).
+En muchos casos, usted realiza los mismos cálculos girando primero los datos y luego realizando las operaciones por grupo en lugar de por columna.
+Por ejemplo, tome este resumen multifunción:
 
 ```{r}
 df |> 
   summarize(across(a:d, list(median = median, mean = mean)))
 ```
 
-We could compute the same values by pivoting longer and then summarizing:
+Podríamos calcular los mismos valores girando más y luego resumiendo:
 
 ```{r}
 long <- df |> 
@@ -347,7 +342,7 @@ long <- df |>
 long
 ```
 
-And if you wanted the same structure as `across()` you could pivot again:
+Y si quisieras la misma estructura que `across()`, podrías pivotar de nuevo:
 
 ```{r}
 long |> 
@@ -359,8 +354,8 @@ long |>
   )
 ```
 
-This is a useful technique to know about because sometimes you'll hit a problem that's not currently possible to solve with `across()`: when you have groups of columns that you want to compute with simultaneously.
-For example, imagine that our data frame contains both values and weights and we want to compute a weighted mean:
+Esta es una técnica útil para conocer porque a veces te encontrarás con un problema que actualmente no es posible resolver con `across()`: cuando tienes grupos de columnas con las que quieres calcular simultáneamente.
+Por ejemplo, imagine que nuestro data frame contiene valores y pesos y queremos calcular una media ponderada:
 
 ```{r}
 df_paired <- tibble(
@@ -375,9 +370,9 @@ df_paired <- tibble(
 )
 ```
 
-There's currently no way to do this with `across()`[^iteration-4], but it's relatively straightforward with `pivot_longer()`:
+Actualmente no hay forma de hacer esto con `across()`[^iteration-3], pero es relativamente sencillo con `pivot_longer()`:
 
-[^iteration-4]: Maybe there will be one day, but currently we don't see how.
+[^iteration-3]: Tal vez habrá un día, pero actualmente no vemos cómo.
 
 ```{r}
 df_long <- df_paired |> 
@@ -393,26 +388,26 @@ df_long |>
   summarize(mean = weighted.mean(val, wts))
 ```
 
-If needed, you could `pivot_wider()` this back to the original form.
+Si es necesario, puede `pivot_wider()` para devolverlo a la forma original.
 
-### Exercises
+### Ejercicios
 
-1.  Practice your `across()` skills by:
+1.  Practica tus habilidades `across()` al:
 
-    1.  Computing the number of unique values in each column of `palmerpenguins::penguins`.
+    1.  Calcular el número de valores únicos en cada columna de `palmerpenguins::penguins`.
 
-    2.  Computing the mean of every column in `mtcars`.
+    2.  Calcular la media de cada columna en `mtcars`.
 
-    3.  Grouping `diamonds` by `cut`, `clarity`, and `color` then counting the number of observations and computing the mean of each numeric column.
+    3.  Agrupar 'diamantes' por 'corte', 'claridad' y 'color' y luego contar el número de observaciones y calcular la media de cada columna numérica.
 
-2.  What happens if you use a list of functions in `across()`, but don't name them?
-    How is the output named?
+2.  ¿Qué pasa si usas una lista de funciones en `across()`, pero no las nombras?
+    ¿Cómo se llama la salida?
 
-3.  Adjust `expand_dates()` to automatically remove the date columns after they've been expanded.
-    Do you need to embrace any arguments?
+3.  Ajuste `expand_dates()` para eliminar automáticamente las columnas de fecha después de que se hayan expandido.
+    ¿Necesitas aceptar algún argumento?
 
-4.  Explain what each step of the pipeline in this function does.
-    What special feature of `where()` are we taking advantage of?
+4.  Explique qué hace cada paso de la tubería en esta función.
+    ¿Qué característica especial de `where()` estamos aprovechando?
 
     ```{r}
     #| results: false
@@ -429,14 +424,12 @@ If needed, you could `pivot_wider()` this back to the original form.
     nycflights13::flights |> show_missing(c(year, month, day))
     ```
 
-## Reading multiple files
+## Leer varios archivos
 
-In the previous section, you learned how to use `dplyr::across()` to repeat a transformation on multiple columns.
-In this section, you'll learn how to use `purrr::map()` to do something to every file in a directory.
-Let's start with a little motivation: imagine you have a directory full of excel spreadsheets[^iteration-5] you want to read.
-You could do it with copy and paste:
-
-[^iteration-5]: If you instead had a directory of csv files with the same format, you can use the technique from @sec-readr-directory.
+En la sección anterior, aprendiste a usar `dplyr::across()` para repetir una transformación en varias columnas.
+En esta sección, aprenderá cómo usar `purrr::map()` para hacer algo con cada archivo en un directorio.
+Empecemos con un poco de motivación: imagine que tiene un directorio lleno de hojas de cálculo de Excel\[\^iteración-4\] que desea leer.
+Podrías hacerlo con copiar y pegar:
 
 ```{r}
 #| eval: false
@@ -446,34 +439,34 @@ data2021 <- readxl::read_excel("data/y2021.xlsx")
 data2022 <- readxl::read_excel("data/y2022.xlsx")
 ```
 
-And then use `dplyr::bind_rows()` to combine them all together:
+Y luego usa `dplyr::bind_rows()` para combinarlos todos juntos:
 
 ```{r}
 #| eval: false
 data <- bind_rows(data2019, data2020, data2021, data2022)
 ```
 
-You can imagine that this would get tedious quickly, especially if you had hundreds of files, not just four.
-The following sections show you how to automate this sort of task.
-There are three basic steps: use `list.files()` to list all the files in a directory, then use `purrr::map()` to read each of them into a list, then use `purrr::list_rbind()` to combine them into a single data frame.
-We'll then discuss how you can handle situations of increasing heterogeneity, where you can't do exactly the same thing to every file.
+Puede imaginar que esto se volvería tedioso rápidamente, especialmente si tuviera cientos de archivos, no solo cuatro.
+Las siguientes secciones le muestran cómo automatizar este tipo de tareas.
+Hay tres pasos básicos: use `list.files()` para listar todos los archivos en un directorio, luego use `purrr::map()` para leer cada uno de ellos en una lista, luego use `purrr::list_rbind( )` para combinarlos en un solo data frame.
+Luego, analizaremos cómo puede manejar situaciones de creciente heterogeneidad, en las que no puede hacer exactamente lo mismo con todos los archivos.
 
-### Listing files in a directory
+### Listado de archivos en un directorio
 
-As the name suggests, `list.files()` lists the files in a directory.
-You'll almost always use three arguments:
+Como sugiere el nombre, `list.files()` enumera los archivos en un directorio.
+Casi siempre usarás tres argumentos:
 
--   The first argument, `path`, is the directory to look in.
+-   El primer argumento, `path`, es el directorio en el que buscar.
 
--   `pattern` is a regular expression used to filter the file names.
-    The most common pattern is something like `[.]xlsx$` or `[.]csv$` to find all files with a specified extension.
+-   `pattern` es una expresión regular utilizada para filtrar los nombres de archivo.
+    El patrón más común es algo como `[.]xlsx$` o `[.]csv$` para encontrar todos los archivos con una extensión específica.
 
--   `full.names` determines whether or not the directory name should be included in the output.
-    You almost always want this to be `TRUE`.
+-   `full.names` determina si el nombre del directorio debe incluirse o no en la salida.
+    Casi siempre quieres que esto sea `TRUE`.
 
-To make our motivating example concrete, this book contains a folder with 12 excel spreadsheets containing data from the gapminder package.
-Each file contains one year's worth of data for 142 countries.
-We can list them all with the appropriate call to `list.files()`:
+Para concretar nuestro ejemplo motivador, este libro contiene una carpeta con 12 hojas de cálculo de Excel que contienen datos del paquete gapminder.
+Cada archivo contiene datos de un año para 142 países.
+Podemos listarlos todos con la llamada apropiada a `list.files()`:
 
 ```{r}
 paths <- list.files("data/gapminder", pattern = "[.]xlsx$", full.names = TRUE)
@@ -482,7 +475,7 @@ paths
 
 ### Lists
 
-Now that we have these 12 paths, we could call `read_excel()` 12 times to get 12 data frames:
+Ahora que tenemos estas 12 rutas, podríamos llamar a `read_excel()` 12 veces para obtener 12 data frames:
 
 ```{r}
 #| eval: false
@@ -493,9 +486,9 @@ gapminder_1962 <- readxl::read_excel("data/gapminder/1962.xlsx")
 gapminder_2007 <- readxl::read_excel("data/gapminder/2007.xlsx")
 ```
 
-But putting each sheet into its own variable is going to make it hard to work with them a few steps down the road.
-Instead, they'll be easier to work with if we put them into a single object.
-A list is the perfect tool for this job:
+Pero poner cada hoja en su propia variable hará que sea difícil trabajar con ellas unos pasos más adelante.
+En cambio, será más fácil trabajar con ellos si los ponemos en un solo objeto.
+Una lista es la herramienta perfecta para este trabajo:
 
 ```{r}
 #| eval: false
@@ -513,20 +506,21 @@ files <- list(
 files <- map(paths, readxl::read_excel)
 ```
 
-Now that you have these data frames in a list, how do you get one out?
-You can use `files[[i]]` to extract the i-th element:
+Ahora que tiene estos data frames en una lista, ¿cómo obtiene uno?
+Puedes usar `files[[i]]` para extraer el i-ésimo elemento:
 
 ```{r}
 files[[3]]
 ```
 
-We'll come back to `[[` in more detail in @sec-subset-one.
+Volveremos a `[[` con más detalle en @sec-subset-one.
 
 ### `purrr::map()` and `list_rbind()`
 
-The code to collect those data frames in a list "by hand" is basically just as tedious to type as code that reads the files one-by-one.
-Happily, we can use `purrr::map()` to make even better use of our `paths` vector.
-`map()` is similar to`across()`, but instead of doing something to each column in a data frame, it does something to each element of a vector.`map(x, f)` is shorthand for:
+El código para recopilar esos data frames en una lista "a mano" es básicamente tan tedioso de escribir como el código que lee los archivos uno por uno.
+Felizmente, podemos usar `purrr::map()` para hacer un mejor uso de nuestro vector `paths`.
+`map()` es similar a `across()`, pero en lugar de hacer algo con cada columna en un data frame, hace algo con cada elemento de un vector.
+`map(x, f)` es una abreviatura de:
 
 ```{r}
 #| eval: false
@@ -538,7 +532,7 @@ list(
 )
 ```
 
-So we can use `map()` to get a list of 12 data frames:
+Entonces podemos usar `map()` para obtener una lista de 12 data frames:
 
 ```{r}
 files <- map(paths, readxl::read_excel)
@@ -547,15 +541,15 @@ length(files)
 files[[1]]
 ```
 
-(This is another data structure that doesn't display particularly compactly with `str()` so you might want to load it into RStudio and inspect it with `View()`).
+(Esta es otra estructura de datos que no se muestra de manera particularmente compacta con `str()`, por lo que es posible que desee cargarla en RStudio e inspeccionarla con `View()`).
 
-Now we can use `purrr::list_rbind()` to combine that list of data frames into a single data frame:
+Ahora podemos usar `purrr::list_rbind()` para combinar esa lista de data frames en un solo data frame:
 
 ```{r}
 list_rbind(files)
 ```
 
-Or we could do both steps at once in a pipeline:
+O podríamos hacer ambos pasos a la vez en una canalización:
 
 ```{r}
 #| results: false
@@ -564,9 +558,9 @@ paths |>
   list_rbind()
 ```
 
-What if we want to pass in extra arguments to `read_excel()`?
-We use the same technique that we used with `across()`.
-For example, it's often useful to peak at the first few rows of the data with `n_max = 1`:
+¿Qué sucede si queremos pasar argumentos adicionales a `read_excel()`?
+Usamos la misma técnica que usamos con `across()`.
+Por ejemplo, suele ser útil alcanzar un máximo en las primeras filas de los datos con `n_max = 1`:
 
 ```{r}
 paths |> 
@@ -574,24 +568,24 @@ paths |>
   list_rbind()
 ```
 
-This makes it clear that something is missing: there's no `year` column because that value is recorded in the path, not the individual files.
-We'll tackle that problem next.
+Esto deja en claro que falta algo: no hay una columna `year` porque ese valor se registra en la ruta, no en los archivos individuales.
+Abordaremos ese problema a continuación.
 
-### Data in the path {#sec-data-in-the-path}
+### Datos en la ruta {#sec-data-in-the-path}
 
-Sometimes the name of the file is data itself.
-In this example, the file name contains the year, which is not otherwise recorded in the individual files.
-To get that column into the final data frame, we need to do two things:
+A veces, el nombre del archivo es el propio dato.
+En este ejemplo, el nombre del archivo contiene el año, que de otro modo no se registra en los archivos individuales.
+Para colocar esa columna en el data frame final, debemos hacer dos cosas:
 
-First, we name the vector of paths.
-The easiest way to do this is with the `set_names()` function, which can take a function.
-Here we use `basename()` to extract just the file name from the full path:
+Primero, nombramos el vector de rutas.
+La forma más fácil de hacer esto es con la función `set_names()`, que puede tomar una función.
+Aquí usamos `basename()` para extraer solo el nombre del archivo de la ruta completa:
 
 ```{r}
 paths |> set_names(basename) 
 ```
 
-Those names are automatically carried along by all the map functions, so the list of data frames will have those same names:
+Esos nombres son llevados automáticamente por todas las funciones del mapa, por lo que la lista de data frames tendrá esos mismos nombres:
 
 ```{r}
 files <- paths |> 
@@ -599,7 +593,7 @@ files <- paths |>
   map(readxl::read_excel)
 ```
 
-That makes this call to `map()` shorthand for:
+Eso hace que esta llamada a `map()` sea abreviada para:
 
 ```{r}
 #| eval: false
@@ -612,13 +606,13 @@ files <- list(
 )
 ```
 
-You can also use `[[` to extract elements by name:
+También puedes usar `[[` para extraer elementos por nombre:
 
 ```{r}
 files[["1962.xlsx"]]
 ```
 
-Then we use the `names_to` argument to `list_rbind()` to tell it to save the names into a new column called `year` then use `readr::parse_number()` to extract the number from the string.
+Luego usamos el argumento `names_to` para `list_rbind()` para decirle que guarde los nombres en una nueva columna llamada `year` y luego usamos `readr::parse_number()` para extraer el número de la cadena.
 
 ```{r}
 paths |> 
@@ -628,8 +622,8 @@ paths |>
   mutate(year = parse_number(year))
 ```
 
-In more complicated cases, there might be other variables stored in the directory name, or maybe the file name contains multiple bits of data.
-In that case, use `set_names()` (without any arguments) to record the full path, and then use `tidyr::separate_wider_delim()` and friends to turn them into useful columns.
+En casos más complicados, puede haber otras variables almacenadas en el nombre del directorio, o tal vez el nombre del archivo contenga varios bits de datos.
+En ese caso, use `set_names()` (sin ningún argumento) para registrar la ruta completa y luego use `tidyr::separate_wider_delim()` y sus amigos para convertirlos en columnas útiles.
 
 ```{r}
 paths |> 
@@ -640,9 +634,9 @@ paths |>
   separate_wider_delim(file, delim = ".", names = c("file", "ext"))
 ```
 
-### Save your work
+### Guarda tu trabajo
 
-Now that you've done all this hard work to get to a nice tidy data frame, it's a great time to save your work:
+Ahora que ha hecho todo este arduo trabajo para llegar a un buen data frame ordenado, es un buen momento para guardar su trabajo:
 
 ```{r}
 gapminder <- paths |> 
@@ -654,27 +648,27 @@ gapminder <- paths |>
 write_csv(gapminder, "gapminder.csv")
 ```
 
-Now when you come back to this problem in the future, you can read in a single csv file.
-For large and richer datasets, using parquet might be a better choice than `.csv`, as discussed in @sec-parquet.
+Ahora, cuando regrese a este problema en el futuro, puede leer en un solo archivo csv.
+Para conjuntos de datos más grandes y ricos, usar parquet podría ser una mejor opción que `.csv`, como se explica en @sec-parquet.
 
 ```{r}
 #| include: false
 unlink("gapminder.csv")
 ```
 
-If you're working in a project, we'd suggest calling the file that does this sort of data prep work something like `0-cleanup.R`.
-The `0` in the file name suggests that this should be run before anything else.
+Si está trabajando en un proyecto, le sugerimos llamar al archivo que hace este tipo de trabajo de preparación de datos algo así como `0-cleanup.R`.
+El `0` en el nombre del archivo sugiere que esto debe ejecutarse antes que cualquier otra cosa.
 
-If your input data files change over time, you might consider learning a tool like [targets](https://docs.ropensci.org/targets/) to set up your data cleaning code to automatically re-run whenever one of the input files is modified.
+Si sus archivos de datos de entrada cambian con el tiempo, podría considerar aprender una herramienta como [targets](https://docs.ropensci.org/targets/) para configurar su código de limpieza de datos para que se vuelva a ejecutar automáticamente cada vez que una de las entradas se modifican los archivos.
 
-### Many simple iterations
+### Muchas iteraciones simples
 
-Here we've just loaded the data directly from disk, and were lucky enough to get a tidy dataset.
-In most cases, you'll need to do some additional tidying, and you have two basic options: you can do one round of iteration with a complex function, or do multiple rounds of iteration with simple functions.
-In our experience most folks reach first for one complex iteration, but you're often better by doing multiple simple iterations.
+Aquí acabamos de cargar los datos directamente desde el disco y tuvimos la suerte de obtener un conjunto de datos ordenado.
+En la mayoría de los casos, deberá realizar algunas tareas de limpieza adicionales y tiene dos opciones básicas: puede realizar una ronda de iteración con una función compleja o realizar varias rondas de iteración con funciones simples.
+En nuestra experiencia, la mayoría de la gente llega primero a una iteración compleja, pero a menudo es mejor hacer varias iteraciones simples.
 
-For example, imagine that you want to read in a bunch of files, filter out missing values, pivot, and then combine.
-One way to approach the problem is to write a function that takes a file and does all those steps then call `map()` once:
+Por ejemplo, imagine que desea leer un montón de archivos, filtrar los valores faltantes, pivotar y luego combinar.
+Una forma de abordar el problema es escribir una función que tome un archivo y realice todos esos pasos y luego llame a `map()` una vez:
 
 ```{r}
 #| eval: false
@@ -692,7 +686,7 @@ paths |>
   list_rbind()
 ```
 
-Alternatively, you could perform each step of `process_file()` to every file:
+Alternativamente, podría realizar cada paso de `process_file()` para cada archivo:
 
 ```{r}
 #| eval: false
@@ -705,11 +699,11 @@ paths |>
   list_rbind()
 ```
 
-We recommend this approach because it stops you getting fixated on getting the first file right before moving on to the rest.
-By considering all of the data when doing tidying and cleaning, you're more likely to think holistically and end up with a higher quality result.
+Recomendamos este enfoque porque evita que se obsesione con obtener el primer archivo correctamente antes de pasar al resto.
+Al considerar todos los datos al ordenar y limpiar, es más probable que piense de manera integral y termine con un resultado de mayor calidad.
 
-In this particular example, there's another optimization you could make, by binding all the data frames together earlier.
-Then you can rely on regular dplyr behavior:
+En este ejemplo en particular, hay otra optimización que podría hacer al vincular todos los data frames antes.
+Entonces puede confiar en el comportamiento regular de dplyr:
 
 ```{r}
 #| eval: false
@@ -721,10 +715,10 @@ paths |>
   pivot_longer(jan:dec, names_to = "month")
 ```
 
-### Heterogeneous data
+### Datos heterogéneos
 
-Unfortunately, sometimes it's not possible to go from `map()` straight to `list_rbind()` because the data frames are so heterogeneous that `list_rbind()` either fails or yields a data frame that's not very useful.
-In that case, it's still useful to start by loading all of the files:
+Desafortunadamente, a veces no es posible pasar directamente de `map()` a `list_rbind()` porque los data frames son tan heterogéneos que `list_rbind()` falla o produce un data frame que no es muy útil.
+En ese caso, sigue siendo útil comenzar cargando todos los archivos:
 
 ```{r}
 #| eval: false
@@ -732,10 +726,10 @@ files <- paths |>
   map(readxl::read_excel) 
 ```
 
-Then a very useful strategy is to capture the structure of the data frames so that you can explore it using your data science skills.
-One way to do so is with this handy `df_types` function[^iteration-6] that returns a tibble with one row for each column:
+Luego, una estrategia muy útil es capturar la estructura de los data frames para que pueda explorarla usando sus habilidades de ciencia de datos.
+Una forma de hacerlo es con esta útil función `df_types` [^iteration-4] que devuelve un tibble con una fila para cada columna:
 
-[^iteration-6]: We're not going to explain how it works, but you if you look at the docs for the functions used, you should be able to puzzle it out.
+[^iteration-4]: no vamos a explicar cómo funciona, pero si miras los documentos de las funciones utilizadas, deberías poder descifrarlo.
 
 ```{r}
 df_types <- function(df) {
@@ -749,8 +743,8 @@ df_types <- function(df) {
 df_types(gapminder)
 ```
 
-You can then apply this function to all of the files, and maybe do some pivoting to make it easier to see where the differences are.
-For example, this makes it easy to verify that the gapminder spreadsheets that we've been working with are all quite homogeneous:
+Luego puede aplicar esta función a todos los archivos, y tal vez hacer algunos cambios para que sea más fácil ver dónde están las diferencias.
+Por ejemplo, esto facilita la verificación de que las hojas de cálculo de gapminder con las que hemos estado trabajando son bastante homogéneas:
 
 ```{r}
 files |> 
@@ -760,20 +754,20 @@ files |>
   pivot_wider(names_from = col_name, values_from = col_type)
 ```
 
-If the files have heterogeneous formats, you might need to do more processing before you can successfully merge them.
-Unfortunately, we're now going to leave you to figure that out on your own, but you might want to read about `map_if()` and `map_at()`.
-`map_if()` allows you to selectively modify elements of a list based on their values; `map_at()` allows you to selectively modify elements based on their names.
+Si los archivos tienen formatos heterogéneos, es posible que deba realizar más procesamiento antes de poder fusionarlos correctamente.
+Desafortunadamente, ahora vamos a dejar que lo averigües por tu cuenta, pero es posible que desees leer acerca de `map_if()` y `map_at()`.
+`map_if()` te permite modificar elementos de una lista de forma selectiva en función de sus valores; `map_at()` te permite modificar elementos de forma selectiva en función de sus nombres.
 
-### Handling failures
+### Manejo de fallas
 
-Sometimes the structure of your data might be sufficiently wild that you can't even read all the files with a single command.
-And then you'll encounter one of the downsides of map: it succeeds or fails as a whole.
-`map()` will either successfully read all of the files in a directory or fail with an error, reading zero files.
-This is annoying: why does one failure prevent you from accessing all the other successes?
+A veces, la estructura de sus datos puede ser lo suficientemente salvaje como para que ni siquiera pueda leer todos los archivos con un solo comando.
+Y luego te encontrarás con una de las desventajas de map: tiene éxito o falla como un todo.
+`map()` leerá con éxito todos los archivos en un directorio o fallará con un error, leyendo cero archivos.
+Esto es molesto: ¿por qué una falla le impide acceder a todos los demás éxitos?
 
-Luckily, purrr comes with a helper to tackle this problem: `possibly()`.
-`possibly()` is what's known as a function operator: it takes a function and returns a function with modified behavior.
-In particular, `possibly()` changes a function from erroring to returning a value that you specify:
+Afortunadamente, purrr viene con un ayudante para abordar este problema: `possibly()`.
+`possibly()` es lo que se conoce como operador de función: toma una función y devuelve una función con comportamiento modificado.
+En particular, `possibly()` cambia una función de error a devolver un valor que especifique:
 
 ```{r}
 files <- paths |> 
@@ -782,35 +776,35 @@ files <- paths |>
 data <- files |> list_rbind()
 ```
 
-This works particularly well here because `list_rbind()`, like many tidyverse functions, automatically ignores `NULL`s.
+Esto funciona particularmente bien aquí porque `list_rbind()`, como muchas funciones de tidyverse, automáticamente ignora `NULL`s.
 
-Now you have all the data that can be read easily, and it's time to tackle the hard part of figuring out why some files failed to load and what do to about it.
-Start by getting the paths that failed:
+Ahora tiene todos los datos que se pueden leer fácilmente, y es hora de abordar la parte difícil de averiguar por qué algunos archivos no se cargaron y qué hacer al respecto.
+Comience por obtener las rutas que fallaron:
 
 ```{r}
 failed <- map_vec(files, is.null)
 paths[failed]
 ```
 
-Then call the import function again for each failure and figure out what went wrong.
+Luego, vuelva a llamar a la función de importación para cada falla y descubra qué salió mal.
 
-## Saving multiple outputs
+## Guardar múltiples salidas
 
-In the last section, you learned about `map()`, which is useful for reading multiple files into a single object.
-In this section, we'll now explore sort of the opposite problem: how can you take one or more R objects and save it to one or more files?
-We'll explore this challenge using three examples:
+En la última sección, aprendiste sobre `map()`, que es útil para leer múltiples archivos en un solo objeto.
+En esta sección, ahora exploraremos una especie de problema opuesto: ¿cómo puede tomar uno o más objetos R y guardarlos en uno o más archivos?
+Exploraremos este desafío usando tres ejemplos:
 
--   Saving multiple data frames into one database.
--   Saving multiple data frames into multiple `.csv` files.
--   Saving multiple plots to multiple `.png` files.
+-   Guardar múltiples data frames en una base de datos.
+-   Guardar múltiples data frames en múltiples archivos `.csv`.
+-   Guardar varias gráficas en varios archivos `.png`.
 
-### Writing to a database {#sec-save-database}
+### Escribir en una base de datos {#sec-save-database}
 
-Sometimes when working with many files at once, it's not possible to fit all your data into memory at once, and you can't do `map(files, read_csv)`.
-One approach to deal with this problem is to load your data into a database so you can access just the bits you need with dbplyr.
+A veces, cuando se trabaja con muchos archivos a la vez, no es posible colocar todos los datos en la memoria a la vez y no se puede hacer `map(files, read_csv)`.
+Un enfoque para lidiar con este problema es cargar sus datos en una base de datos para que pueda acceder solo a los bits que necesita con dbplyr.
 
-If you're lucky, the database package you're using will provide a handy function that takes a vector of paths and loads them all into the database.
-This is the case with duckdb's `duckdb_read_csv()`:
+Si tiene suerte, el paquete de base de datos que está utilizando proporcionará una función útil que toma un vector de rutas y las carga todas en la base de datos.
+Este es el caso con `duckdb_read_csv()` de duckdb:
 
 ```{r}
 #| eval: false
@@ -818,13 +812,13 @@ con <- DBI::dbConnect(duckdb::duckdb())
 duckdb::duckdb_read_csv(con, "gapminder", paths)
 ```
 
-This would work well here, but we don't have csv files, instead we have excel spreadsheets.
-So we're going to have to do it "by hand".
-Learning to do it by hand will also help you when you have a bunch of csvs and the database that you're working with doesn't have one function that will load them all in.
+Esto funcionaría bien aquí, pero no tenemos archivos csv, sino hojas de cálculo de Excel.
+Así que vamos a tener que hacerlo "a mano".
+Aprender a hacerlo a mano también te ayudará cuando tengas un montón de csvs y la base de datos con la que estás trabajando no tenga una función que los cargue todos.
 
-We need to start by creating a table that will fill in with data.
-The easiest way to do this is by creating a template, a dummy data frame that contains all the columns we want, but only a sampling of the data.
-For the gapminder data, we can make that template by reading a single file and adding the year to it:
+Necesitamos comenzar creando una tabla que se llene con datos.
+La forma más sencilla de hacerlo es creando una plantilla, un data frame ficticio que contiene todas las columnas que queremos, pero solo una muestra de los datos.
+Para los datos de gapminder, podemos hacer esa plantilla leyendo un solo archivo y añadiéndole el año:
 
 ```{r}
 template <- readxl::read_excel(paths[[1]])
@@ -832,22 +826,22 @@ template$year <- 1952
 template
 ```
 
-Now we can connect to the database, and use `DBI::dbCreateTable()` to turn our template into a database table:
+Ahora podemos conectarnos a la base de datos y usar `DBI::dbCreateTable()` para convertir nuestra plantilla en una tabla de base de datos:
 
 ```{r}
 con <- DBI::dbConnect(duckdb::duckdb())
 DBI::dbCreateTable(con, "gapminder", template)
 ```
 
-`dbCreateTable()` doesn't use the data in `template`, just the variable names and types.
-So if we inspect the `gapminder` table now you'll see that it's empty but it has the variables we need with the types we expect:
+`dbCreateTable()` no usa los datos en `template`, solo los nombres y tipos de variables.
+Así que si inspeccionamos la tabla `gapminder` ahora verás que está vacía pero tiene las variables que necesitamos con los tipos que esperamos:
 
 ```{r}
 con |> tbl("gapminder")
 ```
 
-Next, we need a function that takes a single file path, reads it into R, and adds the result to the `gapminder` table.
-We can do that by combining `read_excel()` with `DBI::dbAppendTable()`:
+A continuación, necesitamos una función que tome una única ruta de archivo, la lea en R y agregue el resultado a la tabla `gapminder`.
+Podemos hacerlo combinando `read_excel()` con `DBI::dbAppendTable()`:
 
 ```{r}
 append_file <- function(path) {
@@ -858,22 +852,22 @@ append_file <- function(path) {
 }
 ```
 
-Now we need to call `append_file()` once for each element of `paths`.
-That's certainly possible with `map()`:
+Ahora necesitamos llamar a `append_file()` una vez por cada elemento de `paths`.
+Eso es ciertamente posible con `map()`:
 
 ```{r}
 #| eval: false
 paths |> map(append_file)
 ```
 
-But we don't care about the output of `append_file()`, so instead of `map()` it's slightly nicer to use `walk()`.
-`walk()` does exactly the same thing as `map()` but throws the output away:
+Pero no nos importa la salida de `append_file()`, así que en lugar de `map()` es un poco mejor usar `walk()`.
+`walk()` hace exactamente lo mismo que `map()` pero descarta el resultado:
 
 ```{r}
 paths |> walk(append_file)
 ```
 
-Now we can see if we have all the data in our table:
+Ahora podemos ver si tenemos todos los datos en nuestra tabla:
 
 ```{r}
 con |> 
@@ -886,12 +880,12 @@ con |>
 DBI::dbDisconnect(con, shutdown = TRUE)
 ```
 
-### Writing csv files
+### Escribir archivos csv
 
-The same basic principle applies if we want to write multiple csv files, one for each group.
-Let's imagine that we want to take the `ggplot2::diamonds` data and save one csv file for each `clarity`.
-First we need to make those individual datasets.
-There are many ways you could do that, but there's one way we particularly like: `group_nest()`.
+El mismo principio básico se aplica si queremos escribir varios archivos csv, uno para cada grupo.
+Imaginemos que queremos tomar los datos `ggplot2::diamonds` y guardar un archivo csv para cada `clarity`.
+Primero necesitamos hacer esos conjuntos de datos individuales.
+Hay muchas formas de hacerlo, pero hay una que nos gusta especialmente: `group_nest()`.
 
 ```{r}
 by_clarity <- diamonds |> 
@@ -900,14 +894,14 @@ by_clarity <- diamonds |>
 by_clarity
 ```
 
-This gives us a new tibble with eight rows and two columns.
-`clarity` is our grouping variable and `data` is a list-column containing one tibble for each unique value of `clarity`:
+Esto nos da un nuevo tibble con ocho filas y dos columnas.
+`clarity` es nuestra variable de agrupación y `data` es una columna de lista que contiene un tibble para cada valor único de `clarity`:
 
 ```{r}
 by_clarity$data[[1]]
 ```
 
-While we're here, let's create a column that gives the name of output file, using `mutate()` and `str_glue()`:
+Ya que estamos aquí, creemos una columna que dé el nombre del archivo de salida, usando `mutate()` y `str_glue()`:
 
 ```{r}
 by_clarity <- by_clarity |> 
@@ -916,7 +910,7 @@ by_clarity <- by_clarity |>
 by_clarity
 ```
 
-So if we were going to save these data frames by hand, we might write something like:
+Entonces, si fuéramos a guardar estos data frames a mano, podríamos escribir algo como:
 
 ```{r}
 #| eval: false
@@ -927,10 +921,10 @@ write_csv(by_clarity$data[[3]], by_clarity$path[[3]])
 write_csv(by_clarity$by_clarity[[8]], by_clarity$path[[8]])
 ```
 
-This is a little different to our previous uses of `map()` because there are two arguments that are changing, not just one.
-That means we need a new function: `map2()`, which varies both the first and second arguments.
-And because we again don't care about the output, we want `walk2()` rather than `map2()`.
-That gives us:
+Esto es un poco diferente a nuestros usos anteriores de `map()` porque hay dos argumentos que están cambiando, no solo uno.
+Eso significa que necesitamos una nueva función: `map2()`, que varía tanto el primer como el segundo argumento.
+Y como tampoco nos importa la salida, queremos `walk2()` en lugar de `map2()`.
+Eso nos da:
 
 ```{r}
 walk2(by_clarity$data, by_clarity$path, write_csv)
@@ -941,10 +935,10 @@ walk2(by_clarity$data, by_clarity$path, write_csv)
 unlink(by_clarity$path)
 ```
 
-### Saving plots
+### Guardar gráficas
 
-We can take the same basic approach to create many plots.
-Let's first make a function that draws the plot we want:
+Podemos tomar el mismo enfoque básico para crear muchas gráficas.
+Primero hagamos una función que dibuje la gráfica que queremos:
 
 ```{r}
 carat_histogram <- function(df) {
@@ -954,10 +948,7 @@ carat_histogram <- function(df) {
 carat_histogram(by_clarity$data[[1]])
 ```
 
-Now we can use `map()` to create a list of many plots[^iteration-7] and their eventual file paths:
-
-[^iteration-7]: You can print `by_clarity$plot` to get a crude animation --- you'll get one plot for each element of `plots`.
-    NOTE: this didn't happen for me.
+Ahora podemos usar `map()` para crear una lista de muchos gráficos\[\^iterationn-6\] y sus posibles rutas de archivo:
 
 ```{r}
 by_clarity <- by_clarity |> 
@@ -967,7 +958,7 @@ by_clarity <- by_clarity |>
   )
 ```
 
-Then use `walk2()` with `ggsave()` to save each plot:
+Luego usa `walk2()` con `ggsave()` para guardar cada gráfico:
 
 ```{r}
 walk2(
@@ -977,7 +968,7 @@ walk2(
 )
 ```
 
-This is shorthand for:
+Esta es la abreviatura de:
 
 ```{r}
 #| eval: false
@@ -1000,13 +991,13 @@ unlink(by_clarity$path)
 1.  Imagine you have a table of student data containing (amongst other variables) `school_name` and `student_id`. Sketch out what code you'd write if you want to save all the information for each student in file called `{student_id}.csv` in the `{school}` directory.
 -->
 ```
-## Summary
+## Resumen
 
-In this chapter, you've seen how to use explicit iteration to solve three problems that come up frequently when doing data science: manipulating multiple columns, reading multiple files, and saving multiple outputs.
-But in general, iteration is a super power: if you know the right iteration technique, you can easily go from fixing one problem to fixing all the problems.
-Once you've mastered the techniques in this chapter, we highly recommend learning more by reading the [Functionals chapter](https://adv-r.hadley.nz/functionals.html) of *Advanced R* and consulting the [purrr website](https://purrr.tidyverse.org).
+En este capítulo, ha visto cómo usar la iteración explícita para resolver tres problemas que surgen con frecuencia al hacer ciencia de datos: manipular múltiples columnas, leer múltiples archivos y guardar múltiples salidas.
+Pero, en general, la iteración es un superpoder: si conoce la técnica de iteración correcta, puede pasar fácilmente de solucionar un problema a solucionar todos los problemas.
+Una vez que haya dominado las técnicas de este capítulo, le recomendamos que aprenda más leyendo el [capítulo Funcionales](https://adv-r.hadley.nz/functions.html) de *Advanced R* y consultando el [sitio web de purrr](https://purrr.tidyverse.org).
 
-If you know much about iteration in other languages, you might be surprised that we didn't discuss the `for` loop.
-That's because R's orientation towards data analysis changes how we iterate: in most cases you can rely on an existing idiom to do something to each columns or each group.
-And when you can't, you can often use a functional programming tool like `map()` that does something to each element of a list.
-However, you will see `for` loops in wild-caught code, so you'll learn about them in the next chapter where we'll discuss some important base R tools.
+Si sabe mucho sobre la iteración en otros lenguajes, se sorprenderá de que no hayamos discutido el bucle `for`.
+Esto se debe a que la orientación de R hacia el análisis de datos cambia la forma en que iteramos: en la mayoría de los casos, puede confiar en un idioma existente para hacer algo con cada columna o cada grupo.
+Y cuando no puedas, a menudo puedes usar una herramienta de programación funcional como `map()` que hace algo con cada elemento de una lista.
+Sin embargo, verá bucles `for` en el código capturado de forma salvaje, por lo que aprenderá sobre ellos en el próximo capítulo, donde analizaremos algunas herramientas básicas importantes de R.
