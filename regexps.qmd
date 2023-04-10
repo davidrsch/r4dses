@@ -86,7 +86,7 @@ str_view(c("a", "ab", "abb"), "ab+")
 str_view(c("a", "ab", "abb"), "ab*")
 ```
 
-**Las clases de caracteres** están definidas por `[]` y le permiten hacer coincidir un conjunto de caracteres, p. `[abcd]` coincide con "a", "b", "c" o "d".
+**Las clases de caracteres** están definidas por `[]` y le permiten hacer coincidir un conjunto de caracteres, p.ej., `[abcd]` coincide con "a", "b", "c" o "d".
 También puede invertir la coincidencia comenzando con `^`: `[^abcd]` coincide con cualquier cosa **excepto** "a", "b", "c" o "d".
 Podemos usar esta idea para encontrar las palabras que contienen una "x" rodeada de vocales, o una "y" rodeada de consonantes:
 
@@ -392,7 +392,7 @@ Como discutimos anteriormente, puede construir sus propios conjuntos con `[]`, d
 , "b" o "c".
 Además de `^`, hay otros dos caracteres que tienen un significado especial dentro de `[]:`
 
--   `-` define un rango, p. `[a-z]` coincide con cualquier letra minúscula y `[0-9]` coincide con cualquier número.
+-   `-` define un rango, p.ej., `[a-z]` coincide con cualquier letra minúscula y `[0-9]` coincide con cualquier número.
 -   `\` eescapa a los caracteres especiales, por lo que `[\^\-\]]` coincide `^`, `-`, o `]`.
 
 Aquí hay algunos ejemplos:
@@ -821,7 +821,7 @@ Las siguientes secciones describen algunas otras funciones útiles en el tidyver
 Hay otros tres lugares particularmente útiles en los que es posible que desee utilizar expresiones regulares
 
 -   `matches(pattern)` seleccionará todas las variables cuyo nombre coincida con el patrón proporcionado.
-    Es una función "tidyselect" que puede usar en cualquier lugar en cualquier función tidyverse que seleccione variables (p. `select()`, `rename_with()` y `across()`).
+    Es una función "tidyselect" que puede usar en cualquier lugar en cualquier función tidyverse que seleccione variables (p.ej., `select()`, `rename_with()` y `across()`).
 
 -   `pivot_longer()'s` `names_pattern` aargumento toma un vector de expresiones regulares, al igual que `separate_wider_regex()`.
     Es útil cuando se extraen datos de nombres de variables con una estructura compleja.

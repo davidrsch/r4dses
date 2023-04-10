@@ -65,7 +65,7 @@ En general, para estar sujeto a los términos del servicio, debe haber realizado
 Por eso es importante si los datos son **públicos** o no; si no necesita una cuenta para acceder a ellos, es poco probable que esté sujeto a los términos del servicio.
 Tenga en cuenta, sin embargo, que la situación es bastante diferente en Europa, donde los tribunales han determinado que los términos de servicio son exigibles incluso si no los acepta explícitamente.
 
-[^webscraping-3]: por eje.
+[^webscraping-3]: p.ej.
     <https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn>
 
 ### Información de identificación personal
@@ -176,9 +176,9 @@ Usaremos esto un montón en este capítulo mientras enseñamos cómo funcionan l
 
 ```{r}
 html <- minimal_html("
-  <p>This is a paragraph<p>
+  <p>Esto es un párrafo</p>
   <ul>
-    <li>This is a bulleted list</li>
+    <li>Esta es una lista con viñetas</li>
   </ul>
 ")
 html
@@ -207,9 +207,9 @@ Probemos estos selectores con un ejemplo simple:
 
 ```{r}
 html <- minimal_html("
-  <h1>This is a heading</h1>
-  <p id='first'>This is a paragraph</p>
-  <p class='important'>This is an important paragraph</p>
+  <h1>Este es un encabezado</h1>
+  <p id='first'>Esto es un párrafo</p>
+  <p class='important'>Este es un párrafo importante</p>
 ")
 ```
 

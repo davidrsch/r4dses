@@ -406,7 +406,7 @@ Las siguientes secciones describen algunas transformaciones generales que se usa
 ### Rangos
 
 dplyr proporciona una serie de funciones de clasificación inspiradas en SQL, pero siempre debe comenzar con `dplyr::min_rank()`.
-Utiliza el método típico para tratar los empates, p. 1°, 2°, 2°, 4°.
+Utiliza el método típico para tratar los empates, p.ej., 1°, 2°, 2°, 4°.
 
 ```{r}
 x <- c(1, 2, 2, 3, 4, NA)

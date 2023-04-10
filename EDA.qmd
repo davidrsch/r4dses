@@ -446,7 +446,7 @@ ggplot(mpg, aes(x = hwy, y = fct_reorder(class, hwy, median))) +
     ¿Por qué la combinación de esas dos relaciones hace que los diamantes de menor calidad sean más caros?
 
 3.  En lugar de intercambiar las variables x e y, agregue `coord_flip()` como una nueva capa al diagrama de caja vertical para crear uno horizontal.
-    ¿Cómo se compara esto con el uso de intercambiar las variables?
+    ¿Cómo se compara esto con intercambiar las variables?
 
 4.  Un problema con los diagramas de caja es que se desarrollaron en una era de conjuntos de datos mucho más pequeños y tienden a mostrar una cantidad prohibitivamente grande de "valores atípicos".
     Un enfoque para remediar este problema es la gráfica de valores de letras.

@@ -60,7 +60,7 @@ glimpse(flights)
 ```
 
 En ambas vistas, los nombres de las variables van seguidos de abreviaturas que indican el tipo de cada variable: `<int>` es la abreviatura de entero, `<dbl>` es la abreviatura de doble (también conocido como número real), `<chr>` para carácter (también conocido como cadenas) y `<dttm>` para fecha y hora.
-Estos son importantes porque las operaciones que puede realizar en una columna dependen mucho de su "tipo", y estos tipos se utilizan para organizar los capítulos en la siguiente sección del libro.
+Estos son importantes porque las operaciones que puede realizar en una columna dependen mucho de su "tipo".
 
 ### Básicos de dplyr
 
@@ -104,7 +104,7 @@ También hablaremos de `distinct()`, que encuentra filas con valores únicos per
 `filter()` le permite mantener filas en función de los valores de las columnas [^data-transform-1].
 El primer argumento es el data frame.
 El segundo argumento y los subsiguientes son las condiciones que deben cumplirse para mantener la fila.
-Por ejemplo, podríamos encontrar todos los vuelos que llegaron con más de 120 minutos (dos horas) de retraso:
+Por ejemplo, podríamos encontrar todos los vuelos que salieron con más de 120 minutos (dos horas) de retraso:
 
 [^data-transform-1]: Más adelante, aprenderá sobre la familia `slice_*()`, que le permite elegir filas en función de sus posiciones.
 
@@ -227,7 +227,7 @@ flights |>
 
 ### Ejercicios
 
-1.  En una única canalización, encuentre todos los vuelos que cumplan con todas las siguientes condiciones:
+1.  En una única canalización, encuentre todos los vuelos que cumplan con cada una de las siguientes condiciones:
 
     -   Tuvo un retraso de llegada de dos o más horas.
     -   Voló a Houston (`IAH` o `HOU`) C. Fueron operados por United, American o Delta
@@ -251,7 +251,7 @@ flights |>
 
 ## Columnas
 
-Hay cuatro verbos importantes que afectan las columnas sin cambiar las filas: `mutate()` crea nuevas columnas que se derivan de las columnas existentes, `select()` cambia qué columnas están presentes; `rename()` cambia los nombres de las columnas; y `relocate()` cambia las posiciones de las columnas.
+Hay cuatro verbos importantes que afectan las columnas sin cambiar las filas: `mutate()` crea nuevas columnas que se derivan de las columnas existentes, `select()` cambia qué columnas están presentes, `rename()` cambia los nombres de las columnas, y `relocate()` cambia las posiciones de las columnas.
 
 ### `mutate()` {#sec-mutate}
 
@@ -478,7 +478,7 @@ flights |>
   arrange(desc(speed))
 ```
 
-Aunque esta canalización tiene cuatro pasos, es fácil de hojear porque los verbos aparecen al comienzo de cada línea: comience con los datos de `flights`, luego filtre, luego agrupe y luego resuma.
+Aunque esta canalización tiene cuatro pasos, es fácil de hojear porque los verbos aparecen al comienzo de cada línea: comience con los datos de `flights`, luego filtra por destino, luego crea la columana `speed` con `mutate`, luego selecciona las columnas deseadas y culmina ordenandolas en orden descendente por la columna `speed`.
 
 ¿Qué pasaría si no tuviéramos la canalización?
 Podríamos anidar cada llamada de función dentro de la llamada anterior:
@@ -674,7 +674,7 @@ daily_flights <- daily |>
   )
 ```
 
-Alternativamente, cambie el comportamiento predeterminado configurando un valor diferente, por ejemplo `"drop"` para eliminar todas las agrupaciones o `"keep"` para conservar los mismos grupos.
+Alternativamente, cambie el comportamiento predeterminado configurando un valor diferente, por ejemplo, `"drop"` para eliminar todas las agrupaciones o `"keep"` para conservar los mismos grupos.
 
 ### Desagrupar
 

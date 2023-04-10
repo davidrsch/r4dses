@@ -73,7 +73,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 El propósito del título de una trama es resumir el hallazgo principal.
-Evite títulos que solo describan cuál es la trama, p. "Un diagrama de dispersión de la cilindrada del motor frente a la economía de combustible".
+Evite títulos que solo describan cuál es la trama, p.ej., "Un diagrama de dispersión de la cilindrada del motor frente a la economía de combustible".
 
 Si necesita agregar más texto, hay otras dos etiquetas útiles: `subtitle` agrega detalles adicionales en una fuente más pequeña debajo del título y `caption` agrega texto en la parte inferior derecha de la trama, que a menudo se usa para describir la fuente del datos.
 También puede usar `labs()` para reemplazar los títulos de los ejes y las leyendas.
@@ -195,7 +195,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_label_repel(
     data = label_info, 
     aes(x = displ, y = hwy, label = drive_type),
-    fontface = "bold", size = 5, nudge_y = 2,
+    fontface = "bold", size = 5, nudge_y = 2
   ) +
   theme(legend.position = "none")
 ```

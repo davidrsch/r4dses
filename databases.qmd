@@ -555,7 +555,7 @@ La forma más fácil de ver el conjunto completo de lo que está disponible actu
 ## Traducciones de funciones {#sec-sql-expressions}
 
 Hasta ahora nos hemos centrado en el panorama general de cómo se traducen los verbos dplyr a las cláusulas de una consulta.
-Ahora vamos a acercarnos un poco y hablar sobre la traducción de las funciones R que funcionan con columnas individuales, p. ¿Qué pasa cuando usas `mean(x)` en `summarize()`?
+Ahora vamos a acercarnos un poco y hablar sobre la traducción de las funciones R que funcionan con columnas individuales, p.ej., ¿Qué pasa cuando usas `mean(x)` en `summarize()`?
 
 Para ayudar a ver lo que está pasando, usaremos un par de pequeñas funciones auxiliares que ejecutan `summarize()` o `mutate()` y muestran el SQL generado.
 Eso hará que sea un poco más fácil explorar algunas variaciones y ver cómo los resúmenes y las transformaciones pueden diferir.

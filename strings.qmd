@@ -55,10 +55,12 @@ string2 <- 'Si quiero incluir una "comilla" dentro de una cadena, uso comillas s
 
 Si olvida cerrar una comilla, verá `+`, el indicador de continuación:
 
-    > "Esta es una cadena sin comillas de cierre
-    + 
-    + 
-    + AYUDA ESTOY ATRAPADO EN UNA CADENA
+```         
+> "Esta es una cadena sin comillas de cierre
++ 
++ 
++ AYUDA ESTOY ATRAPADO EN UNA CADENA
+```
 
 Si esto le sucede y no sabe qué comilla cerrar, presione Escape para cancelar y vuelva a intentarlo.
 

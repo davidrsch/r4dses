@@ -63,20 +63,23 @@ Podemos hacer esto con un diagrama de dispersión donde las variables numéricas
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-alt: >
-#|   Dos diagramas de dispersión uno al lado del otro, ambos visualizando la eficiencia de combustible
-#|   en carretera versus el tamaño del motor de los automóviles y mostrando una asociación  
-#|   negativa. En el gráfico de la izquierda, la variable clase (class) se asigna a la aesthetic
-#|   color, dando como resultado diferentes colores para cada clase. 
-#|   En la gráfica de la derecha la variable clase (class) se asigna a la aesthetic shape,
-#|   dando como resultado diferentes formas de caracteres de trazado para cada clase,
-#|   excepto todoterreno. Cada gráfico viene con una leyenda que muestra el
-#|   mapeo entre color o shape y los niveles de la variable clase (class).
+#|   Dos diagramas de dispersión uno al lado del otro, ambos 
+#|   visualizando la eficiencia de combustible en carretera versus el 
+#|   tamaño del motor de los automóviles y mostrando una asociación  
+#|   negativa. En el gráfico de la izquierda, la variable clase 
+#|   (class) se asigna a la aesthetic color, dando como resultado 
+#|   diferentes colores para cada clase. En la gráfica de la derecha 
+#|   la variable clase (class) se asigna a la aesthetic shape,
+#|   dando como resultado diferentes formas de caracteres de trazado 
+#|   para cada clase, excepto todoterreno. Cada gráfico viene con 
+#|   una leyenda que muestra el mapeo entre color o shape y los 
+#|   niveles de la variable clase (class).
 
-# Left
+# Izquierda
 ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   geom_point()
 
-# Right
+# Derecha
 ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
   geom_point()
 ```
@@ -97,20 +100,22 @@ De manera similar, también podemos mapear la estética `class` a `size` o `alph
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-alt: >
-#|   Dos diagramas de dispersión uno al lado del otro, ambos visualizando la eficiencia de combustible
-#|   en carretera versus el tamaño del motor de los automóviles y mostrando una asociación  
-#|   negativa. En el gráfico de la izquierda, la clase (class) se asigna a la aesthetic
-#|   size, dando como resultado diferentes tamaños para cada clase. 
-#|   En la gráfica de la derecha clase (class) se asigna a la aesthetic alpha,
-#|   resultando en diferentes niveles alpha (transparencia) para cada clase. 
-#|   Cada gráfica viene con una leyenda que muestra el mapeo entre el tamaño
+#|   Dos diagramas de dispersión uno al lado del otro, ambos 
+#|   visualizando la eficiencia de combustible en carretera versus el 
+#|   tamaño del motor de los automóviles y mostrando una asociación  
+#|   negativa. En el gráfico de la izquierda, la clase (class) se 
+#|   asigna a la aesthetic size, dando como resultado diferentes 
+#|   tamaños para cada clase. En la gráfica de la derecha clase 
+#|   (class) se asigna a la aesthetic alpha, resultando en diferentes 
+#|   niveles alpha (transparencia) para cada clase. Cada gráfica 
+#|   viene con una leyenda que muestra el mapeo entre el tamaño
 #|   o nivel alfa y niveles de la variable de clase (class).
 
-# Left
+# Izquierda
 ggplot(mpg, aes(x = displ, y = hwy, size = class)) +
   geom_point()
 
-# Right
+# Derecha
 ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
   geom_point()
 ```
@@ -131,8 +136,9 @@ Por ejemplo, podemos hacer que todos los puntos de nuestro gráfico sean azules:
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
-#|   que muestra una asociación negativa. Todos los puntos son azules.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles que muestra una 
+#|   asociación negativa. Todos los puntos son azules.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(color = "blue")
@@ -152,23 +158,27 @@ Deberá elegir un valor que tenga sentido para esa estética:
 #| fig.asp: 0.364
 #| fig-align: "center"
 #| fig-cap: >
-#|   R tiene 25 formas integradas que se identifican con números. Hay algunos
-#|   duplicados aparentes: por ejemplo, 0, 15 y 22 son todos cuadrados. La
-#|   diferencia proviene de la interacción de las asthetics `color` y 
-#|   `fill`. Las formas huecas (0--14) tienen un borde determinado por `color`;
-#|   las formas sólidas (15--20) se rellenan con `color`; las formas rellenas
-#|   (21--24) tienen un borde de `color` y se rellenan con `fill`. Las formas se 
+#|   R tiene 25 formas integradas que se identifican con números. Hay 
+#|   algunos duplicados aparentes: por ejemplo, 0, 15 y 22 son todos 
+#|   cuadrados. La diferencia proviene de la interacción de las 
+#|   asthetics `color` y `fill`. Las formas huecas (0--14) tienen un 
+#|   borde determinado por `color`; las formas sólidas (15--20) 
+#|   se rellenan con `color`; las formas rellenas (21--24) tienen un 
+#|   borde de `color` y se rellenan con `fill`. Las formas se 
 #|   organizan para mantener formas similares una al lado de la otra..
 #| fig-alt: >
 #|   Mapeo entre formas y los números que las representan: 0 - cuadrado,
-#|   1 - círculo, 2 - triángulo apuntando hacia arriba, 3 - más, 4 - cruz, 5 - rombo,
-#|   6 - triángulo apuntando hacia abajo, 7 - cruz cuadrada, 8 - estrella, 9 - diamante más,
-#|   10 - círculo más, 11 - triángulos arriba y abajo, 12 - cuadrado más,
-#|   13 - cruz circular, 14 - cuadrado y triángulo hacia abajo, 15 - cuadrado relleno,
-#|   16 - círculo relleno, 17 - triángulo relleno apuntando hacia arriba, 18 - diamante relleno,
-#|   19 - círculo sólido, 20 - viñeta (círculo más pequeño), 21 - círculo relleno azul,
-#|   22 - azul cuadrado relleno, 23 - azul diamante relleno, 24 - triángulo relleno
-#|   apuntando hacia arriba azul, 25 - triángulo relleno apuntando hacia abajo azul.
+#|   1 - círculo, 2 - triángulo apuntando hacia arriba, 3 - más, 4 - cruz, 
+#|   5 - rombo, 6 - triángulo apuntando hacia abajo, 7 - cruz cuadrada, 
+#|   8 - estrella, 9 - diamante más, 10 - círculo más, 11 - triángulos 
+#|   arriba y abajo, 12 - cuadrado más, 13 - cruz circular, 14 - cuadrado 
+#|   y triángulo hacia abajo, 15 - cuadrado relleno, 16 - círculo 
+#|   relleno, 17 - triángulo relleno apuntando hacia arriba, 18 - 
+#|   diamante relleno, 19 - círculo sólido, 20 - viñeta (círculo más 
+#|   pequeño), 21 - círculo relleno azul, 22 - azul cuadrado 
+#|   relleno, 23 - azul diamante relleno, 24 - triángulo relleno
+#|   apuntando hacia arriba azul, 25 - triángulo relleno apuntando 
+#|   hacia abajo azul.
 
 shapes <- tibble(
   shape = c(0, 1, 2, 5, 3, 4, 6:19, 22, 21, 24, 23, 20),
@@ -201,7 +211,8 @@ En la siguiente sección profundizaremos en las geomas.
     ```{r}
     #| fig-show: hide
     #| fig-alt: >
-    #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
+    #|   Diagrama de dispersión de la eficiencia de combustible 
+    #|   en carretera frente al tamaño del motor de los automóviles
     #|   que muestra una asociación negativa. Todos los puntos son rojos y
     #|   la leyenda muestra un punto rojo que se asigna a la palabra azul.
 
@@ -226,8 +237,9 @@ En la siguiente sección profundizaremos en las geomas.
 #| layout-ncol: 2
 #| fig-width: 3
 #| fig-alt: >
-#|   Hay dos gráficas. El diagrama de la izquierda es un diagrama de dispersión de eficiecia
-#|   de combustible en carretera frente al tamaño del motor de los automóviles y el gráfico de la derecha
+#|   Hay dos gráficas. El diagrama de la izquierda es un diagrama de 
+#|   dispersión de eficiecia de combustible en carretera frente al 
+#|   tamaño del motor de los automóviles y el gráfico de la derecha
 #|   muestra una curva suave que sigue la trayectoria de la relación
 #|   entre estas variables. También se muestra Un intervalo de confianza 
 #|   alrededor de la curva suave.
@@ -250,11 +262,11 @@ Por ejemplo, para hacer los diagramas de arriba, puedes usar el siguiente códig
 ```{r}
 #| fig-show: hide
 
-# Left
+# Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point()
 
-# Right
+# Derecha
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_smooth()
 ```
@@ -271,12 +283,14 @@ Por otro lado, *podría* establecer el tipo de línea de una línea.
 #| layout-ncol: 2
 #| fig-width: 3
 #| fig-alt: >
-#|   Dos gráficas de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
-#|   Los datos se representan con curvas suaves. A la izquierda, tres
-#|   curvas suaves, todas con el mismo tipo de línea. A la derecha, tres
-#|   curvas suaves con diferentes tipos de líneas (continuas, discontinuas o largas
-#|   discontinua) para cada tipo de tren de transmisión. En ambas gráficas, también se
-#|   los intervalos de confianza alrededor de las curvas suaves.
+#|   Dos gráficas de eficiencia de combustible en carretera frente al 
+#|   tamaño del motor de los automóviles. Los datos se representan 
+#|   con curvas suaves. A la izquierda, tres curvas suaves, todas con 
+#|   el mismo tipo de línea. A la derecha, tres curvas suaves con 
+#|   diferentes tipos de líneas (continuas, discontinuas o largas
+#|   discontinua) para cada tipo de tren de transmisión. En ambas 
+#|   gráficas, también se los intervalos de confianza alrededor 
+#|   de las curvas suaves.
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) + 
@@ -296,10 +310,12 @@ Si esto suena extraño, podemos hacerlo más claro superponiendo las líneas sob
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Un gráfico de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Los datos
-#|   se representan con puntos (coloreados por el tren de transmisión), así como con curvas
-#|   suaves (donde el tipo de línea también se determina en función del tren de transmisión).
-#|   También se muestran los intervalos de confianza alrededor de las curvas suaves.
+#|   Un gráfico de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles. Los datos se
+#|   representan con puntos (coloreados por el tren de transmisión), 
+#|   así como con curvas suaves (donde el tipo de línea también se 
+#|   determina en función del tren de transmisión). También se muestran 
+#|   los intervalos de confianza alrededor de las curvas suaves.
 
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) + 
   geom_point() +
@@ -320,14 +336,16 @@ Es conveniente confiar en esta característica porque la estética `group` por s
 #| fig-asp: 1
 #| message: false
 #| fig-alt: >
-#|   Tres gráficas, cada una con eficiencia de combustible en carretera en el eje y y el tamaño
-#|   del motor de los automóviles, donde los datos se representan mediante una curva suave. La primera gráfica 
-#|   solo tiene estas dos variables, la gráfica central tiene tres
-#|   curvas para cada nivel de tren de transmisión, y la gráfica de la derecha no solo tiene las
-#|   mismas tres curvas suaves separadas para cada nivel del tren de transmisión, también
-#|   se trazan las curvas en diferentes colores, con una leyenda que explica qué
-#|   color se asigna a qué nivel. También se muestran los intervalos de confianza alrededor de 
-#|   las curvas suaves.
+#|   Tres gráficas, cada una con eficiencia de combustible en carretera 
+#|   en el eje y y el tamaño del motor de los automóviles, donde los 
+#|   datos se representan mediante una curva suave. La primera 
+#|   gráfica solo tiene estas dos variables, la gráfica central 
+#|   tiene tres curvas para cada nivel de tren de transmisión, 
+#|   y la gráfica de la derecha no solo tiene las mismas tres curvas 
+#|   suaves separadas para cada nivel del tren de transmisión, 
+#|   también se trazan las curvas en diferentes colores, con una 
+#|   leyenda que explica qué color se asigna a qué nivel. También se 
+#|   muestran los intervalos de confianza alrededor de las curvas suaves.
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -349,10 +367,12 @@ Esto hace posible mostrar diferentes estéticas en diferentes capas.
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
-#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
-#|   el tamaño del motor de los automóviles se superpone junto con un intervalo de confianza a su alrededor.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera
+#|   frente al tamaño del motor de los automóviles, donde los puntos 
+#|   se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible 
+#|   en carretera versus el tamaño del motor de los automóviles 
+#|   se superpone junto con un intervalo de confianza a su alrededor.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point(aes(color = class)) + 
@@ -366,10 +386,12 @@ El argumento de datos locales en `geom_point()` anula el argumento de datos glob
 ```{r}
 #| message: false
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
-#|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
-#|   el tamaño del motor de los automóviles subcompactos se superpone junto con un intervalo de confianza
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles, donde los puntos 
+#|   se colorean según la clase de coche. Una curva suave siguiendo
+#|   la trayectoria de la relación entre la eficiencia de combustible 
+#|   en carretera versus el tamaño del motor de los automóviles 
+#|   subcompactos se superpone junto con un intervalo de confianza
 #|   alrededor.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -392,8 +414,8 @@ Por ejemplo, el histograma y el diagrama de densidad a continuación revelan que
 #| layout-ncol: 3
 #| fig-width: 3
 #| fig-alt: >
-#|   Tres gráficos: histograma, gráfico de densidad y gráfico de caja kilometraje
-#|   de carretera.
+#|   Tres gráficos: histograma, gráfico de densidad y gráfico de 
+#|   caja kilometraje de carretera.
  
 # Izquierda
 ggplot(mpg, aes(x = hwy)) +
@@ -416,11 +438,13 @@ En la siguiente gráfica, no solo usamos un nuevo geom (`geom_density_ridges()`)
 ```{r}
 #| fig-asp: 0.33
 #| fig-alt: 
-#|   Curvas de densidad para kilometraje en carretera para automóviles con tracción en 
-#|   las ruedas traseras, ruedas delanteras y en las 4 ruedas trazadas por separado. La
-#|   distribución es bimodal y aproximadamente simétrica para los automóviles con tracción en 
-#|   las ruedas traseras y en las 4 ruedas, y unimodales y sesgadas a la derecha para los
-#|   coches con tracción en las ruedas delanteras.
+#|   Curvas de densidad para kilometraje en carretera para automóviles 
+#|   con tracción en las ruedas traseras, ruedas delanteras y en las 4 
+#|   ruedas trazadas por separado. La distribución es bimodal y 
+#|   aproximadamente simétrica para los automóviles con tracción 
+#|   en las ruedas traseras y en las 4 ruedas, y unimodales y sesgadas 
+#|   a la derecha para los coches con tracción en las ruedas 
+#|   delanteras.
 
 library(ggridges)
 
@@ -443,6 +467,7 @@ Para obtener más información sobre cualquier geom individual, use la ayuda (po
     ```{r}
     #| fig-show: hide
     #| message: false
+
     ggplot(mpg, aes(x = displ, y = hwy)) +
       geom_smooth(aes(color = drv), show.legend = FALSE)
     ```
@@ -462,19 +487,24 @@ Para obtener más información sobre cualquier geom individual, use la ayuda (po
     #| layout-ncol: 2
     #| fig-width: 3
     #| fig-alt: >
-    #|   Hay seis diagramas de dispersión en esta figura, dispuestos en una cuadrícula de 3x2.
-    #|   En todas las gráficas, la eficiencia de combustible de los automóviles en carretera está en el eje y y
-    #|   el tamaño del motor está en el eje x. La primera gráfica muestra todos los puntos en negro
-    #|   con una suave curva superpuesta sobre ellos. En la segunda gráfica los puntos son
-    #|   también negros, con curvas suaves  superpuestas separadas para cada nivel de
-    #|   tren de transmisión. En la tercera gráfica, los puntos y las curvas suaves son
-    #|   representados en diferentes colores para cada nivel de tren de transmisión. En la
-    #|   cuarta gráfica los puntos están representados en diferentes colores para cada
-    #|   nivel del tren de transmisión, pero solo hay una línea suave que esta ajustada a
-    #|   todos los datos. En el quinto gráfico, los puntos se representan en diferentes
-    #|   colores para cada nivel de tren de transmisión y una curva suave separada por
-    #|   diferentes tipos de línea para cada nivel del tren de transmisión. Y
-    #|   finalmente en la sexta gráfica los puntos se representan en diferentes colores
+    #|   Hay seis diagramas de dispersión en esta figura, dispuestos 
+    #|   en una cuadrícula de 3x2. En todas las gráficas, la 
+    #|   eficiencia de combustible de los automóviles en carretera
+    #|   está en el eje y y el tamaño del motor está en el eje x. La 
+    #|   primera gráfica muestra todos los puntos en negro con una 
+    #|   suave curva superpuesta sobre ellos. En la segunda gráfica 
+    #|   los puntos son también negros, con curvas suaves  superpuestas 
+    #|   separadas para cada nivel de tren de transmisión. En la tercera 
+    #|   gráfica, los puntos y las curvas suaves son representados 
+    #|   en diferentes colores para cada nivel de tren de transmisión. 
+    #|   En la cuarta gráfica los puntos están representados 
+    #|   en diferentes colores para cada nivel del tren de transmisión, 
+    #|   pero solo hay una línea suave que esta ajustada a todos los 
+    #|   datos. En el quinto gráfico, los puntos se representan 
+    #|   en diferentes colores para cada nivel de tren de transmisión 
+    #|   y una curva suave separada por diferentes tipos de línea para 
+    #|   cada nivel del tren de transmisión. Y finalmente en la sexta 
+    #|   gráfica los puntos se representan en diferentes colores
     #|   para cada nivel de transmisión y tienen un borde blanco grueso.
 
     ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -503,8 +533,9 @@ En @sec-data-visualization, aprendió sobre facetas con `facet_wrap()`, que divi
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
-#|   facetado por clase, con facetas que abarcan dos filas.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles, facetado por 
+#|   clase, con facetas que abarcan dos filas.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -516,11 +547,13 @@ El primer argumento de `facet_grid()` también es una fórmula, pero ahora es un
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, facetado
-#|   por número de cilindros a través de filas y por tipo de tren de transmisión a través
-#|   columnas. Esto da como resultado una cuadrícula de 4x3 de 12 facetas. Algunas de estas facetas no tienen
-#|   observaciones: 5 cilindros y tracción en las 4 ruedas, 4 o 5 cilindros y tracción
-#|   en las ruedas delanteras.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles, facetado
+#|   por número de cilindros a través de filas y por tipo de tren de 
+#|   transmisión a través columnas. Esto da como resultado una 
+#|   cuadrícula de 4x3 de 12 facetas. Algunas de estas facetas no 
+#|   tienen observaciones: 5 cilindros y tracción en las 4 ruedas, 4 o 
+#|   5 cilindros y tracción en las ruedas delanteras.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -533,12 +566,15 @@ Establecer el argumento `scales` en una función de facetado en `"free"` permiti
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
-#|   facetado por número de cilindros a través de filas y por tipo de tren de transmisión
-#|   a través de columnas. Esto da como resultado una cuadrícula de 4x3 de 12 facetas. Algunos de estos
-#|   facetas no tienen observaciones: 5 cilindros y 4 ruedas motrices, 4 o 5
-#|   cilindros y tracción delantera. Las facetas dentro de una fila comparten el mismo
-#|   la escala y y las facetas dentro de una columna comparten la misma escala x.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles, facetado por 
+#|   número de cilindros a través de filas y por tipo de tren de 
+#|   transmisión a través de columnas. Esto da como resultado una 
+#|   cuadrícula de 4x3 de 12 facetas. Algunos de estos facetas no 
+#|   tienen observaciones: 5 cilindros y 4 ruedas motrices, 4 o 5
+#|   cilindros y tracción delantera. Las facetas dentro de una fila 
+#|   comparten el mismo la escala y y las facetas dentro de una columna 
+#|   comparten la misma escala x.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -585,9 +621,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_wrap(~ class, nrow = 2)
     ```
 
-¿Cuáles son las ventajas de usar facetas en lugar de la estética del color?
-¿Cuales son las desventajas?
-¿Cómo podría cambiar el equilibrio si tuviera un conjunto de datos más grande?
+    ¿Cuáles son las ventajas de usar facetas en lugar de la estética del color?
+    ¿Cuales son las desventajas?
+    ¿Cómo podría cambiar el equilibrio si tuviera un conjunto de datos más grande?
 
 5.  Lee `?facet_wrap`.
     ¿Qué hace `nrow`?
@@ -605,7 +641,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
     ggplot(mpg, aes(x = displ)) + 
       geom_histogram() + 
       facet_grid(drv ~ .)
-    
+
     ggplot(mpg, aes(x = displ)) + 
       geom_histogram() +
       facet_grid(. ~ drv)
@@ -631,9 +667,9 @@ El gráfico muestra que hay más diamantes disponibles con cortes de alta calida
 
 ```{r}
 #| fig-alt: >
-#|   Gráfico de barras de número de cada corte de diamante. Hay aproximadamente 1500
-#|   Regulares, 5000 Bueno, 12000 Muy Bueno, 14000 Premium y 22000 diamantes de Corte
-#|   Ideal.
+#|   Gráfico de barras de número de cada corte de diamante. Hay 
+#|   aproximadamente 1500 Regulares, 5000 Bueno, 12000 Muy Bueno, 
+#|   14000 Premium y 22000 diamantes de Corte Ideal.
 
 ggplot(diamonds, aes(x = cut)) + 
   geom_bar()
@@ -659,15 +695,18 @@ El algoritmo utilizado para calcular nuevos valores para un gráfico se llama **
 #| echo: false
 #| out-width: "100%"
 #| fig-cap: >
-#|   Cuando creamos un gráfico de barras, primero comenzamos con los datos sin procesar, luego
-#|   agregarlo para contar el número de observaciones en cada barra,
-#|   y finalmente mapear esas variables calculadas para trazar las aesthetics.
+#|   Cuando creamos un gráfico de barras, primero comenzamos 
+#|   con los datos sin procesar, luego agregarlo para contar el 
+#|   número de observaciones en cada barra, y finalmente mapear esas 
+#|   variables calculadas para trazar las aesthetics.
 #| fig-alt: >
-#|   Una figura que muestra tres pasos para crear un gráfico de barras.
-#|   Paso 1. geom_bar() comienza con el conjunto de datos de diamantes. Paso 2. geom_bar()
-#|   transforma los datos con la cuenta estadística, que devuelve un conjunto de datos de
-#|   valores de corte y conteos. Paso 3. geom_bar() usa los datos transformados para
-#|   construir la gráfica. el corte se asigna al eje x, el conteo se asigna al eje y.
+#|   Una figura que muestra tres pasos para crear un gráfico de 
+#|   barras. Paso 1. geom_bar() comienza con el conjunto de datos de 
+#|   diamantes. Paso 2. geom_bar() transforma los datos con la cuenta 
+#|   estadística, que devuelve un conjunto de datos de valores de 
+#|   corte y conteos. Paso 3. geom_bar() usa los datos transformados para
+#|   construir la gráfica. el corte se asigna al eje x, el conteo se 
+#|   asigna al eje y.
 
 knitr::include_graphics("images/visualization-stat-bar.png")
 ```
@@ -688,9 +727,9 @@ Sin embargo, hay tres razones por las que podría necesitar usar una estadístic
     ```{r}
     #| warning: false
     #| fig-alt: >
-    #|   Gráfico de barras de número de cada corte de diamante. Hay aproximadamente 1500
-    #|   Regulares, 5000 Bueno, 12000 Muy Bueno, 14000 Premium y 22000 diamantes de
-    #|   Corte Ideal.
+    #|   Gráfico de barras de número de cada corte de diamante. Hay 
+    #|   aproximadamente 1500 Regulares, 5000 Bueno, 12000 Muy Bueno, 
+    #|   14000 Premium y 22000 diamantes de Corte Ideal.
 
     diamonds |>
       count(cut) |>
@@ -703,9 +742,9 @@ Sin embargo, hay tres razones por las que podría necesitar usar una estadístic
 
     ```{r}
     #| fig-alt: >
-    #|   Gráfico de barras de proporción de cada corte de diamante. Aproximadamente, los
-    #|   diamantes Regulares componen 0,03, Bueno 0,09, Muy bueno 0,22, Premium 0,26 y
-    #|   Ideal 0,40.
+    #|   Gráfico de barras de proporción de cada corte de diamante. 
+    #|   Aproximadamente, los diamantes Regulares componen 0,03, Bueno 
+    #|   0,09, Muy bueno 0,22, Premium 0,26 y Ideal 0,40.
 
     ggplot(diamonds, aes(x = cut, y = after_stat(prop), group = 1)) + 
       geom_bar()
@@ -720,9 +759,9 @@ Sin embargo, hay tres razones por las que podría necesitar usar una estadístic
     #| fig-alt: >
     #|   Un gráfico con profundidad en el eje y y corte en el eje x (con niveles
     #|   regular, bueno, muy bueno, premium e ideal) de diamantes. para cada nivel
-    #|   de corte, las líneas verticales se extienden desde la profundidad mínima hasta la máxima para los diamantes
-    #|   en esa categoría de corte, y la profundidad mediana se indica en la línea
-    #|   con un punto.
+    #|   de corte, las líneas verticales se extienden desde la profundidad mínima 
+    #|   hasta la máxima para los diamantes en esa categoría de corte, 
+    #|   y la profundidad mediana se indica en la línea con un punto.
 
     ggplot(diamonds) + 
       stat_summary(
@@ -734,7 +773,7 @@ Sin embargo, hay tres razones por las que podría necesitar usar una estadístic
     ```
 
 ggplot2 proporciona más de 20 estadísticas para su uso.
-Cada estadística es una función, por lo que puede obtener ayuda de la forma habitual, p. `?stat_bin`.
+Cada estadística es una función, por lo que puede obtener ayuda de la forma habitual, p.ej., `?stat_bin`.
 
 ### Ejercicios
 
@@ -774,9 +813,11 @@ Puede colorear un gráfico de barras utilizando la estética `color` o, más út
 #| layout-ncol: 2
 #| fig-width: 4
 #| fig-alt: >
-#|   Dos gráficos de barras de tipos de conducción de automóviles. En el primer gráfico, 
-#|   las barras tienen bordes coloreados. En la segunda trama, están llenos de colores. 
-#|   Las alturas de las barras corresponden al número de autos en cada categoría de corte.
+#|   Dos gráficos de barras de tipos de conducción de automóviles. 
+#|   En el primer gráfico, las barras tienen bordes coloreados. 
+#|   En la segunda trama, están llenos de colores. Las alturas de 
+#|   las barras corresponden al número de autos en cada categoría 
+#|   de corte.
 
 # Izquierda
 ggplot(mpg, aes(x = drv, color = drv)) + 
@@ -792,11 +833,12 @@ Cada rectángulo de color representa una combinación de `drv` y `class`.
 
 ```{r}
 #| fig-alt: >
-#|   Gráfico de barras segmentado de tipos de conducción de automóviles, donde cada barra se llena con 
-#|   colores para las clases de automóviles. Las alturas de las barras corresponden a la 
-#|   cantidad de autos en cada categoría de manejo, y las alturas de los segmentos coloreados 
-#|   son proporcionales a la cantidad de autos con un nivel de clase dado dentro de un nivel 
-#|   de tipo de manejo dado.
+#|   Gráfico de barras segmentado de tipos de conducción de automóviles, 
+#|   donde cada barra se llena con colores para las clases de automóviles. 
+#|   Las alturas de las barras corresponden a la cantidad de autos en 
+#|   cada categoría de manejo, y las alturas de los segmentos 
+#|   coloreados son proporcionales a la cantidad de autos con un nivel 
+#|   de clase dado dentro de un nivel de tipo de manejo dado.
 
 ggplot(mpg, aes(x = drv, fill = class)) + 
   geom_bar()
@@ -813,13 +855,16 @@ Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opc
     #| layout-ncol: 2
     #| fig-width: 4
     #| fig-alt: >
-    #|   Gráfico de barras segmentado de tipos de conducción de automóviles, donde 
-    #|   cada barra se llena con colores para las clases de automóviles. Las alturas de las 
-    #|   barras corresponden a la cantidad de autos en cada categoría de manejo, y las alturas 
-    #|   de los segmentos coloreados son proporcionales a la cantidad de autos con un nivel 
-    #|   de clase dado dentro de un nivel de tipo de manejo dado. Sin embargo, los segmentos 
-    #|   se superponen. En el primer gráfico las barras se rellenan con colores transparentes 
-    #|   y en el segundo gráfico solo se delinean con color.
+    #|   Gráfico de barras segmentado de tipos de conducción de 
+    #|   automóviles, donde cada barra se llena con colores para las 
+    #|   clases de automóviles. Las alturas de las barras corresponden 
+    #|   a la cantidad de autos en cada categoría de manejo, y las 
+    #|   alturas de los segmentos coloreados son proporcionales 
+    #|   a la cantidad de autos con un nivel de clase dado dentro de un 
+    #|   nivel de tipo de manejo dado. Sin embargo, los segmentos 
+    #|   se superponen. En el primer gráfico las barras se rellenan con 
+    #|   colores transparentes y en el segundo gráfico solo se delinean 
+    #|   con color.
 
     # Izquierda
     ggplot(mpg, aes(x = drv, fill = class)) +
@@ -842,21 +887,25 @@ Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opc
     #| layout-ncol: 2
     #| fig-width: 4
     #| fig-alt: >
-    #|   A la izquierda, gráfico de barras segmentadas de los tipos de conducción de automóviles, 
-    #|   donde cada barra está llena de colores para los niveles de clase. La altura de cada 
-    #|   barra es 1 y las alturas de los segmentos coloreados representan las proporciones 
-    #|   de automóviles con un nivel de clase determinado dentro de un tipo de unidad determinado. 
-    #|   A la derecha, gráfico de barras esquivado de tipos de conducción de automóviles. Las barras 
-    #|   sobreexpuestas se agrupan por niveles de tipo de unidad. Dentro de cada grupo, las barras 
-    #|   representan cada nivel de clase. Algunas clases están representadas dentro de algunos 
-    #|   tipos de unidades y no están representadas en otros, lo que da como resultado un número 
-    #|   desigual de barras dentro de cada grupo. Las alturas de estas barras representan el 
-    #|   número de automóviles con un nivel determinado de tipo y clase de conducción.
+    #|   A la izquierda, gráfico de barras segmentadas de los tipos de 
+    #|   conducción de automóviles, donde cada barra está llena de colores 
+    #|   para los niveles de clase. La altura de cada barra es 1 y las alturas 
+    #|   de los segmentos coloreados representan las proporciones 
+    #|   de automóviles con un nivel de clase determinado dentro de un tipo 
+    #|   de unidad determinado. A la derecha, gráfico de barras esquivado 
+    #|   de tipos de conducción de automóviles. Las barras sobreexpuestas 
+    #|   se agrupan por niveles de tipo de unidad. Dentro de cada grupo, 
+    #|   las barras representan cada nivel de clase. Algunas clases 
+    #|   están representadas dentro de algunos tipos de unidades y no 
+    #|   están representadas en otros, lo que da como resultado un 
+    #|   número desigual de barras dentro de cada grupo. Las alturas de 
+    #|   estas barras representan el número de automóviles con un nivel 
+    #|   determinado de tipo y clase de conducción.
 
     # Izquierda
     ggplot(mpg, aes(x = drv, fill = class)) + 
       geom_bar(position = "fill")
-    
+
     # Derecha
     ggplot(mpg, aes(x = drv, fill = class)) +  
       geom_bar(position = "dodge")
@@ -869,8 +918,9 @@ Recuerde nuestro primer diagrama de dispersión.
 ```{r}
 #| echo: false
 #| fig-alt: >
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles que
-#|   muestra una asociación negativa.
+#|   Diagrama de dispersión de la eficiencia de combustible en carretera 
+#|   frente al tamaño del motor de los automóviles que muestra una 
+#|   asociación negativa.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point()
@@ -887,7 +937,8 @@ Esto dispersa los puntos porque es probable que dos puntos no reciban la misma c
 
 ```{r}
 #| fig-alt: >
-#|   Diagrama de dispersión fluctuante de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
+#|   Diagrama de dispersión fluctuante de eficiencia de combustible 
+#|   en carretera frente al tamaño del motor de los automóviles.
 #|   El gráfico muestra una asociación negativa.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -913,16 +964,17 @@ Para obtener más información sobre un ajuste de posición, consulte la página
 
 2.  ¿Cuál es, en todo caso, la diferencia entre las dos gráficas?
     ¿Por qué?
+
     ```{r}
     #| fig-show: hide
-    
+
     ggplot(mpg, aes(x = displ, y = hwy)) +
       geom_point()
     ggplot(mpg, aes(x = displ, y = hwy)) +
       geom_point(position = "identity")
     ```
 
-3. ¿Qué parámetros de `geom_jitter()` controlan la cantidad de fluctuación?
+3.  ¿Qué parámetros de `geom_jitter()` controlan la cantidad de fluctuación?
 
 4.  Compare y contraste `geom_jitter()` con `geom_count()`.
 
@@ -944,8 +996,9 @@ Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
     #| fig-width: 3
     #| message: false
     #| fig-alt: >
-    #|   Dos mapas de los límites de Nueva Zelanda. En la primera gráfica la relación
-    #|   del aspecto es incorrecta, en la segunda gráfica es correcta.
+    #|   Dos mapas de los límites de Nueva Zelanda. En la primera gráfica 
+    #|   la relación del aspecto es incorrecta, en la segunda gráfica 
+    #|   es correcta.
 
     nz <- map_data("nz")
 
@@ -965,8 +1018,9 @@ Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
     #| fig-width: 3
     #| fig-asp: 1
     #| fig-alt: >
-    #|   Hay dos gráficas. A la izquierda hay un gráfico de barras de la claridad de diamantes,
-    #|   a la derecha hay un gráfico de Coxcomb de los mismos datos.
+    #|   Hay dos gráficas. A la izquierda hay un gráfico de barras de la 
+    #|   claridad de diamantes, a la derecha hay un gráfico de Coxcomb de 
+    #|   los mismos datos.
 
     bar <- ggplot(data = diamonds) + 
       geom_bar(
@@ -1003,14 +1057,16 @@ Hay otros dos sistemas de coordenadas que ocasionalmente son útiles.
 
 Podemos ampliar la plantilla de gráficos que aprendió en @sec-ggplot2-calls agregando ajustes de posición, estadísticas, sistemas de coordenadas y facetas:
 
-    ggplot(data = <DATA>) + 
-      <GEOM_FUNCTION>(
-         mapping = aes(<MAPPINGS>),
-         stat = <STAT>, 
-         position = <POSITION>
-      ) +
-      <COORDINATE_FUNCTION> +
-      <FACET_FUNCTION>
+```         
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
 
 Nuestra nueva plantilla toma siete parámetros, las palabras entre paréntesis que aparecen en la plantilla.
 En la práctica, rara vez necesita proporcionar los siete parámetros para hacer un gráfico porque ggplot2 proporcionará valores predeterminados útiles para todo excepto los datos, las asignaciones y la función geom.
@@ -1029,13 +1085,15 @@ Luego, seleccionaría un sistema de coordenadas para colocar los geomas, utiliza
 #| label: fig-visualization-grammar
 #| echo: false
 #| fig-alt: >
-#|   Una figura que demuestra los pasos para pasar de datos sin procesar a una tabla de
-#|   frecuencias donde cada fila representa un nivel de corte y una columna de conteo
-#|    muestra cuántos diamantes hay en ese nivel de corte. Luego, estos valores se asignan
+#|   Una figura que demuestra los pasos para pasar de datos sin procesar 
+#|   a una tabla de frecuencias donde cada fila representa un nivel de 
+#|   corte y una columna de conteo muestra cuántos diamantes 
+#|   hay en ese nivel de corte. Luego, estos valores se asignan
 #|    a las alturas de las barras.
 #| fig-cap: >
-#|    Pasos para pasar de datos sin procesar a una tabla de frecuencias a un gráfico de barras
-#|    donde las alturas de la barra representan las frecuencias. 
+#|    Pasos para pasar de datos sin procesar a una tabla de frecuencias a 
+#|    un gráfico de barras donde las alturas de la barra representan 
+#|    las frecuencias. 
 
 knitr::include_graphics("images/visualization-grammar.png")
 ```

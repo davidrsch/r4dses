@@ -90,7 +90,7 @@ students
 
 En la columna `favourite.food`, hay un montón de artículos de comida, y luego la cadena de caracteres `N/A`, que debería haber sido un `NA` real que R reconocerá como "no disponible".
 Esto es algo que podemos abordar usando el argumento `na`.
-Por defecto `read_csv()` solo reconoce cadenas vacías (`""`) como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A`.
+Por defecto, `read_csv()` solo reconoce cadenas vacías (`""`) en este conjunto de datos como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A"`.
 
 ```{r}
 #| message: false
@@ -318,7 +318,7 @@ Esta heurística funciona bien si tiene un conjunto de datos limpio, pero en la 
 ### Valores faltantes, tipos de columnas y problemas
 
 La forma más común en que falla la detección de columnas es que una columna contiene valores inesperados y obtiene una columna de caracteres en lugar de un tipo más específico.
-Una de las causas más comunes de esto es un valor faltante, registrado usando algo diferente al `NA` que espera stringr.
+Una de las causas más comunes de esto es un valor faltante, registrado usando algo diferente al `NA` que espera readr.
 
 Tome este simple archivo CSV de 1 columna como ejemplo:
 
@@ -372,13 +372,13 @@ read_csv(simple_csv, na = ".")
 readr proporciona un total de nueve tipos de columnas para su uso:
 
 -   `col_logical()` y `col_double()` leen números lógicos y reales. Son relativamente raramente necesarios (excepto como se indicó anteriormente), ya que readr generalmente los adivinará por usted.
--   `col_integer()` lee números enteros. Distinguimos enteros y dobles en este libro porque son funcionalmente equivalentes, pero leer enteros explícitamente puede ser útil en ocasiones porque ocupan la mitad de la memoria de los dobles.
--   `col_character()` lee cadenas. Esto a veces es útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica algún objeto, pero no tiene sentido (por ejemplo) dividirlo por la mitad, por ejemplo, un número de teléfono, número de seguro social, número de tarjeta de crédito, etc..
+-   `col_integer()` lee números enteros. Rara vez distinguimos números enteros y dobles en este libro porque son funcionalmente equivalentes, pero la lectura explícita de números enteros ocasionalmente puede ser útil porque ocupan la mitad de la memoria de los dobles.
+-   `col_character()` lee cadenas de caracteres. Esto a veces es útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica algún objeto, pero no tiene sentido (por ejemplo) dividirlo por la mitad, por ejemplo, un número de teléfono , número de seguro social, número de tarjeta de crédito, etc.
 -   `col_factor()`, `col_date()` y `col_datetime()` crean factores, fechas y fecha-hora respectivamente; aprenderá más sobre ellos cuando lleguemos a esos tipos de datos en @sec-factors y @sec-dates-and-times.
 -   `col_number()` es un analizador numérico permisivo que ignorará los componentes no numéricos y es particularmente útil para las monedas. Aprenderá más al respecto en @sec-numbers.
 -   `col_skip()` salta una columna por lo que no se incluye en el resultado, que puede ser útil para acelerar la lectura de datos si tiene un archivo CSV grande y solo desea usar algunas de las columnas.
 
-También es posible anular la columna predeterminada cambiando de `list()` a `cols()`:
+También es posible anular la columna predeterminada cambiando de `list()` a `cols()` y especificando `.default`:
 
 ```{r}
 another_csv <- "
@@ -395,8 +395,7 @@ Otro ayudante útil es `cols_only()` que leerá solo las columnas que especifiqu
 
 ```{r}
 read_csv(
-  "x,y,z
-  1,2,3",
+  another_csv,
   col_types = cols_only(x = col_character())
 )
 ```
@@ -525,9 +524,9 @@ Esto hace posible diseñar pequeñas cantidades de datos en un formato fácil de
 ```{r}
 tribble(
   ~x, ~y, ~z,
-  "h", 1, 0.08,
-  "m", 2, 0.83,
-  "g", 5, 0.60,
+  1, "h", 0.08,
+  2, "m", 0.83,
+  5, "g", 0.60,
 )
 ```
 

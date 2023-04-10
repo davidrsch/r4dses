@@ -92,9 +92,9 @@ csv <- "
 read_csv(csv)
 ```
 
-Si no ha oído hablar de **ISO8601** antes, es un estándar internacional[^datetimes-2] para escribir fechas donde los componentes de una fecha se organizan de mayor a menor separados por `-`. Por ejemplo, en ISO8601 el 5 de marzo de 2022 es `2022-05-03`. Las fechas ISO8601 también pueden incluir horas, donde la hora, el minuto y el segundo están separados por `:`, y los componentes de fecha y hora están separados por una `T` o un espacio.
+Si no ha oído hablar de **ISO8601** antes, es un estándar internacional[^datetimes-2] para escribir fechas donde los componentes de una fecha se organizan de mayor a menor separados por `-`. Por ejemplo, en ISO8601 el 3 de mayo de 2022 es `2022-05-03`. Las fechas ISO8601 también pueden incluir horas, donde la hora, el minuto y el segundo están separados por `:`, y los componentes de fecha y hora están separados por una `T` o un espacio.
 Por ejemplo, podría escribir 4:26 p. m.
-el 5 de marzo de 2022 como `2022-05-03 16:26` o `2022-05-03T16:26`.
+el 3 de mayo de 2022 como `2022-05-03 16:26` o `2022-05-03T16:26`.
 
 [^datetimes-2]: <https://xkcd.com/1179/>
 
@@ -651,7 +651,7 @@ Podemos arreglar esto agregando `días (1)` a la hora de llegada de cada vuelo n
 flights_dt <- flights_dt |> 
   mutate(
     overnight = arr_time < dep_time,
-    arr_time = arr_time + days(!overnight),
+    arr_time = arr_time + days(overnight),
     sched_arr_time = sched_arr_time + days(overnight)
   )
 ```

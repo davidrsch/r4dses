@@ -71,7 +71,7 @@ coalesce(x, 0)
 A veces te encontrarás con el problema opuesto en el que algún valor concreto en realidad representa un valor faltante.
 Por lo general, esto surge en los datos generados por un software antiguo que no tiene una forma adecuada de representar los valores faltantes, por lo que debe usar algún valor especial como 99 o -999.
 
-Si es posible, maneje esto cuando lea los datos, por ejemplo, usando el argumento `na` para `readr::read_csv()`, p. `read_csv(ruta, na = "99")`.
+Si es posible, maneje esto cuando lea los datos, por ejemplo, usando el argumento `na` para `readr::read_csv()`, p.ej., `read_csv(ruta, na = "99")`.
 Si descubre el problema más tarde, o su fuente de datos no proporciona una forma de manejarlo, puede usar `dplyr::na_if()`:
 
 ```{r}

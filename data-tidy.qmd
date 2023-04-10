@@ -358,7 +358,7 @@ Hay dos columnas que ya son variables y son fáciles de interpretar: `country` y
 Les siguen 56 columnas como `sp_m_014`, `ep_m_4554` y `rel_m_3544`.
 Si observa estas columnas durante el tiempo suficiente, notará que hay un patrón.
 Cada nombre de columna se compone de tres piezas separadas por `_`.
-La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico, la segunda pieza, `m`/`f` es el `género` (codificado como una variable binaria en este conjunto de datos) , y la tercera pieza, `014`/`1524`/`2534`/`3544`/`4554`/``` 5564/``65 ``` es el rango de `edad` (`014` representa 0-14, por ejemplo).
+La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico, la segunda pieza, `m`/`f` es el `género` (codificado como una variable binaria en este conjunto de datos) , y la tercera pieza, `014`/`1524`/`2534`/`3544`/`4554`/`5564`/`65` es el rango de `edad` (`014` representa 0-14, por ejemplo).
 
 Entonces, en este caso, tenemos seis piezas de información registradas en `who2`: el país y el año (ya columnas); el método de diagnóstico, la categoría de género y la categoría de rango de edad (contenidas en los otros nombres de columna); y el recuento de pacientes en esa categoría (valores de celda).
 Para organizar estas seis piezas de información en seis columnas separadas, usamos `pivot_longer()` con un vector de nombres de columna para `names_to` e instructores para dividir los nombres de las variables originales en partes para `names_sep`, así como un nombre de columna para `values_to`:
@@ -430,7 +430,7 @@ Cuando usa `".value"` en `names_to`, los nombres de las columnas en la entrada c
 #| label: fig-pivot-names-and-values
 #| echo: false
 #| fig-cap: >
-#|   Pivotar con `names_to = c(".value", "id")` divide los nombres de las columnas
+#|   Pivotar con `names_to = c(".value", "num")` divide los nombres de las columnas
 #|   en dos componentes: la primera parte determina la columna de salida
 #|   nombre (`x` o `y`), y la segunda parte determina el valor de la
 #|   columna `id`.

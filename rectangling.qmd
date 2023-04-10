@@ -87,7 +87,7 @@ str(x5)
 ```
 
 A medida que las listas se vuelven aún más grandes y complejas, `str()` eventualmente comienza a fallar, y deberá cambiar a `View()`[^rectangling-1].
-@fig-view-collapsed muestra el resultado de llamar a `View(x4)`. El visor comienza mostrando solo el nivel superior de la lista, pero puede expandir interactivamente cualquiera de los componentes para ver más, como en @fig-view-expand-1. RStudio también le mostrará el código que necesita para acceder a ese elemento, como en @fig-view-expand-2. Volveremos sobre cómo funciona este código en @sec-subset-one.
+@fig-view-collapsed muestra el resultado de llamar a `View(x5)`. El visor comienza mostrando solo el nivel superior de la lista, pero puede expandir interactivamente cualquiera de los componentes para ver más, como en @fig-view-expand-1. RStudio también le mostrará el código que necesita para acceder a ese elemento, como en @fig-view-expand-2. Volveremos sobre cómo funciona este código en @sec-subset-one.
 
 [^rectangling-1]: Esta es una característica de RStudio.
 
@@ -674,7 +674,7 @@ Esto a menudo funciona bien, particularmente en casos simples, pero creemos que 
 
 ### Comenzando el proceso de rectangular
 
-En la mayoría de los casos, los archivos JSON contienen una única matriz de nivel superior porque están diseñados para proporcionar datos sobre varias "cosas", p. varias páginas, varios registros o varios resultados.
+En la mayoría de los casos, los archivos JSON contienen una única matriz de nivel superior porque están diseñados para proporcionar datos sobre varias "cosas", p.ej., varias páginas, varios registros o varios resultados.
 En este caso, comenzará su rectángulo con `tibble(json)` para que cada elemento se convierta en una fila:
 
 ```{r}

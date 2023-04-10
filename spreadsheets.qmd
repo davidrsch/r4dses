@@ -43,7 +43,7 @@ La mayoría de las funciones de readxl le permiten cargar hojas de cálculo de E
 -   `read_xlsx()` leer archivos de Excel con formato `xlsx`.
 -   `read_excel()` puede leer archivos con formato `xls` y `xlsx`. Adivina el tipo de archivo en función de la entrada.
 
-Todas estas funciones tienen una sintaxis similar al igual que otras funciones que hemos introducido anteriormente para leer otros tipos de archivos, p. `read_csv()`, `read_table()`, etc.
+Todas estas funciones tienen una sintaxis similar al igual que otras funciones que hemos introducido anteriormente para leer otros tipos de archivos, p.ej., `read_csv()`, `read_table()`, etc.
 Para el resto del capítulo nos enfocaremos en usar `read_excel()`.
 
 ### Lectura de hojas de cálculo de Excel {#sec-reading-spreadsheets-excel}
@@ -320,7 +320,7 @@ Estas diferencias entre cómo se almacenan los datos subyacentes y cómo se mues
 Por defecto, readxl adivinará el tipo de datos en una columna determinada.
 Un flujo de trabajo recomendado es dejar que readxl adivine los tipos de columna, confirme que está satisfecho con los tipos de columna adivinados y, si no, regrese y vuelva a importar especificando `col_types` como se muestra en @sec-reading-spreadsheets-excel.
 
-Otro desafío es cuando tiene una columna en su hoja de cálculo de Excel que tiene una combinación de estos tipos, p. algunas celdas son numéricas, otras de texto, otras de fechas.
+Otro desafío es cuando tiene una columna en su hoja de cálculo de Excel que tiene una combinación de estos tipos, p.ej., algunas celdas son numéricas, otras de texto, otras de fechas.
 Al importar los datos a R, readxl tiene que tomar algunas decisiones.
 En estos casos, puede establecer el tipo de esta columna en `"list"`, lo que cargará la columna como una lista de vectores de longitud 1, donde se adivina el tipo de cada elemento del vector.
 
@@ -635,7 +635,7 @@ write_sheet(bake_sale, ss = "bake-sale", sheet = "Sales")
 Si bien puede leer una hoja de Google pública sin autenticarse con su cuenta de Google, leer una hoja privada o escribir en una hoja requiere autenticación para que googlesheets4 pueda ver y administrar *sus* hojas de Google.
 
 Cuando intenta leer una hoja que requiere autenticación, googlesheets4 lo dirigirá a un navegador web con un mensaje para iniciar sesión en su cuenta de Google y otorgar permiso para operar en su nombre con Hojas de cálculo de Google.
-Sin embargo, si desea especificar una cuenta de Google específica, el alcance de la autenticación, etc., puede hacerlo con `gs4_auth()`, p. `gs4_auth(email = "mine@example.com")`, que forzará el uso de un token asociado con un correo electrónico específico.
+Sin embargo, si desea especificar una cuenta de Google específica, el alcance de la autenticación, etc., puede hacerlo con `gs4_auth()`, p.ej., `gs4_auth(email = "mine@example.com")`, que forzará el uso de un token asociado con un correo electrónico específico.
 Para obtener más detalles de autenticación, recomendamos leer la documentación googlesheets4 auth viñeta: <https://googlesheets4.tidyverse.org/articles/auth.html>.
 
 ### Ejercicios
