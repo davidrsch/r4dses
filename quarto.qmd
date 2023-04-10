@@ -8,31 +8,31 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-Quarto provides a unified authoring framework for data science, combining your code, its results, and your prose.
-Quarto documents are fully reproducible and support dozens of output formats, like PDFs, Word files, presentations, and more.
+Quarto proporciona un marco de creación unificado para la ciencia de datos, combinando su código, sus resultados y su prosa.
+Los documentos en quarto son totalmente reproducibles y admiten docenas de formatos de salida, como PDF, archivos de Word, presentaciones y más.
 
-Quarto files are designed to be used in three ways:
+Los archivos en quarto están diseñados para usarse de tres maneras:
 
-1.  For communicating to decision-makers, who want to focus on the conclusions, not the code behind the analysis.
+1.  Para comunicarse con los tomadores de decisiones, que quieren centrarse en las conclusiones, no en el código detrás del análisis.
 
-2.  For collaborating with other data scientists (including future you!), who are interested in both your conclusions, and how you reached them (i.e. the code).
+2.  Para colaborar con otros científicos de datos (¡incluido el futuro usted!), que están interesados tanto en sus conclusiones como en cómo las alcanzó (es decir, el código).
 
-3.  As an environment in which to *do* data science, as a modern-day lab notebook where you can capture not only what you did, but also what you were thinking.
+3.  Como un entorno en el que *hacer* ciencia de datos, como un cuaderno de laboratorio moderno donde puede capturar no solo lo que hizo, sino también lo que estaba pensando.
 
-Quarto is a command line interface tool, not an R package.
-This means that help is, by-and-large, not available through `?`.
-Instead, as you work through this chapter, and use Quarto in the future, you should refer to the [Quarto documentation](https://quarto.org).
+Quarto es una herramienta de interfaz de línea de comandos, no un paquete R.
+Esto significa que la ayuda, en general, no está disponible a través de `?`.
+En cambio, mientras trabaja en este capítulo y usa Quarto en el futuro, debe consultar la [documentación de Quarto](https://quarto.org).
 
-If you're an R Markdown user, you might be thinking "Quarto sounds a lot like R Markdown".
-You're not wrong!
-Quarto unifies the functionality of many packages from the R Markdown ecosystem (rmarkdown, bookdown, distill, xaringan, etc.) into a single consistent system as well as extends it with native support for multiple programming languages like Python and Julia in addition to R.
-In a way, Quarto reflects everything that was learned from expanding and supporting the R Markdown ecosystem over a decade.
+Si es un usuario de R Markdown, podría estar pensando "Quarto se parece mucho a R Markdown".
+¡Tu no estas equivocado!
+Quarto unifica la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, destilar, xaringan, etc.) en un solo sistema consistente y lo amplía con soporte nativo para múltiples lenguajes de programación como Python y Julia además de R.
+En cierto modo, Quarto refleja todo lo que se aprendió al expandir y respaldar el ecosistema R Markdown durante una década.
 
-### Prerequisites
+### Requisitos previos
 
-You need the Quarto command line interface (Quarto CLI), but you don't need to explicitly install it or load it, as RStudio automatically does both when needed.
+Necesita la interfaz de línea de comandos de Quarto (Quarto CLI), pero no necesita instalarla o cargarla explícitamente, ya que RStudio hace ambas cosas automáticamente cuando es necesario.
 
 ```{r}
 #| label: setup

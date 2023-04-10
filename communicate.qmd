@@ -1,4 +1,4 @@
-# Communicate {#sec-communicate-intro .unnumbered}
+# Comunicar {#sec-communicate-intro .unnumbered}
 
 ```{r}
 #| results: "asis"
@@ -6,31 +6,31 @@
 source("_common.R")
 ```
 
-So far, you've learned the tools to get your data into R, tidy it into a form convenient for analysis, and then understand your data through transformation, and visualization.
-However, it doesn't matter how great your analysis is unless you can explain it to others: you need to **communicate** your results.
+Hasta ahora, aprendió las herramientas para obtener sus datos en R, ordenarlos en una forma conveniente para el análisis y luego comprender sus datos a través de la transformación y la visualización.
+Sin embargo, no importa qué tan bueno sea su análisis a menos que pueda explicárselo a otros: necesita **comunicar** sus resultados.
 
 ```{r}
 #| label: fig-ds-communicate
 #| echo: false
 #| fig-cap: >
-#|   Communication is the final part of the data science process; if you
-#|   can't communicate your results to other humans, it doesn't matter how
-#|   great your analysis is.
+#|   La comunicación es la parte final del proceso de ciencia de datos; si 
+#|   no puede comunicar sus resultados a otros humanos, no importa cuán 
+#|   bueno sea su análisis.
 #| fig-alt: >
-#|   A diagram displaying the data science cycle with
-#|   communicate highlighed in blue.
+#|   Un diagrama que muestra el ciclo de la ciencia de datos con la 
+#|   comunicación resaltada en azul.
 #| out.width: NULL
 
 knitr::include_graphics("diagrams/data-science/communicate.png", dpi = 270)
 ```
 
-Communication is the theme of the following two chapters:
+La comunicación es el tema de los dos capítulos siguientes:
 
--   In @sec-quarto, you will learn about Quarto, a tool for integrating prose, code, and results.
-    You can use Quarto for analyst-to-analyst communication as well as analyst-to-decision-maker communication.
-    Thanks to the power of Quarto formats, you can even use the same document for both purposes.
+-   En @sec-quarto, aprenderá sobre Quarto, una herramienta para integrar prosa, código y resultados.
+    Puede utilizar Quarto para la comunicación de analista a analista, así como para la comunicación de analista a responsable de la toma de decisiones.
+    Gracias a la potencia de los formatos Quarto, incluso puede utilizar el mismo documento para ambos fines.
 
--   In @sec-quarto-formats, you'll learn a little about the many other varieties of outputs you can produce using Quarto, including dashboards, websites, and books.
+-   En @sec-quarto-formats, aprenderá un poco sobre las muchas otras variedades de salidas que puede producir con Quarto, incluidos paneles, sitios web y libros.
 
-These chapters focus mostly on the technical mechanics of communication, not the really hard problems of communicating your thoughts to other humans.
-However, there are lot of other great books about communication, which we'll point you to at the end of each chapter.
+Estos capítulos se centran principalmente en la mecánica técnica de la comunicación, no en los problemas realmente difíciles de comunicar tus pensamientos a otros humanos.
+Sin embargo, hay muchos otros grandes libros sobre comunicación, a los que le indicaremos al final de cada capítulo.

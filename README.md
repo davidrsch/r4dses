@@ -31,9 +31,8 @@ Si detecta algún error relacionado con contenido de la traducción, siéntase l
 -   Transformar
 -   Importar
 -   Programa
-    -   26 Funciones
-    -   27 Iteración
-    -   28 Una guía para R base
+-   Comunicar
+    -   29 Quarto
 
 ## Sobre otras versiones
 
@@ -130,9 +129,8 @@ If you spot any issue related to the translation content, feel free to open an i
 -   Transform
 -   Import
 -   Program
-    -   26 Functions
-    -   27 Iteration
-    -   28 A field guide to base R
+-   Communicate
+    -   29 Quarto
 
 ## About other versions
 
