@@ -11,9 +11,9 @@ status("complete")
 ## Introducción
 
 Quarto proporciona un marco de creación unificado para la ciencia de datos, combinando su código, sus resultados y su prosa.
-Los documentos en quarto son totalmente reproducibles y admiten docenas de formatos de salida, como PDF, archivos de Word, presentaciones y más.
+Los documentos Quarto son totalmente reproducibles y admiten docenas de formatos de salida, como PDF, archivos de Word, presentaciones y más.
 
-Los archivos en quarto están diseñados para usarse de tres maneras:
+Los archivos Quarto están diseñados para usarse de tres maneras:
 
 1.  Para comunicarse con los tomadores de decisiones, que quieren centrarse en las conclusiones, no en el código detrás del análisis.
 
@@ -45,175 +45,177 @@ library(tidyverse)
 
 ## Quarto basics
 
-This is a Quarto file -- a plain text file that has the extension `.qmd`:
+Este es un archivo Quarto, un archivo de texto sin formato que tiene la extensión `.qmd`:
 
 ```{r echo = FALSE, comment = ""}
 cat(readr::read_file("quarto/diamond-sizes.qmd"))
 ```
 
-It contains three important types of content:
+Contiene tres tipos importantes de contenido:
 
-1.  An (optional) **YAML header** surrounded by `---`s.
-2.  **Chunks** of R code surrounded by ```` ``` ````.
-3.  Text mixed with simple text formatting like `# heading` and `_italics_`.
+1.  Un **encabezado YAML** (opcional) rodeado de `---`s.
+2.  **Porciones** de código R rodeadas por ```` ``` ````.
+3.  Texto mezclado con formato de texto simple como `#título` y `_cursiva_`.
 
-@fig-diamond-sizes-notebook shows a `.qmd` document in RStudio with notebook interface where code and output are interleaved.
-You can run each code chunk by clicking the Run icon (it looks like a play button at the top of the chunk), or by pressing Cmd/Ctrl + Shift + Enter.
-RStudio executes the code and displays the results inline with the code.
+@fig-diamond-sizes-notebook muestra un documento `.qmd` en RStudio con interfaz de notebook donde el código y la salida están intercalados.
+Puede ejecutar cada fragmento de código haciendo clic en el ícono Ejecutar (parece un botón de reproducción en la parte superior del fragmento), o presionando Cmd/Ctrl + Shift + Enter.
+RStudio ejecuta el código y muestra los resultados en línea con el código.
 
 ```{r}
 #| label: fig-diamond-sizes-notebook
 #| echo: false
 #| out-width: "90%"
 #| fig-cap: |
-#|   A Quarto document in RStudio. Code and output interleaved in 
-#|   the document, with the plot output appearing right underneath the code.
+#|   Un documento de Quarto en RStudio. Código y salida intercalados en 
+#|   el documento, con la salida de la gráfica apareciendo justo debajo del 
+#|   código.
 #| fig-alt: |
-#|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
-#|   on the left and a blank Viewer window on the right. The Quarto 
-#|   document has a code chunk that creates a frequency plot of diamonds 
-#|   that weigh less than 2.5 carats. The plot shows that the frequency 
-#|   decreases as the weight increases.
+#|   Ventana de RStudio con un documento de Quarto titulado "diamond-sizes.qmd" 
+#|   a la izquierda y una ventana de visor en blanco a la derecha. El 
+#|   documento Quarto tiene un fragmento de código que crea un gráfico de 
+#|   frecuencia de diamantes que pesan menos de 2,5 quilates. El 
+#|   gráfico muestra que la frecuencia disminuye a medida que aumenta el 
+#|   peso.
 
 knitr::include_graphics("quarto/diamond-sizes-notebook.png")
 ```
 
-If you don't like seeing your plots and output in your document and would rather make use of RStudio's console and plot panes, you can click on the gear icon next to "Render" and switch to "Chunk Output in Console", as shown in @fig-diamond-sizes-console-output.
+Si no le gusta ver sus gráficos y resultados en su documento y prefiere utilizar la consola y los paneles de gráficos de RStudio, puede hacer clic en el icono de engranaje junto a "Render" y cambiar a "Chunk Output in Console", como se muestra en @fig-diamond-sizes-console-output.
 
 ```{r}
 #| label: fig-diamond-sizes-console-output
 #| echo: false
 #| out-width: "90%"
 #| fig-cap: |
-#|   A Quarto document in RStudio with the plot output in the Plots pane.
+#|   Un documento Quarto en RStudio con la salida del gráfico en el panel Gráficos.
 #| fig-alt: |
-#|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
-#|   on the left and the Plot pane on the bottom right. The Quarto 
-#|   document has a code chunk that creates a frequency plot of diamonds 
-#|   that weigh less than 2.5 carats. The plot is displayed in the Plot 
-#|   pane and shows that the frequency decreases as the weight increases. 
-#|   The RStudio option to show Chunk Output in Console is also 
-#|   highlighted.
+#|   Ventana de RStudio con un documento de Quarto titulado "diamond-sizes.qmd" 
+#|   a la izquierda y el panel Gráfico en la parte inferior derecha. El 
+#|   documento Quarto tiene un fragmento de código que crea un gráfico de 
+#|   frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico 
+#|   se muestra en el panel Gráfico y muestra que la frecuencia disminuye 
+#|   a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output 
+#|   en Console también está resaltada.
 
 knitr::include_graphics("quarto/diamond-sizes-console-output.png")
 ```
 
-To produce a complete report containing all text, code, and results, click "Render" or press Cmd/Ctrl + Shift + K.
-You can also do this programmatically with `quarto::quarto_render("diamond-sizes.qmd")`.
-This will display the report in the viewer pane as shown in @fig-diamond-sizes-report and create an HTML file.
+Para generar un informe completo que contenga todo el texto, el código y los resultados, haga clic en "Render" o presione Cmd/Ctrl + Shift + K.
+También puede hacer esto mediante programación con `quarto::quarto_render("diamond-sizes.qmd")`.
+Esto mostrará el informe en el panel del visor como se muestra en @fig-diamond-sizes-report y creará un archivo HTML.
 
 ```{r}
 #| label: fig-diamond-sizes-report
 #| echo: false
 #| out-width: "90%"
 #| fig-cap: |
-#|   A Quarto document in RStudio with the rendered document in the 
-#|   Viewer pane.
+#|   Un documento de Quarto en RStudio con el documento renderizado en el
+#|   panel del View.
 #| fig-alt: |
-#|   RStudio window with a Quarto document titled "diamond-sizes.qmd" 
-#|   on the left and the Plot pane on the bottom right. The rendered 
-#|   document does not show any of the code, but the code is visible 
-#|   in the source document.
+#|   RVentana de Studio con un documento Quarto titulado "diamond-sizes.qmd" 
+#|   a la izquierda y el panel Gráfico en la parte inferior derecha. El 
+#|   documento renderizado no muestra nada del código, pero el código es 
+#|   visible en el documento de origen.
 
 knitr::include_graphics("quarto/diamond-sizes-report.png")
 ```
 
-When you render the document, Quarto sends the `.qmd` file to **knitr**, [https://yihui.name/knitr](https://yihui.name/knitr/){.uri}, which executes all of the code chunks and creates a new markdown (`.md`) document which includes the code and its output.
-The markdown file generated by knitr is then processed by **pandoc**, [https://pandoc.org](https://pandoc.org/){.uri}, which is responsible for creating the finished file.
-This process is shown in @fig-quarto-flow.
-The advantage of this two step workflow is that you can create a very wide range of output formats, as you'll learn about in @sec-quarto-formats.
+Cuando renderiza el documento, Quarto envía el archivo `.qmd` a **knitr**, [https://yihui.name/knitr](https://yihui.name/knitr/){.uri}, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (`.md`) que incluye el código y su salida.
+El archivo markdown generado por knitr luego es procesado por **pandoc**, [https://pandoc.org](https://pandoc.org/){.uri}, que es responsable de crear el archivo terminado.
+Este proceso se muestra en @fig-quarto-flow.
+La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en @sec-quarto-formats.
 
 ```{r}
 #| label: fig-quarto-flow
 #| echo: false
 #| out-width: "75%"
 #| fig-alt: >
-#|   Workflow diagram starting with a qmd file, then knitr, then md, 
-#|   then pandoc, then PDF, MS Word, or HTML.
+#|   Diagrama de flujo de trabajo que comienza con un archivo qmd, 
+#|   luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML.
 #| fig-cap: >
-#|   Diagram of Quarto workflow from qmd, to knitr, to md, to pandoc, 
-#|   to output in PDF, MS Word, or HTML formats.
+#|   Diagrama del flujo de trabajo de Quarto de qmd, a knitr, a md, 
+#|   a pandoc, a la salida en formato PDF, MS Word o HTML.
 
 knitr::include_graphics("images/quarto-flow.png")
 ```
 
-To get started with your own `.qmd` file, select *File \> New File \> Quarto Document...* in the menu bar.
-RStudio will launch a wizard that you can use to pre-populate your file with useful content that reminds you how the key features of Quarto work.
+Para comenzar con su propio archivo `.qmd`, seleccione *File \> New File \> Quarto Document...* en la barra de menú.
+RStudio lanzará un asistente que puede usar para completar previamente su archivo con contenido útil que le recuerda cómo funcionan las funciones clave de Quarto
 
-The following sections dive into the three components of a Quarto document in more details: the markdown text, the code chunks, and the YAML header.
+Las siguientes secciones se sumergen en los tres componentes de un documento Quarto con más detalles: el texto markdown, los fragmentos de código y el encabezado YAML.
 
-### Exercises
+### Ejercicios
 
-1.  Create a new Quarto document using *File \> New File \> Quarto Document*.
-    Read the instructions.
-    Practice running the chunks individually.
-    Then render the document by clicking the appropriate button and then by using the appropriate keyboard short cut.
-    Verify that you can modify the code, re-run it, and see modified output.
+1.  Crear un nuevo documento Quarto usando *File \> New File \> Quarto Document*.
+    Lee las instrucciones.
+    Practique ejecutar los fragmentos individualmente.
+    Luego renderice el documento haciendo clic en el botón apropiado y luego usando el atajo de teclado apropiado.
+    Verifique que puede modificar el código, volver a ejecutarlo y ver el resultado modificado.
 
-2.  Create one new Quarto document for each of the three built-in formats: HTML, PDF and Word.
-    Render each of the three documents.
-    How do the outputs differ?
-    How do the inputs differ?
-    (You may need to install LaTeX in order to build the PDF output --- RStudio will prompt you if this is necessary.)
+2.  Cree un nuevo documento Quarto para cada uno de los tres formatos integrados: HTML, PDF y Word.
+    Renderice cada uno de los tres documentos.
+    ¿Cómo difieren las salidas?
+    ¿Cómo difieren las entradas?
+    (Es posible que deba instalar LaTeX para generar la salida en PDF; RStudio le indicará si es necesario).
 
-## Visual editor
+## Editor Visual
 
-The Visual editor in RStudio provides a [WYSIWYM](https://en.wikipedia.org/wiki/WYSIWYM) interface for authoring Quarto documents.
-Under the hood, prose in Quarto documents (`.qmd` files) is written in Markdown, a lightweight set of conventions for formatting plain text files.
-In fact, Quarto uses Pandoc markdown (a slightly extended version of Markdown that Quarto understands), including tables, citations, cross-references, footnotes, divs/spans, definition lists, attributes, raw HTML/TeX, and more as well as support for executing code cells and viewing their output inline.
-While Markdown is designed to be easy to read and write, as you will see in @sec-source-editor, it still requires learning new syntax.
-Therefore, if you're new to computational documents like `.qmd` files but have experience using tools like Google Docs or MS Word, the easiest way to get started with Quarto in RStudio is the visual editor.
+El editor visual de RStudio proporciona una interfaz [WYSIWYM](https://en.wikipedia.org/wiki/WYSIWYM) para crear documentos Quarto.
+En el fondo, la prosa de los documentos Quarto (archivos `.qmd`) está escrita en Markdown, un conjunto ligero de convenciones para formatear archivos de texto sin formato.
+De hecho, Quarto usa Pandoc Markdown (una versión ligeramente extendida de Markdown que Quarto entiende), que incluye tablas, citas, referencias cruzadas, notas al pie, divs/spans, listas de definiciones, atributos, HTML/TeX sin formato y más, así como soporte para ejecutar celdas de código y ver su salida en línea.
+Si bien Markdown está diseñado para que sea fácil de leer y escribir, como verá en @sec-source-editor, aún requiere aprender una nueva sintaxis.
+Por lo tanto, si es nuevo en documentos computacionales como archivos `.qmd` pero tiene experiencia en el uso de herramientas como Google Docs o MS Word, la forma más fácil de comenzar con Quarto en RStudio es el editor visual.
 
-In the visual editor you can either use the buttons on the menu bar to insert images, tables, cross-references, etc. or you can use the catch-all <kbd>⌘ /</kbd> shortcut to insert just about anything.
-If you are at the beginning of a line (as shown in @fig-visual-editor), you can also enter just <kbd>/</kbd> to invoke the shortcut.
+En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘ /</kbd> para insertar casi cualquier cosa.
+Si está al comienzo de una línea (como se muestra en @fig-visual-editor), también puede ingresar solo <kbd>/</kbd> para invocar el atajo.
 
 ```{r}
 #| label: fig-visual-editor
 #| echo: false
 #| out-width: "75%"
 #| fig-cap: |
-#|   Quarto visual editor.
+#|   Editor visual de Quarto.
 #| fig-alt: |
-#|   A Quarto document displaying various features of the 
-#|   visual editor such as text formatting (italic, bold, 
-#|   underline, small caps, code, superscript, and subscript),
-#|   first through third level headings, bulleted and numbered
-#|   lists, links, linked phrases, and images (along with a 
-#|   pop-up window for customizing image size, adding a 
-#|   caption and alt text, etc.), tables with a header row, 
-#|   and the insert anything tool with options to insert an 
-#|   R code chunk, a Python code chunk, a div, a bullet list, 
-#|   a numbered list, or a first level heading (the top few 
-#|   choices in the tool).
+#|   Un documento Quarto que muestra varias funciones del editor visual, 
+#|   como formato de texto (cursiva, negrita, subrayado, versalitas, 
+#|   código, superíndice y subíndice), encabezados de primer a tercer nivel, 
+#|   listas numeradas y con viñetas, enlaces, frases vinculadas e 
+#|   imágenes (junto con una ventana emergente para personalizar el 
+#|   tamaño de la imagen, agregar un título y texto alternativo, etc.), 
+#|   tablas con una fila de encabezado y la herramienta Insertar 
+#|   cualquier cosa con opciones para insertar un fragmento de código R, un 
+#|   fragmento de código Python, un div, una lista con viñetas, una lista 
+#|   numerada o un encabezado de primer nivel (las primeras opciones de la 
+#|   herramienta).
 
 knitr::include_graphics("quarto/quarto-visual-editor.png")
 ```
 
-Inserting images and customizing how they are displayed is also facilitated with the visual editor.
-You can either paste an image from your clipboard directly into the visual editor (and RStudio will place a copy of that image in the project directory and link to it) or you can use the visual editor's Insert \> Figure / Image menu to browse to the image you want to insert or paste it's URL.
-In addition, using the same menu you can resize the image as well as add a caption, alternative text, and a link.
+La inserción de imágenes y la personalización de cómo se muestran también se facilitan con el editor visual.
+Puede pegar una imagen de su portapapeles directamente en el editor visual (y RStudio colocará una copia de esa imagen en el directorio del proyecto y la vinculará) o puede usar el editor visual Insert \> Figure / Image menu para buscar la imagen que desea insertar o pegar su URL.
+Además, utilizando el mismo menú, puede cambiar el tamaño de la imagen y agregar un título, texto alternativo y un enlace.
 
-The visual editor has many more features that we haven't enumerated here that you might find useful as you gain experience authoring with it.
+El editor visual tiene muchas más funciones que no hemos enumerado aquí y que pueden resultarle útiles a medida que adquiera experiencia creando con él.
 
-Most importantly, while the visual editor displays your content with formatting, under the hood, it saves your content in plain Markdown and you can switch back and forth between the visual and source editors to view and edit your content using either tool.
+Lo que es más importante, mientras que el editor visual muestra su contenido con formato, debajo del capó, guarda su contenido en Markdown simple y puede alternar entre los editores visual y fuente para ver y editar su contenido usando cualquiera de las herramientas.
 
-### Exercises
+### Ejercicios
 
-1.  Re-create the document in @fig-visual-editor using the visual editor.
-2.  Using the visual editor, insert a code chunk using the Insert menu and then the insert anything tool.
-3.  Using the visual editor, figure out how to:
-    a.  Add a footnote.
-    b.  Add a horizontal rule.
-    c.  Add a block quote.
-4.  In the visual editor, go to Insert \> Citation and insert a citation to the paper titled [Welcome to the Tidyverse](https://joss.theoj.org/papers/10.21105/joss.01686) using its DOI (digital object identifier), which is [10.21105/joss.01686](https://doi.org/10.21105/joss.01686). Render the document and observe how the reference shows up in the document. What change do you observe in the YAML of your document?
+1.  Vuelva a crear el documento en @fig-visual-editor usando el editor visual.
+2.  Usando el editor visual, inserte un fragmento de código usando el menú Insertar y luego la herramienta Insertar cualquier cosa.
+3.  Usando el editor visual, descubra cómo:
+    a.  Añadir una nota al pie.
+    b.  Agregue una regla horizontal.
+    c.  Agregue una cita en bloque.
+4.  En el editor visual, vaya a Insert \> Citation e inserte una cita al artículo titulado [Bienvenido a Tidyverse](https://joss.theoj.org/papers/10.21105/joss.01686) usando su DOI (objeto digital identificador), que es [10.21105/joss.01686](https://doi.org/10.21105/joss.01686). Renderice el documento y observe cómo aparece la referencia en el documento. ¿Qué cambio observa en el YAML de su documento?
 
-## Source editor {#sec-source-editor}
+## Editor Source {#sec-source-editor}
 
-You can also edit Quarto documents using the Source editor in RStudio, without the assist of the Visual editor.
-While the Visual editor will feel familiar to those with experience writing in tools like Google docs, the Source editor will feel familiar to those with experience writing R scripts or R Markdown documents.
-The Source editor can also be useful for debugging any Quarto syntax errors since it's often easier to catch these in plain text.
+También puede editar documentos Quarto usando el editor de origen en RStudio, sin la ayuda del editor visual.
+Mientras que el editor visual les resultará familiar a quienes tengan experiencia escribiendo en herramientas como Google docs, el editor de código fuente les resultará familiar a quienes tengan experiencia escribiendo scripts R o documentos R Markdown.
+El editor de código fuente también puede ser útil para depurar cualquier error de sintaxis de Quarto, ya que a menudo es más fácil detectarlos en texto sin formato.
 
-The guide below shows how to use Pandoc's Markdown for authoring Quarto documents in the source editor.
+La siguiente guía muestra cómo usar Markdown de Pandoc para crear documentos Quarto en el editor de código fuente.
 
 ```{r}
 #| echo: false
@@ -222,54 +224,57 @@ The guide below shows how to use Pandoc's Markdown for authoring Quarto document
 cat(readr::read_file("quarto/markdown.qmd"))
 ```
 
-The best way to learn these is simply to try them out.
-It will take a few days, but soon they will become second nature, and you won't need to think about them.
-If you forget, you can get to a handy reference sheet with *Help \> Markdown Quick Reference*.
+La mejor manera de aprender estos es simplemente probarlos.
+Tomará algunos días, pero pronto se convertirán en una segunda naturaleza y no necesitará pensar en ellos.
+Si lo olvida, puede acceder a una práctica hoja de referencia con *Help \> Markdown Quick Reference*.
 
-### Exercises
+### Ejercicios
 
-1.  Practice what you've learned by creating a brief CV.
-    The title should be your name, and you should include headings for (at least) education or employment.
-    Each of the sections should include a bulleted list of jobs/degrees.
-    Highlight the year in bold.
+1.  Practica lo que has aprendido creando un breve CV.
+    El título debe ser su nombre y debe incluir encabezados para (al menos) educación o empleo.
+    Cada una de las secciones debe incluir una lista con viñetas de trabajos/títulos.
+    Resalta el año en negrita.
 
-2.  Using the source editor and the Markdown quick reference, figure out how to:
+2.  Con el editor de código fuente y la referencia rápida de Markdown, descubra cómo:
 
-    a.  Add a footnote.
-    b.  Add a horizontal rule.
-    c.  Add a block quote.
+    a.  Añadir una nota al pie.
+    b.  Agregue una regla horizontal.
 
-3.  Copy and paste the contents of `diamond-sizes.qmd` from <https://github.com/hadley/r4ds/tree/main/quarto> in to a local R Quarto document.
-    Check that you can run it, then add text after the frequency polygon that describes its most striking features.
+    <!-- -->
 
-4.  Create a document in a Google doc or MS Word (or locate a document you have created previously) with some content in it such as headings, hyperlinks, formatted text, etc.
-    Copy the contents of this document and paste it into a Quarto document in the visual editor.
-    Then, switch over to the source editor and inspect the source code.
+    C.  Agregue una cita en bloque.
 
-## Code chunks
+3.  Copie y pegue el contenido de `diamond-sizes.qmd` de <https://github.com/hadley/r4ds/tree/main/quarto> en un documento R Quarto local.
+    Comprueba que puedes ejecutarlo, luego agrega texto después del polígono de frecuencia que describe sus características más llamativas.
 
-To run code inside a Quarto document, you need to insert a chunk.
-There are three ways to do so:
+4.  Cree un documento en un documento de Google o MS Word (o busque un documento que haya creado anteriormente) con algún contenido, como encabezados, hipervínculos, texto formateado, etc.
+    Copie el contenido de este documento y péguelo en un documento Quarto en el editor visual.
+    Luego, cambie al editor de código fuente e inspeccione el código fuente.
 
-1.  The keyboard shortcut Cmd + Option + I / Ctrl + Alt + I.
+## Fragmentos de código
 
-2.  The "Insert" button icon in the editor toolbar.
+Para ejecutar código dentro de un documento Quarto, debe insertar un fragmento.
+Hay tres formas de hacerlo:
 
-3.  By manually typing the chunk delimiters ```` ```{r} ```` and ```` ``` ````.
+1.  El método abreviado de teclado Cmd + Opción + I / Ctrl + Alt + I.
 
-We'd recommend you learn the keyboard shortcut.
-It will save you a lot of time in the long run!
+2.  El icono del botón "Insert" en la barra de herramientas del editor.
 
-You can continue to run the code using the keyboard shortcut that by now (we hope!) you know and love: Cmd/Ctrl + Enter.
-However, chunks get a new keyboard shortcut: Cmd/Ctrl + Shift + Enter, which runs all the code in the chunk.
-Think of a chunk like a function.
-A chunk should be relatively self-contained, and focused around a single task.
+3.  Al escribir manualmente los delimitadores de fragmentos ```` ```{r} ```` y ```` ``` ````.
 
-The following sections describe the chunk header which consists of ```` ```{r} ````, followed by an optional chunk label and various other chunk options, each on their own line, marked by `#|`.
+Le recomendamos que aprenda el atajo de teclado.
+¡Te ahorrará mucho tiempo a largo plazo!
 
-### Chunk label
+Puede continuar ejecutando el código usando el atajo de teclado que ahora (¡esperamos!) conoce y ama: Cmd/Ctrl + Enter.
+Sin embargo, los fragmentos obtienen un nuevo atajo de teclado: Cmd/Ctrl + Shift + Enter, que ejecuta todo el código en el fragmento.
+Piensa en un trozo como una función.
+Un fragmento debe ser relativamente independiente y centrarse en una sola tarea.
 
-Chunks can be given an optional label, e.g.
+Las siguientes secciones describen el encabezado del fragmento que consta de ```` ```{r} ````, seguido de una etiqueta de fragmento opcional y varias otras opciones de fragmento, cada una en su propia línea, marcada por `#|`.
+
+### Etiqueta de fragmento de código
+
+A los fragmento de código se les puede dar una etiqueta opcional, p.ej.
 
 ```{r}
 #| echo: fenced
@@ -278,66 +283,66 @@ Chunks can be given an optional label, e.g.
 1 + 1
 ```
 
-This has three advantages:
+Esto tiene tres ventajas:
 
-1.  You can more easily navigate to specific chunks using the drop-down code navigator in the bottom-left of the script editor:
+1.  Puede navegar más fácilmente a fragmentos específicos utilizando el navegador de código desplegable en la parte inferior izquierda del editor de secuencias de comandos:
 
     ```{r}
     #| echo: false
     #| out-width: "30%"
     #| fig-alt: |
-    #|   Snippet of RStudio IDE showing only the drop-down code navigator 
-    #|   which shows three chunks. Chunk 1 is setup. Chunk 2 is cars and 
-    #|   it is in a section called Quarto. Chunk 3 is pressure and it is in 
-    #|   a section called Including plots.
+    #|   Fragmento de RStudio IDE que muestra solo el navegador de 
+    #|   código desplegable que muestra tres fragmentos. Chunk 1 es setup. 
+    #|   Chunk 2 es cars y está en una sección llamada Quarto. Chunk 3 
+    #|   es pressure y está en una sección llamada Including plots.   
 
     knitr::include_graphics("screenshots/quarto-chunk-nav.png")
     ```
 
-2.  Graphics produced by the chunks will have useful names that make them easier to use elsewhere.
-    More on that in @sec-figures.
+2.  Los gráficos producidos por los fragmentos tendrán nombres útiles que los harán más fáciles de usar en otros lugares.
+    Más sobre eso en @sec-figures.
 
-3.  You can set up networks of cached chunks to avoid re-performing expensive computations on every run.
-    More on that in @sec-caching.
+3.  Puede configurar redes de fragmentos almacenados en caché para evitar volver a realizar cálculos costosos en cada ejecución.
+    Más sobre eso en @sec-caching.
 
-Your chunk labels should be short but evocative and should not contain spaces.
-We recommend using dashes (`-`) to separate words (instead of underscores, `_`) and avoiding other special characters in chunk labels.
+Las etiquetas de fragmentos deben ser cortas pero sugerentes y no deben contener espacios.
+Recomendamos usar guiones (`-`) para separar palabras (en lugar de guiones bajos, `_`) y evitar otros caracteres especiales en las etiquetas de fragmentos.
 
-You are generally free to label your chunk however you like, but there is one chunk name that imbues special behavior: `setup`.
-When you're in a notebook mode, the chunk named setup will be run automatically once, before any other code is run.
+Por lo general, eres libre de etiquetar tu fragmento como quieras, pero hay un nombre de fragmento que imbuye un comportamiento especial: `setup`.
+Cuando esté en modo notebook, el fragmento denominado setup se ejecutará automáticamente una vez, antes de que se ejecute cualquier otro código.
 
-Additionally, chunk labels cannot be duplicated.
-Each chunk label must be unique.
+Además, las etiquetas de fragmentos no se pueden duplicar.
+Cada etiqueta de fragmento debe ser única.
 
-### Chunk options
+### Opciones de fragmentos de código
 
-Chunk output can be customized with **options**, fields supplied to chunk header.
-Knitr provides almost 60 options that you can use to customize your code chunks.
-Here we'll cover the most important chunk options that you'll use frequently.
-You can see the full list at [https://yihui.name/knitr/options](https://yihui.name/knitr/options/){.uri}.
+La salida del fragmento se puede personalizar con **opciones**, campos proporcionados al encabezado del fragmento.
+Knitr proporciona casi 60 opciones que puede usar para personalizar sus fragmentos de código.
+Aquí cubriremos las opciones de fragmentos más importantes que usará con frecuencia.
+Puedes ver la lista completa en [https://yihui.name/knitr/options](https://yihui.name/knitr/options/){.uri}.
 
-The most important set of options controls if your code block is executed and what results are inserted in the finished report:
+El conjunto de opciones más importante controla si su bloque de código se ejecuta y qué resultados se insertan en el informe terminado:
 
--   `eval: false` prevents code from being evaluated.
-    (And obviously if the code is not run, no results will be generated).
-    This is useful for displaying example code, or for disabling a large block of code without commenting each line.
+-   `eval: false` impide que se evalúe el código.
+    (Y obviamente si no se ejecuta el código, no se generarán resultados).
+    Esto es útil para mostrar código de ejemplo o para deshabilitar un gran bloque de código sin comentar cada línea.
 
--   `include: false` runs the code, but doesn't show the code or results in the final document.
-    Use this for setup code that you don't want cluttering your report.
+-   `include: false` ejecuta el código, pero no muestra el código ni da como resultado el documento final.
+    Úselo para el código de configuración que no desea que abarrote su informe.
 
--   `echo: false` prevents code, but not the results from appearing in the finished file.
-    Use this when writing reports aimed at people who don't want to see the underlying R code.
+-   `echo: false` evita que el código, pero no los resultados, aparezca en el archivo terminado.
+    Use esto cuando escriba informes dirigidos a personas que no quieren ver el código R subyacente.
 
--   `message: false` or `warning: false` prevents messages or warnings from appearing in the finished file.
+-   `message: false` o `warning: false` evita que aparezcan mensajes o advertencias en el archivo terminado.
 
--   `results: hide` hides printed output; `fig-show: hide` hides plots.
+-   `results: hide` oculta la salida impresa; `fig-show: hide` oculta gráficas.
 
--   `error: true` causes the render to continue even if code returns an error.
-    This is rarely something you'll want to include in the final version of your report, but can be very useful if you need to debug exactly what is going on inside your `.qmd`.
-    It's also useful if you're teaching R and want to deliberately include an error.
-    The default, `error: false` causes rendering to fail if there is a single error in the document.
+-   `error: true` hace que el procesamiento continúe incluso si el código devuelve un error.
+    Esto rara vez es algo que desee incluir en la versión final de su informe, pero puede ser muy útil si necesita depurar exactamente lo que está sucediendo dentro de su `.qmd`.
+    También es útil si está enseñando R y quiere incluir deliberadamente un error.
+    El valor predeterminado `error: false` hace que la representación falle si hay un solo error en el documento.
 
-Each of these chunk options get added to the header of the chunk, following `#|`, e.g., in the following chunk the result is not printed since `eval` is set to false.
+Cada una de estas opciones de fragmento se agrega al encabezado del fragmento, después de `#|`, por ejemplo, en el siguiente fragmento, el resultado no se imprime ya que `eval` se establece en falso.
 
 ```{r}
 #| echo: fenced
@@ -347,26 +352,26 @@ Each of these chunk options get added to the header of the chunk, following `#|`
 2 * 2
 ```
 
-The following table summarizes which types of output each option suppresses:
+La siguiente tabla resume qué tipos de salida suprime cada opción:
 
-| Option           | Run code | Show code | Output | Plots | Messages | Warnings |
-|------------------|:--------:|:---------:|:------:|:-----:|:--------:|:--------:|
-| `eval: false`    |    X     |           |   X    |   X   |    X     |    X     |
-| `include: false` |          |     X     |   X    |   X   |    X     |    X     |
-| `echo: false`    |          |     X     |        |       |          |          |
-| `results: hide`  |          |           |   X    |       |          |          |
-| `fig-show: hide` |          |           |        |   X   |          |          |
-| `message: false` |          |           |        |       |    X     |          |
-| `warning: false` |          |           |        |       |          |    X     |
+| Opción           | Ejecutar código | Mostrar código | Salida | Gráficas | Mensages | Advertencias |
+|------------------|:---------------:|:--------------:|:------:|:--------:|:--------:|:------------:|
+| `eval: false`    |        X        |                |   X    |    X     |    X     |      X       |
+| `include: false` |                 |       X        |   X    |    X     |    X     |      X       |
+| `echo: false`    |                 |       X        |        |          |          |              |
+| `results: hide`  |                 |                |   X    |          |          |              |
+| `fig-show: hide` |                 |                |        |    X     |          |              |
+| `message: false` |                 |                |        |          |    X     |              |
+| `warning: false` |                 |                |        |          |          |      X       |
 
-### Global options
+### Opciones globales
 
-As you work more with knitr, you will discover that some of the default chunk options don't fit your needs and you want to change them.
+A medida que trabaje más con knitr, descubrirá que algunas de las opciones de fragmentos predeterminadas no se ajustan a sus necesidades y querrá cambiarlas.
 
-You can do this by adding the preferred options in the document YAML, under `execute`.
-For example, if you are preparing a report for an audience who does not need to see your code but only your results and narrative, you might set `echo: false` at the document level.
-That will hide the code by default, so only showing the chunks you deliberately choose to show (with `echo: true`).
-You might consider setting `message: false` and `warning: false`, but that would make it harder to debug problems because you wouldn't see any messages in the final document.
+Puede hacerlo agregando las opciones preferidas en el documento YAML, en `execute`.
+Por ejemplo, si está preparando un informe para una audiencia que no necesita ver su código sino solo sus resultados y narración, puede establecer `echo: false` en el nivel del documento.
+Eso ocultará el código de forma predeterminada, por lo que solo mostrará los fragmentos que elija mostrar deliberadamente (con `echo: true`).
+Podría considerar configurar `message: false` y `warning: false`, pero eso dificultaría la depuración de problemas porque no vería ningún mensaje en el documento final.
 
 ``` yaml
 title: "My report"
@@ -374,9 +379,9 @@ execute:
   echo: false
 ```
 
-Since Quarto is designed to be multi-lingual (works with R as well as other languages like Python, Julia, etc.), all of the knitr options are not available at the document execution level since some of them only work with knitr and not other engines Quarto uses for running code in other languages (e.g., Jupyter).
-You can, however, still set these as global options for your document under the `knitr` field, under `opts_chunk`.
-For example, when writing books and tutorials we set:
+Dado que Quarto está diseñado para ser multilingüe (funciona con R y otros lenguajes como Python, Julia, etc.), todas las opciones de knitr no están disponibles en el nivel de ejecución del documento, ya que algunas de ellas solo funcionan con knitr y no otros motores que usa Quarto para ejecutar código en otros lenguajes (por ejemplo, Jupyter).
+Sin embargo, aún puede configurarlas como opciones globales para su documento en el campo `knitr`, en `opts_chunk`.
+Por ejemplo, al escribir libros y tutoriales establecemos:
 
 ``` yaml
 title: "Tutorial"
@@ -386,27 +391,27 @@ knitr:
     collapse: true
 ```
 
-This uses our preferred comment formatting and ensures that the code and output are kept closely entwined.
+Esto utiliza nuestro formato de comentario preferido y garantiza que el código y la salida se mantengan estrechamente entrelazados.
 
-### Inline code
+### código en línea
 
-There is one other way to embed R code into a Quarto document: directly into the text, with: `r inline()`.
-This can be very useful if you mention properties of your data in the text.
-For example, the example document used at the start of the chapter had:
+Hay otra forma de incrustar código R en un documento de Quarto: directamente en el texto, con: `r inline()`.
+Esto puede ser muy útil si menciona propiedades de sus datos en el texto.
+Por ejemplo, el documento de ejemplo utilizado al comienzo del capítulo tenía:
 
 > We have data about `r inline('nrow(diamonds)')` diamonds.
 > Only `r inline('nrow(diamonds) - nrow(smaller)')` are larger than 2.5 carats.
 > The distribution of the remainder is shown below:
 
-When the report is rendered, the results of these computations are inserted into the text:
+Cuando se presenta el informe, los resultados de estos cálculos se insertan en el texto:
 
 > We have data about 53940 diamonds.
 > Only 126 are larger than 2.5 carats.
 > The distribution of the remainder is shown below:
 
-When inserting numbers into text, `format()` is your friend.
-It allows you to set the number of `digits` so you don't print to a ridiculous degree of accuracy, and a `big.mark` to make numbers easier to read.
-You might combine these into a helper function:
+Al insertar números en el texto, `format()` es tu amigo.
+Le permite configurar el número de `digits` para que no imprima con un grado ridículo de precisión, y una `big.mark` para que los números sean más fáciles de leer.
+Puede combinarlos en una función de ayuda:
 
 ```{r}
 comma <- function(x) format(x, digits = 2, big.mark = ",")
@@ -414,50 +419,50 @@ comma(3452345)
 comma(.12358124331)
 ```
 
-### Exercises
+### Ejercicios
 
-1.  Add a section that explores how diamond sizes vary by cut, color, and clarity.
-    Assume you're writing a report for someone who doesn't know R, and instead of setting `echo: false` on each chunk, set a global option.
+1.  Agregue una sección que explore cómo los tamaños de los diamantes varían según el corte, el color y la claridad.
+    Suponga que está escribiendo un informe para alguien que no conoce R y, en lugar de establecer `echo: false` en cada fragmento, establezca una opción global.
 
-2.  Download `diamond-sizes.qmd` from <https://github.com/hadley/r4ds/tree/main/quarto>.
-    Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
+2.  Descargue `diamond-sizes.qmd` desde <https://github.com/hadley/r4ds/tree/main/quarto>.
+    Agregue una sección que describa los 20 diamantes más grandes, incluida una tabla que muestre sus atributos más importantes.
 
-3.  Modify `diamonds-sizes.qmd` to use `label_comma()` to produce nicely formatted output.
-    Also include the percentage of diamonds that are larger than 2.5 carats.
+3.  Modifique `diamonds-sizes.qmd` para usar `label_comma()` para producir una salida bien formateada.
+    Incluya también el porcentaje de diamantes de más de 2,5 quilates.
 
-## Figures {#sec-figures}
+## Figuras {#sec-figures}
 
-The figures in a Quarto document can be embedded (e.g., a PNG or JPEG file) or generated as a result of a code chunk.
+Las figuras en un documento Quarto se pueden incrustar (por ejemplo, un archivo PNG o JPEG) o generarse como resultado de un fragmento de código.
 
-To embed an image from an external file, you can use the Insert menu in RStudio and select Figure / Image.
-This will pop open a menu where you can browse to the image you want to insert as well as add alternative text or caption to it and adjust its size.
-In the visual editor you can also simply paste an image from your clipboard into your document and RStudio will place a copy of that image in your project folder.
+Para incrustar una imagen de un archivo externo, puede usar el menú Insertar en RStudio y seleccionar Figure / Image.
+Esto abrirá un menú emergente donde puede buscar la imagen que desea insertar, así como agregarle un texto alternativo o un título y ajustar su tamaño.
+En el editor visual también puede simplemente pegar una imagen de su portapapeles en su documento y RStudio colocará una copia de esa imagen en su carpeta de proyecto.
 
-If you include a code chunk that generates a figure (e.g., includes a `ggplot()` call), the resulting figure will be automatically included in your Quarto document.
+Si incluye un fragmento de código que genera una figura (por ejemplo, incluye una llamada `ggplot()`), la figura resultante se incluirá automáticamente en su documento Quarto.
 
-### Figure sizing
+### Tamaño de la figura
 
-The biggest challenge of graphics in Quarto is getting your figures the right size and shape.
-There are five main options that control figure sizing: `fig-width`, `fig-height`, `fig-asp`, `out-width` and `out-height`.
-Image sizing is challenging because there are two sizes (the size of the figure created by R and the size at which it is inserted in the output document), and multiple ways of specifying the size (i.e. height, width, and aspect ratio: pick two of three).
+El mayor desafío de los gráficos Quarto es conseguir que las figuras tengan el tamaño y la forma adecuados.
+Hay cinco opciones principales que controlan el tamaño de la figura: `fig-width`, `fig-height`, `fig-asp`, `out-width` y `out-height`.
+El tamaño de la imagen es un desafío porque hay dos tamaños (el tamaño de la figura creada por R y el tamaño en el que se inserta en el documento de salida) y varias formas de especificar el tamaño (es decir, alto, ancho y relación de aspecto: seleccione dos de tres).
 
-We recommend three of the five options:
+Recomendamos tres de las cinco opciones:
 
--   Plots tend to be more aesthetically pleasing if they have consistent width.
-    To enforce this, set `fig-width: 6` (6") and `fig-asp: 0.618` (the golden ratio) in the defaults.
-    Then in individual chunks, only adjust `fig-asp`.
+-   Las gráficas tienden a ser más agradables estéticamente si tienen un ancho uniforme.
+    Para hacer cumplir esto, configure `fig-width: 6` (6") y `fig-asp: 0.618` (la proporción áurea) en los valores predeterminados.
+    Luego, en los fragmentos individuales, solo ajuste `fig-asp`.
 
--   Control the output size with `out-width` and set it to a percentage of the line width.
-    We suggest to `out-width: "70%"` and `fig-align: center`.
-    That gives plots room to breathe, without taking up too much space.
+-   Controle el tamaño de salida con `out-width` y configúrelo en un porcentaje del ancho de línea.
+    Sugerimos `out-width: "70%"` y `fig-align: center`.
+    Eso le da a las gráficas espacio para respirar, sin ocupar demasiado espacio.
 
--   To put multiple plots in a single row, set the `layout-ncol` to 2 for two plots, 3 for three plots, etc.
-    Depending on what you're trying to illustrate (e.g., show data or show plot variations), you might also tweak `fig-width`, as discussed below.
+-   Para colocar varias gráficas en una sola fila, establezca `layout-ncol` en 2 para dos gráficas, 3 para tres gráficas, etc.
+    Dependiendo de lo que esté tratando de ilustrar (por ejemplo, mostrar datos o mostrar variaciones de gráficos), también puede modificar `fig-width`, como se explica a continuación.
 
-If you find that you're having to squint to read the text in your plot, you need to tweak `fig-width`.
-If `fig-width` is larger than the size the figure is rendered in the final doc, the text will be too small; if `fig-width` is smaller, the text will be too big.
-You'll often need to do a little experimentation to figure out the right ratio between the `fig-width` and the eventual width in your document.
-To illustrate the principle, the following three plots have `fig-width` of 4, 6, and 8 respectively:
+Si encuentra que tiene que entrecerrar los ojos para leer el texto en su gráfica, necesita modificar `fig-width`.
+Si `fig-width` es más grande que el tamaño de la figura en el documento final, el texto será demasiado pequeño; si `fig-width` es más pequeño, el texto será demasiado grande.
+A menudo necesitarás hacer un poco de experimentación para encontrar la proporción correcta entre el `fig-width` y el ancho final en tu documento.
+Para ilustrar el principio, las siguientes tres gráficas tienen un ancho de figura de 4, 6 y 8 respectivamente:
 
 ```{r}
 #| include: false
@@ -489,34 +494,41 @@ plot
 plot
 ```
 
-If you want to make sure the font size is consistent across all your figures, whenever you set `out-width`, you'll also need to adjust `fig-width` to maintain the same ratio with your default `out-width`.
-For example, if your default `fig-width` is 6 and `out-width` is 0.7, when you set `out-width: "50%"` you'll need to set `fig-width` to 4.3 (6 \* 0.5 / 0.7).
+Si desea asegurarse de que el tamaño de la fuente sea consistente en todas sus figuras, cada vez que configure `out-width`, también deberá ajustar `fig-width` para mantener la misma proporción con su `out-width` predeterminado.
+Por ejemplo, si su `fig-width` predeterminado es 6 y `out-width` es 0,7, cuando establezca `out-width: "50%"`, deberá establecer `fig-width` en 4.3 (6 \* 0.5 / 0.7).
 
-Figure sizing and scaling is an art and science and getting things right can require an iterative trial-and-error approach.
-You can learn more about figure sizing in the [taking control of plot scaling blog post](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/).
+El dimensionamiento y escalado de figuras es un arte y una ciencia, y hacer las cosas bien puede requerir un enfoque iterativo de prueba y error.
+Puede obtener más información sobre el tamaño de la figura en la [publicación del blog sobre cómo tomar el control de la escala de la gráfica](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/).
 
-### Other important options
+### Otras opciones importantes
 
-When mingling code and text, like in this book, you can set `fig-show: hold` so that plots are shown after the code.
-This has the pleasant side effect of forcing you to break up large blocks of code with their explanations.
+Al mezclar código y texto, como en este libro, puede configurar `fig-show: hold` para que los gráficos se muestren después del código.
+Esto tiene el agradable efecto secundario de obligarte a dividir grandes bloques de código con sus explicaciones.
 
-To add a caption to the plot, use `fig-cap`.
-In Quarto this will change the figure from inline to "floating".
+Para agregar un título a la gráfica, use `fig-cap`.
+En Quarto, esto cambiará la figura de en línea a "floating".
 
-If you're producing PDF output, the default graphics type is PDF.
-This is a good default because PDFs are high quality vector graphics.
-However, they can produce very large and slow plots if you are displaying thousands of points.
-In that case, set `fig-format: "png"` to force the use of PNGs.
-They are slightly lower quality, but will be much more compact.
+Si está produciendo una salida en PDF, el tipo de gráfico predeterminado es PDF.
+Este es un buen valor predeterminado porque los archivos PDF son gráficos vectoriales de alta calidad.
+Sin embargo, pueden producir gráficos muy grandes y lentos si muestra miles de puntos.
+En ese caso, configure `fig-format: "png"` para forzar el uso de PNG.
+Son de calidad ligeramente inferior, pero serán mucho más compactos.
 
-It's a good idea to name code chunks that produce figures, even if you don't routinely label other chunks.
-The chunk label is used to generate the file name of the graphic on disk, so naming your chunks makes it much easier to pick out plots and reuse in other circumstances (i.e. if you want to quickly drop a single plot into an email).
+Es una buena idea nombrar fragmentos de código que produzcan figuras, incluso si no etiqueta otros fragmentos de forma rutinaria.
+La etiqueta de fragmento se usa para generar el nombre de archivo del gráfico en el disco, por lo que nombrar sus fragmentos hace que sea mucho más fácil seleccionar gráficos y reutilizarlos en otras circunstancias (es decir, si desea colocar rápidamente un solo gráfico en un correo electrónico).
 
-### Exercises
+### Ejercicios
 
-1.  Open `diamond-sizes.qmd` in the visual editor, find an image of a diamond, copy it, and paste it into the document. Double click on the image and add a caption. Resize the image and render your document. Observe how the image is saved in your current working directory.
-2.  Edit the label of the code chunk in `diamond-sizes.qmd` that generates a plot to start with the suffix `fig-` and add a caption to the figure with the chunk option `fig-cap`. Then, edit the text above the code chunk to add a cross-reference to the figure with Insert \> Cross Reference.
-3.  Change the size of the figure with the following chunk options, one at a time, render your document, and describe how the figure changes.
+1.  Abra `diamond-sizes.qmd` en el editor visual, busque una imagen de un diamante, cópiela y péguela en el documento.
+    Haga doble clic en la imagen y agregue un título.
+    Cambie el tamaño de la imagen y renderice su documento.
+    Observe cómo se guarda la imagen en su directorio de trabajo actual.
+
+2.  Edite la etiqueta del fragmento de código en `diamond-sizes.qmd` que genera un gráfico que comience con el sufijo `fig-` y agregue un título a la figura con la opción de fragmento `fig-cap`.
+    Luego, edite el texto sobre el fragmento de código para agregar una referencia cruzada a la figura con Insert \> Cross Reference.
+
+3.  Cambie el tamaño de la figura con las siguientes opciones de fragmento, una a la vez, renderice su documento y describa cómo cambia la figura.
+
     a.  `fig-width: 10`
 
     b.  `fig-height: 3`
@@ -525,20 +537,20 @@ The chunk label is used to generate the file name of the graphic on disk, so nam
 
     d.  `out-width: "20%"`
 
-## Tables
+## Tablas
 
-Similar to figures, you can include two types of tables in a Quarto document.
-They can be markdown tables that you create directly in your Quarto document (using the Insert Table menu) or they can be tables generated as a result of a code chunk.
-In this section we will focus on the latter, tables generated via computation.
+Al igual que las figuras, puede incluir dos tipos de tablas en un documento Quarto.
+Pueden ser tablas de markdown que crea directamente en su documento Quarto (usando el menú Insert table) o pueden ser tablas generadas como resultado de un fragmento de código.
+En esta sección nos centraremos en las últimas, tablas generadas mediante computación.
 
-By default, Quarto prints data frames and matrices as you'd see them in the console:
+De forma predeterminada, Quarto imprime data frames y matrices como los vería en la consola:
 
 ```{r}
 mtcars[1:5, ]
 ```
 
-If you prefer that data be displayed with additional formatting you can use the `knitr::kable()` function.
-The code below generates @tbl-kable.
+Si prefiere que los datos se muestren con un formato adicional, puede usar la función `knitr::kable()`.
+El siguiente código genera @tbl-kable.
 
 ```{r}
 #| label: tbl-kable
@@ -547,24 +559,24 @@ The code below generates @tbl-kable.
 knitr::kable(mtcars[1:5, ], )
 ```
 
-Read the documentation for `?knitr::kable` to see the other ways in which you can customize the table.
-For even deeper customization, consider the **gt**, **huxtable**, **reactable**, **kableExtra**, **xtable**, **stargazer**, **pander**, **tables**, and **ascii** packages.
-Each provides a set of tools for returning formatted tables from R code.
+Lee la documentación de `?knitr::kable` para ver otras formas en las que puedes personalizar la tabla.
+Para una personalización aún más profunda, considere **gt**, **huxtable**, **reactable**, **kableExtra**, **xtable**, **stargazer**, **pander**, \* Paquetes \*tables **y** ascii\*\*.
+Cada uno proporciona un conjunto de herramientas para devolver tablas formateadas desde el código R.
 
-### Exercises
+### Ejercicios
 
-1.  Open `diamond-sizes.qmd` in the visual editor, insert a code chunk, and add a table with `knitr::kable()` that shows the first 5 rows of the `diamonds` data frame.
-2.  Display the same table with `gt::gt()` instead.
-3.  Add a chunk label that starts with the suffix `tbl-` and add a caption to the table with the chunk option `tbl-cap`. Then, edit the text above the code chunk to add a cross-reference to the table with Insert \> Cross Reference.
+1.  Abra `diamond-sizes.qmd` en el editor visual, inserte un fragmento de código y agregue una tabla con `knitr::kable()` que muestre las primeras 5 filas del data frame `diamonds`.
+2.  Muestre la misma tabla con `gt::gt()` en su lugar.
+3.  Agregue una etiqueta de fragmento que comience con el sufijo `tbl-` y agregue un título a la tabla con la opción de fragmento `tbl-cap`. Luego, edite el texto sobre el fragmento de código para agregar una referencia cruzada a la tabla con Insert \> Cross Reference.
 
-## Caching {#sec-caching}
+## Almacenamiento en caché {#sec-caching}
 
-Normally, each render of a document starts from a completely clean slate.
-This is great for reproducibility, because it ensures that you've captured every important computation in code.
-However, it can be painful if you have some computations that take a long time.
-The solution is `cache: true`.
+Normalmente, cada renderizado de un documento comienza desde cero.
+Esto es excelente para la reproducibilidad, porque garantiza que haya capturado todos los cálculos importantes en el código.
+Sin embargo, puede ser doloroso si tiene algunos cálculos que toman mucho tiempo.
+La solucion es `cache: true`.
 
-You can enable the Knitr cache at the document level for caching the results of all computations in a document using standard YAML options:
+Puede habilitar el caché de Knitr a nivel de documento para almacenar en caché los resultados de todos los cálculos en un documento usando las opciones estándar de YAML:
 
 ``` yaml
 ---
@@ -574,20 +586,20 @@ execute:
 ---
 ```
 
-You can also enable caching at the chunk level for caching the results of computation in a specific chunk:
+También puede habilitar el almacenamiento en caché a nivel de fragmento para almacenar en caché los resultados del cálculo en un fragmento específico:
 
 ```{r}
 #| echo: fenced
 #| cache: true
 
-# code for lengthy computation...
+# código para cálculos largos...
 ```
 
-When set, this will save the output of the chunk to a specially named file on disk.
-On subsequent runs, knitr will check to see if the code has changed, and if it hasn't, it will reuse the cached results.
+Cuando se establece, esto guardará la salida del fragmento en un archivo con un nombre especial en el disco.
+En ejecuciones posteriores, knitr verificará si el código ha cambiado y, si no es así, reutilizará los resultados almacenados en caché.
 
-The caching system must be used with care, because by default it is based on the code only, not its dependencies.
-For example, here the `processed_data` chunk depends on the `raw-data` chunk:
+El sistema de almacenamiento en caché debe usarse con cuidado, ya que, de manera predeterminada, se basa solo en el código, no en sus dependencias.
+Por ejemplo, aquí el fragmento `processed_data` depende del fragmento `raw-data`:
 
 ```         
 `r chunk`{r}
@@ -606,8 +618,8 @@ processed_data <- rawdata |>
 `r chunk`
 ```
 
-Caching the `processed_data` chunk means that it will get re-run if the dplyr pipeline is changed, but it won't get rerun if the `read_csv()` call changes.
-You can avoid that problem with the `dependson` chunk option:
+Almacenar en caché el fragmento `processed_data` significa que se volverá a ejecutar si se cambia la canalización de dplyr, pero no se volverá a ejecutar si cambia la llamada `read_csv()`.
+Puede evitar ese problema con la opción de fragmento `dependson`:
 
 ```         
 `r chunk`{r}
@@ -621,70 +633,70 @@ processed_data <- rawdata |>
 `r chunk`
 ```
 
-`dependson` should contain a character vector of *every* chunk that the cached chunk depends on.
-Knitr will update the results for the cached chunk whenever it detects that one of its dependencies have changed.
+`dependson` debe contener un vector de caracteres de *cada* fragmento del que depende el fragmento almacenado en caché.
+Knitr actualizará los resultados del fragmento en caché cada vez que detecte que una de sus dependencias ha cambiado.
 
-Note that the chunks won't update if `a_very_large_file.csv` changes, because knitr caching only tracks changes within the `.qmd` file.
-If you want to also track changes to that file you can use the `cache.extra` option.
-This is an arbitrary R expression that will invalidate the cache whenever it changes.
-A good function to use is `file.info()`: it returns a bunch of information about the file including when it was last modified.
-Then you can write:
+Tenga en cuenta que los fragmentos no se actualizarán si `un_archivo_muy_grande.csv` cambia, porque el almacenamiento en caché de knitr solo rastrea los cambios dentro del archivo `.qmd`.
+Si también desea realizar un seguimiento de los cambios en ese archivo, puede usar la opción `cache.extra`.
+Esta es una expresión R arbitraria que invalidará el caché cada vez que cambie.
+Una buena función para usar es `file.info()`: devuelve un montón de información sobre el archivo, incluida la última vez que se modificó.
+Entonces puedes escribir:
 
 ```         
 `r chunk`{r}
 #| label: raw-data
-#| cache.extra: file.info("a_very_large_file.csv")
+#| cache.extra: file.info("un_archivo_muy_grande.csv")
 
-rawdata <- readr::read_csv("a_very_large_file.csv")
+rawdata <- readr::read_csv("un_archivo_muy_grande.csv")
 `r chunk`
 ```
 
-We've followed the advice of [David Robinson](https://twitter.com/drob/status/738786604731490304) to name these chunks: each chunk is named after the primary object that it creates.
-This makes it easier to understand the `dependson` specification.
+Seguimos el consejo de [David Robinson](https://twitter.com/drob/status/738786604731490304) para nombrar estos fragmentos: cada fragmento lleva el nombre del objeto principal que crea.
+Esto facilita la comprensión de la especificación `dependson`.
 
-As your caching strategies get progressively more complicated, it's a good idea to regularly clear out all your caches with `knitr::clean_cache()`.
+A medida que sus estrategias de almacenamiento en caché se vuelven progresivamente más complicadas, es una buena idea borrar regularmente todos sus cachés con `knitr::clean_cache()`.
 
-### Exercises
+### Ejercicios
 
-1.  Set up a network of chunks where `d` depends on `c` and `b`, and both `b` and `c` depend on `a`. Have each chunk print `lubridate::now()`, set `cache: true`, then verify your understanding of caching.
+1.  Configure una red de fragmentos donde `d` dependa de `c` y `b`, y tanto `b` como `c` dependan de `a`. Haga que cada fragmento imprima `lubridate::now()`, configure `cache: true` y luego verifique su comprensión del almacenamiento en caché.
 
-## Troubleshooting
+## Solución de problemas
 
-Troubleshooting Quarto documents can be challenging because you are no longer in an interactive R environment, and you will need to learn some new tricks.
-Additionally, the error could be due to issues with the Quarto document itself or due to the R code in the Quarto document.
+La solución de problemas de documentos Quarto puede ser un desafío porque ya no se encuentra en un entorno R interactivo y deberá aprender algunos trucos nuevos.
+Además, el error podría deberse a problemas con el propio documento Quarto o al código R en el documento Quarto.
 
-One common error in documents with code chunks is duplicated chunk labels, which are especially pervasive if your workflow involves copying and pasting code chunks.
-To address this issue, all you need to do is to change one of your duplicated labels.
+Un error común en los documentos con fragmentos de código son las etiquetas de fragmentos duplicados, que son especialmente frecuentes si su flujo de trabajo implica copiar y pegar fragmentos de código.
+Para solucionar este problema, todo lo que necesita hacer es cambiar una de sus etiquetas duplicadas.
 
-If the errors are due to the R code in the document, the first thing you should always try is to recreate the problem in an interactive session.
-Restart R, then "Run all chunks" (either from Code menu, under Run region), or with the keyboard shortcut Ctrl + Alt + R.
-If you're lucky, that will recreate the problem, and you can figure out what's going on interactively.
+Si los errores se deben al código R del documento, lo primero que debes intentar siempre es recrear el problema en una sesión interactiva.
+Reinicie R, luego "Ejecute todos los fragmentos" (ya sea desde el menú Código, en la región Ejecutar), o con el atajo de teclado Ctrl + Alt + R.
+Si tiene suerte, eso recreará el problema y podrá averiguar qué está pasando de forma interactiva.
 
-If that doesn't help, there must be something different between your interactive environment and the Quarto environment.
-You're going to need to systematically explore the options.
-The most common difference is the working directory: the working directory of a Quarto is the directory in which it lives.
-Check the working directory is what you expect by including `getwd()` in a chunk.
+Si eso no ayuda, debe haber algo diferente entre su entorno interactivo y el entorno de Quarto.
+Vas a necesitar explorar sistemáticamente las opciones.
+La diferencia más común es el directorio de trabajo: el directorio de trabajo de Quarto es el directorio en el que vive.
+Comprueba que el directorio de trabajo es lo que esperas al incluir `getwd()` en un fragmento.
 
-Next, brainstorm all the things that might cause the bug.
-You'll need to systematically check that they're the same in your R session and your Quarto session.
-The easiest way to do that is to set `error: true` on the chunk causing the problem, then use `print()` and `str()` to check that settings are as you expect.
+A continuación, haga una lluvia de ideas sobre todas las cosas que podrían causar el error.
+Deberá verificar sistemáticamente que sean iguales en su sesión R y en su sesión Quarto.
+La forma más fácil de hacerlo es configurar `error: true` en el fragmento que causa el problema, luego usar `print()` y `str()` para verificar que la configuración sea la esperada.
 
-## YAML header
+## Encabezado YAML
 
-You can control many other "whole document" settings by tweaking the parameters of the YAML header.
-You might wonder what YAML stands for: it's "YAML Ain't Markup Language", which is designed for representing hierarchical data in a way that's easy for humans to read and write.
-Quarto uses it to control many details of the output.
-Here we'll discuss three: self-contained documents, document parameters, and bibliographies.
+Puede controlar muchas otras configuraciones de "documento completo" ajustando los parámetros del encabezado YAML.
+Quizás se pregunte qué significa YAML: es "YAML Ain't Markup Language", que está diseñado para representar datos jerárquicos de una manera que sea fácil de leer y escribir para los humanos.
+Quarto lo usa para controlar muchos detalles de la salida.
+Aquí discutiremos tres: documentos independientes, parámetros de documentos y bibliografías.
 
-### Self-contained
+### Independientes
 
-HTML documents typically have a number of external dependencies (e.g., images, CSS style sheets, JavaScript, etc.) and, by default, Quarto places these dependencies in a `_files` folder in the same directory as your `.qmd` file.
-If you publish the HTML file on a hosting platform (e.g., QuartoPub, <https://quartopub.com/>), the dependencies in this directory are published with your document and hence are available in the published report.
-However, if you want to email the report to a colleague, you might prefer to have a single, self-contained, HTML document that embeds all of its dependencies.
-You can do this by specifying the `embed-resources` option:
+Los documentos HTML suelen tener una serie de dependencias externas (por ejemplo, imágenes, hojas de estilo CSS, JavaScript, etc.) y, de forma predeterminada, Quarto coloca estas dependencias en una carpeta `_files` en el mismo directorio que su archivo `.qmd`.
+Si publica el archivo HTML en una plataforma de alojamiento (p. ej., QuartoPub, <https://quartopub.com/>), las dependencias de este directorio se publican con su documento y, por lo tanto, están disponibles en el informe publicado.
+Sin embargo, si desea enviar el informe por correo electrónico a un colega, es posible que prefiera tener un documento HTML único e independiente que incorpore todas sus dependencias.
+Puedes hacer esto especificando la opción `embed-resources`:
 
-By default these dependencies are placed in a `_files` directory alongside your document.
-For example, if you render `report.qmd` to HTML:
+De forma predeterminada, estas dependencias se colocan en un directorio `_files` junto a su documento.
+Por ejemplo, si renderiza `report.qmd` a HTML:
 
 ``` yaml
 format:
@@ -692,16 +704,16 @@ format:
     embed-resources: true
 ```
 
-The resulting file will be self-contained, such that it will need no external files and no internet access to be displayed properly by a browser.
+El archivo resultante será autónomo, por lo que no necesitará archivos externos ni acceso a Internet para que un navegador lo muestre correctamente.
 
-### Parameters
+### Parámetros
 
-Quarto documents can include one or more parameters whose values can be set when you render the report.
-Parameters are useful when you want to re-render the same report with distinct values for various key inputs.
-For example, you might be producing sales reports per branch, exam results by student, or demographic summaries by country.
-To declare one or more parameters, use the `params` field.
+Los documentos Quarto pueden incluir uno o más parámetros cuyos valores se pueden establecer al representar el informe.
+Los parámetros son útiles cuando desea volver a representar el mismo informe con valores distintos para varias entradas clave.
+Por ejemplo, podría generar informes de ventas por sucursal, resultados de exámenes por estudiante o resúmenes demográficos por país.
+Para declarar uno o más parámetros, utilice el campo `params`.
 
-This example uses a `my_class` parameter to determine which class of cars to display:
+Este ejemplo usa un parámetro `my_class` para determinar qué clase de autos mostrar:
 
 ```{r}
 #| echo: false
@@ -711,11 +723,11 @@ This example uses a `my_class` parameter to determine which class of cars to dis
 cat(readr::read_file("quarto/fuel-economy.qmd"))
 ```
 
-As you can see, parameters are available within the code chunks as a read-only list named `params`.
+Como puede ver, los parámetros están disponibles dentro de los fragmentos de código como una lista de solo lectura llamada `params`.
 
-You can write atomic vectors directly into the YAML header.
-You can also run arbitrary R expressions by prefacing the parameter value with `!r`.
-This is a good way to specify date/time parameters.
+Puede escribir vectores atómicos directamente en el encabezado YAML.
+También puede ejecutar expresiones R arbitrarias anteponiendo el valor del parámetro con `!r`.
+Esta es una buena forma de especificar parámetros de fecha/hora.
 
 ``` yaml
 params:
@@ -723,140 +735,141 @@ params:
   snapshot: !r lubridate::ymd_hms("2015-01-01 12:30:00")
 ```
 
-### Bibliographies and Citations
+### Bibliografías y citas
 
-Quarto can automatically generate citations and a bibliography in a number of styles.
-The most straightforward way of adding citations and bibliographies to a Quarto document is using the visual editor in RStudio.
+Quarto puede generar automáticamente citas y una bibliografía en varios estilos.
+La forma más sencilla de agregar citas y bibliografías a un documento Quarto es usar el editor visual en RStudio.
 
-To add a citation using the visual editor, go to Insert \> Citation.
-Citations can be inserted from a variety of sources:
+Para agregar una cita usando el editor visual, vaya a Insert \> Citation.
+Citations se puede insertar desde una variedad de fuentes:
 
-1.  [DOI](https://quarto.org/docs/visual-editor/technical.html#citations-from-dois) (Document Object Identifier) references.
+1.  [DOI](https://quarto.org/docs/visual-editor/technical.html#citations-from-dois) (Identificador de objeto de documento) referencias.
 
-2.  [Zotero](https://quarto.org/docs/visual-editor/technical.html#citations-from-zotero) personal or group libraries.
+2.  [Zotero](https://quarto.org/docs/visual-editor/technical.html#citations-from-zotero) bibliotecas personales o de grupo.
 
-3.  Searches of [Crossref](https://www.crossref.org/), [DataCite](https://datacite.org/), or [PubMed](https://pubmed.ncbi.nlm.nih.gov/).
+3.  Búsquedas de [Crossref](https://www.crossref.org/), [DataCite](https://datacite.org/), o [PubMed](https://pubmed.ncbi.nlm.nih.gov/).
 
-4.  Your document bibliography (a `.bib` file in the directory of your document)
+4.  La bibliografía de su documento (un archivo `.bib` en el directorio de su documento)
 
-Under the hood, the visual mode uses the standard Pandoc markdown representation for citations (e.g., `[@citation]`).
+Debajo del capó, el modo visual utiliza la representación de markdown estándar de Pandoc para las citas (por ejemplo, `[@citation]`).
 
-If you add a citation using one of the first three methods, the visual editor will automatically create a `bibliography.bib` file for you and add the reference to it.
-It will also add a `bibliography` field to the document YAML.
-As you add more references, this file will get populated with their citations.
-You can also directly edit this file using many common bibliography formats including BibLaTeX, BibTeX, EndNote, Medline.
+Si agrega una cita utilizando uno de los primeros tres métodos, el editor visual creará automáticamente un archivo `bibliography.bib` y le agregará la referencia.
+También agregará un campo `bibliography` al documento YAML.
+A medida que agregue más referencias, este archivo se completará con sus citas.
+También puede editar directamente este archivo utilizando muchos formatos de bibliografía comunes, incluidos BibLaTeX, BibTeX, EndNote, Medline.
 
-To create a citation within your .qmd file in the source editor, use a key composed of '\@' + the citation identifier from the bibliography file.
-Then place the citation in square brackets.
-Here are some examples:
+Para crear una cita dentro de su archivo .qmd en el editor de código fuente, use una clave compuesta por '\@' + el identificador de cita del archivo de bibliografía.
+Luego coloque la cita entre corchetes.
+Aquí hay unos ejemplos:
 
 ``` markdown
-Separate multiple citations with a `;`: Blah blah [@smith04; @doe99].
+Separe las citas múltiples con un `;`: Bla bla [@smith04; @doe99].
 
-You can add arbitrary comments inside the square brackets: 
-Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+Puede agregar comentarios arbitrarios dentro de los corchetes: 
+Bla bla [vea @doe99, pág. 33-35; también @smith04, cáp. 1].
 
-Remove the square brackets to create an in-text citation: @smith04 
-says blah, or @smith04 [p. 33] says blah.
+Elimina los corchetes para crear una cita en el texto: @smith04 
+dice bla, o @smith04 [pág. 33] dice bla.
 
-Add a `-` before the citation to suppress the author's name: 
-Smith says blah [-@smith04].
+Agregue un `-` antes de la cita para suprimir el nombre del autor: 
+
+Smith dice bla [-@smith04].
 ```
 
-When Quarto renders your file, it will build and append a bibliography to the end of your document.
-The bibliography will contain each of the cited references from your bibliography file, but it will not contain a section heading.
-As a result it is common practice to end your file with a section header for the bibliography, such as `# References` or `# Bibliography`.
+Cuando Quarto renderice su archivo, creará y agregará una bibliografía al final de su documento.
+La bibliografía contendrá cada una de las referencias citadas de su archivo de bibliografía, pero no contendrá un encabezado de sección.
+Como resultado, es una práctica común terminar su archivo con un encabezado de sección para la bibliografía, como `# Referencias` o `# Bibliografía`.
 
-You can change the style of your citations and bibliography by referencing a CSL (citation style language) file in the `csl` field:
+Puede cambiar el estilo de sus citas y bibliografía haciendo referencia a un archivo CSL (lenguaje de estilo de citas) en el campo `csl`:
 
 ``` yaml
 bibliography: rmarkdown.bib
 csl: apa.csl
 ```
 
-As with the bibliography field, your csl file should contain a path to the file.
-Here we assume that the csl file is in the same directory as the .qmd file.
-A good place to find CSL style files for common bibliography styles is <https://github.com/citation-style-language/styles>.
+Al igual que con el campo de bibliografía, su archivo csl debe contener una ruta al archivo.
+Aquí asumimos que el archivo csl está en el mismo directorio que el archivo .qmd.
+Un buen lugar para encontrar archivos de estilo CSL para estilos de bibliografía comunes es <https://github.com/citation-style-language/styles>.
 
-## Workflow
+## Flujo de trabajo
 
-Earlier, we discussed a basic workflow for capturing your R code where you work interactively in the *console*, then capture what works in the *script editor*.
-Quarto brings together the console and the script editor, blurring the lines between interactive exploration and long-term code capture.
-You can rapidly iterate within a chunk, editing and re-executing with Cmd/Ctrl + Shift + Enter.
-When you're happy, you move on and start a new chunk.
+Anteriormente, discutimos un flujo de trabajo básico para capturar su código R donde trabaja de forma interactiva en la *consola*, luego captura lo que funciona en el *editor de scripts*.
+Quarto reúne la consola y el editor de secuencias de comandos, desdibujando las líneas entre la exploración interactiva y la captura de código a largo plazo.
+Puede iterar rápidamente dentro de un fragmento, editar y volver a ejecutar con Cmd/Ctrl + Shift + Enter.
+Cuando estás feliz, sigues adelante y comienzas una nueva etapa.
 
-Quarto is also important because it so tightly integrates prose and code.
-This makes it a great **analysis notebook** because it lets you develop code and record your thoughts.
-An analysis notebook shares many of the same goals as a classic lab notebook in the physical sciences.
-It:
+Quarto también es importante porque integra muy estrechamente la prosa y el código.
+Esto lo convierte en un excelente **cuaderno de análisis** porque le permite desarrollar código y registrar sus pensamientos.
+Un cuaderno de análisis comparte muchos de los mismos objetivos que un cuaderno de laboratorio clásico en las ciencias físicas.
+Quarto:
 
--   Records what you did and why you did it.
-    Regardless of how great your memory is, if you don't record what you do, there will come a time when you have forgotten important details.
-    Write them down so you don't forget!
+-   Registra lo que hiciste y por qué lo hiciste.
+    Por muy buena que sea tu memoria, si no registras lo que haces, llegará un momento en que habrás olvidado detalles importantes.
+    ¡Escríbelas para que no las olvides!
 
--   Supports rigorous thinking.
-    You are more likely to come up with a strong analysis if you record your thoughts as you go, and continue to reflect on them.
-    This also saves you time when you eventually write up your analysis to share with others.
+-   Apoya el pensamiento riguroso.
+    Es más probable que obtenga un análisis sólido si registra sus pensamientos a medida que avanza y continúa reflexionando sobre ellos.
+    Esto también le ahorra tiempo cuando eventualmente escribe su análisis para compartirlo con otros.
 
--   Helps others understand your work.
-    It is rare to do data analysis by yourself, and you'll often be working as part of a team.
-    A lab notebook helps you share not only what you've done, but why you did it with your colleagues or lab mates.
+-   Ayuda a otros a entender su trabajo.
+    Es raro que haga el análisis de datos usted mismo y, a menudo, trabajará como parte de un equipo.
+    Un cuaderno de laboratorio lo ayuda a compartir no solo lo que ha hecho, sino también por qué lo hizo con sus colegas o compañeros de laboratorio.
 
-Much of the good advice about using lab notebooks effectively can also be translated to analysis notebooks.
-We've drawn on our own experiences and Colin Purrington's advice on lab notebooks (<https://colinpurrington.com/tips/lab-notebooks>) to come up with the following tips:
+Gran parte de los buenos consejos sobre el uso efectivo de los cuadernos de laboratorio también se pueden traducir en cuadernos de análisis.
+Nos hemos basado en nuestras propias experiencias y en los consejos de Colin Purrington sobre cuadernos de laboratorio (<https://colinpurrington.com/tips/lab-notebooks>) para llegar a los siguientes consejos:
 
--   Ensure each notebook has a descriptive title, an evocative file name, and a first paragraph that briefly describes the aims of the analysis.
+-   Asegúrese de que cada cuaderno tenga un título descriptivo, un nombre de archivo sugerente y un primer párrafo que describa brevemente los objetivos del análisis.
 
--   Use the YAML header date field to record the date you started working on the notebook:
+-   Use el campo de fecha del encabezado YAML para registrar la fecha en que comenzó a trabajar en el cuaderno:
 
     ``` yaml
     date: 2016-08-23
     ```
 
-    Use ISO8601 YYYY-MM-DD format so that's there no ambiguity.
-    Use it even if you don't normally write dates that way!
+    Use ISO8601 YYYY-MM-DD formato para que no haya ambigüedad.
+    ¡Úselo incluso si normalmente no escribe las fechas de esa manera!
 
--   If you spend a lot of time on an analysis idea and it turns out to be a dead end, don't delete it!
-    Write up a brief note about why it failed and leave it in the notebook.
-    That will help you avoid going down the same dead end when you come back to the analysis in the future.
+-   Si dedica mucho tiempo a una idea de análisis y resulta ser un callejón sin salida, ¡no la elimine!
+    Escriba una breve nota sobre por qué falló y déjela en el cuaderno.
+    Eso le ayudará a evitar caer en el mismo callejón sin salida cuando vuelva al análisis en el futuro.
 
--   Generally, you're better off doing data entry outside of R.
-    But if you do need to record a small snippet of data, clearly lay it out using `tibble::tribble()`.
+-   En general, es mejor ingresar datos fuera de R.
+    Pero si necesita registrar un pequeño fragmento de datos, expóngalo claramente usando `tibble::tribble()`.
 
--   If you discover an error in a data file, never modify it directly, but instead write code to correct the value.
-    Explain why you made the fix.
+-   Si descubre un error en un archivo de datos, nunca lo modifique directamente, sino que escriba código para corregir el valor.
+    Explique por qué hizo la corrección.
 
--   Before you finish for the day, make sure you can render the notebook.
-    If you're using caching, make sure to clear the caches.
-    That will let you fix any problems while the code is still fresh in your mind.
+-   Antes de terminar el día, asegúrese de poder renderizar el cuaderno.
+    Si está utilizando el almacenamiento en caché, asegúrese de borrar los cachés.
+    Eso le permitirá solucionar cualquier problema mientras el código aún está fresco en su mente.
 
--   If you want your code to be reproducible in the long-run (i.e. so you can come back to run it next month or next year), you'll need to track the versions of the packages that your code uses.
-    A rigorous approach is to use **renv**, <https://rstudio.github.io/renv/index.html>, which stores packages in your project directory.
-    A quick and dirty hack is to include a chunk that runs `sessionInfo()` --- that won't let you easily recreate your packages as they are today, but at least you'll know what they were.
+-   Si desea que su código sea reproducible a largo plazo (es decir, para que pueda volver a ejecutarlo el próximo mes o el próximo año), deberá realizar un seguimiento de las versiones de los paquetes que utiliza su código.
+    Un enfoque riguroso es usar **renv**, <https://rstudio.github.io/renv/index.html>, que almacena paquetes en el directorio de su proyecto.
+    Un truco rápido y sucio es incluir un trozo que ejecute `sessionInfo()` --- que no le permitirá recrear fácilmente sus paquetes como son hoy, pero al menos sabrá lo que eran.
 
--   You are going to create many, many, many analysis notebooks over the course of your career.
-    How are you going to organize them so you can find them again in the future?
-    We recommend storing them in individual projects, and coming up with a good naming scheme.
+-   Vas a crear muchos, muchos cuadernos de análisis a lo largo de tu carrera.
+    ¿Cómo los va a organizar para poder encontrarlos nuevamente en el futuro?
+    Recomendamos almacenarlos en proyectos individuales y crear un buen esquema de nombres.
 
-## Summary
+## Resumen
 
-In this chapter introduced you to Quarto for authoring and publishing reproducible computational documents that include your code and your prose in one place.
-You've learned about writing Quarto documents in RStudio with the visual or the source editor, how code chunks work and how to customize options for them, how to include figures and tables in your Quarto documents, and options for caching for computations.
-Additionally, you've learned about adjusting YAML header options for creating self-contained or parametrized documents as well as including citations and bibliography.
-We have also given you some troubleshooting and workflow tips.
+En este capítulo, le presentamos Quarto para crear y publicar documentos computacionales reproducibles que incluyen su código y su prosa en un solo lugar.
+Aprendió a escribir documentos de Quarto en RStudio con el editor visual o de código fuente, cómo funcionan los fragmentos de código y cómo personalizar las opciones para ellos, cómo incluir figuras y tablas en sus documentos de Quarto y opciones de almacenamiento en caché para cálculos.
+Además, aprendió a ajustar las opciones de encabezado YAML para crear documentos independientes o parametrizados, así como a incluir citas y bibliografía.
+También le hemos dado algunos consejos para la resolución de problemas y el flujo de trabajo.
 
-While this introduction should be sufficient to get you started with Quarto, there is still a lot more to learn.
-Quarto is still relatively young, and is still growing rapidly.
-The best place to stay on top of innovations is the official Quarto website: [https://quarto.org](https://quarto.org/){.uri}.
+Si bien esta introducción debería ser suficiente para comenzar con Quarto, aún queda mucho por aprender.
+Quarto es todavía relativamente joven y sigue creciendo rápidamente.
+El mejor lugar para estar al tanto de las innovaciones es el sitio web oficial de Quarto: [https://quarto.org](https://quarto.org/){.uri}.
 
-There are two important topics that we haven't covered here: collaboration and the details of accurately communicating your ideas to other humans.
-Collaboration is a vital part of modern data science, and you can make your life much easier by using version control tools, like Git and GitHub.
-We recommend "Happy Git with R", a user friendly introduction to Git and GitHub from R users, by Jenny Bryan.
-The book is freely available online: <https://happygitwithr.com>.
+Hay dos temas importantes que no hemos cubierto aquí: la colaboración y los detalles de comunicar con precisión sus ideas a otros humanos.
+La colaboración es una parte vital de la ciencia de datos moderna y puede hacer su vida mucho más fácil utilizando herramientas de control de versiones, como Git y GitHub.
+Recomendamos "Happy Git with R", una introducción fácil de usar a Git y GitHub de usuarios de R, por Jenny Bryan.
+El libro está disponible gratuitamente en línea: <https://happygitwithr.com>.
 
-We have also not touched on what you should actually write in order to clearly communicate the results of your analysis.
-To improve your writing, we highly recommend reading either [*Style: Lessons in Clarity and Grace*](https://www.amazon.com/Style-Lessons-Clarity-Grace-12th/dp/0134080416) by Joseph M. Williams & Joseph Bizup, or [*The Sense of Structure: Writing from the Reader's Perspective*](https://www.amazon.com/Sense-Structure-Writing-Readers-Perspective/dp/0205296327) by George Gopen.
-Both books will help you understand the structure of sentences and paragraphs, and give you the tools to make your writing more clear.
-(These books are rather expensive if purchased new, but they're used by many English classes so there are plenty of cheap second-hand copies).
-George Gopen also has a number of short articles on writing at <https://www.georgegopen.com/the-litigation-articles.html>.
-They are aimed at lawyers, but almost everything applies to data scientists too.
+Tampoco hemos mencionado lo que realmente debe escribir para comunicar claramente los resultados de su análisis.
+Para mejorar su escritura, recomendamos leer [*Style: Lessons in Clarity and Grace*](https://www.amazon.com/Style-Lessons-Clarity-Grace-12th/dp/0134080416) de Joseph M. Williams & Joseph Bizup, o [*The Sense of Structure: Writing from the Reader's Perspective*](https://www.amazon.com/Sense-Structure-Writing-Readers-Perspective/dp/0205296327) de George Gopen.
+Ambos libros lo ayudarán a comprender la estructura de oraciones y párrafos, y le brindarán las herramientas para que su escritura sea más clara.
+(Estos libros son bastante caros si se compran nuevos, pero muchas clases de inglés los usan, por lo que hay muchas copias baratas de segunda mano).
+George Gopen también tiene una serie de artículos breves sobre escritura en <https://www.georgegopen.com/the-litigation-articles.html>.
+Están dirigidos a abogados, pero casi todo se aplica también a los científicos de datos.

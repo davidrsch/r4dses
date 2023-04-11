@@ -1,4 +1,4 @@
-# Quarto formats {#sec-quarto-formats}
+# Formatos Quarto {#sec-quarto-formats}
 
 ```{r}
 #| results: "asis"
@@ -8,21 +8,21 @@ source("_common.R")
 status("complete")
 ```
 
-## Introduction
+## Introducción
 
-So far, you've seen Quarto used to produce HTML documents.
-This chapter gives a brief overview of some of the many other types of output you can produce with Quarto.
+Hasta ahora, ha visto que Quarto se usa para producir documentos HTML.
+Este capítulo ofrece una breve descripción general de algunos de los muchos otros tipos de salida que puede producir con Quarto.
 
-There are two ways to set the output of a document:
+Hay dos formas de configurar la salida de un documento:
 
-1.  Permanently, by modifying the YAML header:
+1.  De forma permanente, modificando el encabezado YAML:
 
     ``` yaml
     title: "Diamond sizes"
     format: html
     ```
 
-2.  Transiently, by calling `quarto::quarto_render()` by hand:
+2.  De forma transitoria, llamando `quarto::quarto_render()` a mano:
 
     ```{r}
     #| eval: false
@@ -30,7 +30,7 @@ There are two ways to set the output of a document:
     quarto::quarto_render("diamond-sizes.qmd", output_format = "docx")
     ```
 
-    This is useful if you want to programmatically produce multiple types of output since the `output_format` argument can also take a list of values.
+    Esto es útil si desea producir múltiples tipos de salida mediante programación, ya que el argumento `output_format` también puede tomar una lista de valores.
 
     ```{r}
     #| eval: false

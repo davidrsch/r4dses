@@ -33,6 +33,7 @@ Si detecta algún error relacionado con contenido de la traducción, siéntase l
 -   Programa
 -   Comunicar
     -   29 Quarto
+    -   30 Formatos Quarto
 
 ## Sobre otras versiones
 
@@ -131,6 +132,7 @@ If you spot any issue related to the translation content, feel free to open an i
 -   Program
 -   Communicate
     -   29 Quarto
+    -   30 Quarto formats
 
 ## About other versions
 
