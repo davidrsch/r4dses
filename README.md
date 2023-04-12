@@ -32,8 +32,6 @@ Si detecta algún error relacionado con contenido de la traducción, siéntase l
 -   Importar
 -   Programa
 -   Comunicar
-    -   29 Quarto
-    -   30 Formatos Quarto
 
 ## Sobre otras versiones
 
@@ -101,7 +99,7 @@ Luego confirme y empuje al atlas.
 
 ## R for Data Science
 
-<a href="https://www.amazon.com/Data-Science-Transform-Visualize-Model/dp/1492097403"><img src="cover.png" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
+<a href="https://www.amazon.com/Data-Science-Transform-Visualize-Model/dp/1492097403"><img src="cover.jpg" alt="Cover image" width="285" height="375" align="right" style="margin: 0 1em 0 1em"/></a>This repository contains the source of **"R for Data Science"** book by Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
 The book is built using [Quarto](https://quarto.org/).
 This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it and visualize.
 
@@ -131,8 +129,6 @@ If you spot any issue related to the translation content, feel free to open an i
 -   Import
 -   Program
 -   Communicate
-    -   29 Quarto
-    -   30 Quarto formats
 
 ## About other versions
 
