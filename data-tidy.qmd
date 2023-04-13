@@ -44,16 +44,6 @@ El siguiente ejemplo muestra los mismos datos organizados de tres maneras difere
 Cada conjunto de datos muestra los mismos valores de cuatro variables: país (*country*), año (*year*), población (*population*) y número de casos (*cases*) documentados de TB (tuberculosis), pero cada conjunto de datos organiza los valores de manera diferente.
 
 ```{r}
-#| echo: false
- 
-table2 <- table1 |>
-  pivot_longer(cases:population, names_to = "type", values_to = "count")
- 
-table3 <- table2 |> 
-  pivot_wider(names_from = year, values_from = count)
-```
-
-```{r}
 table1
 
 table2
@@ -135,7 +125,7 @@ ggplot(table1, aes(x = year, y = cases)) +
 
 1.  Para cada una de las tablas de muestra, describa lo que representa cada observación y cada columna.
 
-2.  Haz un bosquejo del proceso que usarías para calcular la `rate` para `table2` y `table3`.
+2.  Haz un bosquejo del proceso que usarías para calcular la `rate` desde `table2`.
     Deberá realizar cuatro operaciones:
 
     a.  Extraiga el número de casos de TB por país por año.
@@ -358,7 +348,7 @@ Hay dos columnas que ya son variables y son fáciles de interpretar: `country` y
 Les siguen 56 columnas como `sp_m_014`, `ep_m_4554` y `rel_m_3544`.
 Si observa estas columnas durante el tiempo suficiente, notará que hay un patrón.
 Cada nombre de columna se compone de tres piezas separadas por `_`.
-La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico, la segunda pieza, `m`/`f` es el `género` (codificado como una variable binaria en este conjunto de datos) , y la tercera pieza, `014`/`1524`/`2534`/`3544`/`4554`/`5564`/`65` es el rango de `edad` (`014` representa 0-14, por ejemplo).
+La primera pieza, `sp`/`rel`/`ep`, describe el método utilizado para el diagnóstico, la segunda pieza, `m`/`f` es el `género` (codificado como una variable binaria en este conjunto de datos) , y la tercera pieza, `014`/`1524`/`2534`/`3544`/`4554`/``` 5564/``65 ``` es el rango de `edad` (`014` representa 0-14, por ejemplo).
 
 Entonces, en este caso, tenemos seis piezas de información registradas en `who2`: el país y el año (ya columnas); el método de diagnóstico, la categoría de género y la categoría de rango de edad (contenidas en los otros nombres de columna); y el recuento de pacientes en esa categoría (valores de celda).
 Para organizar estas seis piezas de información en seis columnas separadas, usamos `pivot_longer()` con un vector de nombres de columna para `names_to` e instructores para dividir los nombres de las variables originales en partes para `names_sep`, así como un nombre de columna para `values_to`:
@@ -433,12 +423,12 @@ Cuando usa `".value"` en `names_to`, los nombres de las columnas en la entrada c
 #|   Pivotar con `names_to = c(".value", "num")` divide los nombres de las columnas
 #|   en dos componentes: la primera parte determina la columna de salida
 #|   nombre (`x` o `y`), y la segunda parte determina el valor de la
-#|   columna `id`.
+#|   columna `num`.
 #| fig-alt: >
 #|   Un diagrama que usa color para ilustrar cómo el ".value" especial
 #|   trabajos de centinela. La entrada tiene los nombres "x_1", "x_2", "y_1" y "y_2",
 #|   y queremos usar el primer componente ("x", "y") como nombre de variable
-#|   y el segundo ("1", "2") como el valor de una nueva columna "id".
+#|   y el segundo ("1", "2") como el valor de una nueva columna "num".
 
 knitr::include_graphics("diagrams/tidy-data/names-and-values.png", dpi = 270)
 ```

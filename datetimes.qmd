@@ -109,7 +109,7 @@ La tabla @tbl-date-formats enumera todas las opciones.
 |       | `%y`  | año de 2 digitos                      | 21              |
 | Mes   | `%m`  | Número                                | 2               |
 |       | `%b`  | Nombre abreviado                      | Feb             |
-|       | `%B`  | Nombre completo                       | Februrary       |
+|       | `%B`  | Nombre completo                       | February        |
 | Día   | `%d`  | Dos digitos                           | 02              |
 |       | `%e`  | Uno o dos digitos                     | 2               |
 | Hora  | `%H`  | Horas en 24-horas                     | 13              |
@@ -347,8 +347,8 @@ flights_dt |>
   geom_bar()
 ```
 
-Hay un patrón interesante si observamos el retraso de salida promedio por minuto dentro de la hora.
-¡Parece que los vuelos que salen en los minutos 20-30 y 50-60 tienen retrasos mucho menores que el resto de la hora!
+También podemos ver el retraso de salida promedio por minuto dentro de la hora.
+Hay un patrón interesante: ¡los vuelos que salen en los minutos 20-30 y 50-60 tienen retrasos mucho menores que el resto de la hora!
 
 ```{r}
 #| fig-alt: > 
