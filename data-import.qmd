@@ -90,7 +90,7 @@ students
 
 En la columna `favourite.food`, hay un montón de artículos de comida, y luego la cadena de caracteres `N/A`, que debería haber sido un `NA` real que R reconocerá como "no disponible".
 Esto es algo que podemos abordar usando el argumento `na`.
-Por defecto, `read_csv()` solo reconoce cadenas vacías (`""`) en este conjunto de datos como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A"`.
+Por defecto `read_csv()` solo reconoce cadenas vacías (`""`) como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A`.
 
 ```{r}
 #| message: false
@@ -133,7 +133,7 @@ students |>
 Tenga en cuenta que los valores en la variable `meal_plan` se han mantenido igual, pero el tipo de variable indicado debajo del nombre de la variable ha cambiado de carácter (`<chr>`) a factor (`<fct>`).
 Aprenderá más sobre los factores en @sec-factors.
 
-Antes de analizar estos datos, probablemente querrá arreglar las columnas `age` y `id`.
+Antes de analizar estos datos, probablemente querrá arreglar las columna `age` y `id`.
 Actualmente, `age` es una variable de carácter porque una de las observaciones se escribe como `five` en lugar de un `5` numérico.
 Discutimos los detalles para solucionar este problema en @sec-import-spreadsheets.
 
@@ -156,7 +156,7 @@ Aprenderá más sobre `if_else()` y los vectores lógicos en @sec-logicals.
 
 ### Otros argumentos
 
-Hay un par de otros argumentos importantes que debemos mencionar, y serán más fáciles de demostrar si primero le mostramos un truco útil: `read_csv()` puede leer cadenas de texto que ha creado y formateado como un archivo CSV:
+Hay un par de otros argumentos importantes que debemos mencionar, y serán más fáciles de demostrar si primero le mostramos un truco útil: `read_csv()` puede leer archivos CSV que ha creado en una cadena:
 
 ```{r}
 #| message: false
@@ -303,14 +303,12 @@ Luego trabaja a través de las siguientes preguntas:
 Puedes ver ese comportamiento en acción en este sencillo ejemplo:
 
 ```{r}
-#| message: false
-
 read_csv("
   logico,numerico,fecha,cadena
   TRUE,1,2021-01-15,abc
   false,4.5,2021-02-15,def
-  T,Inf,2021-02-16,ghi
-  ")
+  T,Inf,2021-02-16,ghi"
+)
 ```
 
 Esta heurística funciona bien si tiene un conjunto de datos limpio, pero en la vida real encontrará una selección de fallas extrañas y hermosas.
@@ -318,37 +316,33 @@ Esta heurística funciona bien si tiene un conjunto de datos limpio, pero en la 
 ### Valores faltantes, tipos de columnas y problemas
 
 La forma más común en que falla la detección de columnas es que una columna contiene valores inesperados y obtiene una columna de caracteres en lugar de un tipo más específico.
-Una de las causas más comunes de esto es un valor faltante, registrado usando algo diferente al `NA` que espera readr.
+Una de las causas más comunes de esto es un valor faltante, registrado usando algo diferente al `NA` que espera stringr.
 
 Tome este simple archivo CSV de 1 columna como ejemplo:
 
 ```{r}
-simple_csv <- "
+csv <- "
   x
   10
   .
   20
   30"
+
 ```
 
 Si lo leemos sin argumentos adicionales, `x` se convierte en una columna de caracteres:
 
 ```{r}
-#| message: false
-
-read_csv(simple_csv)
+df <- read_csv(csv)
 ```
 
 En este caso muy pequeño, puede ver fácilmente el valor faltante `.`.
 Pero, ¿qué sucede si tiene miles de filas con solo unos pocos valores faltantes representados por `.` salpicados entre ellos?
 Un enfoque es decirle a readr que `x` es una columna numérica y luego ver dónde falla.
-Puede hacerlo con el argumento `col_types`, que toma una lista con nombre donde los nombres coinciden con los nombres de las columnas en el archivo CSV:
+Puede hacerlo con el argumento `col_types`, que toma una lista con nombre:
 
 ```{r}
-df <- read_csv(
-  simple_csv,
-  col_types = list(x = col_double())
-  )
+df <- read_csv(csv, col_types = list(x = col_double()))
 ```
 
 Ahora `read_csv()` informa que hubo un problema y nos dice que podemos averiguar más con `problems()`:
@@ -362,9 +356,7 @@ Eso sugiere que este conjunto de datos usa `.` para valores faltantes.
 Entonces establecemos `na = "."`, la adivinación automática tiene éxito, dándonos la columna numérica que queremos:
 
 ```{r}
-#| message: false
-
-read_csv(simple_csv, na = ".")
+df <- read_csv(csv, na = ".")
 ```
 
 ### Tipos de columna
@@ -372,30 +364,28 @@ read_csv(simple_csv, na = ".")
 readr proporciona un total de nueve tipos de columnas para su uso:
 
 -   `col_logical()` y `col_double()` leen números lógicos y reales. Son relativamente raramente necesarios (excepto como se indicó anteriormente), ya que readr generalmente los adivinará por usted.
--   `col_integer()` lee números enteros. Rara vez distinguimos números enteros y dobles en este libro porque son funcionalmente equivalentes, pero la lectura explícita de números enteros ocasionalmente puede ser útil porque ocupan la mitad de la memoria de los dobles.
--   `col_character()` lee cadenas de caracteres. Esto a veces es útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica algún objeto, pero no tiene sentido (por ejemplo) dividirlo por la mitad, por ejemplo, un número de teléfono , número de seguro social, número de tarjeta de crédito, etc.
+-   `col_integer()` lee números enteros. Distinguimos enteros y dobles en este libro porque son funcionalmente equivalentes, pero leer enteros explícitamente puede ser útil en ocasiones porque ocupan la mitad de la memoria de los dobles.
+-   `col_character()` lee cadenas. Esto a veces es útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica algún objeto, pero no tiene sentido (por ejemplo) dividirlo por la mitad.
 -   `col_factor()`, `col_date()` y `col_datetime()` crean factores, fechas y fecha-hora respectivamente; aprenderá más sobre ellos cuando lleguemos a esos tipos de datos en @sec-factors y @sec-dates-and-times.
 -   `col_number()` es un analizador numérico permisivo que ignorará los componentes no numéricos y es particularmente útil para las monedas. Aprenderá más al respecto en @sec-numbers.
--   `col_skip()` salta una columna por lo que no se incluye en el resultado, que puede ser útil para acelerar la lectura de datos si tiene un archivo CSV grande y solo desea usar algunas de las columnas.
+-   `col_skip()` salta una columna por lo que no se incluye en el resultado.
 
-También es posible anular la columna predeterminada cambiando de `list()` a `cols()` y especificando `.default`:
+También es posible anular la columna predeterminada cambiando de `list()` a `cols()`:
 
 ```{r}
-another_csv <- "
+csv <- "
 x,y,z
 1,2,3"
 
-read_csv(
-  another_csv,
-  col_types = cols(.default = col_character())
-  )
+read_csv(csv, col_types = cols(.default = col_character()))
 ```
 
 Otro ayudante útil es `cols_only()` que leerá solo las columnas que especifique:
 
 ```{r}
 read_csv(
-  another_csv,
+  "x,y,z
+  1,2,3",
   col_types = cols_only(x = col_character())
 )
 ```
@@ -407,27 +397,11 @@ Por ejemplo, puede tener datos de ventas de varios meses, con los datos de cada 
 Con `read_csv()` puedes leer estos datos a la vez y apilarlos uno encima del otro en un solo data frame.
 
 ```{r}
-#| message: false
-
 sales_files <- c("data/01-sales.csv", "data/02-sales.csv", "data/03-sales.csv")
 read_csv(sales_files, id = "file")
 ```
 
-Una vez más, el código anterior funcionará si tiene los archivos CSV en una carpeta `data` en su proyecto.
-Puede descargar estos archivos desde <https://pos.it/r4ds-01-sales>, <https://pos.it/r4ds-02-sales> y \<https://pos.it/r4ds- 03-ventas\> o puedes leerlos directamente con:
-
-```{r}
-#| eval: false
-
-sales_files <- c(
-  "https://pos.it/r4ds-01-sales",
-  "https://pos.it/r4ds-02-sales",
-  "https://pos.it/r4ds-03-sales"
-)
-read_csv(sales_files, id = "file")
-```
-
-El argumento `id` agrega una nueva columna llamada `file` al data frame resultante que identifica el archivo del que provienen los datos.
+Con el parámetro `id` adicional, hemos agregado una nueva columna llamada `file` al data frame resultante que identifica el archivo del que provienen los datos.
 Esto es especialmente útil en circunstancias en las que los archivos que está leyendo no tienen una columna de identificación que pueda ayudarlo a rastrear las observaciones hasta sus fuentes originales.
 
 Si tiene muchos archivos que desea leer, puede resultar engorroso escribir sus nombres en una lista.
@@ -442,7 +416,9 @@ sales_files
 ## Escribir en un archivo {#sec-writing-to-a-file}
 
 readr también viene con dos funciones útiles para volver a escribir datos en el disco: `write_csv()` y `write_tsv()`.
-Los argumentos más importantes para estas funciones son `x` (el data frame a guardar) y `file` (la ubicación para guardarlo).
+Ambas funciones aumentan las posibilidades de que el archivo de salida se vuelva a leer correctamente mediante el uso de la codificación UTF-8 estándar para cadenas y el formato ISO8601 para fecha y hora.
+
+Los argumentos más importantes son `x` (el marco de datos para guardar) y `file` (la ubicación para guardarlo).
 También puede especificar cómo se escriben los valores faltantes con `na` y si desea `agregar` a un archivo existente.
 
 ```{r}
@@ -452,7 +428,7 @@ write_csv(students, "students.csv")
 ```
 
 Ahora volvamos a leer ese archivo csv.
-Tenga en cuenta que la información del tipo de variable que acaba de configurar se pierde cuando guarda en CSV porque está comenzando de nuevo con la lectura de un archivo de texto sin formato:
+Tenga en cuenta que la información de tipo se pierde cuando guarda en csv:
 
 ```{r}
 #| warning: false
@@ -467,8 +443,7 @@ Esto hace que los CSV sean un poco poco confiables para almacenar en caché los 
 Hay dos alternativas principales:
 
 1.  `write_rds()` y `read_rds()` son envoltorios uniformes alrededor de las funciones base `readRDS()` y `saveRDS()`.
-    Estos almacenan datos en el formato binario personalizado de R llamado RDS.
-    Esto significa que cuando vuelve a cargar el objeto, está cargando el *exactamente el mismo* objeto R que almacenó.
+    Estos almacenan datos en el formato binario personalizado de R llamado RDS:
 
     ```{r}
     write_rds(students, "students.rds")
@@ -517,6 +492,18 @@ tibble(
 )
 ```
 
+Tenga en cuenta que todas las columnas en tibble deben tener el mismo tamaño, por lo que obtendrá un error si no lo son:
+
+```{r}
+#| error: true
+
+tibble(
+  x = c(1, 2),
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.6)
+)
+```
+
 Distribuir los datos por columna puede dificultar ver cómo se relacionan las filas, por lo que una alternativa es `tribble()`, abreviatura de tibble transpuesto (**tr**ansposed t**ibble**, en inglés), que le permite distribuir sus datos fila por fila.
 `tribble()` está personalizado para la entrada de datos en el código: los encabezados de las columnas comienzan con `~` y las entradas están separadas por comas.
 Esto hace posible diseñar pequeñas cantidades de datos en un formato fácil de leer:
@@ -524,11 +511,13 @@ Esto hace posible diseñar pequeñas cantidades de datos en un formato fácil de
 ```{r}
 tribble(
   ~x, ~y, ~z,
-  1, "h", 0.08,
-  2, "m", 0.83,
-  5, "g", 0.60,
+  "h", 1, 0.08,
+  "m", 2, 0.83,
+  "g", 5, 0.60,
 )
 ```
+
+Usaremos `tibble()` y `tribble()` más adelante en el libro para construir pequeños ejemplos para demostrar cómo funcionan varias funciones.
 
 ## Resumen
 
