@@ -634,7 +634,7 @@ df1 |>
 
 Si está haciendo esto deliberadamente, puede configurar `relationship = "many-to-many"`, como sugiere la advertencia.
 
-### Filtrado de uniones {#sec-non-equi-joins}
+### Filtrado de uniones
 
 El número de coincidencias también determina el comportamiento de las uniones de filtrado.
 El semi-join mantiene filas en `x` que tienen una o más coincidencias en `y`, como en @fig-join-semi.
@@ -671,7 +671,7 @@ knitr::include_graphics("diagrams/join/semi.png", dpi = 270)
 knitr::include_graphics("diagrams/join/anti.png", dpi = 270)
 ```
 
-## Non-equi joins
+## Non-equi joins {#sec-non-equi-joins}
 
 Hasta ahora solo has visto uniones de igualdad, uniones donde las filas coinciden si la tecla `x` es igual a la tecla `y`.
 Ahora relajaremos esa restricción y analizaremos otras formas de determinar si un par de filas coinciden.
