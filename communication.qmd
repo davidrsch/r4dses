@@ -241,13 +241,13 @@ Para demostrar el uso de `annotate()`, creemos un texto para agregar a nuestra t
 El texto es un poco largo, por lo que usaremos `stringr::str_wrap()` para agregar automáticamente saltos de línea dado el número de caracteres que desea por línea:
 
 ```{r}
-trend_text <- "Los tamaños de motor más grandes tienden a\ntener menor economía de combustible." |>
+trend_text <- "Los tamaños de motor más grandes tienden a tener menor economía de combustible." |>
   str_wrap(width = 30)
 trend_text
 ```
 
 Luego, agregamos dos capas de anotación: una con una etiqueta geom y la otra con un segmento geom.
-La estética `x` e `y` en ambos definen dónde debe comenzar la anotación, y la estética `xend` y `yend` en la anotación del segmento definen la ubicación inicial de la ubicación final del segmento.
+La estética `x` e `y` en ambos definen dónde debe comenzar la anotación, y la estética `xend` y `yend` en la anotación del segmento definen la ubicación final del segmento.
 Tenga en cuenta también que el segmento tiene el estilo de una flecha.
 
 ```{r}
@@ -469,10 +469,10 @@ base + theme(legend.position = "right") # por defecto
 base + theme(legend.position = "left")
 base + 
   theme(legend.position = "top") +
-  guides(col = guide_legend(nrow = 3))
+  guides(color = guide_legend(nrow = 3))
 base + 
   theme(legend.position = "bottom") +
-  guides(col = guide_legend(nrow = 3))
+  guides(color = guide_legend(nrow = 3))
 ```
 
 Si su diagrama es corto y ancho, coloque la leyenda en la parte superior o inferior, y si es alto y angosto, coloque la leyenda a la izquierda o a la derecha.
