@@ -587,7 +587,7 @@ El retraso mediano siempre es menor que el retraso medio porque los vuelos a vec
 #| label: fig-mean-vs-median
 #| fig-cap: >
 #|   Un diagrama de dispersión que muestra las diferencias de resumir el retraso de salida por 
-#|   hora con la mediana en lugar de la media.
+#|   día con la mediana en lugar de la media.
 #| fig-alt: >
 #|   Todos los puntos caen por debajo de una línea de 45°, lo que significa que el retraso mediano es
 #|   siempre menor que el retraso medio. La mayoría de los puntos están agrupados en un
