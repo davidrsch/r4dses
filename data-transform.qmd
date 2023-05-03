@@ -35,7 +35,7 @@ Tome nota del mensaje de conflictos que se imprime cuando carga el tidyverse.
 Te dice que dplyr sobrescribe algunas funciones en base R.
 Si desea utilizar la versión base de estas funciones después de cargar dplyr, deberá utilizar sus nombres completos: `stats::filter()` y `stats::lag()`.
 Hasta ahora hemos ignorado en su mayoría de qué paquete proviene una función porque la mayoría de las veces no importa.
-Sin embargo, conocer el paquete puede ayudarlo a encontrar ayuda y funciones relacionadas, por lo que cuando necesitemos ser precisos sobre de qué función proviene un paquete, usaremos la misma sintaxis que R: `nombrepaquete::nombrefuncion()`.
+Sin embargo, conocer el paquete puede ayudarlo a encontrar ayuda y funciones relacionadas, por lo que cuando necesitemos ser precisos sobre de qué paquete proviene una función, usaremos la misma sintaxis que R: `nombrepaquete::nombrefuncion()`.
 
 ### nycflights13
 
