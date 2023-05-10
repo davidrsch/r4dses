@@ -365,7 +365,7 @@ readr proporciona un total de nueve tipos de columnas para su uso:
 
 -   `col_logical()` y `col_double()` leen números lógicos y reales. Son relativamente raramente necesarios (excepto como se indicó anteriormente), ya que readr generalmente los adivinará por usted.
 -   `col_integer()` lee números enteros. Distinguimos enteros y dobles en este libro porque son funcionalmente equivalentes, pero leer enteros explícitamente puede ser útil en ocasiones porque ocupan la mitad de la memoria de los dobles.
--   `col_character()` lee cadenas. Esto a veces es útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica algún objeto, pero no tiene sentido (por ejemplo) dividirlo por la mitad.
+-   `col_character()` lee cadenas de texto. Esto puede ser útil para especificar explícitamente cuando tiene una columna que es un identificador numérico, es decir, una larga serie de dígitos que identifica un objeto pero no tiene sentido aplicarle operaciones matemáticas. Los ejemplos incluyen números de teléfono, números de seguro social, números de tarjetas de crédito, etc.
 -   `col_factor()`, `col_date()` y `col_datetime()` crean factores, fechas y fecha-hora respectivamente; aprenderá más sobre ellos cuando lleguemos a esos tipos de datos en @sec-factors y @sec-dates-and-times.
 -   `col_number()` es un analizador numérico permisivo que ignorará los componentes no numéricos y es particularmente útil para las monedas. Aprenderá más al respecto en @sec-numbers.
 -   `col_skip()` salta una columna por lo que no se incluye en el resultado.

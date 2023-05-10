@@ -403,7 +403,7 @@ Abrazar una variable significa envolverla entre llaves para que (por ejemplo) `v
 Abrazar una variable le dice a dplyr que use el valor almacenado dentro del argumento, no el argumento como el nombre literal de la variable.
 Una forma de recordar lo que está pasando es pensar en `{{ }}` como mirar hacia abajo en un túnel --- `{{ var }}` hará que una función dplyr mire dentro de `var` en lugar de buscar una variable llamada `var`.
 
-Entonces, para hacer que grouped_mean`()` funcione, necesitamos rodear `group_var` y `mean_var` con `{{ }}`:
+Entonces, para hacer que `grouped_mean()` funcione, necesitamos rodear `group_var` y `mean_var` con `{{ }}`:
 
 ```{r}
 grouped_mean <- function(df, group_var, mean_var) {
@@ -824,7 +824,7 @@ Además, `function()` siempre debe ir seguida de corchetes ondulados (`{}`), y e
 Esto hace que sea más fácil ver la jerarquía en su código rozando el margen izquierdo.
 
 ```{r}
-# faltan los dos espacios extras
+# Faltan los dos espacios extras
 density <- function(color, facets, binwidth = 0.1) {
 diamonds |> 
   ggplot(aes(x = carat, y = after_stat(density), color = {{ color }})) +
@@ -832,7 +832,7 @@ diamonds |>
   facet_wrap(vars({{ facets }}))
 }
 
-# canalización con sangría incorrecta
+# Canalización con sangría incorrecta
 density <- function(color, facets, binwidth = 0.1) {
   diamonds |> 
   ggplot(aes(x = carat, y = after_stat(density), color = {{ color }})) +

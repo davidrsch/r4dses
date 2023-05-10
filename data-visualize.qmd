@@ -66,7 +66,7 @@ Probablemente ya tenga una respuesta, pero intente que su respuesta sea precisa.
 ¿Lineal?
 ¿No lineal?
 ¿Varía la relación según la especie del pingüino?
-Y que tal por la isla donde vive el pinguino.
+¿Qué tal por la isla donde vive el pinguino?
 Vamos a crear visualizaciones que podamos usar para responder estas preguntas.
 
 ### El data frame `penguins`
@@ -108,7 +108,7 @@ penguins
 
 Este data frame contiene columnas `r ncol (penguins)`.
 Para una vista alternativa, donde puede ver todas las variables y las primeras observaciones de cada variable, use `glimpse()`.
-O, si está en RStudio, haga clic en el nombre del data frame en el panel Entorno o ejecute `View(penguins)` para abrir un visor de datos interactivo.
+O, si está en RStudio, ejecute `View(penguins)` para abrir un visor de datos interactivo.
 
 ```{r}
 glimpse(penguins)

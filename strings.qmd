@@ -212,7 +212,7 @@ df |> mutate(greeting = str_glue("{{Hola {name}!}}"))
 
 ### `str_flatten()`
 
-`str_c()` y `glue()` funciona bien con `mutate()` porque su salida tiene la misma longitud que sus entradas.
+`str_c()` y `str_glue()` funciona bien con `mutate()` porque su salida tiene la misma longitud que sus entradas.
 ¿Qué pasa si quieres una función que funcione bien con `summarize()`, es decir, algo que siempre devuelva una sola cadena?
 Ese es el trabajo de `str_flatten()`[^strings-4]: toma un vector de caracteres y combina cada elemento del vector en una sola cadena:
 
@@ -555,21 +555,27 @@ Por ejemplo, aquí hay dos CSV en línea con codificaciones inusuales [^strings-
 [^strings-7]: Aquí estoy usando el `\x` especial para codificar datos binarios directamente en una cadena.
 
 ```{r}
-#| message: false
+#| eval: false
+
 x1 <- "text\nEl Ni\xf1o fue particularmente malo este año"
-read_csv(x1)
+read_csv(x1)$text
+#> [1] "El Ni\xf1o fue particularmente malo este año"
 
 x2 <- "text\n\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
-read_csv(x2)
+read_csv(x2)$text
+#> [1] "\x82\xb1\x82\xf1\x82ɂ\xbf\x82\xcd"
 ```
 
 Para leerlos correctamente, especifica la codificación a través del argumento `locale`:
 
 ```{r}
-#| message: false
-read_csv(x1, locale = locale(encoding = "Latin1"))
+#| eval: false
 
-read_csv(x2, locale = locale(encoding = "Shift-JIS"))
+read_csv(x1, locale = locale(encoding = "Latin1"))$text
+#> [1] "El Ni\xf1o fue particularmente malo este año"
+
+read_csvread_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
+#> [1] "こんにちは"
 ```
 
 ¿Cómo encuentras la codificación correcta?

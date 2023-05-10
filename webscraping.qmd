@@ -76,7 +76,7 @@ Por ejemplo, en 2016, un grupo de investigadores recopiló información de perfi
 Si bien los investigadores sintieron que esto no tenía nada de malo ya que los datos ya eran públicos, este trabajo fue ampliamente condenado debido a preocupaciones éticas sobre la identificabilidad de los usuarios cuya información se publicó en el conjunto de datos.
 Si su trabajo consiste en recopilar información de identificación personal, le recomendamos leer sobre el estudio OkCupid[^webscraping-4], así como estudios similares con ética de investigación cuestionable que involucran la adquisición y divulgación de información de identificación personal.
 
-[^webscraping-4]: Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el [https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science](https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science/).
+[^webscraping-4]: Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el <https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science>.
 
 ### Derechos de autor
 

@@ -187,7 +187,7 @@ Eso es porque las expresiones regulares distinguen entre mayúsculas y minúscul
 Hay tres formas en las que podemos arreglar esto:
 
 -   Agregue las vocales mayúsculas a la clase de carácter: `str_count(name, "[aeiouAEIOU]")`.
--   Dígale a la expresión regular que ignore el tamaño: `str_count(regex(name, ignore_case = TRUE), "[aeiou]")`. Hablaremos de más en @sec-flags.
+-   Dígale a la expresión regular que ignore el tamaño: `str_count(name, regex("[aeiou]", ignore_case = TRUE))`. Hablaremos de más en @sec-flags.
 -   Usa `str_to_lower()` para convertir los nombres a minúsculas: `str_count(str_to_lower(name), "[aeiou]")`.
 
 Esta variedad de enfoques es bastante típica cuando se trabaja con cadenas; a menudo, hay varias formas de alcanzar su objetivo, ya sea haciendo que su patrón sea más complicado o haciendo un preprocesamiento en su cadena.

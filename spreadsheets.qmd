@@ -408,12 +408,11 @@ Una buena manera de familiarizarse con el estilo de codificación utilizado en u
     ```
 
     Luego, léalo en R, con `survey_id` como variable de carácter y `n_pets` como variable numérica.
-    Sugerencia: deberá convertir "none" a 0.
 
     ```{r}
     #| echo: false
 
-    read_excel("data/survey.xlsx", na = c("", "N/A")) |>
+    read_excel("data/survey.xlsx", na = c("", "N/A"), col_types = c("text", "text")) |>
       mutate(
         n_pets = case_when(
           n_pets == "none" ~ "0",
@@ -557,7 +556,8 @@ Este es el mismo conjunto de datos que en @fig-students-excel, excepto que está
 knitr::include_graphics("screenshots/import-googlesheets-students.png")
 ```
 
-El primer argumento de `read_sheet()` es la URL del archivo a leer, y devuelve un tibble:
+El primer argumento de `read_sheet()` es la URL del archivo a leer, y devuelve un tibble:\<https://docs.google.com/spreadsheets/d/1V1nPp1tzOuutXFLb3G9Eyxi3qxeEhnOXUzL5_BcCQ0w\>.
+No es agradable trabajar con estas URL, por lo que a menudo querrá identificar una hoja por su ID.
 
 ```{r}
 #| include: false
@@ -566,8 +566,8 @@ gs4_deauth()
 ```
 
 ```{r}
-students_url <- "https://docs.google.com/spreadsheets/d/1V1nPp1tzOuutXFLb3G9Eyxi3qxeEhnOXUzL5_BcCQ0w"
-students <- read_sheet(students_url)
+students_sheet_id <- "1V1nPp1tzOuutXFLb3G9Eyxi3qxeEhnOXUzL5_BcCQ0w"
+students <- read_sheet(students_sheet_id)
 students
 ```
 
@@ -575,7 +575,7 @@ Al igual que hicimos con `read_excel()`, podemos proporcionar nombres de columna
 
 ```{r}
 students <- read_sheet(
-  students_url,
+  students_sheet_id,
   col_names = c("student_id", "full_name", "favourite_food", "meal_plan", "age"),
   skip = 1,
   na = c("", "N/A"),
@@ -592,14 +592,14 @@ También es posible leer hojas individuales de Google Sheets.
 Leamos la hoja "Isla Torgersen" de la [Hoja de Google de pingüinos](https://pos.it/r4ds-penguins):
 
 ```{r}
-penguins_url <- "https://docs.google.com/spreadsheets/d/1aFu8lnD_g0yjF5O-K6SFgSEWiHPpgvFCF0NY9D6LXnY"
-read_sheet(penguins_url, sheet = "Torgersen Island")
+penguins_sheet_id <- "1aFu8lnD_g0yjF5O-K6SFgSEWiHPpgvFCF0NY9D6LXnY"
+read_sheet(penguins_sheet_id, sheet = "Torgersen Island")
 ```
 
 Puede obtener una lista de todas las hojas dentro de una Hoja de Google con `sheet_names()`:
 
 ```{r}
-sheet_names(penguins_url)
+sheet_names(penguins_sheet_id)
 ```
 
 Finalmente, al igual que con `read_excel()`, podemos leer una parte de una hoja de cálculo de Google definiendo un `range` en `read_sheet()`.

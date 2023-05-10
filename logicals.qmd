@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -51,7 +52,7 @@ df |>
 
 Una forma muy común de crear un vector lógico es a través de una comparación numérica con `<`, `<=`, `>`, `>=`, `!=` y `==`.
 Hasta ahora, en su mayoría hemos creado variables lógicas de manera transitoria dentro de `filter()` --- se calculan, usan y luego se descartan.
-Por ejemplo, el siguiente filtro encuentra todas las salidas diurnas que salen aproximadamente a tiempo:
+Por ejemplo, el siguiente filtro encuentra todas las salidas diurnas que llegan aproximadamente a tiempo:
 
 ```{r}
 flights |> 
@@ -243,10 +244,11 @@ df |>
   )
 ```
 
-Para entender lo que está pasando, piense en `NA | TRUE`.
+Para entender lo que está pasando, piense en `NA | TRUE` (`NA` o `TRUE`).
 Un valor faltante en un vector lógico significa que el valor podría ser `TRUE` o `FALSE`.
-`TRUE | TRUE` y `FALSE | TRUE` son ambos `TRUE`, entonces `NA | TRUE` también debe ser `TRUE`.
-Se aplica un razonamiento similar con `NA & FALSE`.
+`TRUE | TRUE` y `FALSE | TRUE` son ambos `TRUE` porque al menos uno de ellos es `TRUE`.
+`NA | TRUE` también debe ser `TRUE` porque `NA` puede ser `TRUE` o `FALSE`.
+Sin embargo `NA | FALSE` es `FALSE` porque `NA` puede ser `TRUE` o `FALSE` Se aplica un razonamiento similar con `NA & FALSE`.
 
 ### Orden de operaciones
 
@@ -333,7 +335,7 @@ Hay dos resúmenes lógicos principales: `any()` y `all()`.
 `all(x)` es equivalente a `&`; devolverá `TRUE` solo si todos los valores de `x` son `TRUE`.
 Como todas las funciones de resumen, devolverán `NA` si hay algún valor faltante presente y, como de costumbre, puede hacer que los valores faltantes desaparezcan con `na.rm = TRUE`.
 
-Por ejemplo, podríamos usar `all()` y `any()` para averiguar si cada vuelo se retrasó menos de una hora o si algún vuelo se retrasó más de 5 horas.
+Por ejemplo, podríamos usar `all()` y `any()` para averiguar si todos los vuelos se retrasaron a la salida como máximo una hora o si algún vuelo se retrasó a la llegada cinco horas o más.
 Y usar `group_by()` nos permite hacer eso por día:
 
 ```{r}
@@ -354,7 +356,7 @@ Eso nos lleva a los resúmenes numéricos.
 Cuando usa un vector lógico en un contexto numérico, `TRUE` se convierte en 1 y `FALSE` se convierte en 0.
 Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` da el número de `TRUE`s y `mean(x)` da la proporción de `TRUE`s (porque `mean()` es simplemente `sum()` dividido por `length()`.
 
-Eso, por ejemplo, nos permite ver la proporción de vuelos que se retrasaron menos de 60 minutos y la cantidad de vuelos que se retrasaron más de 5 horas:
+Eso, por ejemplo, nos permite ver la proporción de vuelos que se retrasaron a la salida como máximo una hora y la cantidad de vuelos que se retrasaron a la llegada cinco horas o más:
 
 ```{r}
 flights |> 
@@ -559,12 +561,12 @@ No esperamos que memorices estas reglas, pero deberían convertirse en una segun
 
 ### Ejercicios
 
-1.  A number is even if its divisible by two, which in R you can find out with `x %% 2 == 0`.
-    Use this fact and `if_else()` to determine whether each number between 0 and 20 is even or odd.
+1.  Un número es par si es divisible por dos, lo cual en R puedes averiguar con `x %% 2 == 0`.
+    Usa este hecho y `if_else()` para determinar si cada número entre 0 y 20 es par o impar.
 
-2.  Given a vector of days like `x <- c("Monday", "Saturday", "Wednesday")`, use an `ifelse()` statement to label them as weekends or weekdays.
+2.  Dado un vector de días como `x <- c("Lunes", "Sábado", "Miércoles")`, use una instrucción `ifelse()` para etiquetarlos como fines de semana o días de semana.
 
-3.  Use `ifelse()` to compute the absolute value of a numeric vector called `x`.
+3.  Usa `ifelse()` para calcular el valor absoluto de un vector numérico llamado `x`.
 
 4.  Escriba una instrucción `case_when()` que use las columnas `month` y `day` de `flights` para etiquetar una selección de días festivos importantes de EE.
     UU.

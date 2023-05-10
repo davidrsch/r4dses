@@ -206,8 +206,12 @@ Por ejemplo, usaremos los siguientes paquetes porque proporcionan conjuntos de d
 
 ```{r}
 #| eval: false
-
-install.packages(c("babynames", "gapminder", "nycflights13", "palmerpenguins"))
+install.packages(
+  c("arrow", "babynames", "curl", "dplyr", "duckdb", "gapminder",
+    "ggrepel", "ggridges", "ggthemes", "hexbin", "janitor", "Lahman",
+    "leaflet", "maps", "nycflights13", "openxlsx", "palmerpenguins",
+    "repurrrsive", "tidymodels", "writexl")
+  )
 ```
 
 También usaremos una selección de otros paquetes para ejemplos únicos.

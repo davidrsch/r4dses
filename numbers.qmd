@@ -743,7 +743,7 @@ El filtrado le brinda todas las variables, con cada observación en una fila sep
 ```{r}
 flights |> 
   group_by(year, month, day) |> 
-  mutate(r = min_rank(desc(sched_dep_time))) |> 
+  mutate(r = min_rank(sched_dep_time)) |> 
   filter(r %in% c(1, max(r)))
 ```
 

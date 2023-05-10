@@ -771,7 +771,7 @@ A menos que se especifique lo contrario, lubridate siempre usa UTC.
 UTC (Tiempo Universal Coordinado) es la zona horaria estándar utilizada por la comunidad científica y es aproximadamente equivalente a GMT (Greenwich Mean Time).
 No tiene DST, lo que hace una representación conveniente para el cálculo.
 Las operaciones que combinan fechas y horas, como `c()`, a menudo eliminarán la zona horaria.
-En ese caso, las fechas y horas se mostrarán en su zona horaria local:
+En ese caso, las fechas y horas se mostrarán en la zona horaria del primer elemento:
 
 ```{r}
 x4 <- c(x1, x2, x3)

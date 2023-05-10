@@ -539,7 +539,7 @@ En este caso, no todas las celdas de la salida tienen un valor correspondiente e
 Volveremos a esta idea de que `pivot_wider()` puede "hacer" valores faltantes en @sec-missing-values.
 
 También puede preguntarse qué sucede si hay varias filas en la entrada que corresponden a una celda en la salida.
-El siguiente ejemplo tiene dos filas que corresponden a la identificación "A" y al nombre "bp1":
+El siguiente ejemplo tiene dos filas que corresponden a el `id` "A" y a `measurement` "bp1":
 
 ```{r}
 df <- tribble(

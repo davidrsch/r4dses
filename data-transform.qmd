@@ -227,7 +227,7 @@ flights |>
 
 ### Ejercicios
 
-1.  En una única canalización, encuentre todos los vuelos que cumplan con cada una de las siguientes condiciones:
+1.  En una canalización única para cada condición, busque todos los vuelos que cumplan la condición:
 
     -   Tuvo un retraso de llegada de dos o más horas.
     -   Voló a Houston (`IAH` o `HOU`) C. Fueron operados por United, American o Delta
