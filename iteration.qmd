@@ -215,7 +215,7 @@ df_miss |>
   )
 ```
 
-Si observa detenidamente, puede intuir que las columnas se nombran utilizando una especificación de pegamento (@sec-glue) como `{.col}_{.fn}`, donde `.col` es el nombre de la columna original y `.fn` es el nombre de la función.
+Si observa detenidamente, puede intuir que las columnas se nombran utilizando una especificación de pegamento (@sec-glue) como `{.col}_{.fn}` donde `.col` es el nombre de la columna original y `. fn` es el nombre de la función.
 ¡Eso no es una coincidencia!
 Como aprenderá en la siguiente sección, puede usar el argumento `.names` para proporcionar su propia especificación de pegamento.
 

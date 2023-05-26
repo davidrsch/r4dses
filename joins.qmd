@@ -687,7 +687,7 @@ x |> left_join(y, by = "key", keep = TRUE)
 ```{r}
 #| label: fig-inner-both
 #| fig-cap: >
-#|   Una combinación izquierda que muestra las teclas `x` e `y` en la salida.
+#|   Una combinación interna que muestra `x` e `y` en la salida.
 #| fig-alt: >
 #|   Un diagrama de unión que muestra una unión interna entre x e y. El 
 #|   resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. 

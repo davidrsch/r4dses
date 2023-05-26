@@ -290,7 +290,7 @@ Lo bueno de `to_duckdb()` es que la transferencia no implica ninguna copia de me
 ## Resumen
 
 En este capítulo, se le ha dado una idea del paquete arrow, que proporciona un backend dplyr para trabajar con grandes conjuntos de datos en disco.
-Puede funcionar con archivos CSV, es mucho más rápido si convierte sus datos a parquet.
+Puede funcionar con archivos CSV, y es mucho más rápido si convierte sus datos a parquet.
 Parquet es un formato de datos binarios que está diseñado específicamente para el análisis de datos en computadoras modernas.
 Muchas menos herramientas pueden trabajar con archivos de parquet en comparación con CSV, pero su estructura dividida, comprimida y en columnas hace que sea mucho más eficiente de analizar.
 

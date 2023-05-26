@@ -424,7 +424,7 @@ Siempre usarás los tres primeros argumentos de `if_else()`. El primer argumento
 [^logicals-3]: El `if_else()` de dplyr es muy similar al `ifelse()` de base R.
     Hay dos ventajas principales de `if_else()` sobre `ifelse()`: puede elegir qué debería pasar con los valores faltantes, y es mucho más probable que `if_else()` le dé un error significativo si sus variables tienen tipos incompatibles.
 
-Comencemos con un ejemplo simple de etiquetar un vector numérico como "+ve" o "-ve":
+Comencemos con un ejemplo simple de etiquetar un vector numérico como "+ve" (positivo) o "-ve" (negativo):
 
 ```{r}
 x <- c(-3:3, NA)

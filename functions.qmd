@@ -876,5 +876,4 @@ Algunos lugares para aprender más son:
 -   Para obtener más información sobre cómo reducir la duplicación en su código ggplot2, lea el capítulo [Programación con ggplot2](https://ggplot2-book.org/programming.html){.uri} del libro de ggplot2.
 -   Para obtener más consejos sobre el estilo de las funciones, consulta la [guía de estilo de tidyverse](https://style.tidyverse.org/functions.html){.uri}.
 
-En el próximo capítulo, profundizaremos en algunos de los detalles de las estructuras de datos vectoriales de R que hemos omitido hasta ahora.
-Estos no son inmediatamente útiles por sí mismos, pero son una base necesaria para el siguiente capítulo sobre iteración que le brinda más herramientas para reducir la duplicación de código.
+En el próximo capítulo, nos sumergiremos en la iteración, que le brinda más herramientas para reducir la duplicación de código.

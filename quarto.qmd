@@ -434,7 +434,7 @@ comma(.12358124331)
 
 Las figuras en un documento Quarto se pueden incrustar (por ejemplo, un archivo PNG o JPEG) o generarse como resultado de un fragmento de código.
 
-Para incrustar una imagen de un archivo externo, puede usar el menú Insertar en RStudio y seleccionar Figure / Image.
+Para incrustar una imagen de un archivo externo, puede usar el menú Insertar en el Editor visual en RStudio y seleccionar Figura/Imagen.
 Esto abrirá un menú emergente donde puede buscar la imagen que desea insertar, así como agregarle un texto alternativo o un título y ajustar su tamaño.
 En el editor visual también puede simplemente pegar una imagen de su portapapeles en su documento y RStudio colocará una copia de esa imagen en su carpeta de proyecto.
 
@@ -495,7 +495,7 @@ plot
 ```
 
 Si desea asegurarse de que el tamaño de la fuente sea consistente en todas sus figuras, cada vez que configure `out-width`, también deberá ajustar `fig-width` para mantener la misma proporción con su `out-width` predeterminado.
-Por ejemplo, si su `fig-width` predeterminado es 6 y `out-width` es 0,7, cuando establezca `out-width: "50%"`, deberá establecer `fig-width` en 4.3 (6 \* 0.5 / 0.7).
+Por ejemplo, si su `fig-width` predeterminado es 6 y `out-width` es "70%", cuando establezca `out-width: "50%"`, deberá establecer `fig-width` en 4.3 (6 \* 0.5 / 0.7).
 
 El dimensionamiento y escalado de figuras es un arte y una ciencia, y hacer las cosas bien puede requerir un enfoque iterativo de prueba y error.
 Puede obtener más información sobre el tamaño de la figura en la [publicación del blog sobre cómo tomar el control de la escala de la gráfica](https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/).
@@ -695,9 +695,6 @@ Si publica el archivo HTML en una plataforma de alojamiento (p. ej., QuartoPub, 
 Sin embargo, si desea enviar el informe por correo electrónico a un colega, es posible que prefiera tener un documento HTML único e independiente que incorpore todas sus dependencias.
 Puedes hacer esto especificando la opción `embed-resources`:
 
-De forma predeterminada, estas dependencias se colocan en un directorio `_files` junto a su documento.
-Por ejemplo, si renderiza `report.qmd` a HTML:
-
 ``` yaml
 format:
   html:
@@ -726,13 +723,13 @@ cat(readr::read_file("quarto/fuel-economy.qmd"))
 Como puede ver, los parámetros están disponibles dentro de los fragmentos de código como una lista de solo lectura llamada `params`.
 
 Puede escribir vectores atómicos directamente en el encabezado YAML.
-También puede ejecutar expresiones R arbitrarias anteponiendo el valor del parámetro con `!r`.
+También puede ejecutar expresiones R arbitrarias anteponiendo el valor del parámetro con `!expr`.
 Esta es una buena forma de especificar parámetros de fecha/hora.
 
 ``` yaml
 params:
-  start: !r lubridate::ymd("2015-01-01")
-  snapshot: !r lubridate::ymd_hms("2015-01-01 12:30:00")
+  start: !expr lubridate::ymd("2015-01-01")
+  snapshot: !expr lubridate::ymd_hms("2015-01-01 12:30:00")
 ```
 
 ### Bibliografías y citas

@@ -338,7 +338,6 @@ l <- list(
 La diferencia entre `[` y `[[` es particularmente importante para las listas porque `[[` profundiza en la lista mientras que `[` devuelve una nueva lista más pequeña.
 Para ayudarlo a recordar la diferencia, eche un vistazo al pimentero inusual que se muestra en @fig-pepper.
 Si este pimentero es su lista `pepper`, entonces `pepper[1]` es un pimentero que contiene un solo paquete de pimienta.
-Si suponemos que este pimentero es una lista llamada `pepper`, entonces `pepper[1]` es un pimentero que contiene un solo paquete de pimienta.
 `pepper[2]` se vería igual, pero contendría el segundo paquete.
 `pepper[1:2]` sería un pimentero que contiene dos paquetes de pimienta.
 `pepper[[1]]` extraería el propio paquete de pimienta.
@@ -349,7 +348,7 @@ Si suponemos que este pimentero es una lista llamada `pepper`, entonces `pepper[
 #| out-width: "100%"
 #| fig-cap: >
 #|   (Izquierda) Un pimentero que Hadley encontró una vez en su habitación de hotel.
-#|   (Centro) `pepper[1]`.
+#|   (Centro) `pepper[1]`
 #|   (Derecha) `pepper[[1]]`
 #| fig-alt: >
 #|   Tres fotos. A la izquierda hay una foto de un pimentero de vidrio. En 
@@ -430,7 +429,7 @@ El último miembro de la familia apply es el titular `apply()`, que funciona con
 En particular, tenga cuidado con `apply(df, 2, something)`, que es una forma lenta y potencialmente peligrosa de hacer `lapply(df, something)`.
 Esto rara vez surge en la ciencia de datos porque generalmente trabajamos con marcos de datos y no con matrices.
 
-## Bucles for
+## Bucles `for`
 
 Los bucles `for` son el bloque de construcción fundamental de la iteración que tanto la familia apply como la función map utilizan bajo el capó.
 Los bucles `for` son herramientas poderosas y generales que es importante aprender a medida que se convierte en un programador de R más experimentado.

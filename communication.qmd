@@ -217,7 +217,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_text_repel(data = potential_outliers, aes(label = model)) +
   geom_point(data = potential_outliers, color = "red") +
-  geom_point(data = potential_outliers, color = "red", size = 3, shape = "circle open")
+  geom_point(
+    data = potential_outliers,
+    color = "red", size = 3, shape = "circle open")
 ```
 
 Recuerde, además de `geom_text()` y `geom_label()`, tiene muchos otros geoms en ggplot2 disponibles para ayudar a anotar su gráfico.
@@ -686,6 +688,14 @@ La creación de subconjuntos de datos ha afectado las escalas x e y, así como l
 #| layout-ncol: 2
 #| fig-width: 4
 #| message: false
+#| fig-alt: |
+#|   A la izquierda, diagrama de dispersión de kilometraje en carretera 
+#|   frente a desplazamiento, con desplazamiento. La curva suave superpuesta 
+#|   muestra una tendencia decreciente y luego creciente, como un palo 
+#|   de hockey. A la derecha, se trazan las mismas variables con un 
+#|   desplazamiento que varía solo de 5 a 6 y el kilometraje en carretera 
+#|   que varía solo de 10 a 25. La curva suave superpuesta muestra una 
+#|   tendencia que primero aumenta ligeramente y luego disminuye.
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -709,6 +719,14 @@ Por lo tanto, para ampliar una región de la gráfica, generalmente es mejor usa
 #| fig-width: 4
 #| message: false
 #| warning: false
+#| fig-alt: |
+#|   A la izquierda, diagrama de dispersión de kilometraje en carretera 
+#|   frente a desplazamiento, con un rango de desplazamiento de 5 a 6 
+#|   y un kilometraje en carretera de 10 a 25. La curva suave superpuesta 
+#|   muestra una tendencia que primero aumenta ligeramente y luego 
+#|   disminuye. A la derecha, las mismas variables se trazan con los mismos 
+#|   límites, sin embargo, la curva suave superpuesta muestra una tendencia 
+#|   relativamente plana con un ligero aumento al final.
  
 # Left
 ggplot(mpg, aes(x = displ, y = hwy)) +

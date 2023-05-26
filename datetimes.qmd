@@ -541,7 +541,7 @@ h_age <- today() - ymd("1979-10-14")
 h_age
 ```
 
-Un objeto de clase difftime registra un lapso de tiempo de segundos, minutos, horas, días o semanas.
+Un objeto de clase `difftime` registra un lapso de tiempo de segundos, minutos, horas, días o semanas.
 Esta ambigüedad puede hacer que trabajar con difftimes sea un poco doloroso, por lo que lubridate ofrece una alternativa que siempre usa segundos: la **duración**.
 
 ```{r}
@@ -626,11 +626,11 @@ Y por supuesto, añádelos a las fechas.
 En comparación con las duraciones, es más probable que los períodos hagan lo que esperas:
 
 ```{r}
-# A leap year
+# Un año bisiesto
 ymd("2024-01-01") + dyears(1)
 ymd("2024-01-01") + years(1)
 
-# Daylight Savings Time
+# El horario de verano
 one_am + ddays(1)
 one_am + days(1)
 ```

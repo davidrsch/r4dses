@@ -9,7 +9,7 @@ status("complete")
 
 ## Introducción
 
-En este capítulo, aprenderá el arte de **rectangular** datos, tomando datos que son fundamentalmente jerárquicos, o en forma de árbol, y convirtiéndolos en un marco de datos rectangular formado por filas y columnas.
+En este capítulo, aprenderá el arte de **rectangular** datos: tomando datos que son fundamentalmente jerárquicos, o en forma de árbol, y convirtiéndolos en un marco de datos rectangular formado por filas y columnas.
 Esto es importante porque los datos jerárquicos son sorprendentemente comunes, especialmente cuando se trabaja con datos que provienen de la web.
 
 Para obtener información sobre el rectángulo, primero deberá aprender sobre las listas, la estructura de datos que hace posible los datos jerárquicos.
@@ -267,12 +267,12 @@ df6 |> unnest_longer(y)
 ```
 
 Obtenemos cero filas en la salida, por lo que la fila desaparece efectivamente.
-Si desea conservar esa fila, agregue `NA` en `y` configurando `keep_empty = TRUE`.
+Si desea conservar esa fila, agrega `NA` en `y`, configure `keep_empty = TRUE`.
 
 ### Tipos inconsistentes
 
 ¿Qué sucede si anulas una columna de lista que contiene diferentes tipos de vectores?
-Por ejemplo, tome el siguiente conjunto de datos donde la columna de lista `y` contiene dos números, un factor y un lógico, que normalmente no se pueden mezclar en una sola columna.
+Por ejemplo, tome el siguiente conjunto de datos donde la columna de lista `y` contiene dos números, un caracter y un lógico, que normalmente no se pueden mezclar en una sola columna.
 
 ```{r}
 df4 <- tribble(

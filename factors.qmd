@@ -317,7 +317,7 @@ Más poderoso que cambiar el orden de los niveles es cambiar sus valores.
 Esto le permite aclarar etiquetas para publicación y contraer niveles para visualizaciones de alto nivel.
 La herramienta más general y poderosa es `fct_recode()`.
 Le permite recodificar, o cambiar, el valor de cada nivel.
-Por ejemplo, toma `gss_cat$partyid`:
+Por ejemplo, tome la variable `partyid` del marco de datos `gss_cat`:
 
 ```{r}
 gss_cat |> count(partyid)

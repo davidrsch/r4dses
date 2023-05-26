@@ -66,7 +66,7 @@ Para conectarse a la base de datos desde R, utilizará un par de paquetes:
 -   También utilizará un paquete diseñado para el DBMS al que se está conectando.
     Este paquete traduce los comandos DBI genéricos a los específicos necesarios para un DBMS dado.
     Por lo general, hay un paquete para cada DBMS, p.
-    RPostgres para Postgres y RMariaDB para MySQL.
+    RPostgres para PostgresSQL y RMariaDB para MySQL.
 
 Si no puede encontrar un paquete específico para su DBMS, generalmente puede usar el paquete odbc en su lugar.
 Esto usa el protocolo ODBC soportado por muchos DBMS.
@@ -426,7 +426,7 @@ flights |>
   summarize(delay = mean(arr_delay))
 ```
 
-Si desea obtener más información sobre cómo funcionan los valores NULL, puede disfrutar de "[*Lógica de tres valores*](https://modern-sql.com/concept/%20Three-valued-logic)" de Markus Winand.
+Si desea obtener más información sobre cómo funcionan los valores `NULL`, puede disfrutar de "[*Lógica de tres valores*](https://modern-sql.com/concept/%20Three-valued-logic)" de Markus Winand.
 
 En general, puedes trabajar con `NULL`s usando las funciones que usarías para `NA`s en R:
 
@@ -655,7 +655,7 @@ Las traducciones de dbplyr ciertamente no son perfectas, y hay muchas funciones 
 
 En este capítulo aprendió cómo acceder a los datos de las bases de datos.
 Nos enfocamos en dbplyr, un "backend" de dplyr que le permite escribir el código dplyr con el que está familiarizado y hacer que se traduzca automáticamente a SQL.
-Usamos esa traducción para enseñarle un poco de SQL; es importante aprender algo de SQL porque es *el* lenguaje más comúnmente usado para trabajar con datos y saberlo te facilitará comunicarte con otras personas de datos que no usan R.
+Usamos esa traducción para enseñarle un poco de SQL; es importante aprender algo de SQL porque es *el* lenguaje más utilizado para trabajar con datos y conocer algunos le facilitará la comunicación con otras personas de datos que no usan R.
 Si ha terminado este capítulo y desea obtener más información sobre SQL.
 Tenemos dos recomendaciones:
 
