@@ -450,7 +450,7 @@ También puede especificar el número de coincidencias con precisión con `{}`:
 ¿Con qué coincide `ab+`?
 ¿Coincide con "a" seguido de una o más "b", o coincide con "ab" repetido cualquier número de veces?
 ¿Con qué coincide `^a|b$`?
-¿Coincide con la cadena completa a o con la cadena b completa, o con una cadena que comienza con a o con una cadena que comienza con "b"?
+¿Coincide con la cadena completa a o la cadena completa b, o coincide con una cadena que comienza con a o una cadena que termina con b?
 
 La respuesta a estas preguntas está determinada por la precedencia de operadores, similar a las reglas PEMDAS o BEDMAS que quizás haya aprendido en la escuela.
 Sabes que `a + b * c` es equivalente a `a + (b * c)` y no `(a + b) * c` porque `*` tiene mayor precedencia y `+` tiene menor precedencia: calculas `*` antes de `+`.

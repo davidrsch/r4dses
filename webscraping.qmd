@@ -60,13 +60,12 @@ Si observa detenidamente, encontrará que muchos sitios web incluyen un enlace d
 Estas páginas tienden a ser una apropiación legal de tierras donde las empresas hacen reclamos muy amplios.
 Es educado respetar estos términos de servicio siempre que sea posible, pero tome cualquier reclamo con pinzas.
 
-Los tribunales estadounidenses[^webscraping-3] generalmente han determinado que simplemente poner los términos de servicio en el pie de página del sitio web no es suficiente para que usted esté sujeto a ellos.
+Los tribunales de EE.
+UU.
+generalmente han determinado que simplemente poner los términos de servicio en el pie de página del sitio web no es suficiente para que usted esté sujeto a ellos, por ejemplo, \[HiQ Labs v. LinkedIn\] (https://en.wikipedia.org/ wiki/HiQ_Labs_v.\_LinkedIn).
 En general, para estar sujeto a los términos del servicio, debe haber realizado alguna acción explícita, como crear una cuenta o marcar una casilla.
 Por eso es importante si los datos son **públicos** o no; si no necesita una cuenta para acceder a ellos, es poco probable que esté sujeto a los términos del servicio.
 Tenga en cuenta, sin embargo, que la situación es bastante diferente en Europa, donde los tribunales han determinado que los términos de servicio son exigibles incluso si no los acepta explícitamente.
-
-[^webscraping-3]: p.ej.
-    <https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn>
 
 ### Información de identificación personal
 
@@ -74,9 +73,9 @@ Incluso si los datos son públicos, debe tener mucho cuidado al recopilar inform
 Europa tiene leyes particularmente estrictas sobre la recopilación o el almacenamiento de dichos datos ([GDPR](https://gdpr-info.eu/)), e independientemente de dónde viva, es probable que esté entrando en un atolladero ético.
 Por ejemplo, en 2016, un grupo de investigadores recopiló información de perfil público (por ejemplo, nombres de usuario, edad, sexo, ubicación, etc.) de unas 70 000 personas en el sitio de citas OkCupid y publicaron estos datos sin intentar anonimizarlos.
 Si bien los investigadores sintieron que esto no tenía nada de malo ya que los datos ya eran públicos, este trabajo fue ampliamente condenado debido a preocupaciones éticas sobre la identificabilidad de los usuarios cuya información se publicó en el conjunto de datos.
-Si su trabajo consiste en recopilar información de identificación personal, le recomendamos leer sobre el estudio OkCupid[^webscraping-4], así como estudios similares con ética de investigación cuestionable que involucran la adquisición y divulgación de información de identificación personal.
+Si su trabajo consiste en recopilar información de identificación personal, le recomendamos leer sobre el estudio OkCupid[^webscraping-3], así como estudios similares con ética de investigación cuestionable que involucran la adquisición y divulgación de información de identificación personal.
 
-[^webscraping-4]: Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el <https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science>.
+[^webscraping-3]: Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el <https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science>.
 
 ### Derechos de autor
 
@@ -161,9 +160,9 @@ Los atributos también se utilizan para registrar el destino de los enlaces (el 
 
 Para comenzar a extraer, necesitará la URL de la página que desea, que generalmente puede copiar desde su navegador web.
 Luego deberá leer el HTML de esa página en R con `read_html()`.
-Esto devuelve un objeto `xml_document`[^webscraping-5] que luego manipularás usando las funciones rvest:
+Esto devuelve un objeto `xml_document`[^webscraping-4] que luego manipularás usando las funciones rvest:
 
-[^webscraping-5]: Esta clase viene del paquete [xml2](https://xml2.r-lib.org).
+[^webscraping-4]: Esta clase viene del paquete [xml2](https://xml2.r-lib.org).
     xml2 es un paquete de bajo nivel en el que se basa rvest.
 
 ```{r}
@@ -286,9 +285,9 @@ Ahora que ha seleccionado los elementos de interés, deberá extraer los datos, 
 
 ### Texto y atributos
 
-`html_text2()`[^webscraping-6] extrae el contenido de texto sin formato de un elemento HTML:
+`html_text2()`[^webscraping-5] extrae el contenido de texto sin formato de un elemento HTML:
 
-[^webscraping-6]: rvest también proporciona `html_text()` pero casi siempre debe usar `html_text2()` ya que hace un mejor trabajo al convertir HTML anidado en texto.
+[^webscraping-5]: rvest también proporciona `html_text()` pero casi siempre debe usar `html_text2()` ya que hace un mejor trabajo al convertir HTML anidado en texto.
 
 ```{r}
 characters |> 

@@ -509,7 +509,7 @@ Una buena manera de familiarizarse con el estilo de codificación utilizado en u
 
 ## Hojas de cálculo de Google
 
-Google Sheets es otro programa de hoja de cálculo ampliamente utilizado incluido.
+Google Sheets es otro programa de hoja de cálculo ampliamente utilizado.
 Es gratis y está basado en la web.
 Al igual que con Excel, en Hojas de cálculo de Google, los datos se organizan en hojas de trabajo (también llamadas hojas) dentro de archivos de hojas de cálculo.
 

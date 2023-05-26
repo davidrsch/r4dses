@@ -160,7 +160,7 @@ Ahora que ha aprendido los conceptos básicos para crear una o dos cadenas "a ma
 Esto lo ayudará a resolver el problema común en el que tiene un texto que escribió que desea combinar con cadenas de un data frame.
 Por ejemplo, puede combinar "Hola" con una variable `name` para crear un saludo.
 Le mostraremos cómo hacer esto con `str_c()` y `str_glue()` y cómo puede usarlos con `mutate()`.
-Naturalmente, eso plantea la pregunta de qué funciones de cadena podría usar con `summarize()`, por lo que terminaremos esta sección con una discusión de `str_flatten()`, que es una función de resumen para cadenas.
+Naturalmente, eso plantea la pregunta de qué funciones de stringr podría usar con `summarize()`, por lo que terminaremos esta sección con una discusión de `str_flatten()`, que es una función de resumen para cadenas.
 
 ### `str_c()`
 
@@ -277,7 +277,7 @@ Si miras de cerca, puedes ver que hay un patrón común aquí: `separate_`, lueg
 Eso es porque estas cuatro funciones se componen de dos primitivas más simples: - Al igual que con `pivot_longer()` y `pivot_wider()`, las funciones `_longer` hacen que el data frame de entrada sea más largo al crear nuevas filas y las funciones `_wider` hacen que el data frame de entrada sea más ancho al generar nuevas columnas.
 - `delim` divide una cadena con un delimitador como `", "` o `" "`; `position` se divide en anchos específicos, como `c(3, 5, 2)`.
 
-Volveremos al último miembro de esta familia, `separate_regex_wider()`, en @sec-regular-expressions.
+Volveremos al último miembro de esta familia, `separate_wider_regex()`, en @sec-regular-expressions.
 Es la más flexible de las funciones `wider`, pero necesita saber algo acerca de las expresiones regulares antes de poder usarla.
 
 Las siguientes dos secciones le darán la idea básica detrás de estas funciones separadas, primero separándolas en filas (que es un poco más simple) y luego separándolas en columnas.

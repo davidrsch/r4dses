@@ -26,7 +26,7 @@ Las últimas partes del libro abordarán cada uno de estos temas con mayor profu
 knitr::include_graphics("diagrams/data-science/whole-game.png", dpi = 270)
 ```
 
-Cinco capítulos se centran en las herramientas de la ciencia de datos:
+Cuatro capítulos se centran en las herramientas de la ciencia de datos:
 
 -   La visualización es un excelente lugar para comenzar con la programación en R, porque la recompensa es muy clara: puedes hacer diagramas elegantes e informativos que te ayuden a comprender los datos.
     En @sec-data-visualization, se sumergirá en la visualización, aprenderá la estructura básica de un gráfico ggplot2 y técnicas poderosas para convertir datos en gráficos.

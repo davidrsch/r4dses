@@ -1,5 +1,5 @@
 ---
-output: html_document
+output: html
 params:
   my_class: "suv"
 ---
