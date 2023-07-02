@@ -264,7 +264,7 @@ Hay cinco cláusulas importantes: `SELECT`, `FROM`, `WHERE`, `ORDER BY` y `GROUP
 :
 
 [^databases-4]: De manera confusa, según el contexto, `SELECT` es una declaración o una cláusula.
-    Para evitar esta confusión, generalmente usaremos la consulta en lugar de la instrucción `SELECT`.
+    Para evitar esta confusión, generalmente usaremos la consulta `SELECT` en lugar de la instrucción `SELECT`.
 
 [^databases-5]: Ok, técnicamente, solo se requiere `SELECT`, ya que puedes escribir consultas como `SELECT 1+1` para realizar cálculos básicos.
     Pero si quieres trabajar con datos (¡como siempre lo haces!) también necesitarás una cláusula `FROM`.
@@ -597,7 +597,7 @@ flights |>
   )
 ```
 
-En SQL, la cláusula `GROUP BY` se usa exclusivamente para resúmenes, por lo que aquí puede ver que la agrupación se ha movido al argumento `PARTITION BY` a `OVER`.
+En SQL, la cláusula `GROUP BY` se usa exclusivamente para resúmenes, por lo que aquí puede ver que la agrupación se ha movido desde el argumento `PARTITION BY` a `OVER`.
 
 Las funciones de ventana incluyen todas las funciones que miran hacia adelante o hacia atrás, como `lead()` y `lag()` que miran el valor "anterior" o "siguiente" respectivamente:
 

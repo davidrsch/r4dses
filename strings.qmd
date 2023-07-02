@@ -38,12 +38,12 @@ Esto es particularmente útil si usa RStudio porque escribir `str_` activará el
 
 ```{r}
 #| echo: false
-#| fig-alt: > 
-#|   "`str_c` escrito en la consola de RStudio con la información sobre 
+#| fig-alt: | 
+#|   str_c escrito en la consola de RStudio con la información sobre 
 #|   herramientas de autocompletar que se muestra en la parte superior, que 
-#|   enumera las funciones que comienzan con `str_c`. La firma de la función 
+#|   enumera las funciones que comienzan con str_c. La firma de la función 
 #|   y el comienzo de la página del manual para la función resaltada de la 
-#|   lista de autocompletar se muestran en un panel a su derecha."
+#|   lista de autocompletar se muestran en un panel a su derecha.
 
 knitr::include_graphics("screenshots/stringr-autocomplete.png")
 ```

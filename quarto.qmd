@@ -129,10 +129,10 @@ La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia g
 #| label: fig-quarto-flow
 #| echo: false
 #| out-width: "75%"
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de flujo de trabajo que comienza con un archivo qmd, 
 #|   luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML.
-#| fig-cap: >
+#| fig-cap: |
 #|   Diagrama del flujo de trabajo de Quarto de qmd, a knitr, a md, 
 #|   a pandoc, a la salida en formato PDF, MS Word o HTML.
 
@@ -452,11 +452,13 @@ Recomendamos tres de las cinco opciones:
     Para hacer cumplir esto, configure `fig-width: 6` (6") y `fig-asp: 0.618` (la proporción áurea) en los valores predeterminados.
     Luego, en los fragmentos individuales, solo ajuste `fig-asp`.
 
--   Controle el tamaño de salida con `out-width` y configúrelo en un porcentaje del ancho de línea.
+-   Controle el tamaño de salida con `out-width` y configúrelo en un porcentaje del ancho del cuerpo del documento de salida.
     Sugerimos `out-width: "70%"` y `fig-align: center`.
+
     Eso le da a las gráficas espacio para respirar, sin ocupar demasiado espacio.
 
 -   Para colocar varias gráficas en una sola fila, establezca `layout-ncol` en 2 para dos gráficas, 3 para tres gráficas, etc.
+    Esto establece efectivamente `out-width` en "50%" para cada una de sus parcelas si `layout-ncol` es 2, "33%" si `layout-ncol` es 3, etc.
     Dependiendo de lo que esté tratando de ilustrar (por ejemplo, mostrar datos o mostrar variaciones de gráficos), también puede modificar `fig-width`, como se explica a continuación.
 
 Si encuentra que tiene que entrecerrar los ojos para leer el texto en su gráfica, necesita modificar `fig-width`.
@@ -474,6 +476,10 @@ plot <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 #| echo: false
 #| fig-width: 4
 #| out-width: "50%"
+#| fig-alt: |
+#|   Diagrama de dispersión del kilometraje de la carretera frente al desplazamiento 
+#|   de los automóviles, donde los puntos tienen un tamaño normal y el texto 
+#|   del eje y las etiquetas tienen un tamaño de fuente similar al del texto circundante.
 
 plot
 ```
@@ -482,6 +488,10 @@ plot
 #| echo: false
 #| fig-width: 6
 #| out-width: "50%"
+#| fig-alt: |
+#|   Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de 
+#|   automóviles, donde los puntos son más pequeños que en el gráfico anterior 
+#|   y el texto del eje y las etiquetas son más pequeños que el texto circundante.
 
 plot
 ```
@@ -490,6 +500,11 @@ plot
 #| echo: false
 #| fig-width: 8
 #| out-width: "50%"
+#| fig-alt: |
+#|   Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de 
+#|   automóviles, donde los puntos son incluso más pequeños que en el gráfico anterior
+#|    y el texto del eje y las etiquetas son incluso más pequeños que el texto 
+#|    circundante.
 
 plot
 ```
@@ -601,28 +616,25 @@ En ejecuciones posteriores, knitr verificará si el código ha cambiado y, si no
 El sistema de almacenamiento en caché debe usarse con cuidado, ya que, de manera predeterminada, se basa solo en el código, no en sus dependencias.
 Por ejemplo, aquí el fragmento `processed_data` depende del fragmento `raw-data`:
 
-```         
-`r chunk`{r}
+```{{r}}
 #| label: raw-data
 
 rawdata <- readr::read_csv("a_very_large_file.csv")
-`r chunk`
+```
 
-`r chunk`{r}
+```{{r}}
 #| label: processed_data
 #| cache: true
 
 processed_data <- rawdata |> 
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
-`r chunk`
 ```
 
 Almacenar en caché el fragmento `processed_data` significa que se volverá a ejecutar si se cambia la canalización de dplyr, pero no se volverá a ejecutar si cambia la llamada `read_csv()`.
 Puede evitar ese problema con la opción de fragmento `dependson`:
 
-```         
-`r chunk`{r}
+```{{r}}
 #| label: processed-data
 #| cache: true
 #| dependson: "raw-data"
@@ -630,7 +642,6 @@ Puede evitar ese problema con la opción de fragmento `dependson`:
 processed_data <- rawdata |> 
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
-`r chunk`
 ```
 
 `dependson` debe contener un vector de caracteres de *cada* fragmento del que depende el fragmento almacenado en caché.
@@ -639,16 +650,14 @@ Knitr actualizará los resultados del fragmento en caché cada vez que detecte q
 Tenga en cuenta que los fragmentos no se actualizarán si `un_archivo_muy_grande.csv` cambia, porque el almacenamiento en caché de knitr solo rastrea los cambios dentro del archivo `.qmd`.
 Si también desea realizar un seguimiento de los cambios en ese archivo, puede usar la opción `cache.extra`.
 Esta es una expresión R arbitraria que invalidará el caché cada vez que cambie.
-Una buena función para usar es `file.info()`: devuelve un montón de información sobre el archivo, incluida la última vez que se modificó.
+Una buena función para usar es `file.mtime()`: regresa cuando fue modificada por última vez.
 Entonces puedes escribir:
 
-```         
-`r chunk`{r}
+```{{r}}
 #| label: raw-data
-#| cache.extra: file.info("un_archivo_muy_grande.csv")
+#| cache.extra: !expr file.mtime("a_very_large_file.csv")
 
 rawdata <- readr::read_csv("un_archivo_muy_grande.csv")
-`r chunk`
 ```
 
 Seguimos el consejo de [David Robinson](https://twitter.com/drob/status/738786604731490304) para nombrar estos fragmentos: cada fragmento lleva el nombre del objeto principal que crea.
@@ -669,7 +678,7 @@ Un error común en los documentos con fragmentos de código son las etiquetas de
 Para solucionar este problema, todo lo que necesita hacer es cambiar una de sus etiquetas duplicadas.
 
 Si los errores se deben al código R del documento, lo primero que debes intentar siempre es recrear el problema en una sesión interactiva.
-Reinicie R, luego "Ejecute todos los fragmentos" (ya sea desde el menú Código, en la región Ejecutar), o con el atajo de teclado Ctrl + Alt + R.
+Reinicie R, luego "Ejecute todos los fragmentos" ya sea desde el menú Código, en la región Ejecutar, o con el atajo de teclado Ctrl + Alt + R.
 Si tiene suerte, eso recreará el problema y podrá averiguar qué está pasando de forma interactiva.
 
 Si eso no ayuda, debe haber algo diferente entre su entorno interactivo y el entorno de Quarto.

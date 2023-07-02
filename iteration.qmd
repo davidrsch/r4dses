@@ -942,6 +942,11 @@ Podemos tomar el mismo enfoque básico para crear muchas gráficas.
 Primero hagamos una función que dibuje la gráfica que queremos:
 
 ```{r}
+#| fig-alt: |
+#|   Histograma de quilates de diamantes del conjunto de datos by_clarity, con 
+#|   un rango de 0 a 5 quilates. La distribución es unimodal y sesgada a la derecha 
+#|   con un pico de alrededor de 1 quilate.
+
 carat_histogram <- function(df) {
   ggplot(df, aes(x = carat)) + geom_histogram(binwidth = 0.1)  
 }

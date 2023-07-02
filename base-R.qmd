@@ -353,7 +353,7 @@ Si este pimentero es su lista `pepper`, entonces `pepper[1]` es un pimentero que
 #| fig-alt: >
 #|   Tres fotos. A la izquierda hay una foto de un pimentero de vidrio. En 
 #|   lugar del pimentero que contiene pimienta, contiene un solo paquete 
-#|   de pimienta. En el medio hay una foto de un solo paquete de 
+#|   de pimienta. En el medio hay una foto de un solo paquete de
 #|   pimienta. A la derecha hay una foto del contenido de un paquete de 
 #|   pimienta.
 

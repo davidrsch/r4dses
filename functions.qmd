@@ -652,6 +652,10 @@ diamonds |>
 Esto es muy fácil una vez que sabe que `aes ()` es una función de enmascaramiento de datos y debe adoptar:
 
 ```{r}
+#| fig-alt: |
+#|   Un histograma de quilates de diamantes, con un rango de 0 a 5, que muestra una 
+#|   distribución unimodal sesgada a la derecha con un pico entre 0 y 1 quilate.
+
 histogram <- function(df, var, binwidth = NULL) {
   df |> 
     ggplot(aes(x = {{ var }})) + 
@@ -677,6 +681,11 @@ Es sencillo agregar más variables a la mezcla.
 Por ejemplo, tal vez desee una manera fácil de observar si un conjunto de datos es lineal o no al superponer una línea suave y una línea recta:
 
 ```{r}
+#| fig-alt: |
+#|   Diagrama de dispersión de altura frente a masa de personajes de 
+#|   StarWars que muestra una relación positiva. Una curva suave de la relación 
+#|   se traza en rojo y la línea de mejor ajuste se traza en azul.
+
 # https://twitter.com/tyler_js_smith/status/1574377116988104704
 linearity_check <- function(df, x, y) {
   df |>
@@ -694,6 +703,11 @@ starwars |>
 O tal vez desee una alternativa a los diagramas de dispersión de colores para conjuntos de datos muy grandes en los que la superposición de gráficos es un problema:
 
 ```{r}
+#| fig-alt: |
+#|   Gráfico hexagonal de precio frente a quilates de diamantes que muestra una 
+#|   relación positiva. Hay más diamantes de menos de 2 quilates que de más de 2 
+#|   quilates.
+
 # https://twitter.com/ppaxisa/status/1574398423175921665
 hex_plot <- function(df, x, y, z, bins = 20, fun = "mean") {
   df |> 
@@ -715,6 +729,11 @@ Por ejemplo, si desea hacer un gráfico de barras verticales en el que ordene au
 Dado que el gráfico de barras es vertical, también debemos invertir el orden habitual para obtener los valores más altos en la parte superior:
 
 ```{r}
+#| fig-alt: |
+#|   Gráfica de barras de claridad de diamantes, donde la claridad está 
+#|   en el eje y y los conteos están en el eje x, y las barras están ordenadas 
+#|   en orden de frecuencia: SI1, VS2, SI2, VS1, VVS2, VVS1, IF, I1.
+
 sorted_bars <- function(df, var) {
   df |> 
     mutate({{ var }} := fct_rev(fct_infreq({{ var }})))  |>
@@ -732,6 +751,10 @@ Para solucionar este problema, usamos el operador especial `:=` que la evaluaci�
 O tal vez desee que sea más fácil dibujar un gráfico de barras solo para un subconjunto de los datos:
 
 ```{r}
+#| fig-alt: |
+#|   Diagrama de barra de claridad de diamantes. El más común es SI1, luego SI2, 
+#|   luego VS2, luego VS1, luego VVS2, luego VVS1, luego I1, luego por último IF.
+
 conditional_bars <- function(df, condition, var) {
   df |> 
     filter({{ condition }}) |> 
@@ -769,6 +792,10 @@ Esto funciona de manera similar a `str_glue()`, por lo que cualquier valor envue
 Pero también entiende `{{ }}`, que inserta automáticamente el nombre de variable apropiado:
 
 ```{r}
+#| fig-alt: |
+#|   Histograma de quilates de diamantes, que va de 0 a 5. La distribución es 
+#|   unimodal y sesgada a la derecha con un pico entre 0 y 1 quilates.
+
 histogram <- function(df, var, binwidth) {
   label <- rlang::englue("A histogram of {{var}} with binwidth {binwidth}")
   

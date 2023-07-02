@@ -94,11 +94,11 @@ Estas relaciones se resumen visualmente en @fig-flights-relationships.
 #| label: fig-flights-relationships
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Conexiones entre los cinco marcos de datos en el paquete nycflights13. 
 #|   Las variables que componen una llave primaria son de color gris y están 
 #|   conectadas a sus correspondientes llaves foráneas con flechas.
-#| fig-alt: >
+#| fig-alt: |
 #|   Las relaciones entre aeropuertos, aviones, vuelos, clima y conjuntos de 
 #|   datos de aerolíneas del paquete nycflights13. airports$faa conectados 
 #|   a los flights$origin y flights$dest. planes$tailnum está conectado a los 
@@ -436,12 +436,12 @@ y <- tribble(
 #| label: fig-join-setup
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Representación gráfica de dos tablas simples. Las columnas `key`
 #|   coloreadas asignan el color de fondo al valor clave. Las columnas 
 #|   grises representan las columnas de "value" que se llevan durante 
 #|   el viaje.
-#| fig-alt: >
+#| fig-alt: |
 #|   x e y son dos marcos de datos con 2 columnas y 3 filas, con contenidos 
 #|   como se describe en el texto. Los valores de las claves están coloreados: 
 #|   1 es verde, 2 es morado, 3 es naranja y 4 es amarillo.
@@ -457,11 +457,11 @@ Las filas y columnas en la salida están determinadas principalmente por `x`, po
 #| label: fig-join-setup2
 #| echo: false
 #| out-width: ~
-#| fig-cap: > 
+#| fig-cap: | 
 #|   Para comprender cómo funcionan las uniones, es útil pensar en todas 
 #|   las coincidencias posibles. Aquí lo mostramos con una cuadrícula de 
 #|   líneas de conexión.
-#| fig-alt: >
+#| fig-alt: |
 #|   x e y se colocan en ángulo recto, con líneas horizontales que se 
 #|   extienden desde x y líneas verticales que se extienden desde y. Hay 3 filas 
 #|   en x y 3 filas en y, lo que lleva a nueve intersecciones que 
@@ -478,11 +478,11 @@ Por ejemplo, @fig-join-inner muestra una combinación interna, donde las filas s
 #| label: fig-join-inner
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Una unión interna hace coincidir cada fila en `x` con la fila en `y` que 
 #|   tiene el mismo valor de `key`. Cada coincidencia se convierte en una 
 #|   fila en la salida.
-#| fig-alt: >
+#| fig-alt: |
 #|   x e y se colocan en ángulo recto con líneas que forman una cuadrícula de 
 #|   coincidencias potenciales. Las claves 1 y 2 aparecen tanto en x como en y, 
 #|   por lo que obtenemos una coincidencia, indicada por un punto. Cada punto 
@@ -504,10 +504,10 @@ Hay tres tipos de uniones externas:
     #| label: fig-join-left
     #| echo: false
     #| out-width: ~
-    #| fig-cap: > 
+    #| fig-cap: | 
     #|   Una representación visual de la combinación izquierda donde cada 
     #|   fila en `x` aparece en la salida.
-    #| fig-alt: >
+    #| fig-alt: |
     #|   En comparación con el diagrama anterior que muestra una combinación interna, 
     #|   la tabla y obtiene una nueva fila virtual que contiene NA que coincidirá 
     #|   con cualquier fila en x que de otro modo no coincidiría. Esto significa 
@@ -525,10 +525,10 @@ Hay tres tipos de uniones externas:
     #| label: fig-join-right
     #| echo: false
     #| out-width: ~
-    #| fig-cap: > 
+    #| fig-cap: | 
     #|   Una representación visual de la combinación correcta donde cada 
     #|   fila de `y` aparece en la salida. 
-    #| fig-alt: >
+    #| fig-alt: |
     #|   En comparación con el diagrama anterior que muestra una combinación izquierda, 
     #|   la tabla x ahora gana una fila virtual para que cada fila en y tenga 
     #|   una coincidencia en x. val x contiene NAN para la fila en y que no 
@@ -545,10 +545,10 @@ Hay tres tipos de uniones externas:
     #| label: fig-join-full
     #| echo: false
     #| out-width: ~
-    #| fig-cap: > 
+    #| fig-cap: | 
     #|   Una representación visual de la combinación completa donde cada 
     #|   fila en `x` e `y` aparece en la salida.
-    #| fig-alt: >
+    #| fig-alt: |
     #|   Ahora tanto x como y tienen una fila virtual que siempre coincide. El 
     #|   resultado tiene 4 filas: llaves 1, 2, 3 y 4 con todos los valores de 
     #|   val_x y val_y, sin embargo, la llave 2, val_y y la llave 4, val_x son NA 
@@ -564,10 +564,10 @@ Sin embargo, esta no es una gran representación porque, si bien puede refrescar
 #| label: fig-join-venn
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Diagramas de Venn que muestran la diferencia entre uniones internas, izquierdas, 
 #|   derechas y completas.
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagramas de Venn para uniones internas, completas, izquierdas y derechas. Cada 
 #|   unión representada con dos círculos que se cruzan que representan marcos de datos 
 #|   x e y, con x a la derecha e y a la izquierda. El sombreado indica el resultado 
@@ -595,12 +595,12 @@ Para comprender lo que sucede, primero limitemos nuestro enfoque a `inner_join()
 #| label: fig-join-match-types
 #| echo: false
 #| out-width: ~
-#| fig-cap: > 
+#| fig-cap: | 
 #|   Las tres formas en que una fila en `x` puede coincidir. `x1` coincide con una
 #|    fila en `y`, `x2` coincide con dos filas en `y`, `x3` coincide con cero 
 #|    filas en y. Tenga en cuenta que si bien hay tres filas en `x` y tres filas 
 #|    en la salida, no hay una correspondencia directa entre las filas.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama de combinación donde x tiene valores clave 1, 2 y 3, e y tiene 
 #|   valores clave 1, 2, 2. La salida tiene tres filas porque la clave 1 
 #|   coincide con una fila, la clave 2 coincide con dos filas y la clave 
@@ -646,10 +646,10 @@ Esto significa que las uniones de filtrado nunca duplican filas como lo hacen la
 #| label: fig-join-semi
 #| echo: false
 #| out-width: null
-#| fig-cap: >
+#| fig-cap: |
 #|   En un semi-join solo importa que haya coincidencia; de lo contrario, 
 #|   los valores en `y` no afectan la salida.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama de unión con viejos amigos x e y. En una combinación semi, 
 #|   solo importa la presencia de una coincidencia, por lo que la salida 
 #|   contiene las mismas columnas que x.
@@ -661,10 +661,10 @@ knitr::include_graphics("diagrams/join/semi.png", dpi = 270)
 #| label: fig-join-anti
 #| echo: false
 #| out-width: null
-#| fig-cap: >
+#| fig-cap: |
 #|   Un anti-join es lo contrario de un semi-join, eliminando filas de `x` 
 #|   que tienen una coincidencia en `y`.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un anti-join es lo contrario de un semi-join, por lo que las coincidencias 
 #|   se dibujan con líneas rojas que indican que se eliminarán de la salida.
 
@@ -686,9 +686,9 @@ x |> left_join(y, by = "key", keep = TRUE)
 
 ```{r}
 #| label: fig-inner-both
-#| fig-cap: >
+#| fig-cap: |
 #|   Una combinación interna que muestra `x` e `y` en la salida.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama de unión que muestra una unión interna entre x e y. El 
 #|   resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. 
 #|   Los valores de key.x y key.y son idénticos, por lo que generalmente 
@@ -706,10 +706,10 @@ Las funciones de combinación de dplyr entienden esta distinción entre combinac
 ```{r}
 #| label: fig-join-gte
 #| echo: false
-#| fig-cap: >
+#| fig-cap: |
 #|   Una combinación no equitativa en la que la tecla `x` debe ser mayor o igual 
 #|   que la tecla `y`. Muchas filas generan múltiples coincidencias.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama de unión que ilustra join_by(key >= key). La primera fila 
 #|   de x coincide con una fila de y y la segunda y la tercera fila coinciden 
 #|   con dos filas. Esto significa que la salida tiene cinco filas que contienen 
@@ -738,9 +738,9 @@ Esto significa que la salida tendrá filas `nrow(x) * nrow(y)`.
 #| label: fig-join-cross
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Una combinación cruzada hace coincidir cada fila en `x` con cada fila en `y`.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama de unión que muestra un punto para cada combinación de x e y.
 
 knitr::include_graphics("diagrams/join/cross.png", dpi = 270)
@@ -764,10 +764,14 @@ Las uniones de desigualdad usan `<`, `<=`, `>=` o `>` para restringir el conjunt
 #| label: fig-join-lt
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
+#| fig-cap: |
 #|   Una unión de desigualdad donde 'x' se une a 'y' en filas donde la clave 
 #|   de 'x' es menor que la clave de 'y'. Esto crea una forma triangular en 
 #|   la esquina superior izquierda.
+#|   fig-alt: |
+#|   Un diagrama que representa una unión de desigualdad donde un marco de datos x 
+#|   se une a un marco de datos y donde la clave de x es menor que la clave de y, 
+#|   lo que da como resultado una forma triangular en la esquina superior izquierda.
 
 knitr::include_graphics("diagrams/join/lt.png", dpi = 270)
 ```
@@ -791,10 +795,10 @@ Por ejemplo, `join_by(closest(x <= y))` coincide con la `y` más pequeña que es
 #| label: fig-join-closest
 #| echo: false
 #| out-width: ~
-#| fig-cap: >
-#|   Una siguiente combinación es similar a una combinación de desigualdad mayor 
+#| fig-cap: |
+#|   Una unión continua es similar a una unión de desigualdad mayor 
 #|   o igual, pero solo coincide con el primer valor.
-#| fig-alt: >
+#| fig-alt: |
 #|   Una unión continua es un subconjunto de una unión de desigualdad, por lo 
 #|   que algunas coincidencias están atenuadas, lo que indica que no se usan 
 #|   porque no son las "más cercanas".

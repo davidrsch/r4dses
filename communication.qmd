@@ -48,7 +48,7 @@ Agregas etiquetas con la función `labs()`.
 
 ```{r}
 #| message: false
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
 #|   los puntos se colorean según la clase de coche. Una curva suave siguiendo
 #|   la trayectoria de la relación entre la eficiencia de combustible en carretera versus
@@ -86,7 +86,7 @@ Simplemente cambia `""` por `quote()` y lee acerca de las opciones disponibles e
 #| fig-asp: 1
 #| out-width: "50%"
 #| fig-width: 3
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión con texto matemático en las etiquetas de los ejes x e y. etiqueta del eje X
 #|   dice x_i, la etiqueta del eje y dice suma de x_i al cuadrado, para i de 1 a n.
 
@@ -112,7 +112,7 @@ ggplot(df, aes(x, y)) +
 
     ```{r}
     #| echo: false
-    #| fig-alt: >
+    #| fig-alt: |
     #|   Diagrama de dispersión de eficiencia de combustible en carretera versus ciudad. Formas y
     #|   los colores de los puntos están determinados por el tipo de tren de transmisión.
 
@@ -162,7 +162,7 @@ Son más grandes que el resto del texto de la gráfica y están en negrita.
 (`theme(legend.position = "none"`) desactiva todas las leyenda --- hablaremos de ello más adelante).
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión del kilometraje en carretera versus el tamaño del motor donde los puntos están coloreados
 #|   por tipo de unidad. Se superponen curvas suaves para cada tipo de unidad.
 #|   Las etiquetas de texto identifican las curvas como rueda delantera, rueda trasera y 4 ruedas.
@@ -183,7 +183,7 @@ Podemos usar la función `geom_label_repel()` del paquete ggrepel para soluciona
 Este útil paquete ajustará automáticamente las etiquetas para que no se superpongan:
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
 #|   los puntos se colorean según la clase de coche. Algunos puntos están etiquetados
 #|   con el nombre del coche. Las etiquetas son cajas con fondo blanco y transparente.
@@ -204,7 +204,7 @@ También puede usar la misma idea para resaltar ciertos puntos en un diagrama co
 Tenga en cuenta otra técnica útil utilizada aquí: agregamos una segunda capa de puntos grandes y huecos para resaltar aún más los puntos etiquetados.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Puntos
 #|   donde el kilometraje en carretera es superior a 40 y superior a 20 con el tamaño del motor
 #|   los 5 anteriores son rojos, con un círculo rojo hueco y etiquetados con el nombre del modelo
@@ -253,7 +253,7 @@ La estética `x` e `y` en ambos definen dónde debe comenzar la anotación, y la
 Tenga en cuenta también que el segmento tiene el estilo de una flecha.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles. Un flecha
 #|   roja que apunta hacia abajo sigue la tendencia de los puntos y la anotación
 #|   junto a la flecha dice "Los tamaños de motor más grandes tienden a tener menor
@@ -349,7 +349,7 @@ Con `labels` controla la etiqueta de texto asociada con cada marca/tecla.
 El uso más común de `breaks` es anular la opción predeterminada:
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles.
 #|   El eje y tiene rupturas que comienzan en 15 y terminan en 40, aumentando en 5.
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles,
@@ -367,7 +367,7 @@ También puede usar `breaks` y `labels` para controlar la apariencia de las leye
 Para escalas discretas para variables categóricas, las etiquetas, `labels`, pueden ser una lista con nombre de los nombres de los niveles existentes y las etiquetas deseadas para ellos.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, coloreado 
 #|   por conducción. Los ejes x e y no tienen ninguna etiqueta en las marcas del eje. 
 #|   La leyenda tiene etiquetas personalizadas: 4 ruedas, delantera, trasera.
@@ -387,7 +387,7 @@ Tenga en cuenta que las rupturas (`breaks`) están en la escala original de los 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-alt: >
+#| fig-alt: |
 #|   Dos diagramas de caja de lado a lado de precio versus corte de diamantes. Los valores atípicos
 #|   son transparentes. En ambos gráficos, las etiquetas del eje x tienen formato de dólares.
 #|   Las etiquetas del eje y en la gráfica de la izquierda comienzan en $0 y van hasta $15,000, aumentando
@@ -411,7 +411,7 @@ ggplot(diamonds, aes(x = price, y = cut)) +
 Otra función de etiqueta útil es `label_percent()`:
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Gráficos de barra segmentados de corte, llenos de niveles de claridad. En el eje y
 #|   las etiquetas comienzan en 0% y van al 100%, aumentando en un 25%. El nombre de la 
 #|   etiqueta del eje y es "Porcentaje".
@@ -426,7 +426,7 @@ Por ejemplo, tome esta gráfica que muestra cuándo comenzó y terminó su manda
 UU.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Gráfico lineal del número de identificación de los presidentes versus el año en que comenzaron su
 #|   presidencia. El año de inicio se marca con un punto y un segmento que comienza
 #|   allí y termina al final de la presidencia. Las etiquetas del eje x son
@@ -459,7 +459,7 @@ La configuración del tema `legend.position` controla dónde se dibuja la leyend
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
-#| fig-alt: >
+#| fig-alt: |
 #|   Cuatro diagramas de dispersión de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
 #|   donde los puntos están coloreados según la clase de automóvil. En el sentido de las agujas del reloj, la leyenda
 #|   se coloca a la derecha, izquierda, arriba y abajo del gráfico.
@@ -485,7 +485,7 @@ El siguiente ejemplo muestra dos configuraciones importantes: controlar el núme
 Esto es particularmente útil si ha usado un `alpha` bajo para mostrar muchos puntos en un gráfico.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
 #|   donde los puntos están coloreados según la clase de automóvil. Superpuesto en la gráfica hay un
 #|   curva suave. La leyenda está en la parte inferior y las clases se enumeran
@@ -515,7 +515,7 @@ Por ejemplo, es más fácil ver la relación precisa entre quilate,`carat`, y pr
 #| fig-align: default
 #| layout-ncol: 2
 #| fig-width: 3
-#| fig-alt: >
+#| fig-alt: |
 #|   Dos gráficas de precio frente a quilates de diamantes. Datos agrupados y el color de
 #|   los rectángulos que representan cada contenedor en función del número de puntos que
 #|   hay en ese contenedor. En el gráfico de la derecha, los valores de precio y quilates
@@ -536,7 +536,7 @@ En lugar de hacer la transformación en el mapeo estético, podemos hacerlo con 
 Esto es visualmente idéntico, excepto que los ejes están etiquetados en la escala de datos original.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Gráfico de precio versus quilate de diamantes. Datos agrupados y el color de
 #|   los rectángulos que representan cada contenedor en función del número de puntos que
 #|   existen en ese contenedor. Las etiquetas de los ejes están en la escala de datos original.
@@ -558,7 +558,7 @@ Los dos gráficos a continuación se ven similares, pero hay suficiente diferenc
 #| fig-align: default
 #| layout-ncol: 2
 #| fig-width: 3
-#| fig-alt: >
+#| fig-alt: |
 #|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde los puntos son
 #|   coloreado por tipo de unidad. El gráfico de la izquierda utiliza el valor predeterminado
 #|   de la paleta de colores de ggplot2 y la gráfica de la derecha usa una paleta de 
@@ -577,7 +577,7 @@ Si solo hay unos pocos colores, puede agregar un mapeo de forma redundante.
 Esto también ayudará a garantizar que su gráfica sea interpretable en blanco y negro.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde ambos colores
 #|   y la forma de los puntos se basan en el tipo de unidad. La paleta de colores no es
 #|   la paleta ggplot2 por defecto.
@@ -597,7 +597,7 @@ Esto suele ocurrir si ha utilizado `cut()` para convertir una variable continua 
 #| echo: false
 #| fig.cap: All colorBrewer scales.
 #| fig.asp: 2.5
-#| fig-alt: >
+#| fig-alt: |
 #|   Todas las escalas colorBrewer. Un grupo va de colores claros a oscuros.
 #|   Otro grupo es un conjunto de colores no ordinales. Y el último grupo tiene
 #|   escalas divergentes (de oscuro a claro y de nuevo a oscuro). Dentro de cada conjunto
@@ -612,7 +612,7 @@ Por ejemplo, si mapeamos el partido presidencial al color, queremos usar el mape
 Un enfoque para asignar estos colores es usar códigos de color hexadecimales:
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Gráfico lineal del número de identificación de los presidentes versus el año en que comenzaron su
 #|   presidencia. El año de inicio se marca con un punto y un segmento que comienza
 #|   allí y termina al final de la presidencia. Los presidentes demócratas son
@@ -640,7 +640,7 @@ Estas escalas están disponibles como paletas continuas (`c`), discretas (`d`) y
 #| layout-ncol: 2
 #| fig-width: 3
 #| fig-asp: 0.75
-#| fig-alt: >
+#| fig-alt: |
 #|   Tres diagramas hexadecimales donde el color de los hexágonos muestra el número de observaciones
 #|   que caen en ese contenedor hexagonal. El primer gráfico utiliza el valor continuo predeterminado.
 #|   escala ggplot2. La segunda gráfica utiliza la viridis, escala continua, y la
@@ -748,6 +748,18 @@ Por ejemplo, si extraemos dos clases de autos y los representamos por separado, 
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
+#| fig-alt: |
+#|   A la izquierda, un diagrama de dispersión del kilometraje en carretera frente 
+#|   al desplazamiento de los SUV. A la derecha, un diagrama de dispersión de las 
+#|   mismas variables para autos compactos. Los puntos están coloreados por tipo 
+#|   de unidad para ambos gráficos. Entre los SUV, la mayoría de los automóviles 
+#|   son de tracción en las cuatro ruedas y los demás son de tracción trasera, 
+#|   mientras que entre los automóviles compactos, la mayoría de los automóviles 
+#|   son de tracción delantera y los demás son de tracción en las cuatro ruedas. 
+#|   El gráfico de los SUV muestra una clara relación negativa entre el kilometraje 
+#|   en carretera y el desplazamiento, mientras que en el gráfico de los 
+#|   coches compactos la relación es mucho más uniforme.
+
 
 suv <- mpg |> filter(class == "suv")
 compact <- mpg |> filter(class == "compact")
@@ -766,6 +778,18 @@ Una forma de superar este problema es compartir escalas en varias gráficas, ent
 ```{r}
 #| layout-ncol: 2
 #| fig-width: 4
+#| fig-alt: |
+#|   A la izquierda, un diagrama de dispersión del kilometraje en carretera frente 
+#|   al desplazamiento de los SUV. A la derecha, un diagrama de dispersión de las 
+#|   mismas variables para autos compactos. Los puntos están coloreados por tipo 
+#|   de unidad para ambos gráficos. Ambos gráficos se trazan en la misma escala para 
+#|   el kilometraje en carretera, el desplazamiento y el tipo de conducción, lo 
+#|   que da como resultado que la leyenda muestre los tres tipos (tracción 
+#|   delantera, trasera y en las 4 ruedas) para ambos gráficos, aunque no hay 
+#|   SUV con tracción delantera. y sin coches compactos de tracción trasera. 
+#|   Dado que las escalas x e y son las mismas y van mucho más allá del desplazamiento 
+#|   y el kilometraje en carretera mínimo o máximo, los puntos no ocupan toda el 
+#|   área de trazado.
 
 x_scale <- scale_x_continuous(limits = range(mpg$displ))
 y_scale <- scale_y_continuous(limits = range(mpg$hwy))
@@ -822,6 +846,11 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
 
     ```{r}
     #| fig-show: hide
+    #| fig-alt: |
+    #| Diagrama de dispersión del kilometraje en carretera frente al desplazamiento 
+    #| de automóviles, coloreado por clase de automóvil. El fondo de la trama es 
+    #| blanco, con líneas de cuadrícula grises.
+
 
     ggplot(diamonds, aes(x = carat, y = price)) +
       geom_point(aes(color = cut), alpha = 1/20)
@@ -854,7 +883,7 @@ También puede crear sus propios temas, si está tratando de hacer coincidir un 
 #| label: fig-themes
 #| echo: false
 #| fig-cap: Los ocho temas integrados en ggplot2.
-#| fig-alt: >
+#| fig-alt: |
 #|   Ocho gráficos de barras creados con ggplot2, cada uno
 #|   con uno de los ocho temas integrados:
 #|   theme_bw() - Fondo blanco con líneas de cuadrícula,
@@ -880,7 +909,7 @@ En el gráfico siguiente, estos se establecen en `"plot"` para indicar que estos
 Se utilizan algunos otros componentes de `theme()` útiles para cambiar la ubicación del formato del título y el texto del subtítulo.
 
 ```{r}
-#| fig-alt: >
+#| fig-alt: |
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, coloreado 
 #|   por conducción. El gráfico se titula "Los tamaños de motor más grandes tienden a tener una economía de combustible
 #|   más baja" con la descripción que apunta a la fuente de los datos, fueleconomy.gov.
@@ -926,7 +955,7 @@ Luego, los colocas uno al lado del otro con `+`.
 ```{r}
 #| fig-width: 6
 #| fig-asp: 0.5
-#| fig-alt: >
+#| fig-alt: |
 #|   Dos diagramas (un diagrama de dispersión del kilometraje en carretera versus el tamaño del motor y un
 #|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión) colocados a continuación
 #|   el uno al otro
@@ -949,7 +978,7 @@ A continuación, `|` coloca `p1` y `p3` uno al lado del otro y `/` mueve `p2` a 
 ```{r}
 #| fig-width: 6
 #| fig-asp: 0.8
-#| fig-alt: >
+#| fig-alt: |
 #|   Tres gráficas dispuestas de manera que la primera y la tercera gráfica estén una al lado de la otra
 #|   y la segunda gráfica se extendía debajo de ellos. La primera gráfica es una
 #|   diagrama de dispersión del kilometraje en carretera versus el tamaño del motor, el tercer diagrama es un
@@ -975,7 +1004,7 @@ Patchwork divide el área que ha asignado para su gráfica utilizando esta escal
 ```{r}
 #| fig-width: 8
 #| fig-asp: 1
-#| fig-alt: >
+#| fig-alt: |
 #|   Cinco gráficas distribuidas de manera que las dos primeras gráficas estén una al lado de la otra. gráficas
 #|   tres y cuatro están debajo de ellos. Y la quinta gráfica se extiende debajo de ellos.
 #|   El gráfico fragmentado se titula "Kilometraje en ciudad y carretera para automóviles con
@@ -1047,7 +1076,7 @@ Si desea obtener más información sobre la combinación y el diseño de varias 
     #| fig-width: 7
     #| fig-asp: 0.8
     #| echo: false
-    #| fig-alt: >
+    #| fig-alt: |
     #|   Tres gráficas: La gráfica 1 es una gráfica de dispersión del kilometraje en carretera versus el tamaño del motor.
     #|   La gráfica 2 son gráficas de caja una al lado de la otra del kilometraje de la carretera versus el tren de transmisión.
     #|   La gráfica 3 son gráficas de caja una al lado de la otra del kilometraje de la ciudad versus el tren de transmisión.
