@@ -120,7 +120,7 @@ Esto mostrará el informe en el panel del visor como se muestra en @fig-diamond-
 knitr::include_graphics("quarto/diamond-sizes-report.png")
 ```
 
-Cuando renderiza el documento, Quarto envía el archivo `.qmd` a **knitr**, [https://yihui.name/knitr](https://yihui.name/knitr/){.uri}, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (`.md`) que incluye el código y su salida.
+Cuando renderiza el documento, Quarto envía el archivo `.qmd` a **knitr**, [https://yihui.org/knitr](https://yihui.org/knitr/){.uri}, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (`.md`) que incluye el código y su salida.
 El archivo markdown generado por knitr luego es procesado por **pandoc**, [https://pandoc.org](https://pandoc.org/){.uri}, que es responsable de crear el archivo terminado.
 Este proceso se muestra en @fig-quarto-flow.
 La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en @sec-quarto-formats.
@@ -319,7 +319,7 @@ Cada etiqueta de fragmento debe ser única.
 La salida del fragmento se puede personalizar con **opciones**, campos proporcionados al encabezado del fragmento.
 Knitr proporciona casi 60 opciones que puede usar para personalizar sus fragmentos de código.
 Aquí cubriremos las opciones de fragmentos más importantes que usará con frecuencia.
-Puedes ver la lista completa en [https://yihui.name/knitr/options](https://yihui.name/knitr/options/){.uri}.
+Puedes ver la lista completa en [https://yihui.org/knitr/options](https://yihui.org/knitr/options/){.uri}.
 
 El conjunto de opciones más importante controla si su bloque de código se ejecuta y qué resultados se insertan en el informe terminado:
 
@@ -618,6 +618,7 @@ Por ejemplo, aquí el fragmento `processed_data` depende del fragmento `raw-data
 
 ```{{r}}
 #| label: raw-data
+#| cache: true
 
 rawdata <- readr::read_csv("a_very_large_file.csv")
 ```
@@ -655,6 +656,7 @@ Entonces puedes escribir:
 
 ```{{r}}
 #| label: raw-data
+#| cache: true
 #| cache.extra: !expr file.mtime("a_very_large_file.csv")
 
 rawdata <- readr::read_csv("un_archivo_muy_grande.csv")

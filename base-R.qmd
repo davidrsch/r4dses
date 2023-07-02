@@ -521,6 +521,13 @@ Aquí hay un ejemplo rápido del conjunto de datos de diamantes:
 #| fig-width: 4
 #| fig-asp: 1
 #| layout-ncol: 2
+#| fig-alt: |
+#|   A la izquierda, histograma de quilates de diamantes, que van de 0 a 5 quilates. 
+#|   La distribución es unimodal y sesgada a la derecha. A la derecha, diagrama de 
+#|   dispersión de precio frente a quilates de diamantes, que muestra una relación 
+#|   positiva que se despliega a medida que aumentan el precio y los quilates. El gráfico 
+#|   de dispersión muestra muy pocos diamantes de más de 3 quilates en comparación 
+#|   con los diamantes de entre 0 y 3 quilates.
 
 # Izquierda
 hist(diamonds$carat)

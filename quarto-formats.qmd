@@ -139,6 +139,8 @@ Si está viendo esta página en la web, puede arrastrar el mapa, acercar y aleja
 Obviamente, no puede hacer eso en un libro, por lo que Quarto inserta automáticamente una captura de pantalla estática para usted.
 
 ```{r}
+#| fig-alt: Folleto mapa de Maungawhau / Mount Eden.
+
 library(leaflet)
 leaflet() |>
   setView(174.764, -36.877, zoom = 16) |> 
