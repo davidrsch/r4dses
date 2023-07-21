@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
 options(
   dplyr.print_min = 6,
   dplyr.print_max = 6,
-  stringr.view_n = 10,
+  pillar.max_footer_lines = 2,
+  pillar.min_chars = 15,
+  stringr.view_n = 6,
   # Temporarily deactivate cli output for quarto
   cli.num_colors = 0,
   cli.hyperlink = FALSE,
@@ -23,6 +25,7 @@ options(
 
 ggplot2::theme_set(ggplot2::theme_gray(12))
 
+# use results: "asis" when setting a status for a chapter
 status <- function(type) {
   status <- switch(type,
     polishing = "should be readable but is currently undergoing final polishing",

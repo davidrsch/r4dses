@@ -1,11 +1,9 @@
 # Visualización de datos {#sec-data-visualization}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -808,7 +806,7 @@ Aprenderá sobre muchas otros geoms para visualizar distribuciones de variables 
 
 5.  Haz un diagrama de dispersión de `bill_depth_mm` vs. `bill_length_mm` y colorea los puntos por `species`.
     ¿Qué revela la adición de colores por especie sobre la relación entre estas dos variables?
-    ¿Qué pasa con el facetado por especies?
+    ¿Qué pasa con el facetado por `species`?
 
 6.  ¿Por qué lo siguiente produce dos leyendas separadas?
     ¿Cómo lo arreglarías para combinar las dos leyendas?

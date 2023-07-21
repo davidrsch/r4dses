@@ -1,10 +1,9 @@
 # Datos jerárquicos {#sec-rectangling}
 
 ```{r}
-#| results: "asis"
 #| echo: false
+
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción

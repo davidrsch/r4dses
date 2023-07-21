@@ -1,11 +1,9 @@
 # Iteración {#sec-iteration}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción

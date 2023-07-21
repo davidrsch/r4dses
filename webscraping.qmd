@@ -1,10 +1,9 @@
 # Web scraping {#sec-scraping}
 
 ```{r}
-#| results: "asis"
 #| echo: false
+
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -466,7 +465,7 @@ knitr::include_graphics("screenshots/scraping-imdb.png", dpi = 300)
 Estos datos tienen una estructura tabular clara, por lo que vale la pena comenzar con `html_table()`:
 
 ```{r}
-url <- "https://www.imdb.com/chart/top"
+url <- "https://web.archive.org/web/20220201012049/https://www.imdb.com/chart/top/"
 html <- read_html(url)
 
 table <- html |> 

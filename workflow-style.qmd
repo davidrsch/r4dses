@@ -1,11 +1,9 @@
 # Flujo de trabajo: estilo de código {#sec-workflow-style}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 Un buen estilo de codificación es como la puntuación correcta: puede arreglárselas sin ella, pero seguro que hace que todo sea más fácil de leer.

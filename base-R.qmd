@@ -1,11 +1,9 @@
 # Una guía para R base {#sec-base-r}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -270,7 +268,7 @@ dplyr también proporciona un equivalente a `[[`/`$` que no mencionamos en @sec-
 Eso significa que podríamos reescribir el código anterior para usar pipe:
 
 ```{r}
-diamonds |> pull(carat) |> mean()
+diamonds |> pull(carat) |> max()
 
 diamonds |> pull(cut) |> levels()
 ```

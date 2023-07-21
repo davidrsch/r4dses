@@ -1,11 +1,9 @@
 # Flujo de trabajo: conceptos básicos {#sec-workflow-basics}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 Ahora tiene algo de experiencia ejecutando código de R.
@@ -196,8 +194,10 @@ Las comillas y los paréntesis deben ir siempre en pareja.
 RStudio hace todo lo posible para ayudarlo, pero aún es posible equivocarse y terminar con una falta de coincidencia.
 Si esto sucede, R le mostrará el carácter de continuación "+":
 
-    > x <- "Hola
-    +
+```         
+> x <- "Hola
++
+```
 
 El `+` te dice que R está esperando más entradas; no cree que hayas terminado todavía.
 Por lo general, esto significa que ha olvidado un `"` o un `)`. Agregue el par faltante o presione ESCAPE para abortar la expresión y vuelva a intentarlo.

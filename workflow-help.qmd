@@ -1,11 +1,9 @@
 # Flujo de trabajo: obtener ayuda {#sec-workflow-getting-help}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 Este libro no es una isla; no existe un solo recurso que te permita dominar R.
@@ -68,11 +66,13 @@ reprex::reprex()
 Se mostrará una vista previa de HTML muy bien representada en el Visor de RStudio (si está en RStudio) o en su navegador predeterminado de lo contrario.
 El reprex se copia automáticamente en su portapapeles (en RStudio Server o Cloud, deberá copiarlo usted mismo):
 
-    ``` r
-    y <- 1:4
-    mean(y)
-    #> [1] 2.5
-    ```
+````         
+``` r
+y <- 1:4
+mean(y)
+#> [1] 2.5
+```
+````
 
 Este texto tiene un formato especial, llamado Markdown, que se puede pegar en sitios como StackOverflow o Github y automáticamente lo renderizarán para que parezca código.
 Así es como se vería ese Markdown representado en GitHub:

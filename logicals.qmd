@@ -1,11 +1,9 @@
 # Vectores lógicos {#sec-logicals}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -494,13 +492,13 @@ case_when(
 )
 ```
 
-Si desea crear un valor catch all "predeterminado", use `TRUE` en el lado izquierdo:
+Use `.default` si desea crear un valor catch all "predeterminado":
 
 ```{r}
 case_when(
   x < 0 ~ "-ve",
   x > 0 ~ "+ve",
-  TRUE ~ "???"
+  .default = "???"
 )
 ```
 

@@ -1,6 +1,6 @@
 # Bienvenida {.unnumbered}
 
-Este es el sitio web de la segunda edición de trabajo en progreso de **"R para la Ciencia de Datos"**.
+Este es el sitio web de la segunda edición de **"R para la Ciencia de Datos"**.
 Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
 En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
@@ -10,7 +10,7 @@ Aprenderá a usar la gramática de los gráficos, la programación literaria y l
 También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.
 
 Este sitio web es y será siempre gratuito, bajo la licencia de [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) License.
-Si desea una copia física del libro, puede pedir la primera edición en [Amazon](https://amzn.to/2aHLAQ1), o esperar hasta mediados de 2023 para la 2ª edición.
+Si desea una copia física del libro, puede pedir una en [Amazon](https://www.amazon.com/dp/1492097403?&tag=hadlwick-20).
 Si aprecia leer el libro gratis y desea retribuir, haga una donación a [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): el [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (que aparece en la portada de R4DS) es un loro nativo de Nueva Zelanda en peligro de extinsión; solo quedan 248.
 
 Si habla otro idioma es posible que le interesen las traducciones disponibles gratuitamente de la primera edición:

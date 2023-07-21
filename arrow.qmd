@@ -5,10 +5,9 @@ freeze: true
 # Arrow {#sec-arrow}
 
 ```{r}
-#| results: "asis"
 #| echo: false
+
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -77,13 +76,15 @@ Esto significa que queremos evitar `read_csv()` y en su lugar usar `arrow::open_
 ```{r open-dataset}
 seattle_csv <- open_dataset(
   sources = "data/seattle-library-checkouts.csv", 
+  col_types = schema(ISBN = string()),
   format = "csv"
 )
 ```
 
 ¿Qué sucede cuando se ejecuta este código?
 `open_dataset()` escaneará unas pocas miles de filas para descubrir la estructura del conjunto de datos.
-Luego registra lo que encuentra y se detiene; solo leerá filas adicionales a medida que las solicite específicamente.
+La columna `ISBN` contiene valores en blanco para las primeras 80 000 filas, por lo que debemos especificar el tipo de columna para ayudar a arrow a calcular la estructura de datos.
+Una vez que los datos han sido escaneados por `open_dataset()`, registra lo que se encuentra y se detiene; solo leerá filas adicionales a medida que las solicite específicamente.
 Estos metadatos son los que vemos si imprimimos `seattle_csv`:
 
 ```{r}

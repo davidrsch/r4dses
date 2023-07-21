@@ -1,10 +1,8 @@
 # Análisis exploratorio de datos {#sec-exploratory-data-analysis}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción

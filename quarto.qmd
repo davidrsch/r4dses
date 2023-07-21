@@ -1,11 +1,9 @@
 # Quarto {#sec-quarto}
 
 ```{r}
-#| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("complete")
 ```
 
 ## Introducción
@@ -120,7 +118,7 @@ Esto mostrará el informe en el panel del visor como se muestra en @fig-diamond-
 knitr::include_graphics("quarto/diamond-sizes-report.png")
 ```
 
-Cuando renderiza el documento, Quarto envía el archivo `.qmd` a **knitr**, [https://yihui.org/knitr](https://yihui.org/knitr/){.uri}, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (`.md`) que incluye el código y su salida.
+Cuando renderiza el documento, Quarto envía el archivo `.qmd` a **knitr**, <https://yihui.org/knitr/>, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (`.md`) que incluye el código y su salida.
 El archivo markdown generado por knitr luego es procesado por **pandoc**, [https://pandoc.org](https://pandoc.org/){.uri}, que es responsable de crear el archivo terminado.
 Este proceso se muestra en @fig-quarto-flow.
 La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en @sec-quarto-formats.
