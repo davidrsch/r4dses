@@ -21,18 +21,6 @@ Señalar que esta es una traducción textual del libro por lo que cuando los aut
 La traducción fue realizada usando Google Translate y fueron corregidos algunos errores gramaticales y de coherencia.
 Si detecta algún error relacionado con contenido de la traducción, siéntase libre de abrir un issue o un pull request en este [repositorio](https://github.com/davidrsch/r4dses).
 
-### Traducido hasta ahora
-
--   0.1 Bienvenida
--   0.2 Prefacio de la segunda edición
--   1 Introducción
--   El Juego Completo
--   Visualizar
--   Transformar
--   Importar
--   Programa
--   Comunicar
-
 ## Sobre otras versiones
 
 -   Original en inglés
@@ -117,18 +105,6 @@ Note that this is a verbatim translation of the book so when the authors refer t
 
 The translation was done using Google Translate and some grammar and coherence errors were corrected.
 If you spot any issue related to the translation content, feel free to open an issue or pull request on this [repository](https://github.com/davidrsch/r4dses).
-
-### Translated so far
-
--   0.1 Wellcome
--   0.2 Preface to the second edition
--   1 Introduction
--   Whole Game
--   Visualize
--   Transform
--   Import
--   Program
--   Communicate
 
 ## About other versions
 
