@@ -844,11 +844,11 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
     Luego, modifique el código usando `override.aes` para que la leyenda sea más fácil de ver.
 
     ```{r}
-    #| fig-show: hide
+    #| fig-show: "hide"
     #| fig-alt: |
-    #| Diagrama de dispersión del kilometraje en carretera frente al desplazamiento 
-    #| de automóviles, coloreado por clase de automóvil. El fondo de la trama es 
-    #| blanco, con líneas de cuadrícula grises.
+    #|   Diagrama de dispersión del kilometraje en carretera frente al desplazamiento
+    #|   de automóviles, coloreado por clase de automóvil. El fondo de la trama es
+    #|   blanco, con líneas de cuadrícula grises.
 
 
     ggplot(diamonds, aes(x = carat, y = price)) +

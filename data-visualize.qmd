@@ -142,13 +142,12 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(aes(color = species, shape = species)) +
   geom_smooth(method = "lm") +
   labs(
-    title = "Masa corporal y longitud de las aletas",
-    subtitle = "Dimensiones para pingüinos Adelia, barbijo y papúa",
-    x = "Longitud de la aleta (mm)",
-    y = "Masa corporal (g)",
-    color = "Especies",
-    shape = "Especies"
-  
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)",
+    color = "Species",
+    shape = "Species"
   ) +
   scale_color_colorblind()
 ```

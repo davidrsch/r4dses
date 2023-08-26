@@ -43,7 +43,7 @@ Solo recuerda que cualquier manipulación que hagamos a un vector flotante, pued
 ```{r}
 df <- tibble(x)
 df |> 
-  mutate(y = x *  2)
+  mutate(y = x * 2)
 ```
 
 ## Comparaciones

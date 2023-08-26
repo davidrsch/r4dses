@@ -10,7 +10,7 @@ source("_common.R")
 
 Una de las mejores formas de mejorar su alcance como científico de datos es escribir funciones.
 Las funciones le permiten automatizar tareas comunes de una manera más potente y general que copiar y pegar.
-Escribir una función tiene tres grandes ventajas sobre el uso de copiar y pegar:
+Escribir una función tiene cuatro grandes ventajas sobre el uso de copiar y pegar:
 
 1.  Puede dar a una función un nombre sugerente que haga que su código sea más fácil de entender.
 
