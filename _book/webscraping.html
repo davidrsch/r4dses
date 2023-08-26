@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
+<title>R para la Ciencia de Datos (2e) - 25&nbsp; Web scraping</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./program.html" rel="next">
+<link href="./rectangling.html" rel="prev">
+<link href="./cover.jpg" rel="icon" type="image/jpeg">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import.html">Importar</a></li><li class="breadcrumb-item"><a href="./webscraping.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R para la Ciencia de Datos (2e)</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
+            Original
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/davidrsch/r4dses">
+            Traducción
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio a la segunda edición</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">El Juego Completo</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Flujo de trabajo: conceptos básicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flujo de trabajo: estilo de código</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ordenando datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Flujo de trabajo: scripts y proyectos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Importación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flujo de trabajo: obtener ayuda</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Capas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Análisis exploratorio de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Comunicación</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transformar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Vectores lógicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Números</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Caracteres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fechas y horas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Valores faltanres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Uniones</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Importar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hojas de calculo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./databases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Datos jerárquicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Funciones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteración</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Una guía para R base</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Formatos Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducci%C3%B3n"><span class="header-section-number">25.1</span> Introducción</a>
+  <ul class="collapse">
+<li><a href="#requisitos-previos" id="toc-requisitos-previos" class="nav-link" data-scroll-target="#requisitos-previos"><span class="header-section-number">25.1.1</span> Requisitos previos</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#scraping-%C3%A9ticas-y-legalidades" id="toc-scraping-éticas-y-legalidades" class="nav-link" data-scroll-target="#scraping-%C3%A9ticas-y-legalidades"><span class="header-section-number">25.2</span> Scraping éticas y legalidades</a>
+  <ul class="collapse">
+<li><a href="#t%C3%A9rminos-de-servicio" id="toc-términos-de-servicio" class="nav-link" data-scroll-target="#t%C3%A9rminos-de-servicio"><span class="header-section-number">25.2.1</span> Términos de servicio</a></li>
+  <li><a href="#informaci%C3%B3n-de-identificaci%C3%B3n-personal" id="toc-información-de-identificación-personal" class="nav-link" data-scroll-target="#informaci%C3%B3n-de-identificaci%C3%B3n-personal"><span class="header-section-number">25.2.2</span> Información de identificación personal</a></li>
+  <li><a href="#derechos-de-autor" id="toc-derechos-de-autor" class="nav-link" data-scroll-target="#derechos-de-autor"><span class="header-section-number">25.2.3</span> Derechos de autor</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#html-b%C3%A1sico" id="toc-html-básico" class="nav-link" data-scroll-target="#html-b%C3%A1sico"><span class="header-section-number">25.3</span> HTML básico</a>
+  <ul class="collapse">
+<li><a href="#elementos" id="toc-elementos" class="nav-link" data-scroll-target="#elementos"><span class="header-section-number">25.3.1</span> Elementos</a></li>
+  <li><a href="#atributos" id="toc-atributos" class="nav-link" data-scroll-target="#atributos"><span class="header-section-number">25.3.2</span> Atributos</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#extrayendo-datos" id="toc-extrayendo-datos" class="nav-link" data-scroll-target="#extrayendo-datos"><span class="header-section-number">25.4</span> Extrayendo datos</a>
+  <ul class="collapse">
+<li><a href="#buscar-elementos" id="toc-buscar-elementos" class="nav-link" data-scroll-target="#buscar-elementos"><span class="header-section-number">25.4.1</span> Buscar elementos</a></li>
+  <li><a href="#anidar-selecciones" id="toc-anidar-selecciones" class="nav-link" data-scroll-target="#anidar-selecciones"><span class="header-section-number">25.4.2</span> Anidar selecciones</a></li>
+  <li><a href="#texto-y-atributos" id="toc-texto-y-atributos" class="nav-link" data-scroll-target="#texto-y-atributos"><span class="header-section-number">25.4.3</span> Texto y atributos</a></li>
+  <li><a href="#tablas" id="toc-tablas" class="nav-link" data-scroll-target="#tablas"><span class="header-section-number">25.4.4</span> Tablas</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-css-selectors" id="toc-sec-css-selectors" class="nav-link" data-scroll-target="#sec-css-selectors"><span class="header-section-number">25.5</span> Encontrar los selectores apropiados</a></li>
+  <li>
+<a href="#poniendolo-todo-junto" id="toc-poniendolo-todo-junto" class="nav-link" data-scroll-target="#poniendolo-todo-junto"><span class="header-section-number">25.6</span> Poniendolo todo junto</a>
+  <ul class="collapse">
+<li><a href="#starwars" id="toc-starwars" class="nav-link" data-scroll-target="#starwars"><span class="header-section-number">25.6.1</span> StarWars</a></li>
+  <li><a href="#las-mejores-pel%C3%ADculas-de-imdb" id="toc-las-mejores-películas-de-imdb" class="nav-link" data-scroll-target="#las-mejores-pel%C3%ADculas-de-imdb"><span class="header-section-number">25.6.2</span> Las mejores películas de IMDB</a></li>
+  </ul>
+</li>
+  <li><a href="#sitios-din%C3%A1micos" id="toc-sitios-dinámicos" class="nav-link" data-scroll-target="#sitios-din%C3%A1micos"><span class="header-section-number">25.7</span> Sitios dinámicos</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen"><span class="header-section-number">25.8</span> Resumen</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-scraping" class="quarto-section-identifier"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="introducción" class="level2" data-number="25.1"><h2 data-number="25.1" class="anchored" data-anchor-id="introducción">
+<span class="header-section-number">25.1</span> Introducción</h2>
+<p>Este capítulo le presenta los conceptos básicos del web scraping con <a href="https://rvest.tidyverse.org">rvest</a>. El web scraping es una herramienta muy útil para extraer datos de páginas web. Algunos sitios web ofrecerán una API, un conjunto de solicitudes HTTP estructuradas que devuelven datos como JSON, que usted maneja utilizando las técnicas de <a href="#sec-rectangling"><span class="quarto-unresolved-ref">sec-rectangling</span></a>. Siempre que sea posible, debe utilizar la API<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, ya que, por lo general, le brindará datos más confiables. Desafortunadamente, sin embargo, la programación con API web está fuera del alcance de este libro. En cambio, estamos enseñando scraping, una técnica que funciona ya sea que un sitio proporcione o no una API.</p>
+<p>En este capítulo, primero discutiremos la ética y la legalidad del scraping antes de sumergirnos en los conceptos básicos de HTML. Luego, aprenderá los conceptos básicos de los selectores de CSS para ubicar elementos específicos en la página y cómo usar funciones rvest para obtener datos de texto y atributos de HTML y en R. Luego discutiremos algunas técnicas para descubrir qué selector de CSS necesita para la página de la que desee extraer los datos, antes de terminar verá un par de casos de estudio y una breve discusión de sitios web dinámicos.</p>
+<section id="requisitos-previos" class="level3" data-number="25.1.1"><h3 data-number="25.1.1" class="anchored" data-anchor-id="requisitos-previos">
+<span class="header-section-number">25.1.1</span> Requisitos previos</h3>
+<p>En este capítulo, nos centraremos en las herramientas proporcionadas por rvest. rvest es miembro de tidyverse, pero no es un miembro central, por lo que deberá cargarlo explícitamente. También cargaremos el tidyverse completo, ya que lo encontraremos generalmente útil para trabajar con los datos que hemos recopilado.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="scraping-éticas-y-legalidades" class="level2" data-number="25.2"><h2 data-number="25.2" class="anchored" data-anchor-id="scraping-éticas-y-legalidades">
+<span class="header-section-number">25.2</span> Scraping éticas y legalidades</h2>
+<p>Antes de comenzar a analizar el código que necesitará para realizar el web scraping, debemos analizar si es legal y ético que lo haga. En general, la situación es complicada con respecto a ambos.</p>
+<p>La legalidad depende mucho del lugar donde vivas. Sin embargo, como principio general, si los datos son públicos, no personales y fácticos, es probable que esté bien <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Estos tres factores son importantes porque están relacionados con los términos y condiciones del sitio, la información de identificación personal y los derechos de autor, como veremos a continuación.</p>
+<p>Si los datos no son públicos, no personales o fácticos, o si los extrae específicamente para ganar dinero con ellos, deberá hablar con un abogado. En cualquier caso, debe ser respetuoso con los recursos del servidor que aloja las páginas de las que está haciendo scraping. Lo que es más importante, esto significa que si está extrayendo datos de muchas páginas, debe asegurarse de esperar un poco entre cada solicitud. Una forma fácil de hacerlo es usar el paquete <a href="https://dmi3kno.github.io/polite/"><strong>polite</strong></a> de Dmytro Perepolkin. Se pausará automáticamente entre las solicitudes y almacenará en caché los resultados para que nunca solicite la misma página dos veces.</p>
+<section id="términos-de-servicio" class="level3" data-number="25.2.1"><h3 data-number="25.2.1" class="anchored" data-anchor-id="términos-de-servicio">
+<span class="header-section-number">25.2.1</span> Términos de servicio</h3>
+<p>Si observa detenidamente, encontrará que muchos sitios web incluyen un enlace de “términos y condiciones” o “términos de servicio” en algún lugar de la página, y si lee esa página detenidamente, a menudo descubrirá que el sitio prohíbe específicamente el web scraping. Estas páginas tienden a ser una apropiación legal de tierras donde las empresas hacen reclamos muy amplios. Es educado respetar estos términos de servicio siempre que sea posible, pero tome cualquier reclamo con pinzas.</p>
+<p>Los tribunales de EE. UU. generalmente han determinado que simplemente poner los términos de servicio en el pie de página del sitio web no es suficiente para que usted esté sujeto a ellos, por ejemplo, [HiQ Labs v. LinkedIn] (https://en.wikipedia.org/ wiki/HiQ_Labs_v._LinkedIn). En general, para estar sujeto a los términos del servicio, debe haber realizado alguna acción explícita, como crear una cuenta o marcar una casilla. Por eso es importante si los datos son <strong>públicos</strong> o no; si no necesita una cuenta para acceder a ellos, es poco probable que esté sujeto a los términos del servicio. Tenga en cuenta, sin embargo, que la situación es bastante diferente en Europa, donde los tribunales han determinado que los términos de servicio son exigibles incluso si no los acepta explícitamente.</p>
+</section><section id="información-de-identificación-personal" class="level3" data-number="25.2.2"><h3 data-number="25.2.2" class="anchored" data-anchor-id="información-de-identificación-personal">
+<span class="header-section-number">25.2.2</span> Información de identificación personal</h3>
+<p>Incluso si los datos son públicos, debe tener mucho cuidado al recopilar información de identificación personal, como nombres, direcciones de correo electrónico, números de teléfono, fechas de nacimiento, etc. Europa tiene leyes particularmente estrictas sobre la recopilación o el almacenamiento de dichos datos (<a href="https://gdpr-info.eu/">GDPR</a>), e independientemente de dónde viva, es probable que esté entrando en un atolladero ético. Por ejemplo, en 2016, un grupo de investigadores recopiló información de perfil público (por ejemplo, nombres de usuario, edad, sexo, ubicación, etc.) de unas 70 000 personas en el sitio de citas OkCupid y publicaron estos datos sin intentar anonimizarlos. Si bien los investigadores sintieron que esto no tenía nada de malo ya que los datos ya eran públicos, este trabajo fue ampliamente condenado debido a preocupaciones éticas sobre la identificabilidad de los usuarios cuya información se publicó en el conjunto de datos. Si su trabajo consiste en recopilar información de identificación personal, le recomendamos leer sobre el estudio OkCupid<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, así como estudios similares con ética de investigación cuestionable que involucran la adquisición y divulgación de información de identificación personal.</p>
+</section><section id="derechos-de-autor" class="level3" data-number="25.2.3"><h3 data-number="25.2.3" class="anchored" data-anchor-id="derechos-de-autor">
+<span class="header-section-number">25.2.3</span> Derechos de autor</h3>
+<p>Finalmente, también debe preocuparse por la ley de derechos de autor. La ley de derechos de autor es complicada, pero vale la pena echar un vistazo a la [ley de EE. UU.] (https://www.law.cornell.edu/uscode/text/17/102) que describe exactamente lo que está protegido: “[… ] obras originales de autoría fijadas en cualquier medio tangible de expresión, […]”. Luego pasa a describir categorías específicas que aplica, como obras literarias, obras musicales, películas y más. Los datos están notablemente ausentes de la protección de los derechos de autor. Esto significa que mientras limite su extracción a datos, la protección de derechos de autor no se aplica. (Pero tenga en cuenta que Europa tiene un derecho “<a href="https://en.wikipedia.org/wiki/Database_right">sui generis</a>” separado que protege las bases de datos).</p>
+<p>Como un breve ejemplo, en los EE. UU., las listas de ingredientes y las instrucciones no tienen derechos de autor, por lo que los derechos de autor no se pueden usar para proteger una receta. Pero si esa lista de recetas va acompañada de un contenido literario novedoso sustancial, eso tiene derechos de autor. Por eso, cuando buscas una receta en Internet, siempre hay mucho contenido de antemano.</p>
+<p>Si necesita extraer contenido original (como texto o imágenes), aún puede estar protegido por la [doctrina de uso justo] (https://en.wikipedia.org/wiki/Fair_use). El uso justo no es una regla estricta y rápida, pero sopesa una serie de factores. Es más probable que se aplique si está recopilando los datos con fines de investigación o no comerciales y si limita lo que extrae a solo lo que necesita.</p>
+</section></section><section id="html-básico" class="level2" data-number="25.3"><h2 data-number="25.3" class="anchored" data-anchor-id="html-básico">
+<span class="header-section-number">25.3</span> HTML básico</h2>
+<p>Para hacer web scraping, primero debe comprender un poco sobre <strong>HTML</strong>, el lenguaje que describe las páginas web. HTML significa <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>idioma y se parece a esto:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;head&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;title&gt;</span>Page title<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/head&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;body&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h1</span> <span class="er">id</span><span class="ot">=</span><span class="st">'first'</span><span class="kw">&gt;</span>A heading<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>Some text <span class="dv">&amp;amp;</span> <span class="kw">&lt;b&gt;</span>some bold text.<span class="kw">&lt;/b&gt;&lt;/p&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">'myimg.png'</span> <span class="er">width</span><span class="ot">=</span><span class="st">'100'</span> <span class="er">height</span><span class="ot">=</span><span class="st">'100'</span><span class="kw">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/body&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>HTML tiene una estructura jerárquica formada por <strong>elementos</strong> que consisten en una etiqueta de inicio (por ejemplo, <code>&lt;etiqueta&gt;</code>), <strong>atributos</strong> opcionales (<code>id='primero'</code>), una etiqueta final[^webscraping- 5] (como <code>&lt;/etiqueta&gt;</code>) y <strong>contenido</strong> (todo lo que se encuentra entre la etiqueta de inicio y final).</p>
+<p>Dado que <code>&lt;</code> y <code>&gt;</code> se utilizan para las etiquetas de inicio y finalización, no puede escribirlas directamente. En su lugar, debe utilizar los <strong>escapes</strong> de HTML <code>&amp;gt;</code> (mayor que) y <code>&amp;lt;</code> (menor que). Y dado que esos escapes usan <code>&amp;</code>, si quieres un ampersand literal, tienes que escapar como <code>&amp;amp;</code>. Hay una amplia gama de posibles escapes de HTML, pero no necesita preocuparse demasiado por ellos porque rvest los maneja automáticamente por usted.</p>
+<p>Web scraping es posible porque la mayoría de las páginas que contienen datos que desea extraer generalmente tienen una estructura consistente.</p>
+<section id="elementos" class="level3" data-number="25.3.1"><h3 data-number="25.3.1" class="anchored" data-anchor-id="elementos">
+<span class="header-section-number">25.3.1</span> Elementos</h3>
+<p>Hay más de 100 elementos HTML. Algunos de los más importantes son:</p>
+<ul>
+<li><p>Cada página HTML debe estar en un elemento <code>&lt;html&gt;</code> y debe tener dos elementos secundarios: <code>&lt;head&gt;</code>, que contiene metadatos del documento como el título de la página, y <code>&lt;body&gt;</code>, que contiene el contenido que ve en el navegador.</p></li>
+<li><p>Las etiquetas de bloque como <code>&lt;h1&gt;</code> (título 1), <code>&lt;section&gt;</code> (sección), <code>&lt;p&gt;</code> (párrafo) y <code>&lt;ol&gt;</code> (lista ordenada) forman la estructura general de la página.</p></li>
+<li><p>Las etiquetas en línea como <code>&lt;b&gt;</code> (negrita), <code>&lt;i&gt;</code> (cursiva) y <code>&lt;a&gt;</code> (enlace) dan formato al texto dentro de las etiquetas de bloque.</p></li>
+</ul>
+<p>Si encuentra una etiqueta que nunca ha visto antes, puede averiguar qué hace con un poco de google. Otro buen lugar para comenzar son los <a href="https://developer.mozilla.org/es/docs/Web/HTML">MDN Web Docs</a> que describen casi todos los aspectos de la programación web.</p>
+<p>La mayoría de los elementos pueden tener contenido entre sus etiquetas de inicio y fin. Este contenido puede ser texto o más elementos. Por ejemplo, el siguiente HTML contiene un párrafo de texto, con una palabra en negrita.</p>
+<pre><code>&lt;p&gt;
+  ¡Hola! Mi &lt;b&gt;nombre&lt;/b&gt; es Hadley.
+&lt;/p&gt;</code></pre>
+<p>Los <strong>hijos</strong> son los elementos que contiene, por lo que el elemento <code>&lt;p&gt;</code> de arriba tiene un hijo, el elemento <code>&lt;b&gt;</code>. El elemento <code>&lt;b&gt;</code> no tiene hijos, pero sí tiene contenidos (el texto “nombre”).</p>
+</section><section id="atributos" class="level3" data-number="25.3.2"><h3 data-number="25.3.2" class="anchored" data-anchor-id="atributos">
+<span class="header-section-number">25.3.2</span> Atributos</h3>
+<p>Las etiquetas pueden tener <strong>atributos</strong> con nombre que se parecen a <code>name1='value1' name2='value2'</code>. Dos de los atributos más importantes son <code>id</code> y <code>class</code>, que se utilizan junto con CSS (hojas de estilo en cascada) para controlar la apariencia visual de la página. Suelen ser útiles cuando se extraen datos de una página. Los atributos también se utilizan para registrar el destino de los enlaces (el atributo <code>href</code> de los elementos <code>&lt;a&gt;</code>) y la fuente de las imágenes (el atributo <code>src</code> del elemento <code>&lt;img&gt;</code>).</p>
+</section></section><section id="extrayendo-datos" class="level2" data-number="25.4"><h2 data-number="25.4" class="anchored" data-anchor-id="extrayendo-datos">
+<span class="header-section-number">25.4</span> Extrayendo datos</h2>
+<p>Para comenzar a extraer, necesitará la URL de la página que desea, que generalmente puede copiar desde su navegador web. Luego deberá leer el HTML de esa página en R con <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code>. Esto devuelve un objeto <code>xml_document</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> que luego manipularás usando las funciones rvest:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="st">"http://rvest.tidyverse.org/"</span><span class="op">)</span></span>
+<span><span class="va">html</span></span>
+<span><span class="co">#&gt; {html_document}</span></span>
+<span><span class="co">#&gt; &lt;html lang="en"&gt;</span></span>
+<span><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UT ...</span></span>
+<span><span class="co">#&gt; [2] &lt;body&gt;\n    &lt;a href="#container" class="visually-hidden-focusable"&gt;Ski ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rvest también incluye una función que te permite escribir HTML en línea. Usaremos esto un montón en este capítulo mientras enseñamos cómo funcionan las diversas funciones rvest con ejemplos simples.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/minimal_html.html">minimal_html</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  &lt;p&gt;Esto es un párrafo&lt;/p&gt;</span></span>
+<span><span class="st">  &lt;ul&gt;</span></span>
+<span><span class="st">    &lt;li&gt;Esta es una lista con viñetas&lt;/li&gt;</span></span>
+<span><span class="st">  &lt;/ul&gt;</span></span>
+<span><span class="st">"</span><span class="op">)</span></span>
+<span><span class="va">html</span></span>
+<span><span class="co">#&gt; {html_document}</span></span>
+<span><span class="co">#&gt; &lt;html&gt;</span></span>
+<span><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UT ...</span></span>
+<span><span class="co">#&gt; [2] &lt;body&gt;\n&lt;p&gt;Esto es un párrafo&lt;/p&gt;\n  &lt;ul&gt;\n&lt;li&gt;Esta es una lista con v ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora que tiene el HTML en R, es hora de extraer los datos de interés. Primero aprenderá sobre los selectores de CSS que le permiten identificar los elementos de interés y las funciones rvest que puede usar para extraer datos de ellos. Luego cubriremos brevemente las tablas HTML, que tienen algunas herramientas especiales.</p>
+<section id="buscar-elementos" class="level3" data-number="25.4.1"><h3 data-number="25.4.1" class="anchored" data-anchor-id="buscar-elementos">
+<span class="header-section-number">25.4.1</span> Buscar elementos</h3>
+<p>CSS es la abreviatura de hojas de estilo en cascada y es una herramienta para definir el estilo visual de los documentos HTML. CSS incluye un lenguaje en miniatura para seleccionar elementos en una página llamado <strong>selectores de CSS</strong>. Los selectores de CSS definen patrones para ubicar elementos HTML y son útiles para la extracción de datos porque brindan una forma concisa de describir qué elementos desea extraer.</p>
+<p>Volveremos a los selectores de CSS con más detalle en <a href="#sec-css-selectors"><span class="quarto-unresolved-ref">sec-css-selectors</span></a>, pero afortunadamente puedes recorrer un largo camino con solo tres:</p>
+<ul>
+<li><p><code>p</code> selecciona todos los elementos <code>&lt;p&gt;</code>.</p></li>
+<li><p><code>.title</code> selecciona todos los elementos con clase, <code>class</code>, que equivale a “title”.</p></li>
+<li><p><code>#title</code> selecciona el elemento con el atributo <code>id</code> que equivale a “title”. Los atributos de identificación deben ser únicos dentro de un documento, por lo que esto solo seleccionará un solo elemento.</p></li>
+</ul>
+<p>Probemos estos selectores con un ejemplo simple:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/minimal_html.html">minimal_html</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  &lt;h1&gt;Este es un encabezado&lt;/h1&gt;</span></span>
+<span><span class="st">  &lt;p id='first'&gt;Esto es un párrafo&lt;/p&gt;</span></span>
+<span><span class="st">  &lt;p class='important'&gt;Este es un párrafo importante&lt;/p&gt;</span></span>
+<span><span class="st">"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Usa <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> para encontrar todos los elementos que coincidan con el selector:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (2)}</span></span>
+<span><span class="co">#&gt; [1] &lt;p id="first"&gt;Esto es un párrafo&lt;/p&gt;</span></span>
+<span><span class="co">#&gt; [2] &lt;p class="important"&gt;Este es un párrafo importante&lt;/p&gt;</span></span>
+<span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">".important"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (1)}</span></span>
+<span><span class="co">#&gt; [1] &lt;p class="important"&gt;Este es un párrafo importante&lt;/p&gt;</span></span>
+<span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"#first"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (1)}</span></span>
+<span><span class="co">#&gt; [1] &lt;p id="first"&gt;Esto es un párrafo&lt;/p&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Otra función importante es <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> que siempre devuelve el mismo número de salidas que de entradas. Si lo aplica a un documento completo, obtendrá la primera coincidencia:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {html_node}</span></span>
+<span><span class="co">#&gt; &lt;p id="first"&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hay una diferencia importante entre <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> y <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> cuando usas un selector que no coincide con ningún elemento. <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> devuelve un vector de longitud 0, donde <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> devuelve un valor faltante. Esto será importante en breve.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (0)}</span></span>
+<span><span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_missing}</span></span>
+<span><span class="co">#&gt; &lt;NA&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="anidar-selecciones" class="level3" data-number="25.4.2"><h3 data-number="25.4.2" class="anchored" data-anchor-id="anidar-selecciones">
+<span class="header-section-number">25.4.2</span> Anidar selecciones</h3>
+<p>En la mayoría de los casos, usará <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> y <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> juntos, generalmente usando <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> para identificar elementos que se convertirán en observaciones y luego usará <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> para encontrar elementos que se convertirán en variables. Veamos esto en acción usando un ejemplo simple. Aquí tenemos una lista desordenada (<code>&lt;ul&gt;)</code> donde cada elemento de la lista (<code>&lt;li&gt;</code>) contiene información sobre cuatro personajes de StarWars:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/minimal_html.html">minimal_html</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  &lt;ul&gt;</span></span>
+<span><span class="st">    &lt;li&gt;&lt;b&gt;C-3PO&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt; que pesa &lt;span class='weight'&gt;167 kg&lt;/span&gt;&lt;/li&gt;</span></span>
+<span><span class="st">    &lt;li&gt;&lt;b&gt;R4-P17&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt;&lt;/li&gt;</span></span>
+<span><span class="st">    &lt;li&gt;&lt;b&gt;R2-D2&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt; que pesa &lt;span class='weight'&gt;96 kg&lt;/span&gt;&lt;/li&gt;</span></span>
+<span><span class="st">    &lt;li&gt;&lt;b&gt;Yoda&lt;/b&gt; pesa &lt;span class='weight'&gt;66 kg&lt;/span&gt;&lt;/li&gt;</span></span>
+<span><span class="st">  &lt;/ul&gt;</span></span>
+<span><span class="st">  "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podemos usar <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> para hacer un vector donde cada elemento corresponde a un carácter diferente:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">characters</span> <span class="op">&lt;-</span> <span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"li"</span><span class="op">)</span></span>
+<span><span class="va">characters</span></span>
+<span><span class="co">#&gt; {xml_nodeset (4)}</span></span>
+<span><span class="co">#&gt; [1] &lt;li&gt;\n&lt;b&gt;C-3PO&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt; que pesa &lt;span class="weight" ...</span></span>
+<span><span class="co">#&gt; [2] &lt;li&gt;\n&lt;b&gt;R4-P17&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt;\n&lt;/li&gt;</span></span>
+<span><span class="co">#&gt; [3] &lt;li&gt;\n&lt;b&gt;R2-D2&lt;/b&gt; es un &lt;i&gt;androide&lt;/i&gt; que pesa &lt;span class="weight" ...</span></span>
+<span><span class="co">#&gt; [4] &lt;li&gt;\n&lt;b&gt;Yoda&lt;/b&gt; pesa &lt;span class="weight"&gt;66 kg&lt;/span&gt;\n&lt;/li&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para extraer el nombre de cada carácter, usamos <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code>, porque cuando se aplica a la salida de <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> se garantiza que devolverá una respuesta por elemento:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">characters</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (4)}</span></span>
+<span><span class="co">#&gt; [1] &lt;b&gt;C-3PO&lt;/b&gt;</span></span>
+<span><span class="co">#&gt; [2] &lt;b&gt;R4-P17&lt;/b&gt;</span></span>
+<span><span class="co">#&gt; [3] &lt;b&gt;R2-D2&lt;/b&gt;</span></span>
+<span><span class="co">#&gt; [4] &lt;b&gt;Yoda&lt;/b&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La distinción entre <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> y <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> no es importante para el nombre, pero sí lo es para el peso. Queremos obtener un peso para cada carácter, incluso si no hay peso <code>&lt;span&gt;</code>. Eso es lo que hace <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">characters</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".weight"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (4)}</span></span>
+<span><span class="co">#&gt; [1] &lt;span class="weight"&gt;167 kg&lt;/span&gt;</span></span>
+<span><span class="co">#&gt; [2] &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; [3] &lt;span class="weight"&gt;96 kg&lt;/span&gt;</span></span>
+<span><span class="co">#&gt; [4] &lt;span class="weight"&gt;66 kg&lt;/span&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> encuentra todos los <code>&lt;span&gt;</code> de peso que son hijos de <code>characters</code>. Solo hay tres de estos, por lo que perdemos la conexión entre nombres y pesos:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">characters</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">".weight"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; {xml_nodeset (3)}</span></span>
+<span><span class="co">#&gt; [1] &lt;span class="weight"&gt;167 kg&lt;/span&gt;</span></span>
+<span><span class="co">#&gt; [2] &lt;span class="weight"&gt;96 kg&lt;/span&gt;</span></span>
+<span><span class="co">#&gt; [3] &lt;span class="weight"&gt;66 kg&lt;/span&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ahora que ha seleccionado los elementos de interés, deberá extraer los datos, ya sea del contenido del texto o de algunos atributos.</p>
+</section><section id="texto-y-atributos" class="level3" data-number="25.4.3"><h3 data-number="25.4.3" class="anchored" data-anchor-id="texto-y-atributos">
+<span class="header-section-number">25.4.3</span> Texto y atributos</h3>
+<p><code><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2()</a></code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> extrae el contenido de texto sin formato de un elemento HTML:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">characters</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "C-3PO"  "R4-P17" "R2-D2"  "Yoda"</span></span>
+<span></span>
+<span><span class="va">characters</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".weight"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "167 kg" NA       "96 kg"  "66 kg"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tenga en cuenta que cualquier escape se manejará automáticamente; solo verá escapes de HTML en el HTML de origen, no en los datos devueltos por rvest.</p>
+<p><code><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr()</a></code> extrae datos de atributos:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/minimal_html.html">minimal_html</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  &lt;p&gt;&lt;a href='https://en.wikipedia.org/wiki/Cat'&gt;cats&lt;/a&gt;&lt;/p&gt;</span></span>
+<span><span class="st">  &lt;p&gt;&lt;a href='https://en.wikipedia.org/wiki/Dog'&gt;dogs&lt;/a&gt;&lt;/p&gt;</span></span>
+<span><span class="st">"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">html</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"p"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "https://en.wikipedia.org/wiki/Cat" "https://en.wikipedia.org/wiki/Dog"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr()</a></code> siempre devuelve una cadena, por lo que si está extrayendo números o fechas, deberá realizar un procesamiento posterior.</p>
+</section><section id="tablas" class="level3" data-number="25.4.4"><h3 data-number="25.4.4" class="anchored" data-anchor-id="tablas">
+<span class="header-section-number">25.4.4</span> Tablas</h3>
+<p>Si tiene suerte, sus datos ya estarán almacenados en una tabla HTML, y solo será cuestión de leerlos de esa tabla. Por lo general, es sencillo reconocer una tabla en su navegador: tendrá una estructura rectangular de filas y columnas, y puede copiarla y pegarla en una herramienta como Excel.</p>
+<p>Las tablas HTML se construyen a partir de cuatro elementos principales: <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code> (fila de la tabla), <code>&lt;th&gt;</code> (encabezado de la tabla) y <code>&lt;td&gt;</code> (datos de la tabla). Aquí hay una tabla HTML simple con dos columnas y tres filas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/minimal_html.html">minimal_html</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  &lt;table class='mytable'&gt;</span></span>
+<span><span class="st">    &lt;tr&gt;&lt;th&gt;x&lt;/th&gt;   &lt;th&gt;y&lt;/th&gt;&lt;/tr&gt;</span></span>
+<span><span class="st">    &lt;tr&gt;&lt;td&gt;1.5&lt;/td&gt; &lt;td&gt;2.7&lt;/td&gt;&lt;/tr&gt;</span></span>
+<span><span class="st">    &lt;tr&gt;&lt;td&gt;4.9&lt;/td&gt; &lt;td&gt;1.3&lt;/td&gt;&lt;/tr&gt;</span></span>
+<span><span class="st">    &lt;tr&gt;&lt;td&gt;7.2&lt;/td&gt; &lt;td&gt;8.1&lt;/td&gt;&lt;/tr&gt;</span></span>
+<span><span class="st">  &lt;/table&gt;</span></span>
+<span><span class="st">  "</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>rvest proporciona una función que sabe cómo leer este tipo de datos: <code><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table()</a></code>. Devuelve una lista que contiene un tibble para cada tabla que se encuentra en la página. Use <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element()</a></code> para identificar la tabla que desea extraer:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".mytable"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1   1.5   2.7</span></span>
+<span><span class="co">#&gt; 2   4.9   1.3</span></span>
+<span><span class="co">#&gt; 3   7.2   8.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tenga en cuenta que <code>x</code> e <code>y</code> se han convertido automáticamente en números. Esta conversión automática no siempre funciona, por lo que en situaciones más complejas es posible que desee desactivarla con <code>convert = FALSE</code> y luego hacer su propia conversión.</p>
+</section></section><section id="sec-css-selectors" class="level2" data-number="25.5"><h2 data-number="25.5" class="anchored" data-anchor-id="sec-css-selectors">
+<span class="header-section-number">25.5</span> Encontrar los selectores apropiados</h2>
+<p>Averiguar el selector que necesita para sus datos suele ser la parte más difícil del problema. A menudo tendrá que experimentar un poco para encontrar un selector que sea específico (es decir, que no seleccione cosas que no le interesen) y sensible (es decir, que seleccione todo lo que le interese). ¡Muchas pruebas y errores son una parte normal del proceso! Hay dos herramientas principales disponibles para ayudarlo con este proceso: SelectorGadget y las herramientas de desarrollo de su navegador.</p>
+<p><a href="https://rvest.tidyverse.org/articles/selectorgadget.html">SelectorGadget</a> es un bookmarklet de javascript que genera automáticamente selectores de CSS en función de los ejemplos positivos y negativos que proporcione. No siempre funciona, pero cuando lo hace, ¡es mágico! Puede aprender a instalar y usar SelectorGadget leyendo <a href="https://rvest.tidyverse.org/articles/selectorgadget.html" class="uri">https://rvest.tidyverse.org/articles/selectorgadget.html</a> o viendo el video de Mine en <a href="https://www.youtube.com/watch?v=PetWV5g1Xsc" class="uri">https://www.youtube.com/watch?v=PetWV5g1Xsc</a>.</p>
+<p>Todos los navegadores modernos vienen con un conjunto de herramientas para desarrolladores, pero recomendamos Chrome, incluso si no es su navegador habitual: sus herramientas para desarrolladores web son algunas de las mejores y están disponibles de inmediato. Haga clic con el botón derecho en un elemento de la página y haga clic en <code>Inspeccionar</code>. Esto abrirá una vista ampliable de la página HTML completa, centrada en el elemento en el que acaba de hacer clic. Puede usar esto para explorar la página y tener una idea de qué selectores podrían funcionar. Preste especial atención a los atributos class e id, ya que estos se usan a menudo para formar la estructura visual de la página y, por lo tanto, son buenas herramientas para extraer los datos que está buscando.</p>
+<p>Dentro de la vista Elementos, también puede hacer clic con el botón derecho en un elemento y elegir “Copiar como selector” para generar un selector que identificará de forma única el elemento de interés.</p>
+<p>Si SelectorGadget o Chrome DevTools han generado un selector de CSS que no comprende, pruebe <a href="https://kittygiraudel.github.io/selectors-explained/" class="uri">Explicación de los selectores</a> que traduce los selectores de CSS al inglés. Si te encuentras haciendo esto mucho, es posible que desees obtener más información sobre los selectores de CSS en general. Recomendamos comenzar con el divertido tutorial <a href="https://flukeout.github.io/">CSS Dinner</a> y luego consultar los <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Selectors">documentos web de MDN</a>.</p>
+</section><section id="poniendolo-todo-junto" class="level2" data-number="25.6"><h2 data-number="25.6" class="anchored" data-anchor-id="poniendolo-todo-junto">
+<span class="header-section-number">25.6</span> Poniendolo todo junto</h2>
+<p>Pongamos todo esto junto para extraer datos de algunos sitios web. Existe cierto riesgo de que estos ejemplos ya no funcionen cuando los ejecute; ese es el desafío fundamental del web scraping; si la estructura del sitio cambia, entonces tendrá que cambiar su código de raspado.</p>
+<section id="starwars" class="level3" data-number="25.6.1"><h3 data-number="25.6.1" class="anchored" data-anchor-id="starwars">
+<span class="header-section-number">25.6.1</span> StarWars</h3>
+<p>rvest incluye un ejemplo muy simple en <code><a href="https://rvest.tidyverse.org/articles/starwars.html">vignette("starwars")</a></code>. Esta es una página simple con HTML mínimo, por lo que es un buen lugar para comenzar. Te animo a navegar a esa página ahora y usar “Inspeccionar elemento” para inspeccionar uno de los encabezados que es el título de una película de Star Wars. Use el teclado o el mouse para explorar la jerarquía del HTML y vea si puede tener una idea de la estructura compartida que usa cada película.</p>
+<p>Debería poder ver que cada película tiene una estructura compartida que se ve así:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h2</span> <span class="er">data-id</span><span class="ot">=</span><span class="st">"1"</span><span class="kw">&gt;</span>The Phantom Menace<span class="kw">&lt;/h2&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>Released: 1999-05-19<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>Director: <span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">"director"</span><span class="kw">&gt;</span>George Lucas<span class="kw">&lt;/span&gt;&lt;/p&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">"crawl"</span><span class="kw">&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nuestro objetivo es convertir estos datos en un marco de datos de 7 filas con las variables <code>title</code>, <code>year</code>, <code>director</code> e <code>intro</code>. Comenzaremos leyendo el HTML y extrayendo todos los elementos <code>&lt;sectionn&gt;</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://rvest.tidyverse.org/articles/starwars.html"</span></span>
+<span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">section</span> <span class="op">&lt;-</span> <span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"section"</span><span class="op">)</span></span>
+<span><span class="va">section</span></span>
+<span><span class="co">#&gt; {xml_nodeset (7)}</span></span>
+<span><span class="co">#&gt; [1] &lt;section&gt;&lt;h2 data-id="1"&gt;\nThe Phantom Menace\n&lt;/h2&gt;\n&lt;p&gt;\nReleased: 1 ...</span></span>
+<span><span class="co">#&gt; [2] &lt;section&gt;&lt;h2 data-id="2"&gt;\nAttack of the Clones\n&lt;/h2&gt;\n&lt;p&gt;\nReleased: ...</span></span>
+<span><span class="co">#&gt; [3] &lt;section&gt;&lt;h2 data-id="3"&gt;\nRevenge of the Sith\n&lt;/h2&gt;\n&lt;p&gt;\nReleased:  ...</span></span>
+<span><span class="co">#&gt; [4] &lt;section&gt;&lt;h2 data-id="4"&gt;\nA New Hope\n&lt;/h2&gt;\n&lt;p&gt;\nReleased: 1977-05-2 ...</span></span>
+<span><span class="co">#&gt; [5] &lt;section&gt;&lt;h2 data-id="5"&gt;\nThe Empire Strikes Back\n&lt;/h2&gt;\n&lt;p&gt;\nReleas ...</span></span>
+<span><span class="co">#&gt; [6] &lt;section&gt;&lt;h2 data-id="6"&gt;\nReturn of the Jedi\n&lt;/h2&gt;\n&lt;p&gt;\nReleased: 1 ...</span></span>
+<span><span class="co">#&gt; [7] &lt;section&gt;&lt;h2 data-id="7"&gt;\nThe Force Awakens\n&lt;/h2&gt;\n&lt;p&gt;\nReleased: 20 ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esto recupera siete elementos que coinciden con las siete películas que se encuentran en esa página, lo que sugiere que usar <code>section</code> como selector es bueno. La extracción de los elementos individuales es sencilla ya que los datos siempre se encuentran en el texto. Solo es cuestión de encontrar el selector adecuado:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">section</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"h2"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "The Phantom Menace"      "Attack of the Clones"   </span></span>
+<span><span class="co">#&gt; [3] "Revenge of the Sith"     "A New Hope"             </span></span>
+<span><span class="co">#&gt; [5] "The Empire Strikes Back" "Return of the Jedi"     </span></span>
+<span><span class="co">#&gt; [7] "The Force Awakens"</span></span>
+<span></span>
+<span><span class="va">section</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".director"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "George Lucas"     "George Lucas"     "George Lucas"    </span></span>
+<span><span class="co">#&gt; [4] "George Lucas"     "Irvin Kershner"   "Richard Marquand"</span></span>
+<span><span class="co">#&gt; [7] "J. J. Abrams"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Una vez que hayamos hecho eso para cada componente, podemos envolver todos los resultados en un tibble:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="va">section</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"h2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  released <span class="op">=</span> <span class="va">section</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"p"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"Released: "</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  director <span class="op">=</span> <span class="va">section</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".director"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  intro <span class="op">=</span> <span class="va">section</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">".crawl"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 4</span></span>
+<span><span class="co">#&gt;   title                   released   director         intro                  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                   &lt;date&gt;     &lt;chr&gt;            &lt;chr&gt;                  </span></span>
+<span><span class="co">#&gt; 1 The Phantom Menace      1999-05-19 George Lucas     "Turmoil has engulfed …</span></span>
+<span><span class="co">#&gt; 2 Attack of the Clones    2002-05-16 George Lucas     "There is unrest in th…</span></span>
+<span><span class="co">#&gt; 3 Revenge of the Sith     2005-05-19 George Lucas     "War! The Republic is …</span></span>
+<span><span class="co">#&gt; 4 A New Hope              1977-05-25 George Lucas     "It is a period of civ…</span></span>
+<span><span class="co">#&gt; 5 The Empire Strikes Back 1980-05-17 Irvin Kershner   "It is a dark time for…</span></span>
+<span><span class="co">#&gt; 6 Return of the Jedi      1983-05-25 Richard Marquand "Luke Skywalker has re…</span></span>
+<span><span class="co">#&gt; # ℹ 1 more row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hicimos un poco más de procesamiento de <code>released</code> para obtener una variable que será fácil de usar más adelante en nuestro análisis.</p>
+</section><section id="las-mejores-películas-de-imdb" class="level3" data-number="25.6.2"><h3 data-number="25.6.2" class="anchored" data-anchor-id="las-mejores-películas-de-imdb">
+<span class="header-section-number">25.6.2</span> Las mejores películas de IMDB</h3>
+<p>Para nuestra próxima tarea, abordaremos algo un poco más complicado, extrayendo las 250 mejores películas de la base de datos de películas de Internet (IMDb). Cuando escribimos este capítulo, la página se parecía a <a href="#fig-scraping-imdb">Figure&nbsp;<span class="quarto-unresolved-ref">fig-scraping-imdb</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-scraping-imdb" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="screenshots/scraping-imdb.png" class="img-fluid figure-img" alt="La captura de pantalla muestra una tabla con las columnas &quot;Rank and Title&quot;, &quot;IMDb Rating&quot; y &quot;Your Rating&quot;. Se muestran 9 películas de las 250 principales. Los 5 primeros son Shawshank Redemption, The Godfather, The Dark Knight, The Godfather: Part II y 12 Angry Men." width="418"></p>
+<figcaption class="figure-caption">Figure&nbsp;25.1: Captura de pantalla de la página web de las mejores películas de IMDb tomada el 2022-12-05.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Estos datos tienen una estructura tabular clara, por lo que vale la pena comenzar con <code><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://web.archive.org/web/20220201012049/https://www.imdb.com/chart/top/"</span></span>
+<span><span class="va">html</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">html</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_element</a></span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">table</span></span>
+<span><span class="co">#&gt; # A tibble: 250 × 5</span></span>
+<span><span class="co">#&gt;   ``    `Rank &amp; Title`                    `IMDb Rating` `Your Rating`   ``   </span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;                                     &lt;dbl&gt; &lt;chr&gt;           &lt;lgl&gt;</span></span>
+<span><span class="co">#&gt; 1 NA    "1.\n      The Shawshank Redempt…           9.2 "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; 2 NA    "2.\n      The Godfather\n      …           9.1 "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; 3 NA    "3.\n      The Godfather: Part I…           9   "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; 4 NA    "4.\n      The Dark Knight\n    …           9   "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; 5 NA    "5.\n      12 Angry Men\n       …           8.9 "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; 6 NA    "6.\n      Schindler's List\n   …           8.9 "12345678910\n… NA   </span></span>
+<span><span class="co">#&gt; # ℹ 244 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esto incluye algunas columnas vacías, pero en general hace un buen trabajo al capturar la información de la tabla. Sin embargo, necesitamos hacer un poco más de procesamiento para que sea más fácil de usar. Primero, cambiaremos el nombre de las columnas para que sea más fácil trabajar con ellas y eliminaremos los espacios en blanco superfluos en la clasificación y el título. Haremos esto con <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> (en lugar de <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename()</a></code>) para renombrar y seleccionar solo estas dos columnas en un solo paso. Luego, eliminaremos las líneas nuevas y los espacios adicionales, y luego aplicaremos <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code> (de <a href="#sec-extract-variables"><span class="quarto-unresolved-ref">sec-extract-variables</span></a>) para extraer el título, el año y la clasificación en sus propias variables.</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="va">table</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    rank_title_year <span class="op">=</span> <span class="va">`Rank &amp; Title`</span>,</span>
+<span>    rating <span class="op">=</span> <span class="va">`IMDb Rating`</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    rank_title_year <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">rank_title_year</span>, <span class="st">"\n +"</span>, <span class="st">" "</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex</a></span><span class="op">(</span></span>
+<span>    <span class="va">rank_title_year</span>,</span>
+<span>    patterns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      rank <span class="op">=</span> <span class="st">"\\d+"</span>, <span class="st">"\\. "</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">".+"</span>, <span class="st">" +\\("</span>,</span>
+<span>      year <span class="op">=</span> <span class="st">"\\d+"</span>, <span class="st">"\\)"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">ratings</span></span>
+<span><span class="co">#&gt; # A tibble: 250 × 4</span></span>
+<span><span class="co">#&gt;   rank  title                    year  rating</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;                    &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 1     The Shawshank Redemption 1994     9.2</span></span>
+<span><span class="co">#&gt; 2 2     The Godfather            1972     9.1</span></span>
+<span><span class="co">#&gt; 3 3     The Godfather: Part II   1974     9  </span></span>
+<span><span class="co">#&gt; 4 4     The Dark Knight          2008     9  </span></span>
+<span><span class="co">#&gt; 5 5     12 Angry Men             1957     8.9</span></span>
+<span><span class="co">#&gt; 6 6     Schindler's List         1993     8.9</span></span>
+<span><span class="co">#&gt; # ℹ 244 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Incluso en este caso, donde la mayoría de los datos provienen de las celdas de la tabla, vale la pena mirar el código HTML sin formato. Si lo hace, descubrirá que podemos agregar un poco de información adicional usando uno de los atributos. Esta es una de las razones por las que vale la pena dedicar un poco de tiempo a explorar el origen de la página; puede encontrar datos adicionales o puede encontrar una ruta de análisis que sea un poco más fácil.</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">html</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"td strong"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"title"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "9.2 based on 2,536,415 user ratings"</span></span>
+<span><span class="co">#&gt; [2] "9.1 based on 1,745,675 user ratings"</span></span>
+<span><span class="co">#&gt; [3] "9.0 based on 1,211,032 user ratings"</span></span>
+<span><span class="co">#&gt; [4] "9.0 based on 2,486,931 user ratings"</span></span>
+<span><span class="co">#&gt; [5] "8.9 based on 749,563 user ratings"  </span></span>
+<span><span class="co">#&gt; [6] "8.9 based on 1,295,705 user ratings"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podemos combinar esto con los datos tabulares y aplicar de nuevo <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code> para extraer los datos que nos interesan:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    rating_n <span class="op">=</span> <span class="va">html</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements</a></span><span class="op">(</span><span class="st">"td strong"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"title"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex</a></span><span class="op">(</span></span>
+<span>    <span class="va">rating_n</span>,</span>
+<span>    patterns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"[0-9.]+ based on "</span>,</span>
+<span>      number <span class="op">=</span> <span class="st">"[0-9,]+"</span>,</span>
+<span>      <span class="st">" user ratings"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    number <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">number</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 250 × 5</span></span>
+<span><span class="co">#&gt;   rank  title                    year  rating  number</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;                    &lt;chr&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 1     The Shawshank Redemption 1994     9.2 2536415</span></span>
+<span><span class="co">#&gt; 2 2     The Godfather            1972     9.1 1745675</span></span>
+<span><span class="co">#&gt; 3 3     The Godfather: Part II   1974     9   1211032</span></span>
+<span><span class="co">#&gt; 4 4     The Dark Knight          2008     9   2486931</span></span>
+<span><span class="co">#&gt; 5 5     12 Angry Men             1957     8.9  749563</span></span>
+<span><span class="co">#&gt; 6 6     Schindler's List         1993     8.9 1295705</span></span>
+<span><span class="co">#&gt; # ℹ 244 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="sitios-dinámicos" class="level2" data-number="25.7"><h2 data-number="25.7" class="anchored" data-anchor-id="sitios-dinámicos">
+<span class="header-section-number">25.7</span> Sitios dinámicos</h2>
+<p>Hasta ahora nos hemos centrado en sitios web donde <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> devuelve lo que ve en el navegador y discutimos cómo analizar lo que devuelve y cómo organizar esa información en marcos de datos ordenados. De vez en cuando, sin embargo, llegarás a un sitio donde <code><a href="https://rvest.tidyverse.org/reference/html_element.html">html_elements()</a></code> y tus amigos no devuelven nada parecido a lo que ves en el navegador. En muchos casos, eso se debe a que intenta extraer datos de un sitio web que genera dinámicamente el contenido de la página con javascript. Actualmente, esto no funciona con rvest, porque rvest descarga el HTML sin formato y no ejecuta ningún javascript.</p>
+<p>Todavía es posible raspar este tipo de sitios, pero rvest necesita usar un proceso más costoso: simular completamente el navegador web, incluida la ejecución de todo javascript. Esta funcionalidad no está disponible en el momento de escribir este artículo, pero es algo en lo que estamos trabajando activamente y podría estar disponible para cuando lea esto. Utiliza el [paquete chromote] (https://rstudio.github.io/chromote/index.html) que en realidad ejecuta el navegador Chrome en segundo plano y le brinda herramientas adicionales para interactuar con el sitio, como un texto de escritura humano y haciendo clic en los botones. Consulte el <a href="http://rvest.tidyverse.org/">sitio web de rvest</a> para obtener más detalles.</p>
+</section><section id="resumen" class="level2" data-number="25.8"><h2 data-number="25.8" class="anchored" data-anchor-id="resumen">
+<span class="header-section-number">25.8</span> Resumen</h2>
+<p>En este capítulo, ha aprendido sobre por qué, por qué no y cómo extraer datos de páginas web. Primero, aprendió los conceptos básicos de HTML y el uso de selectores de CSS para hacer referencia a elementos específicos, luego aprendió a usar el paquete rvest para obtener datos de HTML en R. Luego demostramos el web scraping con dos casos de estudio: un escenario más simple sobre la extracción de datos sobre películas de StarWars del sitio web del paquete rvest y un escenario más complejo sobre el scraping de las 250 películas principales de IMDB.</p>
+<p>Los detalles técnicos de la extracción de datos de la web pueden ser complejos, especialmente cuando se trata de sitios; sin embargo, las consideraciones legales y éticas pueden ser aún más complejas. Es importante que se eduque sobre ambos antes de comenzar a recopilar datos.</p>
+<p>Esto nos lleva al final de la parte de importación del libro donde aprendió técnicas para obtener datos desde donde se encuentran (hojas de cálculo, bases de datos, archivos JSON y sitios web) en una forma ordenada en R. Ahora es el momento de dirigir nuestra mirada a un nuevo tema: sacar el máximo provecho de R como lenguaje de programación.</p>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Y muchas API populares ya tienen paquetes CRAN que las envuelven, ¡así que comience con una pequeña investigación primero!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Obviamente no somos abogados, y esto no es un consejo legal. Pero este es el mejor resumen que podemos dar después de haber leído mucho sobre este tema.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Un ejemplo de un artículo sobre el estudio OkCupid fue publicado por el <a href="https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science" class="uri">https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Esta clase viene del paquete <a href="https://xml2.r-lib.org">xml2</a>. xml2 es un paquete de bajo nivel en el que se basa rvest.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>rvest también proporciona <code><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text()</a></code> pero casi siempre debe usar <code><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text2()</a></code> ya que hace un mejor trabajo al convertir HTML anidado en texto.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script>
+
+  // Chapter name
+  const currentChapterFile = window.location.pathname.split('/').pop().replace('.html', '');
+
+  //Deffining urls
+  const originalURL = "https://github.com/hadley/r4ds";
+  const translationURL = "https://github.com/davidrsch/r4dses";
+
+  //Deffining texts
+  const edit_text = "Editar esta página";
+  const issue_text = "Informar de un problema"
+
+  //Deffining git_i
+  const git_i = '<div><i class="bi bi-github"></i></div>';
+
+  // Adding TOC if not exist
+  const sidebarmargin = document.getElementById('quarto-margin-sidebar');
+  const buscar_TOC = document.getElementById('TOC');
+
+  if (!buscar_TOC) {
+    const crear_TOC = document.createElement('nav');
+    crear_TOC.id = 'TOC';
+    crear_TOC.role = "doc-toc";
+    crear_TOC.class = "toc-active";
+    sidebarmargin.appendChild(crear_TOC);
+  }
+
+
+  // Adding original github actions
+  const TOC = document.getElementById('TOC');
+  const originalga = document.createElement('h2');
+  originalga.textContent = "Original";
+  const toc_act_O = document.createElement('div');
+  toc_act_O.className = 'toc-actions';
+  toc_act_O.id = 'toc-act-O';
+  const act_link_O = document.createElement('div');
+  act_link_O.className='action-links';
+  act_link_O.id='act-link-O';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(originalga);
+  TOC.appendChild(toc_act_O);
+  toc_act_O.innerHTML += git_i;
+  toc_act_O.appendChild(act_link_O);
+  act_link_O.innerHTML += edit_issue_O;
+
+  // Adding translation github actions
+  const translationga = document.createElement('h2');
+  translationga.textContent = "Traducción";
+  const toc_act_T = document.createElement('div');
+  toc_act_T.className = 'toc-actions';
+  toc_act_T.id = 'toc-act-T';
+  const act_link_T = document.createElement('div');
+  act_link_T.className='action-links';
+  act_link_T.id='act-link-T';
+  const edit_issue_T ='<p><a href="'+translationURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+translationURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(translationga);
+  TOC.appendChild(toc_act_T);
+  toc_act_T.innerHTML += git_i;
+  toc_act_T.appendChild(act_link_T);
+  act_link_T.innerHTML += edit_issue_T;
+
+
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./rectangling.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Datos jerárquicos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./program.html" class="pagination-link">
+        <span class="nav-page-text">Programa</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
+<title>R para la Ciencia de Datos (2e) - 16&nbsp; Expresiones regulares</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./factors.html" rel="next">
+<link href="./strings.html" rel="prev">
+<link href="./cover.jpg" rel="icon" type="image/jpeg">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./regexps.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R para la Ciencia de Datos (2e)</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
+            Original
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/davidrsch/r4dses">
+            Traducción
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio a la segunda edición</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">El Juego Completo</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Flujo de trabajo: conceptos básicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flujo de trabajo: estilo de código</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ordenando datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Flujo de trabajo: scripts y proyectos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Importación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flujo de trabajo: obtener ayuda</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Capas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Análisis exploratorio de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Comunicación</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transformar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Vectores lógicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Números</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Caracteres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fechas y horas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Valores faltanres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Uniones</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Importar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hojas de calculo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./databases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Datos jerárquicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Funciones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteración</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Una guía para R base</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Formatos Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducci%C3%B3n"><span class="header-section-number">16.1</span> Introducción</a>
+  <ul class="collapse">
+<li><a href="#requisitos-previos" id="toc-requisitos-previos" class="nav-link" data-scroll-target="#requisitos-previos"><span class="header-section-number">16.1.1</span> Requisitos previos</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-reg-basics" id="toc-sec-reg-basics" class="nav-link" data-scroll-target="#sec-reg-basics"><span class="header-section-number">16.2</span> Conceptos básicos de patrones</a></li>
+  <li>
+<a href="#sec-stringr-regex-funs" id="toc-sec-stringr-regex-funs" class="nav-link" data-scroll-target="#sec-stringr-regex-funs"><span class="header-section-number">16.3</span> Funciones clave</a>
+  <ul class="collapse">
+<li><a href="#detectar-coincidencias" id="toc-detectar-coincidencias" class="nav-link" data-scroll-target="#detectar-coincidencias"><span class="header-section-number">16.3.1</span> Detectar coincidencias</a></li>
+  <li><a href="#contar-coincidencias" id="toc-contar-coincidencias" class="nav-link" data-scroll-target="#contar-coincidencias"><span class="header-section-number">16.3.2</span> Contar coincidencias</a></li>
+  <li><a href="#reemplazar-valores" id="toc-reemplazar-valores" class="nav-link" data-scroll-target="#reemplazar-valores"><span class="header-section-number">16.3.3</span> Reemplazar valores</a></li>
+  <li><a href="#sec-extract-variables" id="toc-sec-extract-variables" class="nav-link" data-scroll-target="#sec-extract-variables"><span class="header-section-number">16.3.4</span> Extraer variables</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">16.3.5</span> Ejercicios</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#detalles-del-patr%C3%B3n" id="toc-detalles-del-patrón" class="nav-link" data-scroll-target="#detalles-del-patr%C3%B3n"><span class="header-section-number">16.4</span> Detalles del patrón</a>
+  <ul class="collapse">
+<li><a href="#sec-regexp-escaping" id="toc-sec-regexp-escaping" class="nav-link" data-scroll-target="#sec-regexp-escaping"><span class="header-section-number">16.4.1</span> Escapar</a></li>
+  <li><a href="#anclajes" id="toc-anclajes" class="nav-link" data-scroll-target="#anclajes"><span class="header-section-number">16.4.2</span> Anclajes</a></li>
+  <li><a href="#clases-de-caracteres" id="toc-clases-de-caracteres" class="nav-link" data-scroll-target="#clases-de-caracteres"><span class="header-section-number">16.4.3</span> Clases de caracteres</a></li>
+  <li><a href="#sec-quantifiers" id="toc-sec-quantifiers" class="nav-link" data-scroll-target="#sec-quantifiers"><span class="header-section-number">16.4.4</span> Cuantificadores</a></li>
+  <li><a href="#precedencia-de-operadores-y-par%C3%A9ntesis" id="toc-precedencia-de-operadores-y-paréntesis" class="nav-link" data-scroll-target="#precedencia-de-operadores-y-par%C3%A9ntesis"><span class="header-section-number">16.4.5</span> Precedencia de operadores y paréntesis</a></li>
+  <li><a href="#agrupaci%C3%B3n-y-captura" id="toc-agrupación-y-captura" class="nav-link" data-scroll-target="#agrupaci%C3%B3n-y-captura"><span class="header-section-number">16.4.6</span> Agrupación y captura</a></li>
+  <li><a href="#ejercicios-1" id="toc-ejercicios-1" class="nav-link" data-scroll-target="#ejercicios-1"><span class="header-section-number">16.4.7</span> Ejercicios</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#control-de-patrones" id="toc-control-de-patrones" class="nav-link" data-scroll-target="#control-de-patrones"><span class="header-section-number">16.5</span> Control de patrones</a>
+  <ul class="collapse">
+<li><a href="#sec-flags" id="toc-sec-flags" class="nav-link" data-scroll-target="#sec-flags"><span class="header-section-number">16.5.1</span> Banderas de expresiones regulares</a></li>
+  <li><a href="#coincidencias-fijas" id="toc-coincidencias-fijas" class="nav-link" data-scroll-target="#coincidencias-fijas"><span class="header-section-number">16.5.2</span> Coincidencias fijas</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#pr%C3%A1ctica" id="toc-práctica" class="nav-link" data-scroll-target="#pr%C3%A1ctica"><span class="header-section-number">16.6</span> Práctica</a>
+  <ul class="collapse">
+<li><a href="#revisa-tu-trabajo" id="toc-revisa-tu-trabajo" class="nav-link" data-scroll-target="#revisa-tu-trabajo"><span class="header-section-number">16.6.1</span> Revisa tu trabajo</a></li>
+  <li><a href="#sec-boolean-operations" id="toc-sec-boolean-operations" class="nav-link" data-scroll-target="#sec-boolean-operations"><span class="header-section-number">16.6.2</span> Operaciones booleanas</a></li>
+  <li><a href="#crear-un-patr%C3%B3n-con-c%C3%B3digo" id="toc-crear-un-patrón-con-código" class="nav-link" data-scroll-target="#crear-un-patr%C3%B3n-con-c%C3%B3digo"><span class="header-section-number">16.6.3</span> Crear un patrón con código</a></li>
+  <li><a href="#ejercicios-2" id="toc-ejercicios-2" class="nav-link" data-scroll-target="#ejercicios-2"><span class="header-section-number">16.6.4</span> Ejercicios</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#expresiones-regulares-en-otros-lugares" id="toc-expresiones-regulares-en-otros-lugares" class="nav-link" data-scroll-target="#expresiones-regulares-en-otros-lugares"><span class="header-section-number">16.7</span> Expresiones regulares en otros lugares</a>
+  <ul class="collapse">
+<li><a href="#tidyverse" id="toc-tidyverse" class="nav-link" data-scroll-target="#tidyverse"><span class="header-section-number">16.7.1</span> tidyverse</a></li>
+  <li><a href="#r-base" id="toc-r-base" class="nav-link" data-scroll-target="#r-base"><span class="header-section-number">16.7.2</span> R base</a></li>
+  </ul>
+</li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen"><span class="header-section-number">16.8</span> Resumen</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-regular-expressions" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="introducción" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="introducción">
+<span class="header-section-number">16.1</span> Introducción</h2>
+<p>En <a href="#sec-strings"><span class="quarto-unresolved-ref">sec-strings</span></a>, aprendió un montón de funciones útiles para trabajar con cadenas. Este capítulo se centrará en funciones que usan <strong>expresiones regulares</strong>, un lenguaje conciso y poderoso para describir patrones dentro de cadenas. El término “expresión regular” es un poco complicado, por lo que la mayoría de la gente lo abrevia como “regex”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (del inglés, “regular expressions”) o “regexp”.</p>
+<p>El capítulo comienza con los conceptos básicos de las expresiones regulares y las funciones stringr más útiles para el análisis de datos. Luego, ampliaremos su conocimiento de los patrones y cubriremos siete temas nuevos e importantes (escape, anclaje, clases de caracteres, clases de taquigrafía, cuantificadores, precedencia y agrupación). A continuación, hablaremos sobre algunos de los otros tipos de patrones con los que pueden trabajar las funciones stringr y las diversas “banderas” que le permiten modificar el funcionamiento de las expresiones regulares. Terminaremos con una encuesta de otros lugares en el tidyverse y base R donde podría usar expresiones regulares.</p>
+<section id="requisitos-previos" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="requisitos-previos">
+<span class="header-section-number">16.1.1</span> Requisitos previos</h3>
+<p>En este capítulo, usaremos funciones de expresiones regulares de stringr y tidyr, ambos miembros centrales de tidyverse, así como datos del paquete babynames.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/babynames">babynames</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A lo largo de este capítulo, usaremos una combinación de ejemplos en línea muy simples para que pueda obtener la idea básica, los datos de nombres de bebés y tres vectores de caracteres de stringr:</p>
+<ul>
+<li>
+<code>fruit</code> contiene los nombres de 80 frutas.</li>
+<li>
+<code>words</code> contiene 980 palabras comunes del ideoma inglés.</li>
+<li>
+<code>sentences</code> contiene 720 oraciones cortas.</li>
+</ul></section></section><section id="sec-reg-basics" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="sec-reg-basics">
+<span class="header-section-number">16.2</span> Conceptos básicos de patrones</h2>
+<p>Usaremos <code><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view()</a></code> para aprender cómo funcionan los patrones de expresiones regulares. Usamos <code><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view()</a></code> en el último capítulo para comprender mejor una cadena en comparación con su representación impresa, y ahora la usaremos con su segundo argumento, una expresión regular. Cuando se proporciona, <code><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view()</a></code> mostrará solo los elementos del vector de cadena que coincidan, rodeando cada coincidencia con <code>&lt;&gt;</code> y, donde sea posible, resaltando la coincidencia en azul.</p>
+<p>Los patrones más simples consisten en letras y números que coinciden exactamente con esos caracteres:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"berry"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [6] │ bil&lt;berry&gt;</span></span>
+<span><span class="co">#&gt;  [7] │ black&lt;berry&gt;</span></span>
+<span><span class="co">#&gt; [10] │ blue&lt;berry&gt;</span></span>
+<span><span class="co">#&gt; [11] │ boysen&lt;berry&gt;</span></span>
+<span><span class="co">#&gt; [19] │ cloud&lt;berry&gt;</span></span>
+<span><span class="co">#&gt; [21] │ cran&lt;berry&gt;</span></span>
+<span><span class="co">#&gt; ... and 8 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Las letras y los números coinciden exactamente y se denominan <strong>caracteres literales</strong>. La mayoría de los caracteres de puntuación, como <code>.</code>, <code>+</code>, <code>*</code>, <code>[</code>, <code>],</code> y <code>?,</code> tienen significados especiales<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> y se denominan <strong>metacaracteres</strong>. Por ejemplo, <code>.</code> coincidirá con cualquier carácter<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, por lo que <code>"a."</code> coincidirá con cualquier cadena que contenga una “a” seguida de otro carácter :</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"ae"</span>, <span class="st">"bd"</span>, <span class="st">"ea"</span>, <span class="st">"eab"</span><span class="op">)</span>, <span class="st">"a."</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;ab&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;ae&gt;</span></span>
+<span><span class="co">#&gt; [6] │ e&lt;ab&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O podríamos encontrar todas las frutas que contienen una “a”, seguida de tres letras, seguidas de una “e”:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"a...e"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] │ &lt;apple&gt;</span></span>
+<span><span class="co">#&gt;  [7] │ bl&lt;ackbe&gt;rry</span></span>
+<span><span class="co">#&gt; [48] │ mand&lt;arine&gt;</span></span>
+<span><span class="co">#&gt; [51] │ nect&lt;arine&gt;</span></span>
+<span><span class="co">#&gt; [62] │ pine&lt;apple&gt;</span></span>
+<span><span class="co">#&gt; [64] │ pomegr&lt;anate&gt;</span></span>
+<span><span class="co">#&gt; ... and 2 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Quantifiers</strong> controla cuántas veces puede coincidir un patrón:</p>
+<ul>
+<li>
+<code>?</code> hace que un patrón sea opcional (es decir, coincide 0 o 1 veces)</li>
+<li>
+<code>+</code> permite que un patrón se repita (es decir, coincide al menos una vez)</li>
+<li>
+<code>*</code> permite que un patrón sea opcional o se repita (es decir, coincide con cualquier número de veces, incluido 0).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ab? coincide con una "a", opcionalmente seguida de una "b".</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span><span class="op">)</span>, <span class="st">"ab?"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;ab&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;ab&gt;b</span></span>
+<span></span>
+<span><span class="co"># ab+ Coincide con una "a", seguida de al menos una "b".</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span><span class="op">)</span>, <span class="st">"ab+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;ab&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;abb&gt;</span></span>
+<span></span>
+<span><span class="co"># ab* coincide con una "a", seguida de cualquier número de "b".</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"ab"</span>, <span class="st">"abb"</span><span class="op">)</span>, <span class="st">"ab*"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;ab&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;abb&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Las clases de caracteres</strong> están definidas por <code>[]</code> y le permiten hacer coincidir un conjunto de caracteres, p.ej., <code>[abcd]</code> coincide con “a”, “b”, “c” o “d”. También puede invertir la coincidencia comenzando con <code>^</code>: <code>[^abcd]</code> coincide con cualquier cosa <strong>excepto</strong> “a”, “b”, “c” o “d”. Podemos usar esta idea para encontrar las palabras que contienen una “x” rodeada de vocales, o una “y” rodeada de consonantes:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"[aeiou]x[aeiou]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [284] │ &lt;exa&gt;ct</span></span>
+<span><span class="co">#&gt; [285] │ &lt;exa&gt;mple</span></span>
+<span><span class="co">#&gt; [288] │ &lt;exe&gt;rcise</span></span>
+<span><span class="co">#&gt; [289] │ &lt;exi&gt;st</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"[^aeiou]y[^aeiou]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [836] │ &lt;sys&gt;tem</span></span>
+<span><span class="co">#&gt; [901] │ &lt;typ&gt;e</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Puede usar <strong>alternancia</strong>, <code>|</code>, para elegir entre uno o más patrones alternativos. Por ejemplo, los siguientes patrones buscan frutas que contengan “manzana”, “melón” o “nuez”, o una vocal repetida.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"apple|melon|nut"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] │ &lt;apple&gt;</span></span>
+<span><span class="co">#&gt; [13] │ canary &lt;melon&gt;</span></span>
+<span><span class="co">#&gt; [20] │ coco&lt;nut&gt;</span></span>
+<span><span class="co">#&gt; [52] │ &lt;nut&gt;</span></span>
+<span><span class="co">#&gt; [62] │ pine&lt;apple&gt;</span></span>
+<span><span class="co">#&gt; [72] │ rock &lt;melon&gt;</span></span>
+<span><span class="co">#&gt; ... and 1 more</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"aa|ee|ii|oo|uu"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [9] │ bl&lt;oo&gt;d orange</span></span>
+<span><span class="co">#&gt; [33] │ g&lt;oo&gt;seberry</span></span>
+<span><span class="co">#&gt; [47] │ lych&lt;ee&gt;</span></span>
+<span><span class="co">#&gt; [66] │ purple mangost&lt;ee&gt;n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Las expresiones regulares son muy compactas y utilizan muchos caracteres de puntuación, por lo que al principio pueden parecer abrumadoras y difíciles de leer. No te preocupes; mejorará con la práctica, y los patrones simples pronto se convertirán en una segunda naturaleza. Comencemos ese proceso practicando con algunas funciones útiles de stringr.</p>
+</section><section id="sec-stringr-regex-funs" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="sec-stringr-regex-funs">
+<span class="header-section-number">16.3</span> Funciones clave</h2>
+<p>Ahora que tiene los conceptos básicos de las expresiones regulares bajo su cinturón, usémoslos con algunas funciones stringr y tidyr. En la siguiente sección, aprenderá cómo detectar la presencia o ausencia de una coincidencia, cómo contar el número de coincidencias, cómo reemplazar una coincidencia con texto fijo y cómo extraer texto usando un patrón.</p>
+<section id="detectar-coincidencias" class="level3" data-number="16.3.1"><h3 data-number="16.3.1" class="anchored" data-anchor-id="detectar-coincidencias">
+<span class="header-section-number">16.3.1</span> Detectar coincidencias</h3>
+<p><code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> devuelve un vector lógico que es <code>TRUE</code> si el patrón coincide con un elemento del vector de caracteres y <code>FALSE</code> en caso contrario:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="st">"[aeiou]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  TRUE FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dado que <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> devuelve un vector lógico de la misma longitud que el vector inicial, se empareja bien con <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>. Por ejemplo, este código encuentra todos los nombres más populares que contienen una “x” minúscula:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">babynames</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"x"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">name</span>, wt <span class="op">=</span> <span class="va">n</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 974 × 2</span></span>
+<span><span class="co">#&gt;   name           n</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Alexander 665492</span></span>
+<span><span class="co">#&gt; 2 Alexis    399551</span></span>
+<span><span class="co">#&gt; 3 Alex      278705</span></span>
+<span><span class="co">#&gt; 4 Alexandra 232223</span></span>
+<span><span class="co">#&gt; 5 Max       148787</span></span>
+<span><span class="co">#&gt; 6 Alexa     123032</span></span>
+<span><span class="co">#&gt; # ℹ 968 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También podemos usar <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> con <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> combinándolo con <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> o <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>: <code>sum(str_detect(x, pattern))</code> te dice el número de observaciones que coinciden y <code>mean(str_detect(x, pattern))</code> te dice la proporción que coincide. Por ejemplo, el siguiente fragmento calcula y visualiza la proporción de nombres de bebés<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> que contienen “x”, desglosados por año. ¡Parece que su popularidad ha aumentado radicalmente últimamente!</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">babynames</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>prop_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"x"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">prop_x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="regexps_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" alt="Una serie temporal que muestra la proporción de nombres de bebés que contienen la letra x. La proporción desciende gradualmente del 8 por 1000 en 1880 al 4 por 1000 en 1980, luego aumenta rápidamente a 16 por 1000 en 2019." width="576"></p>
+</div>
+</div>
+<p>Hay dos funciones que están estrechamente relacionadas con <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code>: <code><a href="https://stringr.tidyverse.org/reference/str_subset.html">str_subset()</a></code> y <code><a href="https://stringr.tidyverse.org/reference/str_which.html">str_which()</a></code>. <code><a href="https://stringr.tidyverse.org/reference/str_subset.html">str_subset()</a></code> devuelve solo las cadenas que contienen coincidencia. <code><a href="https://stringr.tidyverse.org/reference/str_which.html">str_which()</a></code> devuelve los índices de las cadenas que tienen coincidencia:</p>
+</section><section id="contar-coincidencias" class="level3" data-number="16.3.2"><h3 data-number="16.3.2" class="anchored" data-anchor-id="contar-coincidencias">
+<span class="header-section-number">16.3.2</span> Contar coincidencias</h3>
+<p>El siguiente paso en complejidad de <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code> es <code><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count()</a></code>: en lugar de verdadero o falso, le dice cuántas coincidencias hay en cada cadena.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"pear"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2 0 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tenga en cuenta que cada coincidencia comienza al final de la coincidencia anterior, es decir, las coincidencias de expresiones regulares nunca se superponen. Por ejemplo, en <code>"abababa"</code>, ¿cuántas veces coincidirá el patrón <code>"aba"</code>? Las expresiones regulares dicen dos, no tres:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="st">"abababa"</span>, <span class="st">"aba"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"abababa"</span>, <span class="st">"aba"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;aba&gt;b&lt;aba&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Es natural usar <code><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count()</a></code> con <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. El siguiente ejemplo usa <code><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count()</a></code> con clases de caracteres para contar el número de vocales y consonantes en cada nombre.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">babynames</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    vowels <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"[aeiou]"</span><span class="op">)</span>,</span>
+<span>    consonants <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"[^aeiou]"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 97,310 × 4</span></span>
+<span><span class="co">#&gt;   name          n vowels consonants</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Aaban        10      2          3</span></span>
+<span><span class="co">#&gt; 2 Aabha         5      2          3</span></span>
+<span><span class="co">#&gt; 3 Aabid         2      2          3</span></span>
+<span><span class="co">#&gt; 4 Aabir         1      2          3</span></span>
+<span><span class="co">#&gt; 5 Aabriella     5      4          5</span></span>
+<span><span class="co">#&gt; 6 Aada          1      2          2</span></span>
+<span><span class="co">#&gt; # ℹ 97,304 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si miras de cerca, notarás que hay algo mal con nuestros cálculos: “Aaban” contiene tres “a”, pero nuestro resumen solo reporta dos vocales. Eso es porque las expresiones regulares distinguen entre mayúsculas y minúsculas. Hay tres formas en las que podemos arreglar esto:</p>
+<ul>
+<li>Agregue las vocales mayúsculas a la clase de carácter: <code>str_count(name, "[aeiouAEIOU]")</code>.</li>
+<li>Dígale a la expresión regular que ignore el tamaño: <code>str_count(name, regex("[aeiou]", ignore_case = TRUE))</code>. Hablaremos de más en <a href="#sec-flags"><span class="quarto-unresolved-ref">sec-flags</span></a>.</li>
+<li>Usa <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower()</a></code> para convertir los nombres a minúsculas: <code>str_count(str_to_lower(name), "[aeiou]")</code>.</li>
+</ul>
+<p>Esta variedad de enfoques es bastante típica cuando se trabaja con cadenas; a menudo, hay varias formas de alcanzar su objetivo, ya sea haciendo que su patrón sea más complicado o haciendo un preprocesamiento en su cadena. Si se queda atascado intentando un enfoque, a menudo puede ser útil cambiar de marcha y abordar el problema desde una perspectiva diferente.</p>
+<p>En este caso, dado que estamos aplicando dos funciones al nombre, creo que es más fácil transformarlo primero:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">babynames</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>,</span>
+<span>    vowels <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"[aeiou]"</span><span class="op">)</span>,</span>
+<span>    consonants <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">name</span>, <span class="st">"[^aeiou]"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 97,310 × 4</span></span>
+<span><span class="co">#&gt;   name          n vowels consonants</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 aaban        10      3          2</span></span>
+<span><span class="co">#&gt; 2 aabha         5      3          2</span></span>
+<span><span class="co">#&gt; 3 aabid         2      3          2</span></span>
+<span><span class="co">#&gt; 4 aabir         1      3          2</span></span>
+<span><span class="co">#&gt; 5 aabriella     5      5          4</span></span>
+<span><span class="co">#&gt; 6 aada          1      3          1</span></span>
+<span><span class="co">#&gt; # ℹ 97,304 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="reemplazar-valores" class="level3" data-number="16.3.3"><h3 data-number="16.3.3" class="anchored" data-anchor-id="reemplazar-valores">
+<span class="header-section-number">16.3.3</span> Reemplazar valores</h3>
+<p>Además de detectar y contar coincidencias, también podemos modificarlas con <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace()</a></code> y <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code>. <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace()</a></code> reemplaza la primera coincidencia y, como sugiere el nombre, <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code> reemplaza todas las coincidencias.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"pear"</span>, <span class="st">"banana"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"[aeiou]"</span>, <span class="st">"-"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "-ppl-"  "p--r"   "b-n-n-"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove()</a></code> y <code><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all()</a></code> son atajos útiles para <code>str_replace(x, patrón, "")</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"pear"</span>, <span class="st">"banana"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"[aeiou]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "ppl" "pr"  "bnn"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Estas funciones se combinan de forma natural con <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> al realizar la limpieza de datos y, a menudo, las aplicará repetidamente para quitar capas de formato inconsistente.</p>
+</section><section id="sec-extract-variables" class="level3" data-number="16.3.4"><h3 data-number="16.3.4" class="anchored" data-anchor-id="sec-extract-variables">
+<span class="header-section-number">16.3.4</span> Extraer variables</h3>
+<p>La última función que discutiremos usa expresiones regulares para extraer datos de una columna en una o más columnas nuevas: <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code>. Es un par de las funciones <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_position()</a></code> y <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim()</a></code> que aprendiste en <a href="#sec-string-columns"><span class="quarto-unresolved-ref">sec-string-columns</span></a>. Estas funciones viven en tidyr porque operan en (columnas de) data frames, en lugar de vectores individuales.</p>
+<p>Vamos a crear un conjunto de datos simple para mostrar cómo funciona. Aquí tenemos algunos datos derivados de <code>babynames</code> donde tenemos el nombre, el género y la edad de un grupo de personas en un formato bastante extraño <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">str</span>,</span>
+<span>  <span class="st">"&lt;Sheryl&gt;-F_34"</span>,</span>
+<span>  <span class="st">"&lt;Kisha&gt;-F_45"</span>, </span>
+<span>  <span class="st">"&lt;Brandon&gt;-N_33"</span>,</span>
+<span>  <span class="st">"&lt;Sharon&gt;-F_38"</span>, </span>
+<span>  <span class="st">"&lt;Penny&gt;-F_58"</span>,</span>
+<span>  <span class="st">"&lt;Justin&gt;-M_41"</span>, </span>
+<span>  <span class="st">"&lt;Patricia&gt;-F_84"</span>, </span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para extraer estos datos usando <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code> solo necesitamos construir una secuencia de expresiones regulares que coincidan con cada pieza. Si queremos que el contenido de esa pieza aparezca en la salida, le damos un nombre:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex</a></span><span class="op">(</span></span>
+<span>    <span class="va">str</span>,</span>
+<span>    patterns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"&lt;"</span>, </span>
+<span>      name <span class="op">=</span> <span class="st">"[A-Za-z]+"</span>, </span>
+<span>      <span class="st">"&gt;-"</span>, </span>
+<span>      gender <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>      <span class="st">"_"</span>, </span>
+<span>      age <span class="op">=</span> <span class="st">"[0-9]+"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 3</span></span>
+<span><span class="co">#&gt;   name    gender age  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 Sheryl  F      34   </span></span>
+<span><span class="co">#&gt; 2 Kisha   F      45   </span></span>
+<span><span class="co">#&gt; 3 Brandon N      33   </span></span>
+<span><span class="co">#&gt; 4 Sharon  F      38   </span></span>
+<span><span class="co">#&gt; 5 Penny   F      58   </span></span>
+<span><span class="co">#&gt; 6 Justin  M      41   </span></span>
+<span><span class="co">#&gt; # ℹ 1 more row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si la coincidencia falla, puede usar <code>too_short = "debug"</code> para descubrir qué salió mal, al igual que <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim()</a></code> y <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_position()</a></code>.</p>
+</section><section id="ejercicios" class="level3" data-number="16.3.5"><h3 data-number="16.3.5" class="anchored" data-anchor-id="ejercicios">
+<span class="header-section-number">16.3.5</span> Ejercicios</h3>
+<ol type="1">
+<li><p>¿Qué nombre de bebé tiene más vocales? ¿Qué nombre tiene la mayor proporción de vocales? (Pista: ¿cuál es el denominador?)</p></li>
+<li><p>Reemplace todas las barras diagonales en <code>"a/b/c/d/e"</code> con barras invertidas. ¿Qué sucede si intenta deshacer la transformación reemplazando todas las barras diagonales inversas con barras diagonales? (Discutiremos el problema muy pronto).</p></li>
+<li><p>Implemente una versión simple de <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower()</a></code> usando <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code>.</p></li>
+<li><p>Cree una expresión regular que coincida con los números de teléfono tal como se escriben comúnmente en su país.</p></li>
+</ol></section></section><section id="detalles-del-patrón" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="detalles-del-patrón">
+<span class="header-section-number">16.4</span> Detalles del patrón</h2>
+<p>Ahora que comprende los conceptos básicos del lenguaje de patrones y cómo usarlo con algunas funciones stringr y tidyr, es hora de profundizar en más detalles. Primero, comenzaremos con <strong>escapar</strong>, lo que le permite unir metacaracteres que de otro modo serían tratados de manera especial. A continuación, aprenderá sobre <strong>anclajes</strong> que le permiten hacer coincidir el inicio o el final de la cadena. Luego, aprenderá más sobre las <strong>clases de caracteres</strong> y sus accesos directos que le permiten hacer coincidir cualquier carácter de un conjunto. A continuación, conocerá los detalles finales de los <strong>cuantificadores</strong> que controlan cuántas veces puede coincidir un patrón. Luego, tenemos que cubrir el tema importante (pero complejo) de <strong>precedencia de operadores</strong> y paréntesis. Y terminaremos con algunos detalles de <strong>agrupación</strong> de componentes de patrones.</p>
+<p>Los términos que usamos aquí son los nombres técnicos de cada componente. No siempre son los más evocadores de su propósito, pero es muy útil conocer los términos correctos si luego desea buscar en Google para obtener más detalles.</p>
+<section id="sec-regexp-escaping" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="sec-regexp-escaping">
+<span class="header-section-number">16.4.1</span> Escapar</h3>
+<p>Para hacer coincidir un <code>.</code> literal, necesita un <strong>escape</strong> que le indique a la expresión regular que coincida con los metacaracteres<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> literalmente. Al igual que las cadenas, las expresiones regulares usan la barra invertida para escapar. Entonces, para hacer coincidir un <code>.</code>, necesita la expresión regular <code>\.</code>. Desafortunadamente esto crea un problema. Usamos cadenas para representar expresiones regulares, y <code>\</code> también se usa como símbolo de escape en cadenas. Así que para crear la expresión regular <code>\.</code> necesitamos la cadena <code>"\\."</code>, como muestra el siguiente ejemplo.</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Para crear la expresión regular \., necesitamos usar \\.</span></span>
+<span><span class="va">dot</span> <span class="op">&lt;-</span> <span class="st">"\\."</span></span>
+<span></span>
+<span><span class="co"># Pero la expresión en sí solo contiene una \</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">dot</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ \.</span></span>
+<span></span>
+<span><span class="co"># Y esto le dice a R que busque una explicita.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"bef"</span><span class="op">)</span>, <span class="st">"a\\.c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;a.c&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En este libro, normalmente escribiremos expresiones regulares sin comillas, como <code>\.</code>. Si necesitamos enfatizar lo que realmente escribirá, lo rodearemos con comillas y agregaremos escapes adicionales, como <code>"\\."</code>.</p>
+<p>Si <code>\</code> se usa como un carácter de escape en expresiones regulares, ¿cómo hace coincidir un literal <code>\</code>? Bueno, necesitas escapar, creando la expresión regular <code>\\</code>. Para crear esa expresión regular, debe usar una cadena, que también debe escapar de <code>\</code>. Eso significa que para hacer coincidir un <code>\</code> literal, debe escribir <code>"\\\\"</code> — ¡necesita cuatro barras diagonales inversas para que coincida con uno!</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a\\b"</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ a\b</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\\\"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ a&lt;\&gt;b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternativamente, puede que le resulte más fácil usar las cadenas sin formato que aprendió en <a href="#sec-raw-strings"><span class="quarto-unresolved-ref">sec-raw-strings</span></a>). Eso le permite evitar una capa de escape:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">r"{\\}"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ a&lt;\&gt;b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si está tratando de hacer coincidir un literal <code>.</code>, <code>$</code>, <code>|</code>, <code>*</code>, <code>+</code>, <code>?</code>, <code>{</code>, <code>}</code>, <code>(</code>, <code>)</code>, hay una alternativa al uso de un escape de barra invertida: puede usar una clase de carácter: <code>[.]</code>, <code>[$]</code>, <code>[|]</code>, ... todos coinciden con los valores literales.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">"a[.]c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;a.c&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">".[*]c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [3] │ &lt;a*c&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="anclajes" class="level3" data-number="16.4.2"><h3 data-number="16.4.2" class="anchored" data-anchor-id="anclajes">
+<span class="header-section-number">16.4.2</span> Anclajes</h3>
+<p>De forma predeterminada, las expresiones regulares coincidirán con cualquier parte de una cadena. Si desea hacer coincidir al principio del final, necesita <strong>anclar</strong> la expresión regular usando <code>^</code> para que coincida con el comienzo de la cadena o <code>$</code> para que coincida con el final:</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"^a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;pple</span></span>
+<span><span class="co">#&gt; [2] │ &lt;a&gt;pricot</span></span>
+<span><span class="co">#&gt; [3] │ &lt;a&gt;vocado</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"a$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [4] │ banan&lt;a&gt;</span></span>
+<span><span class="co">#&gt; [15] │ cherimoy&lt;a&gt;</span></span>
+<span><span class="co">#&gt; [30] │ feijo&lt;a&gt;</span></span>
+<span><span class="co">#&gt; [36] │ guav&lt;a&gt;</span></span>
+<span><span class="co">#&gt; [56] │ papay&lt;a&gt;</span></span>
+<span><span class="co">#&gt; [74] │ satsum&lt;a&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Es tentador pensar que <code>$</code> debería coincidir con el comienzo de una cadena, porque así es como escribimos cantidades en dólares, pero no es lo que quieren las expresiones regulares.</p>
+<p>Para obligar a una expresión regular a coincidir solo con la cadena completa, asegúrela con <code>^</code> y <code>$</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"apple"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] │ &lt;apple&gt;</span></span>
+<span><span class="co">#&gt; [62] │ pine&lt;apple&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"^apple$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;apple&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También puede hacer coincidir el límite entre palabras (es decir, el comienzo o el final de una palabra) con <code>\b</code>. Esto puede ser particularmente útil cuando se usa la herramienta de búsqueda y reemplazo de RStudio. Por ejemplo, si para encontrar todos los usos de <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, puede buscar <code>\bsum\b</code> para evitar la coincidencia de <code>summarize</code>, <code>summary</code>, <code>rowsum</code> y así sucesivamente:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"summary(x)"</span>, <span class="st">"summarize(df)"</span>, <span class="st">"rowsum(x)"</span>, <span class="st">"sum(x)"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"sum"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;sum&gt;mary(x)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;sum&gt;marize(df)</span></span>
+<span><span class="co">#&gt; [3] │ row&lt;sum&gt;(x)</span></span>
+<span><span class="co">#&gt; [4] │ &lt;sum&gt;(x)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\bsum\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [4] │ &lt;sum&gt;(x)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cuando se usan solos, los anclajes producirán una coincidencia de ancho cero:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"$"</span>, <span class="st">"^"</span>, <span class="st">"\\b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ abc&lt;&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;&gt;abc</span></span>
+<span><span class="co">#&gt; [3] │ &lt;&gt;abc&lt;&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esto lo ayuda a comprender lo que sucede cuando reemplaza un ancla independiente:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"$"</span>, <span class="st">"^"</span>, <span class="st">"\\b"</span><span class="op">)</span>, <span class="st">"--"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "abc--"   "--abc"   "--abc--"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="clases-de-caracteres" class="level3" data-number="16.4.3"><h3 data-number="16.4.3" class="anchored" data-anchor-id="clases-de-caracteres">
+<span class="header-section-number">16.4.3</span> Clases de caracteres</h3>
+<p>Una <strong>clase de carácter</strong>, o un <strong>conjunto</strong> de caracteres, le permite hacer coincidir cualquier carácter en un conjunto. Como discutimos anteriormente, puede construir sus propios conjuntos con <code>[]</code>, donde <code>[abc]</code> coincide con “a”, “b” o “c” y <code>[^abc]</code> coincide con cualquier carácter excepto “a”. , “b” o “c”. Además de <code>^</code>, hay otros dos caracteres que tienen un significado especial dentro de <code>[]:</code></p>
+<ul>
+<li>
+<code>-</code> define un rango, p.ej., <code>[a-z]</code> coincide con cualquier letra minúscula y <code>[0-9]</code> coincide con cualquier número.</li>
+<li>
+<code>\</code> eescapa a los caracteres especiales, por lo que <code>[\^\-\]]</code> coincide <code>^</code>, <code>-</code>, o <code>]</code>.</li>
+</ul>
+<p>Aquí hay algunos ejemplos:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"abcd ABCD 12345 -!@#%."</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"[abc]+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;abc&gt;d ABCD 12345 -!@#%.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"[a-z]+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;abcd&gt; ABCD 12345 -!@#%.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"[^a-z0-9]+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ abcd&lt; ABCD &gt;12345&lt; -!@#%.&gt;</span></span>
+<span></span>
+<span><span class="co"># Necesita un escape para hacer coincidir caracteres que de otro modo son</span></span>
+<span><span class="co"># especial dentro de []</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"a-b-c"</span>, <span class="st">"[a-c]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;-&lt;b&gt;-&lt;c&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"a-b-c"</span>, <span class="st">"[a\\-c]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;&lt;-&gt;b&lt;-&gt;&lt;c&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Algunas clases de caracteres se usan con tanta frecuencia que obtienen su propio atajo. Ya has visto <code>.</code>, que coincide con cualquier carácter excepto una nueva línea. Hay otros tres pares particularmente útiles<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
+<ul>
+<li>
+<code>\d</code> coincide con cualquier dígito;<br><code>\D</code> coincide con cualquier cosa que no sea un dígito.</li>
+<li>
+<code>\s</code> coincide con cualquier espacio en blanco (por ejemplo, espacio, tabulador, nueva línea);<br><code>\S</code> coincide con cualquier cosa que no sea un espacio en blanco.</li>
+<li>
+<code>\w</code> coincide con cualquier carácter de “palabra”, es decir, letras y números;<br><code>\W</code> coincide con cualquier carácter “no palabra”.</li>
+</ul>
+<p>El siguiente código muestra los seis atajos con una selección de letras, números y signos de puntuación.</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"abcd ABCD 12345 -!@#%."</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\d+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ abcd ABCD &lt;12345&gt; -!@#%.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\D+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;abcd ABCD &gt;12345&lt; -!@#%.&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\s+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ abcd&lt; &gt;ABCD&lt; &gt;12345&lt; &gt;-!@#%.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\S+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;abcd&gt; &lt;ABCD&gt; &lt;12345&gt; &lt;-!@#%.&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\w+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;abcd&gt; &lt;ABCD&gt; &lt;12345&gt; -!@#%.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\W+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ abcd&lt; &gt;ABCD&lt; &gt;12345&lt; -!@#%.&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="sec-quantifiers" class="level3" data-number="16.4.4"><h3 data-number="16.4.4" class="anchored" data-anchor-id="sec-quantifiers">
+<span class="header-section-number">16.4.4</span> Cuantificadores</h3>
+<p>Los <strong>cuantificadores</strong> controlan cuántas veces coincide un patrón. En <a href="#sec-reg-basics"><span class="quarto-unresolved-ref">sec-reg-basics</span></a>, aprendió sobre <code>?</code> (0 o 1 coincidencias), <code>+</code> (1 o más coincidencias) y <code>*</code> (0 o más coincidencias). Por ejemplo, <code>colou?r</code> coincidirá con la ortografía estadounidense o británica, <code>\d+</code> coincidirá con uno o más dígitos y <code>\s?</code> coincidirá opcionalmente con un único elemento de espacio en blanco. También puede especificar el número de coincidencias con precisión con <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>:</p>
+<ul>
+<li>
+<code>{n}</code> coincide exactamente n veces.</li>
+<li>
+<code>{n,}</code> coincide al menos n veces.</li>
+<li>
+<code>{n,m}</code> coincide entre n y m veces.</li>
+</ul></section><section id="precedencia-de-operadores-y-paréntesis" class="level3" data-number="16.4.5"><h3 data-number="16.4.5" class="anchored" data-anchor-id="precedencia-de-operadores-y-paréntesis">
+<span class="header-section-number">16.4.5</span> Precedencia de operadores y paréntesis</h3>
+<p>¿Con qué coincide <code>ab+</code>? ¿Coincide con “a” seguido de una o más “b”, o coincide con “ab” repetido cualquier número de veces? ¿Con qué coincide <code>^a|b$</code>? ¿Coincide con la cadena completa a o la cadena completa b, o coincide con una cadena que comienza con a o una cadena que termina con b?</p>
+<p>La respuesta a estas preguntas está determinada por la precedencia de operadores, similar a las reglas PEMDAS o BEDMAS que quizás haya aprendido en la escuela. Sabes que <code>a + b * c</code> es equivalente a <code>a + (b * c)</code> y no <code>(a + b) * c</code> porque <code>*</code> tiene mayor precedencia y <code>+</code> tiene menor precedencia: calculas <code>*</code> antes de <code>+</code>.</p>
+<p>De manera similar, las expresiones regulares tienen sus propias reglas de precedencia: los cuantificadores tienen una precedencia alta y la alternancia tiene una precedencia baja, lo que significa que <code>ab+</code> es equivalente a <code>a(b+)</code>, y <code>^a|b$</code> es equivalente a <code>(^a )|(b$)</code>. Al igual que con el álgebra, puede usar paréntesis para anular el orden habitual. Pero a diferencia del álgebra, es poco probable que recuerdes las reglas de precedencia para las expresiones regulares, así que siéntete libre de usar paréntesis libremente.</p>
+</section><section id="agrupación-y-captura" class="level3" data-number="16.4.6"><h3 data-number="16.4.6" class="anchored" data-anchor-id="agrupación-y-captura">
+<span class="header-section-number">16.4.6</span> Agrupación y captura</h3>
+<p>Además de anular la precedencia de los operadores, los paréntesis tienen otro efecto importante: crean <strong>grupos de captura</strong> que le permiten usar subcomponentes de la coincidencia.</p>
+<p>La primera forma de usar un grupo de captura es hacer referencia a él dentro de una coincidencia con <strong>referencia posterior</strong>: <code>\1</code> se refiere a la coincidencia contenida en el primer paréntesis, <code>\2</code> en el segundo paréntesis, y así sucesivamente. Por ejemplo, el siguiente patrón encuentra todas las frutas que tienen un par de letras repetido:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"(..)\\1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [4] │ b&lt;anan&gt;a</span></span>
+<span><span class="co">#&gt; [20] │ &lt;coco&gt;nut</span></span>
+<span><span class="co">#&gt; [22] │ &lt;cucu&gt;mber</span></span>
+<span><span class="co">#&gt; [41] │ &lt;juju&gt;be</span></span>
+<span><span class="co">#&gt; [56] │ &lt;papa&gt;ya</span></span>
+<span><span class="co">#&gt; [73] │ s&lt;alal&gt; berry</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y este encuentra todas las palabras que comienzan y terminan con el mismo par de letras:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"^(..).*\\1$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [152] │ &lt;church&gt;</span></span>
+<span><span class="co">#&gt; [217] │ &lt;decide&gt;</span></span>
+<span><span class="co">#&gt; [617] │ &lt;photograph&gt;</span></span>
+<span><span class="co">#&gt; [699] │ &lt;require&gt;</span></span>
+<span><span class="co">#&gt; [739] │ &lt;sense&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También puede usar referencias anteriores en <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace()</a></code>. Por ejemplo, este código cambia el orden de la segunda y tercera palabra en <code>sentences</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentences</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="st">"(\\w+) (\\w+) (\\w+)"</span>, <span class="st">"\\1 \\3 \\2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ The canoe birch slid on the smooth planks.</span></span>
+<span><span class="co">#&gt; [2] │ Glue sheet the to the dark blue background.</span></span>
+<span><span class="co">#&gt; [3] │ It's to easy tell the depth of a well.</span></span>
+<span><span class="co">#&gt; [4] │ These a days chicken leg is a rare dish.</span></span>
+<span><span class="co">#&gt; [5] │ Rice often is served in round bowls.</span></span>
+<span><span class="co">#&gt; [6] │ The of juice lemons makes fine punch.</span></span>
+<span><span class="co">#&gt; ... and 714 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si desea extraer las coincidencias para cada grupo, puede usar <code><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match()</a></code>. Pero <code><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match()</a></code> devuelve una matriz, por lo que no es particularmente fácil trabajar con <a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentences</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="st">"the (\\w+) (\\w+)"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1]                [,2]     [,3]    </span></span>
+<span><span class="co">#&gt; [1,] "the smooth planks" "smooth" "planks"</span></span>
+<span><span class="co">#&gt; [2,] "the sheet to"      "sheet"  "to"    </span></span>
+<span><span class="co">#&gt; [3,] "the depth of"      "depth"  "of"    </span></span>
+<span><span class="co">#&gt; [4,] NA                  NA       NA      </span></span>
+<span><span class="co">#&gt; [5,] NA                  NA       NA      </span></span>
+<span><span class="co">#&gt; [6,] NA                  NA       NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Puede convertir a un tibble y nombrar las columnas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentences</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="st">"the (\\w+) (\\w+)"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="st">"match"</span>, <span class="st">"word1"</span>, <span class="st">"word2"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 720 × 3</span></span>
+<span><span class="co">#&gt;   match             word1  word2 </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 the smooth planks smooth planks</span></span>
+<span><span class="co">#&gt; 2 the sheet to      sheet  to    </span></span>
+<span><span class="co">#&gt; 3 the depth of      depth  of    </span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;              &lt;NA&gt;   &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 5 &lt;NA&gt;              &lt;NA&gt;   &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 6 &lt;NA&gt;              &lt;NA&gt;   &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; # ℹ 714 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero luego básicamente ha recreado su propia versión de <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code>. De hecho, detrás de escena, <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code> convierte su vector de patrones en una sola expresión regular que utiliza la agrupación para capturar los componentes nombrados.</p>
+<p>Ocasionalmente, querrá usar paréntesis sin crear grupos coincidentes. Puede crear un grupo que no captura con <code>(?:)</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a gray cat"</span>, <span class="st">"a grey dog"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"gr(e|a)y"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1]   [,2]</span></span>
+<span><span class="co">#&gt; [1,] "gray" "a" </span></span>
+<span><span class="co">#&gt; [2,] "grey" "e"</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"gr(?:e|a)y"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1]  </span></span>
+<span><span class="co">#&gt; [1,] "gray"</span></span>
+<span><span class="co">#&gt; [2,] "grey"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="ejercicios-1" class="level3" data-number="16.4.7"><h3 data-number="16.4.7" class="anchored" data-anchor-id="ejercicios-1">
+<span class="header-section-number">16.4.7</span> Ejercicios</h3>
+<ol type="1">
+<li><p>¿Cómo haría coincidir la cadena literal <code>"'\</code>? ¿Qué tal <code>"$^$"</code>?</p></li>
+<li><p>Explique por qué cada uno de estos patrones no coincide con <code>\</code>: <code>"\"</code>, <code>"\\"</code>, <code>"\\\"</code>.</p></li>
+<li>
+<p>Dado el corpus de palabras comunes en <code><a href="https://stringr.tidyverse.org/reference/stringr-data.html">stringr::words</a></code>, cree expresiones regulares que encuentren todas las palabras que:</p>
+<ol type="a">
+<li>Empiezan con “y”.</li>
+<li>No empiezan con “y”.</li>
+<li>Terminan con “x”.</li>
+<li>Tienen exactamente tres letras de largo. (¡No hagas trampa usando <code><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length()</a></code>!)</li>
+<li>Tener siete letras o más.</li>
+<li>Contienen un par de vocales y consonantes.</li>
+<li>Contener al menos dos pares de vocales y consonantes seguidos.</li>
+<li>Sólo consisten en pares repetidos de vocales y consonantes.</li>
+</ol>
+</li>
+<li><p>Cree 11 expresiones regulares que coincidan con la ortografía británica o estadounidense para cada una de las siguientes palabras: airplane/aeroplane, aluminum/aluminium, analog/analogue, ass/arse, center/centre, defense/defence, donut/doughnut, gray/grey, modeling/modelling, skeptic/sceptic, summarize/summarise. ¡Intenta hacer la expresión regular más corta posible!</p></li>
+<li><p>Cambia la primera y la última letra en <code>palabras</code>. ¿Cuáles de esas cadenas siguen siendo <code>palabras</code>?</p></li>
+<li>
+<p>Describa con palabras con qué coinciden estas expresiones regulares: (lea atentamente para ver si cada entrada es una expresión regular o una cadena que define una expresión regular).</p>
+<ol type="a">
+<li><code>^.*$</code></li>
+<li><code>"\\{.+\\}"</code></li>
+<li><code>\d{4}-\d{2}-\d{2}</code></li>
+<li><code>"\\\\{4}"</code></li>
+<li><code>\..\..\..</code></li>
+<li><code>(.)\1\1</code></li>
+<li><code>"(..)\\1"</code></li>
+</ol>
+</li>
+<li><p>Resuelva los crucigramas de expresiones regulares para principiantes en <a href="https://regexcrossword.com/challenges/beginner" class="uri">https://regexcrossword.com/challenges/beginner</a>.</p></li>
+</ol></section></section><section id="control-de-patrones" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="control-de-patrones">
+<span class="header-section-number">16.5</span> Control de patrones</h2>
+<p>Es posible ejercer un control adicional sobre los detalles de la coincidencia mediante el uso de un objeto de patrón en lugar de solo una cadena. Esto le permite controlar los llamados indicadores de expresiones regulares y hacer coincidir varios tipos de cadenas fijas, como se describe a continuación.</p>
+<section id="sec-flags" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="sec-flags">
+<span class="header-section-number">16.5.1</span> Banderas de expresiones regulares</h3>
+<p>Hay una serie de configuraciones que se pueden usar para controlar los detalles de la expresión regular. Estas configuraciones a menudo se denominan <strong>banderas</strong> en otros lenguajes de programación. En stringr, puede usarlos envolviendo el patrón en una llamada a <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex()</a></code>. La bandera más útil es probablemente <code>ignore_case = TRUE</code> porque permite que los caracteres coincidan con sus formas mayúsculas o minúsculas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bananas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"banana"</span>, <span class="st">"Banana"</span>, <span class="st">"BANANA"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">bananas</span>, <span class="st">"banana"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;banana&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">bananas</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">"banana"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;banana&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;Banana&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;BANANA&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si está trabajando mucho con cadenas multilínea (es decir, cadenas que contienen <code>\n</code>), <code>dotall</code> y <code>multiline</code> también pueden ser útiles:</p>
+<ul>
+<li>
+<p><code>dotall = TRUE</code> permite que <code>.</code> coincida con todo, incluido <code>\n</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Line 1\nLine 2\nLine 3"</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">".Line"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">".Line"</span>, dotall <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ Line 1&lt;</span></span>
+<span><span class="co">#&gt;     │ Line&gt; 2&lt;</span></span>
+<span><span class="co">#&gt;     │ Line&gt; 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p><code>multiline = TRUE</code> hace que <code>^</code> y <code>$</code> coincidan con el inicio y el final de cada línea en lugar del inicio y el final de la cadena completa:</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Line 1\nLine 2\nLine 3"</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"^Line"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;Line&gt; 1</span></span>
+<span><span class="co">#&gt;     │ Line 2</span></span>
+<span><span class="co">#&gt;     │ Line 3</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">"^Line"</span>, multiline <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;Line&gt; 1</span></span>
+<span><span class="co">#&gt;     │ &lt;Line&gt; 2</span></span>
+<span><span class="co">#&gt;     │ &lt;Line&gt; 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ul>
+<p>Finalmente, si está escribiendo una expresión regular complicada y le preocupa no entenderla en el futuro, puede probar <code>comentarios = TRUE</code>. Ajusta el lenguaje de patrones para ignorar los espacios y las líneas nuevas, así como todo lo que se encuentra después de <code>#</code>. Esto le permite usar comentarios y espacios en blanco para hacer que las expresiones regulares complejas sean más comprensibles<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, como en el siguiente ejemplo:</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">phone</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span></span>
+<span>  <span class="st">r"(</span></span>
+<span><span class="st">    \(?     # paréntesis de apertura opcionales</span></span>
+<span><span class="st">    (\d{3}) # área de codigo</span></span>
+<span><span class="st">    [)\-]?  # paréntesis o guión de cierre opcionales</span></span>
+<span><span class="st">    \ ?     # spacio opcional</span></span>
+<span><span class="st">    (\d{3}) # otros tres números</span></span>
+<span><span class="st">    [\ -]?  # espacio o guión opcional</span></span>
+<span><span class="st">    (\d{4}) # cuatro números más</span></span>
+<span><span class="st">  )"</span>, </span>
+<span>  comments <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"514-791-8141"</span>, <span class="st">"(123) 456 7890"</span>, <span class="st">"123456"</span><span class="op">)</span>, <span class="va">phone</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "514-791-8141"   "(123) 456 7890" NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si está utilizando comentarios y desea hacer coincidir un espacio, una nueva línea o <code>#</code>, deberá escapar con <code>\</code>.</p>
+</section><section id="coincidencias-fijas" class="level3" data-number="16.5.2"><h3 data-number="16.5.2" class="anchored" data-anchor-id="coincidencias-fijas">
+<span class="header-section-number">16.5.2</span> Coincidencias fijas</h3>
+<p>Puede optar por no participar en las reglas de expresiones regulares utilizando <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"a"</span>, <span class="st">"."</span><span class="op">)</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [3] │ &lt;.&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed()</a></code> también le da la posibilidad de ignorar mayúsculas y minúsculas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"x X"</span>, <span class="st">"X"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ x &lt;X&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"x X"</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"X"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;x&gt; &lt;X&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si está trabajando con texto que no está en inglés, probablemente querrá <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">coll()</a></code> en lugar de <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed()</a></code>, ya que implementa las reglas completas para el uso de mayúsculas tal como las usa el <code>locale</code> que especifique. Consulte <a href="#sec-other-languages"><span class="quarto-unresolved-ref">sec-other-languages</span></a> para obtener más detalles sobre las configuraciones regionales.</p>
+<div class="cell">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"i İ ı I"</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"İ"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ i &lt;İ&gt; ı I</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="st">"i İ ı I"</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">coll</a></span><span class="op">(</span><span class="st">"İ"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span>, locale <span class="op">=</span> <span class="st">"tr"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;i&gt; &lt;İ&gt; ı I</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="práctica" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="práctica">
+<span class="header-section-number">16.6</span> Práctica</h2>
+<p>Para poner en práctica estas ideas, resolveremos a continuación algunos problemas semiauténticos. Discutiremos tres técnicas generales:</p>
+<ol type="1">
+<li>Comprobar su trabajo mediante la creación de controles positivos y negativos simples</li>
+<li>Combinar expresiones regulares con álgebra booleana</li>
+<li>Crear patrones complejos usando la manipulación de cadenas</li>
+</ol>
+<section id="revisa-tu-trabajo" class="level3" data-number="16.6.1"><h3 data-number="16.6.1" class="anchored" data-anchor-id="revisa-tu-trabajo">
+<span class="header-section-number">16.6.1</span> Revisa tu trabajo</h3>
+<p>Primero, encontremos todas las oraciones que comienzan con <code>The</code>. Usar el ancla <code>^</code> solo no es suficiente:</p>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="st">"^The"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] │ &lt;The&gt; birch canoe slid on the smooth planks.</span></span>
+<span><span class="co">#&gt;  [4] │ &lt;The&gt;se days a chicken leg is a rare dish.</span></span>
+<span><span class="co">#&gt;  [6] │ &lt;The&gt; juice of lemons makes fine punch.</span></span>
+<span><span class="co">#&gt;  [7] │ &lt;The&gt; box was thrown beside the parked truck.</span></span>
+<span><span class="co">#&gt;  [8] │ &lt;The&gt; hogs were fed chopped corn and garbage.</span></span>
+<span><span class="co">#&gt; [11] │ &lt;The&gt; boy was there when the sun rose.</span></span>
+<span><span class="co">#&gt; ... and 271 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Porque ese patrón también coincide con oraciones que comienzan con palabras como <code>They</code> o <code>These</code>. Necesitamos asegurarnos de que la “e” sea la última letra de la palabra, lo que podemos hacer agregando un límite de palabra:</p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="st">"^The\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] │ &lt;The&gt; birch canoe slid on the smooth planks.</span></span>
+<span><span class="co">#&gt;  [6] │ &lt;The&gt; juice of lemons makes fine punch.</span></span>
+<span><span class="co">#&gt;  [7] │ &lt;The&gt; box was thrown beside the parked truck.</span></span>
+<span><span class="co">#&gt;  [8] │ &lt;The&gt; hogs were fed chopped corn and garbage.</span></span>
+<span><span class="co">#&gt; [11] │ &lt;The&gt; boy was there when the sun rose.</span></span>
+<span><span class="co">#&gt; [13] │ &lt;The&gt; source of the huge river is the clear spring.</span></span>
+<span><span class="co">#&gt; ... and 250 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>¿Qué hay de encontrar todas las oraciones que comienzan con un pronombre?</p>
+<div class="cell">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="st">"^She|He|It|They\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [3] │ &lt;It&gt;'s easy to tell the depth of a well.</span></span>
+<span><span class="co">#&gt; [15] │ &lt;He&gt;lp the woman get back to her feet.</span></span>
+<span><span class="co">#&gt; [27] │ &lt;He&gt;r purse was full of useless trash.</span></span>
+<span><span class="co">#&gt; [29] │ &lt;It&gt; snowed, rained, and hailed the same morning.</span></span>
+<span><span class="co">#&gt; [63] │ &lt;He&gt; ran half way to the hardware store.</span></span>
+<span><span class="co">#&gt; [90] │ &lt;He&gt; lay prone and hardly moved a limb.</span></span>
+<span><span class="co">#&gt; ... and 57 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Una inspección rápida de los resultados muestra que estamos obteniendo algunas coincidencias falsas. Eso es porque nos hemos olvidado de usar paréntesis:</p>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="st">"^(She|He|It|They)\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [3] │ &lt;It&gt;'s easy to tell the depth of a well.</span></span>
+<span><span class="co">#&gt;  [29] │ &lt;It&gt; snowed, rained, and hailed the same morning.</span></span>
+<span><span class="co">#&gt;  [63] │ &lt;He&gt; ran half way to the hardware store.</span></span>
+<span><span class="co">#&gt;  [90] │ &lt;He&gt; lay prone and hardly moved a limb.</span></span>
+<span><span class="co">#&gt; [116] │ &lt;He&gt; ordered peach pie with ice cream.</span></span>
+<span><span class="co">#&gt; [127] │ &lt;It&gt; caught its hind paw in a rusty trap.</span></span>
+<span><span class="co">#&gt; ... and 51 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Quizás se pregunte cómo podría detectar tal error si no ocurrió en las primeras coincidencias. Una buena técnica es crear algunas coincidencias positivas y negativas y usarlas para probar que su patrón funciona como se esperaba:</p>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"He is a boy"</span>, <span class="st">"She had a good time"</span><span class="op">)</span></span>
+<span><span class="va">neg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Shells come from the sea"</span>, <span class="st">"Hadley said 'It's a great day'"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="st">"^(She|He|It|They)\\b"</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">pos</span>, <span class="va">pattern</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE TRUE</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">neg</span>, <span class="va">pattern</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Por lo general, es mucho más fácil encontrar buenos ejemplos positivos que ejemplos negativos, porque toma un tiempo antes de que seas lo suficientemente bueno con las expresiones regulares para predecir dónde están tus debilidades. Sin embargo, siguen siendo útiles: a medida que trabaja en el problema, puede acumular lentamente una colección de sus errores, asegurándose de que nunca cometerá el mismo error dos veces.</p>
+</section><section id="sec-boolean-operations" class="level3" data-number="16.6.2"><h3 data-number="16.6.2" class="anchored" data-anchor-id="sec-boolean-operations">
+<span class="header-section-number">16.6.2</span> Operaciones booleanas</h3>
+<p>Imagina que queremos encontrar palabras que solo contengan consonantes. Una técnica es crear una clase de carácter que contenga todas las letras excepto las vocales (<code>[^aeiou]</code>), luego permitir que coincida con cualquier número de letras (<code>[^aeiou]+</code>), luego forzarlo a que coincida con el toda la cadena anclándola al principio y al final (<code>^[^aeiou]+$</code>):</p>
+<div class="cell">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"^[^aeiou]+$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [123] │ &lt;by&gt;</span></span>
+<span><span class="co">#&gt; [249] │ &lt;dry&gt;</span></span>
+<span><span class="co">#&gt; [328] │ &lt;fly&gt;</span></span>
+<span><span class="co">#&gt; [538] │ &lt;mrs&gt;</span></span>
+<span><span class="co">#&gt; [895] │ &lt;try&gt;</span></span>
+<span><span class="co">#&gt; [952] │ &lt;why&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero puedes hacer que este problema sea un poco más fácil dándole la vuelta al problema. En lugar de buscar palabras que contengan solo consonantes, podríamos buscar palabras que no contengan vocales:</p>
+<div class="cell">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"[aeiou]"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ by</span></span>
+<span><span class="co">#&gt; [2] │ dry</span></span>
+<span><span class="co">#&gt; [3] │ fly</span></span>
+<span><span class="co">#&gt; [4] │ mrs</span></span>
+<span><span class="co">#&gt; [5] │ try</span></span>
+<span><span class="co">#&gt; [6] │ why</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esta es una técnica útil siempre que se trate de combinaciones lógicas, particularmente aquellas que involucran “y” o “no”. Por ejemplo, imagina si quieres encontrar todas las palabras que contienen “a” y “b”. No hay un operador “y” integrado en las expresiones regulares, por lo que debemos abordarlo buscando todas las palabras que contengan una “a” seguida de una “b” o una “b” seguida de una “a”:</p>
+<div class="cell">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"a.*b|b.*a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [2] │ &lt;ab&gt;le</span></span>
+<span><span class="co">#&gt;  [3] │ &lt;ab&gt;out</span></span>
+<span><span class="co">#&gt;  [4] │ &lt;ab&gt;solute</span></span>
+<span><span class="co">#&gt; [62] │ &lt;availab&gt;le</span></span>
+<span><span class="co">#&gt; [66] │ &lt;ba&gt;by</span></span>
+<span><span class="co">#&gt; [67] │ &lt;ba&gt;ck</span></span>
+<span><span class="co">#&gt; ... and 24 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Es más sencillo combinar los resultados de dos llamadas para <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"a"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] "able"      "about"     "absolute"  "available" "baby"      "back"     </span></span>
+<span><span class="co">#&gt;  [7] "bad"       "bag"       "balance"   "ball"      "bank"      "bar"      </span></span>
+<span><span class="co">#&gt; [13] "base"      "basis"     "bear"      "beat"      "beauty"    "because"  </span></span>
+<span><span class="co">#&gt; [19] "black"     "board"     "boat"      "break"     "brilliant" "britain"  </span></span>
+<span><span class="co">#&gt; [25] "debate"    "husband"   "labour"    "maybe"     "probable"  "table"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>¿Qué pasaría si quisiéramos ver si hay una palabra que contiene todas las vocales? ¡Si lo hiciéramos con patrones, necesitaríamos generar 5! (120) patrones diferentes:</p>
+<div class="cell">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"a.*e.*i.*o.*u"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co"># ...</span></span>
+<span><span class="va">words</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"u.*o.*i.*e.*a"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Es mucho más sencillo combinar cinco llamadas para <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words</span><span class="op">[</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"a"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"e"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"i"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"o"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">words</span>, <span class="st">"u"</span><span class="op">)</span></span>
+<span><span class="op">]</span></span>
+<span><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En general, si te quedas atascado tratando de crear una única expresión regular que resuelva tu problema, da un paso atrás y piensa si podrías dividir el problema en partes más pequeñas, resolviendo cada desafío antes de pasar al siguiente.</p>
+</section><section id="crear-un-patrón-con-código" class="level3" data-number="16.6.3"><h3 data-number="16.6.3" class="anchored" data-anchor-id="crear-un-patrón-con-código">
+<span class="header-section-number">16.6.3</span> Crear un patrón con código</h3>
+<p>¿Qué pasaría si quisiéramos encontrar todas las ‘oraciones’ que mencionan un color? La idea básica es simple: simplemente combinamos alternancia con límites de palabras.</p>
+<div class="cell">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="st">"\\b(red|green|blue)\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [2] │ Glue the sheet to the dark &lt;blue&gt; background.</span></span>
+<span><span class="co">#&gt;  [26] │ Two &lt;blue&gt; fish swam in the tank.</span></span>
+<span><span class="co">#&gt;  [92] │ A wisp of cloud hung in the &lt;blue&gt; air.</span></span>
+<span><span class="co">#&gt; [148] │ The spot on the blotter was made by &lt;green&gt; ink.</span></span>
+<span><span class="co">#&gt; [160] │ The sofa cushion is &lt;red&gt; and of light weight.</span></span>
+<span><span class="co">#&gt; [174] │ The sky that morning was clear and bright &lt;blue&gt;.</span></span>
+<span><span class="co">#&gt; ... and 20 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero a medida que aumenta la cantidad de colores, rápidamente se vuelve tedioso construir este patrón a mano. ¿No sería bueno si pudiéramos almacenar los colores en un vector?</p>
+<div class="cell">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rgb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bueno, ¡podemos! Solo necesitamos crear el patrón a partir del vector usando <code><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c()</a></code> y <code><a href="https://stringr.tidyverse.org/reference/str_flatten.html">str_flatten()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"\\b("</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_flatten.html">str_flatten</a></span><span class="op">(</span><span class="va">rgb</span>, <span class="st">"|"</span><span class="op">)</span>, <span class="st">")\\b"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "\\b(red|green|blue)\\b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podríamos hacer este patrón más completo si tuviéramos una buena lista de colores. Un lugar desde el que podríamos comenzar es la lista de colores incorporados que R puede usar para los gráficos:</p>
+<div class="cell">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colors.html">colors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ white</span></span>
+<span><span class="co">#&gt; [2] │ aliceblue</span></span>
+<span><span class="co">#&gt; [3] │ antiquewhite</span></span>
+<span><span class="co">#&gt; [4] │ antiquewhite1</span></span>
+<span><span class="co">#&gt; [5] │ antiquewhite2</span></span>
+<span><span class="co">#&gt; [6] │ antiquewhite3</span></span>
+<span><span class="co">#&gt; ... and 651 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pero primero eliminemos las variantes numeradas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colors.html">colors</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="va">cols</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">cols</span>, <span class="st">"\\d"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ white</span></span>
+<span><span class="co">#&gt; [2] │ aliceblue</span></span>
+<span><span class="co">#&gt; [3] │ antiquewhite</span></span>
+<span><span class="co">#&gt; [4] │ aquamarine</span></span>
+<span><span class="co">#&gt; [5] │ azure</span></span>
+<span><span class="co">#&gt; [6] │ beige</span></span>
+<span><span class="co">#&gt; ... and 137 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Entonces podemos convertir esto en un patrón gigante. No mostraremos el patrón aquí porque es enorme, pero puedes verlo funcionar:</p>
+<div class="cell">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"\\b("</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_flatten.html">str_flatten</a></span><span class="op">(</span><span class="va">cols</span>, <span class="st">"|"</span><span class="op">)</span>, <span class="st">")\\b"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="va">pattern</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [2] │ Glue the sheet to the dark &lt;blue&gt; background.</span></span>
+<span><span class="co">#&gt;  [12] │ A rod is used to catch &lt;pink&gt; &lt;salmon&gt;.</span></span>
+<span><span class="co">#&gt;  [26] │ Two &lt;blue&gt; fish swam in the tank.</span></span>
+<span><span class="co">#&gt;  [66] │ Cars and busses stalled in &lt;snow&gt; drifts.</span></span>
+<span><span class="co">#&gt;  [92] │ A wisp of cloud hung in the &lt;blue&gt; air.</span></span>
+<span><span class="co">#&gt; [112] │ Leaves turn &lt;brown&gt; and &lt;yellow&gt; in the fall.</span></span>
+<span><span class="co">#&gt; ... and 57 more</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En este ejemplo, <code>cols</code> solo contiene números y letras, por lo que no debe preocuparse por los metacaracteres. Pero, en general, siempre que cree patrones a partir de cadenas existentes, es aconsejable ejecutarlos a través de <code><a href="https://stringr.tidyverse.org/reference/str_escape.html">str_escape()</a></code> para asegurarse de que coincidan literalmente.</p>
+</section><section id="ejercicios-2" class="level3" data-number="16.6.4"><h3 data-number="16.6.4" class="anchored" data-anchor-id="ejercicios-2">
+<span class="header-section-number">16.6.4</span> Ejercicios</h3>
+<ol type="1">
+<li>
+<p>Para cada uno de los siguientes desafíos, intente resolverlos usando una sola expresión regular y una combinación de múltiples llamadas <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect()</a></code>.</p>
+<ol type="a">
+<li>Encuentra todas las <code>palabras</code> que comienzan o terminan con <code>x</code>.</li>
+<li>Encuentra todas las <code>palabras</code> que comienzan con una vocal y terminan con una consonante.</li>
+<li>¿Hay alguna <code>palabra</code> que contenga al menos una de cada vocal diferente?</li>
+</ol>
+</li>
+<li><p>¿Construye patrones para encontrar evidencia a favor y en contra de la regla “i antes de e excepto después de c”?</p></li>
+<li><p><code><a href="https://rdrr.io/r/grDevices/colors.html">colors()</a></code> contiene una serie de modificadores como “lightgray” y “darkblue”. ¿Cómo podría identificar automáticamente estos modificadores? (Piense en cómo podría detectar y luego eliminar los colores que se modifican).</p></li>
+<li><p>Cree una expresión regular que encuentre cualquier conjunto de datos base de R. Puede obtener una lista de estos conjuntos de datos mediante un uso especial de la función <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code>: <code>data(package = "datasets")$results[, "Item"]</code>. Tenga en cuenta que varios conjuntos de datos antiguos son vectores individuales; estos contienen el nombre del “data frame” de agrupación entre paréntesis, por lo que deberá eliminarlos.</p></li>
+</ol></section></section><section id="expresiones-regulares-en-otros-lugares" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="expresiones-regulares-en-otros-lugares">
+<span class="header-section-number">16.7</span> Expresiones regulares en otros lugares</h2>
+<p>Al igual que en las funciones stringr y tidyr, hay muchos otros lugares en R donde puede usar expresiones regulares. Las siguientes secciones describen algunas otras funciones útiles en el tidyverse más amplio y la base R.</p>
+<section id="tidyverse" class="level3" data-number="16.7.1"><h3 data-number="16.7.1" class="anchored" data-anchor-id="tidyverse">
+<span class="header-section-number">16.7.1</span> tidyverse</h3>
+<p>Hay otros tres lugares particularmente útiles en los que es posible que desee utilizar expresiones regulares</p>
+<ul>
+<li><p><code>matches(pattern)</code> seleccionará todas las variables cuyo nombre coincida con el patrón proporcionado. Es una función “tidyselect” que puede usar en cualquier lugar en cualquier función tidyverse que seleccione variables (p.ej., <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>).</p></li>
+<li><p><code>pivot_longer()'s</code> <code>names_pattern</code> aargumento toma un vector de expresiones regulares, al igual que <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_regex()</a></code>. Es útil cuando se extraen datos de nombres de variables con una estructura compleja.</p></li>
+<li><p>El argumento <code>delim</code> en <code><a href="https://tidyr.tidyverse.org/reference/separate_longer_delim.html">separate_longer_delim()</a></code> y <code><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim()</a></code> generalmente coincide con una cadena fija, pero puede usar <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex()</a></code> para que coincida con un patrón. Esto es útil, por ejemplo, si desea hacer coincidir una coma seguida opcionalmente por un espacio, es decir, <code>regex(", ?")</code>.</p></li>
+</ul></section><section id="r-base" class="level3" data-number="16.7.2"><h3 data-number="16.7.2" class="anchored" data-anchor-id="r-base">
+<span class="header-section-number">16.7.2</span> R base</h3>
+<p><code>apropos(pattern)</code> busca todos los objetos disponibles del entorno global que coincidan con el patrón dado. Esto es útil si no puede recordar el nombre de una función:</p>
+<div class="cell">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/apropos.html">apropos</a></span><span class="op">(</span><span class="st">"replace"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "%+replace%"       "replace"          "replace_na"      </span></span>
+<span><span class="co">#&gt; [4] "setReplaceMethod" "str_replace"      "str_replace_all" </span></span>
+<span><span class="co">#&gt; [7] "str_replace_na"   "theme_replace"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>list.files(path, pattern)</code> enumera todos los archivos en <code>path</code> que coinciden con una expresión regular <code>pattern</code>. Por ejemplo, puede encontrar todos los archivos R Markdown en el directorio actual con:</p>
+<div class="cell">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\.Rmd$"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vale la pena señalar que el lenguaje de patrones usado por base R es ligeramente diferente al usado por stringr. Esto se debe a que stringr está construido sobre el <a href="https://stringi.gagolewski.com">paquete stringi</a>, que a su vez está construido sobre el <a href="https://unicode-org.github.io%20/icu/userguide/strings/regexp.html">motor ICU</a>, mientras que las funciones básicas de R usan el <a href="https://github.com/laurikari/tre">motor TRE</a> o el <a href="https://www.pcre%20.org">motor PCRE</a>, dependiendo de si ha establecido o no <code>perl = TRUE</code>. Afortunadamente, los conceptos básicos de las expresiones regulares están tan bien establecidos que encontrará pocas variaciones cuando trabaje con los patrones que aprenderá en este libro. Solo debe ser consciente de la diferencia cuando comience a confiar en funciones avanzadas como rangos de caracteres Unicode complejos o funciones especiales que usan la sintaxis <code>(?…)</code>.</p>
+</section></section><section id="resumen" class="level2" data-number="16.8"><h2 data-number="16.8" class="anchored" data-anchor-id="resumen">
+<span class="header-section-number">16.8</span> Resumen</h2>
+<p>Con cada carácter de puntuación potencialmente sobrecargado de significado, las expresiones regulares son uno de los lenguajes más compactos que existen. Definitivamente son confusos al principio, pero a medida que entrenas tus ojos para leerlos y tu cerebro para entenderlos, desbloqueas una habilidad poderosa que puedes usar en R y en muchos otros lugares.</p>
+<p>En este capítulo, ha comenzado su viaje para convertirse en un maestro de las expresiones regulares aprendiendo las funciones más útiles de stringr y los componentes más importantes del lenguaje de expresiones regulares. Y hay muchos recursos para aprender más.</p>
+<p>Un buen lugar para comenzar es <code><a href="https://stringr.tidyverse.org/articles/regular-expressions.html">vignette("regular-expressions", package = "stringr")</a></code>: documenta el conjunto completo de sintaxis compatible con stringr. Otra referencia útil es <a href="https://www.regular-expressions.info/tutorial.html">https://www.regular-expressions.info/</a>. No es específico de R, pero puede usarlo para conocer las características más avanzadas de las expresiones regulares y cómo funcionan bajo el capó.</p>
+<p>También es bueno saber que stringr está implementado sobre el paquete stringi por Marek Gagolewski. Si tiene dificultades para encontrar una función que haga lo que necesita en stringr, no tenga miedo de buscar en stringi. Encontrará que stringi es muy fácil de aprender porque sigue muchas de las mismas convenciones que stringr.</p>
+<p>En el próximo capítulo, hablaremos sobre una estructura de datos estrechamente relacionada con las cadenas: los factores. Los factores se utilizan para representar datos categóricos en R, es decir, datos con un conjunto fijo y conocido de valores posibles identificados por un vector de cadenas.</p>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Puede pronunciarlo con una g dura (reg-x) o una g suave (rej-x).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Aprenderá cómo escapar de estos significados especiales en <a href="#sec-regexp-escaping"><span class="quarto-unresolved-ref">sec-regexp-escaping</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Bueno, cualquier carácter aparte de <code>\n</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Esto nos da la proporción de <strong>nombres</strong> que contienen una “x”; si quisiera la proporción de bebés con un nombre que contiene una x, necesitaría realizar una media ponderada.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Desearíamos poder asegurarle que nunca verá algo tan extraño en la vida real, pero desafortunadamente en el transcurso de su carrera es probable que vea cosas mucho más extrañas.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>El conjunto completo de metacaracteres es <code>.^$\|*+?{}[]()</code><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Recuerde, para crear una expresión regular que contenga <code>\d</code> o <code>\s</code>, deberá escapar del <code>\</code> para la cadena, por lo que escribirá <code>"\\d"</code> o <code>"\\s "</code>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><code>comments = TRUE</code> es particularmente efectivo en combinación con una cadena sin procesar, como la que usamos aquí.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><code>comments = TRUE</code> es particularmente efectivo en combinación con una cadena sin procesar, como la que usamos aquí.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script>
+
+  // Chapter name
+  const currentChapterFile = window.location.pathname.split('/').pop().replace('.html', '');
+
+  //Deffining urls
+  const originalURL = "https://github.com/hadley/r4ds";
+  const translationURL = "https://github.com/davidrsch/r4dses";
+
+  //Deffining texts
+  const edit_text = "Editar esta página";
+  const issue_text = "Informar de un problema"
+
+  //Deffining git_i
+  const git_i = '<div><i class="bi bi-github"></i></div>';
+
+  // Adding TOC if not exist
+  const sidebarmargin = document.getElementById('quarto-margin-sidebar');
+  const buscar_TOC = document.getElementById('TOC');
+
+  if (!buscar_TOC) {
+    const crear_TOC = document.createElement('nav');
+    crear_TOC.id = 'TOC';
+    crear_TOC.role = "doc-toc";
+    crear_TOC.class = "toc-active";
+    sidebarmargin.appendChild(crear_TOC);
+  }
+
+
+  // Adding original github actions
+  const TOC = document.getElementById('TOC');
+  const originalga = document.createElement('h2');
+  originalga.textContent = "Original";
+  const toc_act_O = document.createElement('div');
+  toc_act_O.className = 'toc-actions';
+  toc_act_O.id = 'toc-act-O';
+  const act_link_O = document.createElement('div');
+  act_link_O.className='action-links';
+  act_link_O.id='act-link-O';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(originalga);
+  TOC.appendChild(toc_act_O);
+  toc_act_O.innerHTML += git_i;
+  toc_act_O.appendChild(act_link_O);
+  act_link_O.innerHTML += edit_issue_O;
+
+  // Adding translation github actions
+  const translationga = document.createElement('h2');
+  translationga.textContent = "Traducción";
+  const toc_act_T = document.createElement('div');
+  toc_act_T.className = 'toc-actions';
+  toc_act_T.id = 'toc-act-T';
+  const act_link_T = document.createElement('div');
+  act_link_T.className='action-links';
+  act_link_T.id='act-link-T';
+  const edit_issue_T ='<p><a href="'+translationURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+translationURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(translationga);
+  TOC.appendChild(toc_act_T);
+  toc_act_T.innerHTML += git_i;
+  toc_act_T.appendChild(act_link_T);
+  act_link_T.innerHTML += edit_issue_T;
+
+
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./strings.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Caracteres</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./factors.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>
