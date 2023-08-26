@@ -14,10 +14,22 @@ book:
       Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.
   cover-image: cover.jpg
   favicon: cover.jpg
-  site-url: https://r4ds.hadley.nz/
-  repo-url: https://github.com/hadley/r4ds/
-  repo-branch: main
-  repo-actions: [edit, issue]
+
+  author:
+    - name: Hadley Wickham
+    - name: Mine Çetinkaya-Rundel
+    - name: Garrett Grolemund
+  search: true
+  sidebar:
+    pinned: true
+    tools:
+      - icon: github
+        menu:
+          - text: Original
+            url: https://github.com/hadley/r4ds
+          - text: Traducción
+            url: https://github.com/davidrsch/r4dses
+  page-navigation: true
   chapters:
     - index.qmd
 
@@ -81,6 +93,7 @@ format:
     author-meta: "Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund"
     include-in-header: "plausible.html"
     callout-appearance: simple
+    include-after-body: [ddrsch_script.html]
 
 editor: visual
 
