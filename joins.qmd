@@ -42,7 +42,7 @@ También aprenderá cómo verificar que sus llaves sean válidas y qué hacer si
 
 Cada unión implica un par de llaves: una llave principal y una llave externa.
 Una **Llave principal** es una variable o un conjunto de variables que identifica de forma única cada observación.
-Cuando se necesita más de una variable, la llave se denomina **Llave compuesta.** Por ejemplo, en nycfights13:
+Cuando se necesita más de una variable, la llave se denomina **Llave compuesta.** Por ejemplo, en nycflights13:
 
 -   `airlines` registra dos datos sobre cada aerolínea: su código de aerolínea y su nombre completo.
     Puede identificar una línea aérea con su código de dos letras, haciendo que `carrier` sea la llave principal.
