@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
@@ -8,7 +8,7 @@
 
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 
-<title>R para la Ciencia de Datos (2e)</title>
+<title>R para la Ciencia de Datos (2e) - Prefacio a la segunda edición</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./preface-2e.html" rel="next">
+<link href="./intro.html" rel="next">
+<link href="./index.html" rel="prev">
 <link href="./cover.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -49,16 +50,16 @@ ul.task-list li input[type="checkbox"] {
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 <script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
@@ -72,11 +73,11 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Bienvenida</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preface-2e.html">Prefacio a la segunda edición</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -107,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
           </li>
       </ul>
     </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -117,20 +118,20 @@ ul.task-list li input[type="checkbox"] {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bienvenida</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Prefacio a la segunda edición</span></a>
   </div>
 </li>
@@ -144,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -203,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -232,7 +233,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -291,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -332,7 +333,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -361,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -386,38 +387,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#bienvenida" id="toc-bienvenida" class="nav-link active" data-scroll-target="#bienvenida">Bienvenida</a>
-  <ul class="collapse">
-  <li><a href="#agradecimientos" id="toc-agradecimientos" class="nav-link" data-scroll-target="#agradecimientos">Agradecimientos</a></li>
-  <li><a href="#sobre-la-traducción" id="toc-sobre-la-traducción" class="nav-link" data-scroll-target="#sobre-la-traducción">Sobre la traducción</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R para la Ciencia de Datos (2e)</h1>
+<h1 class="title">Prefacio a la segunda edición</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Hadley Wickham </p>
-             <p>Mine Çetinkaya-Rundel </p>
-             <p>Garrett Grolemund </p>
-          </div>
-  </div>
     
   
     
@@ -426,32 +409,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-
-<section id="bienvenida" class="level1 unnumbered">
-<h1 class="unnumbered">Bienvenida</h1><p><img src="cover.jpg" title="R para la Ciencia de Datos (2e)" class="quarto-cover-image img-fluid"></p>
-<p>Este es el sitio web de la segunda edición de <strong>“R para la Ciencia de Datos”</strong>. Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.</p>
-<p>En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos. Así como un químico aprende a limpiar tubos de ensayo y a abastecer un laboratorio, usted aprenderá a limpiar datos, dibujar diagramas y mucho más. Estas son las habilidades que hacen que exista la ciencia de datos y aquí encontrará las mejores prácticas para realizar estas tareas con R. Aprenderá a usar la gramática de los gráficos, la programación literaria y la investigación reproducible para ahorrar tiempo. También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.</p>
-<p>Este sitio web es y será siempre gratuito, bajo la licencia de <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/us/">CC BY-NC-ND 3.0</a> License. Si desea una copia física del libro, puede pedir una en <a href="https://www.amazon.com/dp/1492097403?&amp;tag=hadlwick-20">Amazon</a>. Si aprecia leer el libro gratis y desea retribuir, haga una donación a <a href="https://www.doc.govt.nz/kakapo-donate">Kākāpō Recovery</a>: el <a href="https://www.youtube.com/watch?v=9T1vfsHYiKY">kākāpō</a> (que aparece en la portada de R4DS) es un loro nativo de Nueva Zelanda en peligro de extinsión; solo quedan 248.</p>
-<p>Si habla otro idioma es posible que le interesen las traducciones disponibles gratuitamente de la primera edición:</p>
+<p>¡Bienvenidos a la segunda edición de “R para la Ciencia de Datos”! Esta es una reelaboración importante de la primera edición, eliminando material que ya no creemos que sea útil, agregando material que desearíamos haber incluido en la primera edición y, en general, actualizando el texto y el código para reflejar los cambios en las mejores prácticas. También estamos muy emocionados de dar la bienvenida a un nuevo coautor: Mine Çetinkaya-Rundel, una destacada educadora en ciencia de datos y una de nuestras colegas en Posit (la compañía anteriormente conocida como RStudio).</p>
+<p>A continuación se incluye un breve resumen de los cambios más importantes:</p>
 <ul>
-<li><a href="http://es.r4ds.hadley.nz">Español</a></li>
-<li><a href="https://it.r4ds.hadley.nz">Italiano</a></li>
-<li><a href="https://tr.r4ds.hadley.nz">Turco</a></li>
+<li><p>La primera parte del libro ha sido renombrada como “El juego completo”. El objetivo de esta sección es brindarle los detalles aproximados del “juego completo” de la ciencia de datos antes de sumergirnos en los detalles.</p></li>
+<li><p>La segunda parte del libro es “Visualizar”. Esta parte brinda a las herramientas de visualización de datos y a las mejores prácticas una cobertura más completa en comparación con la primera edición.</p></li>
+<li><p>La tercera parte del libro ahora se llama “Transformar” y gana nuevos capítulos sobre números, vectores lógicos y valores faltantes. Anteriormente, estas eran partes del capítulo de transformación de datos, pero necesitaban mucho más espacio.</p></li>
+<li><p>La cuarta parte del libro se llama “Importar”. Es un nuevo conjunto de capítulos que va más allá de la lectura de archivos de texto sin formato para abarcar ahora el trabajo con hojas de cálculo, la extracción de datos de bases de datos, el trabajo con macrodatos, el rectángulo de datos jerárquicos y la extracción de datos de sitios web.</p></li>
+<li><p>La parte “Programar” continúa, pero se ha reescrito de arriba a abajo para centrarse en las partes más importantes de la escritura e iteración de funciones. La escritura de funciones ahora incluye secciones sobre cómo envolver funciones tidyverse (que se ocupan de los desafíos de la evaluación ordenada), ya que esto se ha vuelto mucho más fácil en los últimos años. Hemos agregado un nuevo capítulo sobre funciones importantes de R Base que es probable que vea al leer el código R que se encuentra en la naturaleza.</p></li>
+<li><p>La parte de modelado ha sido eliminada. Nunca tuvimos suficiente espacio para hacer justicia a las distintas técnicas de modelación por completo, y ahora hay muchos y mejores recursos disponibles. Por lo general, recomendamos utilizar el paquete <a href="https://www.tidymodels.org/">tidymodels</a> y leer <a href="https://www.tmwr.org/">Tidy Modeling with R</a> de Max Kuhn y Julia Silge.</p></li>
+<li><p>La parte de “Comunicación” también continúa, pero presenta <a href="https://quarto.org/">Quarto</a> en lugar de R Markdown. Esta edición del libro ha sido escrita en Quarto y es claramente la herramienta del futuro.</p></li>
 </ul>
-<p>Tenga en cuenta que R4DS utiliza un <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Código de conducta del colaborador</a>. Al contribuir a este libro, usted acepta cumplir con sus términos.</p>
-<section id="agradecimientos" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="agradecimientos">Agradecimientos</h2>
-<p>R4DS está alojado por <a href="https://www.netlify.com" class="uri">https://www.netlify.com</a> como parte de su apoyo a las comunidades y el software de código abierto.</p>
-</section>
-<section id="sobre-la-traducción" class="level2">
-<h2 class="anchored" data-anchor-id="sobre-la-traducción">Sobre la traducción</h2>
-<p><a href="https://amzn.to/2aHLAQ1"><img src="logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"></a> Esta traducción de “R para la Ciencia de Datos” es un proyecto personal de <a href="https://github.com/davidrsch">David Díaz Rodríguez</a> con el objetivo de facilitar el estudio de la Ciencia de Datos con R, tanto al propio traductor como a todas aquellas personas de habla hispana que deseen aprender a realizar Ciencia de Datos con R.</p>
-<p>Señalar que esta es una traducción textual del libro por lo que cuando los autores se refieren así mismo en primera persona, será Hadley Wickham, Mine Çetinkaya-Rundel &amp; Garrett Grolemund y no el traductor.</p>
-<p>La traducción fue realizada usando Google Translate y fueron corregidos algunos errores gramaticales y de coherencia. Si detecta algún error relacionado con contenido de la traducción, siéntase libre de abrir un issue o un pull request en este <a href="https://github.com/davidrsch/r4dses">repositorio</a>.</p>
+<p>Otros cambios incluyen cambiar de la canalización o pipe de Magrittr (<code>%&gt;%</code>) a la canalización base (<code>|&gt;</code>) y cambiar el código fuente del libro de RMarkdown a Quarto.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 
@@ -578,12 +549,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -759,10 +730,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bienvenida</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./preface-2e.html" class="pagination-link">
-        <span class="nav-page-text">Prefacio a la segunda edición</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./intro.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

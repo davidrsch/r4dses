@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: _book
+  output-dir: docs
 
 book:
   title: "R para la Ciencia de Datos (2e)"
@@ -82,6 +82,8 @@ book:
       chapters:
         - quarto.qmd
         - quarto-formats.qmd
+lang: es
+
 
 format:
   html:
