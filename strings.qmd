@@ -118,7 +118,7 @@ str_view(tricky)
 ```
 
 Una cadena sin procesar generalmente comienza con `r"(` y termina con `)"`.
-Pero si su cadena contiene `)"`, puede usar `r"[]"` o `r"{}"`, y si eso aún no es suficiente, puede insertar cualquier número de guiones para hacer los pares de apertura y cierre único, por ejemplo, `` `r"--()--" ``, `` `r"---()---" ``, etc. Las cadenas sin procesar son lo suficientemente flexibles para manejar cualquier texto.
+Pero si su cadena contiene `)"`, puede usar `r"[]"` o `r"{}"`, y si eso aún no es suficiente, puede insertar cualquier número de guiones para hacer los pares de apertura y cierre único, por ejemplo, `r"--()--"`, `r"---()---"`, etc. Las cadenas sin procesar son lo suficientemente flexibles para manejar cualquier texto.
 
 ### Otros caracteres especiales
 

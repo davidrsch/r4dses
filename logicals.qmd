@@ -575,7 +575,7 @@ No esperamos que memorices estas reglas, pero deberían convertirse en una segun
 
 La definición de un vector lógico es simple porque cada valor debe ser `TRUE`, `FALSE` o `NA`.
 Pero los vectores lógicos proporcionan una gran cantidad de posibilidades.
-En este capítulo, aprendió a crear vectores lógicos con `>`, `<`, `<=`, `=>`, `==`, `!=` y `is.na()`, cómo combinarlos con `!`, `&` y `|`, y cómo resumirlos con `any()`, `all()`, `sum()` y `mean()`.
+En este capítulo, aprendió a crear vectores lógicos con `>`, `<`, `<=`, `>=`, `==`, `!=` y `is.na()`, cómo combinarlos con `!`, `&` y `|`, y cómo resumirlos con `any()`, `all()`, `sum()` y `mean()`.
 También aprendiste las poderosas funciones `if_else()` y `case_when()` que te permiten devolver valores dependiendo del valor de un vector lógico.
 
 Veremos vectores lógicos una y otra vez en los siguientes capítulos.

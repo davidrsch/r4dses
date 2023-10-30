@@ -39,7 +39,7 @@ Sin embargo, conocer el paquete puede ayudarlo a encontrar ayuda y funciones rel
 
 Para explorar los verbos básicos de dplyr, usaremos `nycflights13::flights`.
 Este conjunto de datos contiene todos los `r format(nrow(nycflights13::flights), big.mark = ",")` vuelos que partieron de la ciudad de Nueva York en 2013.
-Los datos provienen de la [Oficina de Estadísticas de Transporte](http://www.trastats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0) de EE.
+Los datos provienen de la [Oficina de Estadísticas de Transporte](https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr) de EE.
 UU.
 y están documentados en `?flights`.
 

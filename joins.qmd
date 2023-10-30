@@ -222,7 +222,7 @@ flights2
 ```
 
 Hay cuatro tipos de unión mutante, pero hay una que usará casi todo el tiempo: `left_join()`.
-Es especial porque la salida siempre tendrá las mismas filas que `x`[^joins-2].
+Es especial porque la salida siempre tendrá las mismas filas que `x`, el dataframe al que estas uniendo[^joins-2].
 El uso principal de `left_join()` es agregar metadatos adicionales.
 Por ejemplo, podemos usar `left_join()` para agregar el nombre completo de la aerolínea a los datos de `flights2`:
 
