@@ -109,8 +109,8 @@ La tabla @tbl-date-formats enumera todas las opciones.
 | Mes   | `%m`  | Número                                | 2               |
 |       | `%b`  | Nombre abreviado                      | Feb             |
 |       | `%B`  | Nombre completo                       | February        |
-| Día   | `%d`  | Dos digitos                           | 02              |
-|       | `%e`  | Uno o dos digitos                     | 2               |
+| Día   | `%d`  | Uno o dos digitos                     | 2               |
+|       | `%e`  | Dos digitos                           | 02              |
 | Hora  | `%H`  | Horas en 24-horas                     | 13              |
 |       | `%I`  | Horas en 12-horas                     | 1               |
 |       | `%p`  | AM/PM                                 | pm              |

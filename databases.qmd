@@ -135,7 +135,7 @@ También mostraremos una técnica útil para cargar varios archivos en una base 
 
 ### DBI básico
 
-Puede comprobar que los datos se cargan correctamente utilizando un par de otras funciones de DBI: `dbListTable()` enumera todas las tablas de la base de datos[^databases-3] y `dbReadTable()` recupera el contenido de una tabla.
+Puede comprobar que los datos se cargan correctamente utilizando un par de otras funciones de DBI: `dbListTables()` enumera todas las tablas de la base de datos[^databases-3] y `dbReadTable()` recupera el contenido de una tabla.
 
 [^databases-3]: Al menos, todas las tablas que tiene permiso para ver.
 
@@ -547,7 +547,7 @@ La forma más fácil de ver el conjunto completo de lo que está disponible actu
     FROM flights
     WHERE dep_delay < arr_delay
 
-    SELECT *, distance / (airtime / 60) AS speed
+    SELECT *, distance / (air_time / 60) AS speed
     FROM flights
     ```
 

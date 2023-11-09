@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 20&nbsp; Uniones</title>
@@ -79,15 +79,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -95,13 +96,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./joins.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Uniones</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -126,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -136,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -163,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -310,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -380,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -404,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
 <li>
@@ -479,14 +480,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En este capítulo, exploraremos los cinco conjuntos de datos relacionados de nycflights13 utilizando las funciones de combinación de dplyr.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="llaves" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="llaves">
 <span class="header-section-number">20.2</span> Llaves</h2>
 <p>Para comprender las uniones, primero debe comprender cómo se pueden conectar dos tablas a través de un par de llaves, dentro de cada tabla. En esta sección, aprenderá sobre los dos tipos de llave y verá ejemplos de ambos en los conjuntos de datos del paquete nycflights13. También aprenderá cómo verificar que sus llaves sean válidas y qué hacer si su tabla no tiene una llave.</p>
 <section id="llaves-primarias-y-foráneas" class="level3" data-number="20.2.1"><h3 data-number="20.2.1" class="anchored" data-anchor-id="llaves-primarias-y-foráneas">
 <span class="header-section-number">20.2.1</span> Llaves primarias y foráneas</h3>
-<p>Cada unión implica un par de llaves: una llave principal y una llave externa. Una <strong>Llave principal</strong> es una variable o un conjunto de variables que identifica de forma única cada observación. Cuando se necesita más de una variable, la llave se denomina <strong>Llave compuesta.</strong> Por ejemplo, en nycfights13:</p>
+<p>Cada unión implica un par de llaves: una llave principal y una llave externa. Una <strong>Llave principal</strong> es una variable o un conjunto de variables que identifica de forma única cada observación. Cuando se necesita más de una variable, la llave se denomina <strong>Llave compuesta.</strong> Por ejemplo, en nycflights13:</p>
 <ul>
 <li>
 <p><code>airlines</code> registra dos datos sobre cada aerolínea: su código de aerolínea y su nombre completo. Puede identificar una línea aérea con su código de dos letras, haciendo que <code>carrier</code> sea la llave principal.</p>
@@ -501,7 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 B6      JetBlue Airways         </span></span>
 <span><span class="co">#&gt; 5 DL      Delta Air Lines Inc.    </span></span>
 <span><span class="co">#&gt; 6 EV      ExpressJet Airlines Inc.</span></span>
-<span><span class="co">#&gt; # ℹ 10 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 10 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -518,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 09J   Jekyll Island Airport          31.1 -81.4    11    -5 A    </span></span>
 <span><span class="co">#&gt; 6 0A9   Elizabethton Municipal Airpo…  36.4 -82.2  1593    -5 A    </span></span>
 <span><span class="co">#&gt; # ℹ 1,452 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: tzone &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 1 more variable: tzone &lt;chr&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -535,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 N10575   2002 Fixed wing multi… EMBRAER         EMB-145LR       2</span></span>
 <span><span class="co">#&gt; 6 N105UW   1999 Fixed wing multi… AIRBUS INDUSTR… A320-214        2</span></span>
 <span><span class="co">#&gt; # ℹ 3,316 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 3 more variables: seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -552,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 EWR     2013     1     1     5  39.0  28.0  64.4      260</span></span>
 <span><span class="co">#&gt; 6 EWR     2013     1     1     6  37.9  28.0  67.2      240</span></span>
 <span><span class="co">#&gt; # ℹ 26,109 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 6 more variables: wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 6 more variables: wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ul>
@@ -569,12 +570,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <code>flights$origin</code>-<code>flights$time_hour</code> es una llave foránea compuesta que corresponde a la llave primaria compuesta <code>weather$origin</code>-<code>weather$time_hour</code>.</li>
 </ul>
-<p>Estas relaciones se resumen visualmente en <a href="#fig-flights-relationships">Figure&nbsp;<span class="quarto-unresolved-ref">fig-flights-relationships</span></a>.</p>
+<p>Estas relaciones se resumen visualmente en <a href="#fig-flights-relationships">Figura&nbsp;<span>20.1</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-flights-relationships" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/relational.png" class="img-fluid figure-img" alt="Las relaciones entre aeropuertos, aviones, vuelos, clima y conjuntos de datos de aerolíneas del paquete nycflights13. airports$faa conectados a los flights$origin y flights$dest. planes$tailnum está conectado a los flights$tailnum. weather$time_hour y weather$origin están conectados conjuntamente con los flights$time_hour y los flights$origin. airlines$carrier está conectado a flights$carrier. No hay conexiones directas entre aeropuertos, aviones, aerolíneas y marcos de datos meteorológicos." width="502"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.1: Conexiones entre los cinco marcos de datos en el paquete nycflights13. Las variables que componen una llave primaria son de color gris y están conectadas a sus correspondientes llaves foráneas con flechas.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.1: Conexiones entre los cinco marcos de datos en el paquete nycflights13. Las variables que componen una llave primaria son de color gris y están conectadas a sus correspondientes llaves foráneas con flechas.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -593,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">time_hour</span>, <span class="va">origin</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 0 × 3</span></span>
-<span><span class="co">#&gt; # ℹ 3 variables: time_hour &lt;dttm&gt;, origin &lt;chr&gt;, n &lt;int&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 3 variables: time_hour &lt;dttm&gt;, origin &lt;chr&gt;, n &lt;int&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También debe verificar si faltan valores en sus llaves principales — si falta un valor, ¡entonces no puede identificar una observación!</p>
 <div class="cell">
@@ -607,7 +608,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">time_hour</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 0 × 15</span></span>
 <span><span class="co">#&gt; # ℹ 15 variables: origin &lt;chr&gt;, year &lt;int&gt;, month &lt;int&gt;, day &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   hour &lt;int&gt;, temp &lt;dbl&gt;, dewp &lt;dbl&gt;, humid &lt;dbl&gt;, wind_dir &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   hour &lt;int&gt;, temp &lt;dbl&gt;, dewp &lt;dbl&gt;, humid &lt;dbl&gt;, wind_dir &lt;dbl&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="llaves-sustitutas" class="level3" data-number="20.2.3"><h3 data-number="20.2.3" class="anchored" data-anchor-id="llaves-sustitutas">
 <span class="header-section-number">20.2.3</span> Llaves sustitutas</h3>
@@ -618,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">time_hour</span>, <span class="va">carrier</span>, <span class="va">flight</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 0 × 4</span></span>
-<span><span class="co">#&gt; # ℹ 4 variables: time_hour &lt;dttm&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, n &lt;int&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 4 variables: time_hour &lt;dttm&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, n &lt;int&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿La ausencia de duplicados convierte automáticamente a <code>time_hour</code>-<code>carrier</code>-<code>flight</code> en una llave principal? Sin duda es un buen comienzo, pero no lo garantiza. Por ejemplo, ¿son la altitud y la latitud una buena clave principal para <code>airports</code>?</p>
 <div class="cell">
@@ -628,7 +629,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
 <span><span class="co">#&gt;     alt   lat     n</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1    13  40.6     2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1    13  40.6     2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Identificar un aeropuerto por su altitud y latitud es claramente una mala idea y, en general, no es posible saber solo a partir de los datos si una combinación de variables constituye o no una buena clave primaria. Pero para los vuelos, la combinación de <code>time_hour</code>, <code>carrier</code> y <code>flight</code> parece razonable porque sería realmente confuso para una aerolínea y sus clientes si hubiera varios vuelos con el mismo número de vuelo en el aire al mismo tiempo.</p>
 <p>Dicho esto, sería mejor que introdujéramos una clave sustituta numérica simple usando el número de fila:</p>
@@ -646,13 +647,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5     5  2013     1     1      554            600        -6      812</span></span>
 <span><span class="co">#&gt; 6     6  2013     1     1      554            558        -4      740</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Las claves sustitutas pueden ser particularmente útiles cuando se comunican con otros humanos: es mucho más fácil decirle a alguien que mire el vuelo 2001 que decir que mire el UA430 que partió 9am 2013-01-03.</p>
 </section><section id="ejercicios" class="level3" data-number="20.2.4"><h3 data-number="20.2.4" class="anchored" data-anchor-id="ejercicios">
 <span class="header-section-number">20.2.4</span> Ejercicios</h3>
 <ol type="1">
-<li><p>Nos olvidamos de dibujar la relación entre <code>weather</code> y <code>airports</code> en <a href="#fig-flights-relationships">Figure&nbsp;<span class="quarto-unresolved-ref">fig-flights-relationships</span></a>. ¿Cuál es la relación y cómo debería aparecer en el diagrama?</p></li>
+<li><p>Nos olvidamos de dibujar la relación entre <code>weather</code> y <code>airports</code> en <a href="#fig-flights-relationships">Figura&nbsp;<span>20.1</span></a>. ¿Cuál es la relación y cómo debería aparecer en el diagrama?</p></li>
 <li><p><code>weather</code> solo contiene información de los tres aeropuertos de origen en NYC. Si contuviera registros meteorológicos de todos los aeropuertos de EE.UU. ¿qué conexión adicional haría con <code>flights</code>?</p></li>
 <li><p>Las variables <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code> y <code>origin</code> casi forman una clave compuesta para <code>weather</code>, pero hay una hora que tiene observaciones duplicadas. ¿Puedes averiguar qué tiene de especial esa hora?</p></li>
 <li><p>Sabemos que algunos días del año son especiales y en ellos vuelan menos personas de lo habitual (por ejemplo, la víspera de Navidad y el día de Navidad). ¿Cómo podría representar esos datos como un marco de datos? ¿Cuál sería la llave principal? ¿Cómo se conectaría a los marcos de datos existentes?</p></li>
@@ -677,9 +678,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6     </span></span>
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL     </span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA     </span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Hay cuatro tipos de unión mutante, pero hay una que usará casi todo el tiempo: <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>. Es especial porque la salida siempre tendrá las mismas filas que <code>x</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. El uso principal de <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> es agregar metadatos adicionales. Por ejemplo, podemos usar <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> para agregar el nombre completo de la aerolínea a los datos de <code>flights2</code>:</p>
+<p>Hay cuatro tipos de unión mutante, pero hay una que usará casi todo el tiempo: <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>. Es especial porque la salida siempre tendrá las mismas filas que <code>x</code>, el dataframe al que estas uniendo<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. El uso principal de <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> es agregar metadatos adicionales. Por ejemplo, podemos usar <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> para agregar el nombre completo de la aerolínea a los datos de <code>flights2</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airlines</span><span class="op">)</span></span>
@@ -693,7 +694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      JetBlue Airways     </span></span>
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      Delta Air Lines Inc.</span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      United Air Lines In…</span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O podríamos averiguar la temperatura y la velocidad del viento cuando partió cada avión:</p>
 <div class="cell">
@@ -709,7 +710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6       39.0       15.0</span></span>
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL       39.9       16.1</span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA       39.0       12.7</span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O qué tamaño de avión estaba volando:</p>
 <div class="cell">
@@ -726,7 +727,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      Fixed wing multi en…</span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      Fixed wing multi en…</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: engines &lt;int&gt;, seats &lt;int&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 2 more variables: engines &lt;int&gt;, seats &lt;int&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cuando <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> no encuentra una coincidencia para una fila en <code>x</code>, completa las nuevas variables con los valores que faltan. Por ejemplo, no hay información sobre el avión con el número de cola <code>N3ALAA</code>, por lo que faltarán el <code>type</code>, los <code>engines</code> y los <code>seats</code>:</p>
 <div class="cell">
@@ -743,7 +744,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013 2013-01-07 19:00:00 LGA    ORD   N3ALAA  AA      &lt;NA&gt;       NA    NA</span></span>
 <span><span class="co">#&gt; 5  2013 2013-01-08 17:00:00 JFK    ORD   N3ALAA  AA      &lt;NA&gt;       NA    NA</span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-16 06:00:00 LGA    ORD   N3ALAA  AA      &lt;NA&gt;       NA    NA</span></span>
-<span><span class="co">#&gt; # ℹ 57 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 57 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Volveremos a este problema unas cuantas veces en el resto del capítulo.</p>
 </section><section id="especificación-de-llaves-de-combinación" class="level3" data-number="20.3.2"><h3 data-number="20.3.2" class="anchored" data-anchor-id="especificación-de-llaves-de-combinación">
@@ -763,7 +764,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      &lt;NA&gt;  &lt;NA&gt;        </span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      &lt;NA&gt;  &lt;NA&gt;        </span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 5 more variables: model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 5 more variables: model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nos faltan muchas coincidencias porque nuestra combinación intenta usar <code>tailnum</code> y <code>year</code> como clave compuesta. Tanto <code>flights</code> como <code>planes</code> tienen una columna de <code>year</code> pero significan cosas diferentes: <code>flights$year</code> es el año en que ocurrió el vuelo y <code>planes$year</code> es el año en que se construyó el avión. Solo queremos unirnos en <code>tailnum</code>, por lo que debemos proporcionar una especificación explícita con <code><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by ()</a></code>:</p>
 <div class="cell">
@@ -779,10 +780,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5   2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL        1991</span></span>
 <span><span class="co">#&gt; 6   2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA        2012</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 7 more variables: type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 7 more variables: type &lt;chr&gt;, manufacturer &lt;chr&gt;, model &lt;chr&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que las variables <code>year</code> se eliminan de la ambigüedad en la salida con un sufijo (<code>year.x</code> y <code>year.y</code>), que le indica si la variable proviene del argumento <code>x</code> o <code>y</code>. Puede anular los sufijos predeterminados con el argumento <code>suffix</code>.</p>
-<p><code>join_by(tailnum)</code> es corto para <code>join_by(tailnum == tailnum)</code>. Es importante saber acerca de esta forma más completa por dos razones. En primer lugar, describe la relación entre las dos tablas: las claves deben ser iguales. Es por eso que este tipo de unión a menudo se denomina <strong>equi-unión</strong>. Aprenderá acerca de las uniones no equitativas en <a href="#sec-non-equi-joins"><span class="quarto-unresolved-ref">sec-non-equi-joins</span></a>.</p>
+<p><code>join_by(tailnum)</code> es corto para <code>join_by(tailnum == tailnum)</code>. Es importante saber acerca de esta forma más completa por dos razones. En primer lugar, describe la relación entre las dos tablas: las claves deben ser iguales. Es por eso que este tipo de unión a menudo se denomina <strong>equi-unión</strong>. Aprenderá acerca de las uniones no equitativas en <a href="#sec-non-equi-joins"><span>Sección&nbsp;20.5</span></a>.</p>
 <p>En segundo lugar, es cómo especifica diferentes claves de combinación en cada tabla. Por ejemplo, hay dos formas de unirs las tablas <code>flight2</code> y <code>airports</code>: ya sea por <code>dest</code> o <code>origin</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights2</span> <span class="op">|&gt;</span> </span>
@@ -811,7 +812,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      La Guardia         </span></span>
 <span><span class="co">#&gt; 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      Newark Liberty Intl</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 6 more variables: lat &lt;dbl&gt;, lon &lt;dbl&gt;, alt &lt;dbl&gt;, tz &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 6 more variables: lat &lt;dbl&gt;, lon &lt;dbl&gt;, alt &lt;dbl&gt;, tz &lt;dbl&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En el código anterior, es posible que vea una forma diferente de especificar las claves de combinación, utilizando un vector de caracteres:</p>
 <ul>
@@ -833,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           </span></span>
 <span><span class="co">#&gt; 1 EWR   Newark Liberty Intl  40.7 -74.2    18    -5 A     America/New_York</span></span>
 <span><span class="co">#&gt; 2 JFK   John F Kennedy Intl  40.6 -73.8    13    -5 A     America/New_York</span></span>
-<span><span class="co">#&gt; 3 LGA   La Guardia           40.8 -73.9    22    -5 A     America/New_York</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3 LGA   La Guardia           40.8 -73.9    22    -5 A     America/New_York</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O solo los destinos:</p>
 <div class="cell">
@@ -848,9 +849,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 ANC   Ted Stevens Anchorage…  61.2 -150.    152    -9 A     America/Anchor…</span></span>
 <span><span class="co">#&gt; 5 ATL   Hartsfield Jackson At…  33.6  -84.4  1026    -5 A     America/New_Yo…</span></span>
 <span><span class="co">#&gt; 6 AUS   Austin Bergstrom Intl   30.2  -97.7   542    -6 A     America/Chicago</span></span>
-<span><span class="co">#&gt; # ℹ 95 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 95 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Anti-joins</strong> son lo contrario: devuelven todas las filas en <code>x</code> que no tienen una coincidencia en <code>y</code>. Son útiles para encontrar valores perdidos que están <strong>implícitos</strong> en los datos, el tema de <a href="#sec-missing-implicit"><span class="quarto-unresolved-ref">sec-missing-implicit</span></a>. Los valores faltantes implícitos no se muestran como <code>NA</code>, sino que solo existen como una ausencia. Por ejemplo, podemos encontrar filas que faltan en <code>airports</code> buscando vuelos que no tengan un aeropuerto de destino coincidente:</p>
+<p><strong>Anti-joins</strong> son lo contrario: devuelven todas las filas en <code>x</code> que no tienen una coincidencia en <code>y</code>. Son útiles para encontrar valores perdidos que están <strong>implícitos</strong> en los datos, el tema de <a href="missing-values.html#sec-missing-implicit"><span>Sección&nbsp;19.3</span></a>. Los valores faltantes implícitos no se muestran como <code>NA</code>, sino que solo existen como una ausencia. Por ejemplo, podemos encontrar filas que faltan en <code>airports</code> buscando vuelos que no tengan un aeropuerto de destino coincidente:</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">airports</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">dest</span> <span class="op">==</span> <span class="va">faa</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -861,7 +862,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1 BQN  </span></span>
 <span><span class="co">#&gt; 2 SJU  </span></span>
 <span><span class="co">#&gt; 3 STT  </span></span>
-<span><span class="co">#&gt; 4 PSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4 PSE</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O podemos encontrar qué <code>tailnum</code>s faltan en <code>planes</code>:</p>
 <div class="cell">
@@ -877,7 +878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 N730MQ </span></span>
 <span><span class="co">#&gt; 5 N9EAMQ </span></span>
 <span><span class="co">#&gt; 6 N532UA </span></span>
-<span><span class="co">#&gt; # ℹ 716 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 716 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios-1" class="level3" data-number="20.3.4"><h3 data-number="20.3.4" class="anchored" data-anchor-id="ejercicios-1">
 <span class="header-section-number">20.3.4</span> Ejercicios</h3>
@@ -888,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">top_dest</span> <span class="op">&lt;-</span> <span class="va">flights2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">dest</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Cómo puede encontrar todos los vuelos a esos destinos?</p>
 </li>
@@ -904,14 +905,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/borders.html">borders</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Es posible que desee utilizar el <code>size</code> o el <code>color</code> de los puntos para mostrar el retraso promedio de cada aeropuerto.</p>
 </li>
 <li><p>¿Qué pasó el 13 de junio de 2013? Dibuje un mapa de los retrasos y luego use Google para hacer una referencia cruzada con el clima.</p></li>
 </ol></section></section><section id="cómo-funcionan-las-uniones" class="level2" data-number="20.4"><h2 data-number="20.4" class="anchored" data-anchor-id="cómo-funcionan-las-uniones">
 <span class="header-section-number">20.4</span> ¿Cómo funcionan las uniones?</h2>
-<p>Ahora que ha usado combinaciones varias veces, es hora de aprender más sobre cómo funcionan, enfocándose en cómo cada fila en <code>x</code> coincide con las filas en <code>y</code>. Comenzaremos presentando una representación visual de las uniones, usando los simples tibbles definidos a continuación y que se muestran en <a href="#fig-join-setup">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-setup</span></a>. En estos ejemplos, usaremos una sola llave llamada <code>key</code> y una sola columna de valor (<code>val_x</code> y <code>val_y</code>), pero todas las ideas se generalizan a múltiples llaves y múltiples valores.</p>
+<p>Ahora que ha usado combinaciones varias veces, es hora de aprender más sobre cómo funcionan, enfocándose en cómo cada fila en <code>x</code> coincide con las filas en <code>y</code>. Comenzaremos presentando una representación visual de las uniones, usando los simples tibbles definidos a continuación y que se muestran en <a href="#fig-join-setup">Figura&nbsp;<span>20.2</span></a>. En estos ejemplos, usaremos una sola llave llamada <code>key</code> y una sola columna de valor (<code>val_x</code> y <code>val_y</code>), pero todas las ideas se generalizan a múltiples llaves y múltiples valores.</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,</span>
@@ -924,88 +925,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>     <span class="fl">1</span>, <span class="st">"y1"</span>,</span>
 <span>     <span class="fl">2</span>, <span class="st">"y2"</span>,</span>
 <span>     <span class="fl">4</span>, <span class="st">"y3"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-setup" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/setup.png" class="img-fluid figure-img" alt="x e y son dos marcos de datos con 2 columnas y 3 filas, con contenidos como se describe en el texto. Los valores de las claves están coloreados: 1 es verde, 2 es morado, 3 es naranja y 4 es amarillo." width="160"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.2: Representación gráfica de dos tablas simples. Las columnas <code>key</code> coloreadas asignan el color de fondo al valor clave. Las columnas grises representan las columnas de “value” que se llevan durante el viaje.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.2: Representación gráfica de dos tablas simples. Las columnas <code>key</code> coloreadas asignan el color de fondo al valor clave. Las columnas grises representan las columnas de “value” que se llevan durante el viaje.</figcaption></figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-join-setup2">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-setup2</span></a> introduce la base para nuestra representación visual. Muestra todas las posibles coincidencias entre <code>x</code> e <code>y</code> como la intersección entre las líneas dibujadas desde cada fila de <code>x</code> y cada fila de <code>y</code>. Las filas y columnas en la salida están determinadas principalmente por <code>x</code>, por lo que la tabla <code>x</code> es horizontal y se alinea con la salida.</p>
+<p><a href="#fig-join-setup2">Figura&nbsp;<span>20.3</span></a> introduce la base para nuestra representación visual. Muestra todas las posibles coincidencias entre <code>x</code> e <code>y</code> como la intersección entre las líneas dibujadas desde cada fila de <code>x</code> y cada fila de <code>y</code>. Las filas y columnas en la salida están determinadas principalmente por <code>x</code>, por lo que la tabla <code>x</code> es horizontal y se alinea con la salida.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-setup2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/setup2.png" class="img-fluid figure-img" alt="x e y se colocan en ángulo recto, con líneas horizontales que se extienden desde x y líneas verticales que se extienden desde y. Hay 3 filas en x y 3 filas en y, lo que lleva a nueve intersecciones que representan nueve posibles coincidencias." width="170"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.3: Para comprender cómo funcionan las uniones, es útil pensar en todas las coincidencias posibles. Aquí lo mostramos con una cuadrícula de líneas de conexión.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.3: Para comprender cómo funcionan las uniones, es útil pensar en todas las coincidencias posibles. Aquí lo mostramos con una cuadrícula de líneas de conexión.</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Para describir un tipo específico de combinación, indicamos coincidencias con puntos. Las coincidencias determinan las filas en la salida, un nuevo marco de datos que contiene la clave, los valores x y los valores y. Por ejemplo, <a href="#fig-join-inner">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-inner</span></a> muestra una combinación interna, donde las filas se retienen si y solo si las claves son iguales.</p>
+<p>Para describir un tipo específico de combinación, indicamos coincidencias con puntos. Las coincidencias determinan las filas en la salida, un nuevo marco de datos que contiene la clave, los valores x y los valores y. Por ejemplo, <a href="#fig-join-inner">Figura&nbsp;<span>20.4</span></a> muestra una combinación interna, donde las filas se retienen si y solo si las claves son iguales.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-inner" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/inner.png" class="img-fluid figure-img" alt="x e y se colocan en ángulo recto con líneas que forman una cuadrícula de coincidencias potenciales. Las claves 1 y 2 aparecen tanto en x como en y, por lo que obtenemos una coincidencia, indicada por un punto. Cada punto corresponde a una fila en la salida, por lo que el marco de datos combinado resultante tiene dos filas." width="363"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.4: Una unión interna hace coincidir cada fila en <code>x</code> con la fila en <code>y</code> que tiene el mismo valor de <code>key</code>. Cada coincidencia se convierte en una fila en la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.4: Una unión interna hace coincidir cada fila en <code>x</code> con la fila en <code>y</code> que tiene el mismo valor de <code>key</code>. Cada coincidencia se convierte en una fila en la salida.</figcaption></figure>
 </div>
 </div>
 </div>
 <p>Podemos aplicar los mismos principios para explicar las <strong>uniones externas</strong>, que mantienen las observaciones que aparecen en al menos uno de los marcos de datos. Estas uniones funcionan agregando una observación “virtual” adicional a cada marco de datos. Esta observación tiene una clave que coincide si ninguna otra clave coincide, y los valores se completan con <code>NA</code>. Hay tres tipos de uniones externas:</p>
 <ul>
 <li>
-<p>Una <strong>unión izquierda</strong> mantiene todas las observaciones en <code>x</code>, <a href="#fig-join-left">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-left</span></a>. Cada fila de <code>x</code> se conserva en la salida porque puede volver a coincidir con una fila de <code>NA</code>s en <code>y</code>.</p>
+<p>Una <strong>unión izquierda</strong> mantiene todas las observaciones en <code>x</code>, <a href="#fig-join-left">Figura&nbsp;<span>20.5</span></a>. Cada fila de <code>x</code> se conserva en la salida porque puede volver a coincidir con una fila de <code>NA</code>s en <code>y</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-left" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/left.png" class="img-fluid figure-img" alt="En comparación con el diagrama anterior que muestra una combinación interna, la tabla y obtiene una nueva fila virtual que contiene NA que coincidirá con cualquier fila en x que de otro modo no coincidiría. Esto significa que la salida ahora tiene tres filas. Para key = 3, que coincide con esta fila virtual, val_y toma el valor NA." width="385"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.5: Una representación visual de la combinación izquierda donde cada fila en <code>x</code> aparece en la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.5: Una representación visual de la combinación izquierda donde cada fila en <code>x</code> aparece en la salida.</figcaption></figure>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Una <strong>unión derecha</strong> mantiene todas las observaciones en <code>y</code>, <a href="#fig-join-right">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-right</span></a>. Cada fila de <code>y</code> se conserva en la salida porque puede volver a hacer coincidir una fila de <code>NA</code>s en <code>x</code>. La salida aún coincide con <code>x</code> tanto como sea posible; cualquier fila adicional de <code>y</code> se agrega al final.</p>
+<p>Una <strong>unión derecha</strong> mantiene todas las observaciones en <code>y</code>, <a href="#fig-join-right">Figura&nbsp;<span>20.6</span></a>. Cada fila de <code>y</code> se conserva en la salida porque puede volver a hacer coincidir una fila de <code>NA</code>s en <code>x</code>. La salida aún coincide con <code>x</code> tanto como sea posible; cualquier fila adicional de <code>y</code> se agrega al final.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-right" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/right.png" class="img-fluid figure-img" alt="En comparación con el diagrama anterior que muestra una combinación izquierda, la tabla x ahora gana una fila virtual para que cada fila en y tenga una coincidencia en x. val x contiene NAN para la fila en y que no coincide con x." width="380"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.6: Una representación visual de la combinación correcta donde cada fila de <code>y</code> aparece en la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.6: Una representación visual de la combinación correcta donde cada fila de <code>y</code> aparece en la salida.</figcaption></figure>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Una <strong>combinación completa</strong> mantiene todas las observaciones que aparecen en <code>x</code> o <code>y</code>, <a href="#fig-join-full">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-full</span></a>. Cada fila de <code>x</code> e <code>y</code> se incluye en la salida porque tanto <code>x</code> como <code>y</code> tienen una fila de reserva de <code>NA</code>. Una vez más, la salida comienza con todas las filas desde <code>x</code>, seguidas de las filas restantes <code>y</code> no coincidentes.</p>
+<p>Una <strong>combinación completa</strong> mantiene todas las observaciones que aparecen en <code>x</code> o <code>y</code>, <a href="#fig-join-full">Figura&nbsp;<span>20.7</span></a>. Cada fila de <code>x</code> e <code>y</code> se incluye en la salida porque tanto <code>x</code> como <code>y</code> tienen una fila de reserva de <code>NA</code>. Una vez más, la salida comienza con todas las filas desde <code>x</code>, seguidas de las filas restantes <code>y</code> no coincidentes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-full" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/full.png" class="img-fluid figure-img" alt="Ahora tanto x como y tienen una fila virtual que siempre coincide. El resultado tiene 4 filas: llaves 1, 2, 3 y 4 con todos los valores de val_x y val_y, sin embargo, la llave 2, val_y y la llave 4, val_x son NA ya que esas llaves no coinciden con los otros marcos de datos." width="388"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.7: Una representación visual de la combinación completa donde cada fila en <code>x</code> e <code>y</code> aparece en la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.7: Una representación visual de la combinación completa donde cada fila en <code>x</code> e <code>y</code> aparece en la salida.</figcaption></figure>
 </div>
 </div>
 </div>
 </li>
 </ul>
-<p>Otra forma de mostrar cómo difieren los tipos de unión externa es con un diagrama de Venn, como en <a href="#fig-join-venn">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-venn</span></a>. Sin embargo, esta no es una gran representación porque, si bien puede refrescar su memoria sobre qué filas se conservan, no ilustra lo que sucede con las columnas.</p>
+<p>Otra forma de mostrar cómo difieren los tipos de unión externa es con un diagrama de Venn, como en <a href="#fig-join-venn">Figura&nbsp;<span>20.8</span></a>. Sin embargo, esta no es una gran representación porque, si bien puede refrescar su memoria sobre qué filas se conservan, no ilustra lo que sucede con las columnas.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-venn" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/venn.png" class="img-fluid figure-img" alt="Diagramas de Venn para uniones internas, completas, izquierdas y derechas. Cada unión representada con dos círculos que se cruzan que representan marcos de datos x e y, con x a la derecha e y a la izquierda. El sombreado indica el resultado de la unión." width="385"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.8: Diagramas de Venn que muestran la diferencia entre uniones internas, izquierdas, derechas y completas.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.8: Diagramas de Venn que muestran la diferencia entre uniones internas, izquierdas, derechas y completas.</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Las uniones que se muestran aquí son las denominadas <strong>equi</strong> <strong>uniones</strong>, donde las filas coinciden si las claves son iguales. Las uniones equitativas son el tipo de unión más común, por lo que normalmente omitiremos el prefijo equi y solo diremos “unión interna” en lugar de “unión interna equi”. Volveremos a las uniones no equitativas en <a href="#sec-non-equi-joins"><span class="quarto-unresolved-ref">sec-non-equi-joins</span></a>.</p>
+<p>Las uniones que se muestran aquí son las denominadas <strong>equi</strong> <strong>uniones</strong>, donde las filas coinciden si las claves son iguales. Las uniones equitativas son el tipo de unión más común, por lo que normalmente omitiremos el prefijo equi y solo diremos “unión interna” en lugar de “unión interna equi”. Volveremos a las uniones no equitativas en <a href="#sec-non-equi-joins"><span>Sección&nbsp;20.5</span></a>.</p>
 <section id="coincidencia-de-filas" class="level3" data-number="20.4.1"><h3 data-number="20.4.1" class="anchored" data-anchor-id="coincidencia-de-filas">
 <span class="header-section-number">20.4.1</span> Coincidencia de filas</h3>
-<p>Hasta ahora hemos explorado lo que sucede si una fila en <code>x</code> coincide con cero o una fila en <code>y</code>. ¿Qué sucede si coincide con más de una fila? Para comprender lo que sucede, primero limitemos nuestro enfoque a <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> y luego dibujemos una imagen, <a href="#fig-join-match-types">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-match-types</span></a>.</p>
+<p>Hasta ahora hemos explorado lo que sucede si una fila en <code>x</code> coincide con cero o una fila en <code>y</code>. ¿Qué sucede si coincide con más de una fila? Para comprender lo que sucede, primero limitemos nuestro enfoque a <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> y luego dibujemos una imagen, <a href="#fig-join-match-types">Figura&nbsp;<span>20.9</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-match-types" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/match-types.png" class="img-fluid figure-img" alt="Un diagrama de combinación donde x tiene valores clave 1, 2 y 3, e y tiene valores clave 1, 2, 2. La salida tiene tres filas porque la clave 1 coincide con una fila, la clave 2 coincide con dos filas y la clave 3 coincide con cero filas." width="348"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.9: Las tres formas en que una fila en <code>x</code> puede coincidir. <code>x1</code> coincide con una fila en <code>y</code>, <code>x2</code> coincide con dos filas en <code>y</code>, <code>x3</code> coincide con cero filas en y. Tenga en cuenta que si bien hay tres filas en <code>x</code> y tres filas en la salida, no hay una correspondencia directa entre las filas.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.9: Las tres formas en que una fila en <code>x</code> puede coincidir. <code>x1</code> coincide con una fila en <code>y</code>, <code>x2</code> coincide con dos filas en <code>y</code>, <code>x3</code> coincide con cero filas en y. Tenga en cuenta que si bien hay tres filas en <code>x</code> y tres filas en la salida, no hay una correspondencia directa entre las filas.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1018,7 +1019,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En principio, esto significa que no hay una correspondencia garantizada entre las filas de la salida y las filas de <code>x</code>, pero en la práctica, esto rara vez causa problemas. Hay, sin embargo, un caso particularmente peligroso que puede provocar una explosión combinatoria de filas. Imagina unir las siguientes dos tablas:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, val_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, val_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, val_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mientras que la primera fila en <code>df1</code> solo coincide con una fila en <code>df2</code>, la segunda y la tercera fila coinciden con dos filas. Esto a veces se denomina unión <code>de muchos a muchos</code> y hará que dplyr emita una advertencia:</p>
 <div class="cell">
@@ -1036,17 +1037,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 2     2 x2    y2   </span></span>
 <span><span class="co">#&gt; 3     2 x2    y3   </span></span>
 <span><span class="co">#&gt; 4     2 x3    y2   </span></span>
-<span><span class="co">#&gt; 5     2 x3    y3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 5     2 x3    y3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si está haciendo esto deliberadamente, puede configurar <code>relationship = "many-to-many"</code>, como sugiere la advertencia.</p>
 </section><section id="filtrado-de-uniones-1" class="level3" data-number="20.4.2"><h3 data-number="20.4.2" class="anchored" data-anchor-id="filtrado-de-uniones-1">
 <span class="header-section-number">20.4.2</span> Filtrado de uniones</h3>
-<p>El número de coincidencias también determina el comportamiento de las uniones de filtrado. El semi-join mantiene filas en <code>x</code> que tienen una o más coincidencias en <code>y</code>, como en <a href="#fig-join-semi">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-semi</span></a>. El anti-join mantiene filas en <code>x</code> que coinciden con cero filas en <code>y</code>, como en <a href="#fig-join-anti">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-anti</span></a>. En ambos casos, solo es importante la existencia de una coincidencia; no importa cuantas veces coincida. Esto significa que las uniones de filtrado nunca duplican filas como lo hacen las uniones mutantes.</p>
+<p>El número de coincidencias también determina el comportamiento de las uniones de filtrado. El semi-join mantiene filas en <code>x</code> que tienen una o más coincidencias en <code>y</code>, como en <a href="#fig-join-semi">Figura&nbsp;<span>20.10</span></a>. El anti-join mantiene filas en <code>x</code> que coinciden con cero filas en <code>y</code>, como en <a href="#fig-join-anti">Figura&nbsp;<span>20.11</span></a>. En ambos casos, solo es importante la existencia de una coincidencia; no importa cuantas veces coincida. Esto significa que las uniones de filtrado nunca duplican filas como lo hacen las uniones mutantes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-semi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/semi.png" class="img-fluid figure-img" alt="Un diagrama de unión con viejos amigos x e y. En una combinación semi, solo importa la presencia de una coincidencia, por lo que la salida contiene las mismas columnas que x." width="318"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.10: En un semi-join solo importa que haya coincidencia; de lo contrario, los valores en <code>y</code> no afectan la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.10: En un semi-join solo importa que haya coincidencia; de lo contrario, los valores en <code>y</code> no afectan la salida.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1054,37 +1055,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div id="fig-join-anti" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/anti.png" class="img-fluid figure-img" alt="Un anti-join es lo contrario de un semi-join, por lo que las coincidencias se dibujan con líneas rojas que indican que se eliminarán de la salida." width="317"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.11: Un anti-join es lo contrario de un semi-join, eliminando filas de <code>x</code> que tienen una coincidencia en <code>y</code>.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.11: Un anti-join es lo contrario de un semi-join, eliminando filas de <code>x</code> que tienen una coincidencia en <code>y</code>.</figcaption></figure>
 </div>
 </div>
 </div>
 </section></section><section id="sec-non-equi-joins" class="level2" data-number="20.5"><h2 data-number="20.5" class="anchored" data-anchor-id="sec-non-equi-joins">
 <span class="header-section-number">20.5</span> Non-equi joins</h2>
 <p>Hasta ahora solo has visto uniones de igualdad, uniones donde las filas coinciden si la tecla <code>x</code> es igual a la tecla <code>y</code>. Ahora relajaremos esa restricción y analizaremos otras formas de determinar si un par de filas coinciden.</p>
-<p>Pero antes de que podamos hacer eso, debemos revisar una simplificación que hicimos anteriormente. En equi-joins, las teclas <code>x</code> e <code>y</code> son siempre iguales, por lo que solo necesitamos mostrar una en la salida. Podemos solicitar que dplyr mantenga ambas claves con <code>keep = TRUE</code>, lo que lleva al siguiente código y <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> redibujado en <a href="#fig-inner-both">Figure&nbsp;<span class="quarto-unresolved-ref">fig-inner-both</span></a>.</p>
+<p>Pero antes de que podamos hacer eso, debemos revisar una simplificación que hicimos anteriormente. En equi-joins, las teclas <code>x</code> e <code>y</code> son siempre iguales, por lo que solo necesitamos mostrar una en la salida. Podemos solicitar que dplyr mantenga ambas claves con <code>keep = TRUE</code>, lo que lleva al siguiente código y <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> redibujado en <a href="#fig-inner-both">Figura&nbsp;<span>20.12</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">key</span> <span class="op">==</span> <span class="va">key</span><span class="op">)</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
 <span><span class="co">#&gt;   key.x val_x key.y val_y</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
 <span><span class="co">#&gt; 1     1 x1        1 y1   </span></span>
-<span><span class="co">#&gt; 2     2 x2        2 y2   </span></span>
-<span><span class="co">#&gt; 3     3 x3       NA &lt;NA&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2     2 x2        2 y2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-inner-both" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/inner-both.png" class="img-fluid figure-img" alt="Un diagrama de unión que muestra una unión interna entre x e y. El resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. Los valores de key.x y key.y son idénticos, por lo que generalmente solo mostramos uno. " width="415"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.12: Una combinación interna que muestra <code>x</code> e <code>y</code> en la salida.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.12: Una combinación interna que muestra <code>x</code> e <code>y</code> en la salida.</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Cuando nos alejamos de las combinaciones de igualdad, siempre mostraremos las claves, porque los valores de las claves a menudo serán diferentes. Por ejemplo, en lugar de hacer coincidir solo cuando la <code>x$key</code> y la <code>y$key</code> son iguales, podríamos hacer coincidir siempre que la <code>x$key</code> sea mayor o igual que la <code>y$key</code>, lo que lleva a <a href="#fig-join-gte">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-gte</span></a>. Las funciones de combinación de dplyr entienden esta distinción entre combinaciones equi y no equi, por lo que siempre mostrará ambas teclas cuando realice una combinación no equi.</p>
+<p>Cuando nos alejamos de las combinaciones de igualdad, siempre mostraremos las claves, porque los valores de las claves a menudo serán diferentes. Por ejemplo, en lugar de hacer coincidir solo cuando la <code>x$key</code> y la <code>y$key</code> son iguales, podríamos hacer coincidir siempre que la <code>x$key</code> sea mayor o igual que la <code>y$key</code>, lo que lleva a <a href="#fig-join-gte">Figura&nbsp;<span>20.13</span></a>. Las funciones de combinación de dplyr entienden esta distinción entre combinaciones equi y no equi, por lo que siempre mostrará ambas teclas cuando realice una combinación no equi.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-gte" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/gte.png" class="img-fluid figure-img" alt="Un diagrama de unión que ilustra join_by(key >= key). La primera fila de x coincide con una fila de y y la segunda y la tercera fila coinciden con dos filas. Esto significa que la salida tiene cinco filas que contienen cada uno de los siguientes pares (key.x, key.y): (1, 1), (2, 1), (2, 2), (3, 1), (3, 2)." width="385"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.13: Una combinación no equitativa en la que la tecla <code>x</code> debe ser mayor o igual que la tecla <code>y</code>. Muchas filas generan múltiples coincidencias.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.13: Una combinación no equitativa en la que la tecla <code>x</code> debe ser mayor o igual que la tecla <code>y</code>. Muchas filas generan múltiples coincidencias.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1102,12 +1102,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Cada uno de estos se describe con más detalle en las siguientes secciones.</p>
 <section id="uniones-cruzadas" class="level3" data-number="20.5.1"><h3 data-number="20.5.1" class="anchored" data-anchor-id="uniones-cruzadas">
 <span class="header-section-number">20.5.1</span> Uniones cruzadas</h3>
-<p>Una unión cruzada coincide con todo, como en <a href="#fig-join-cross">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-cross</span></a>, generando el producto cartesiano de filas. Esto significa que la salida tendrá filas <code>nrow(x) * nrow(y)</code>.</p>
+<p>Una unión cruzada coincide con todo, como en <a href="#fig-join-cross">Figura&nbsp;<span>20.14</span></a>, generando el producto cartesiano de filas. Esto significa que la salida tendrá filas <code>nrow(x) * nrow(y)</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-cross" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/cross.png" class="img-fluid figure-img" alt="Un diagrama de unión que muestra un punto para cada combinación de x e y." width="155"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.14: Una combinación cruzada hace coincidir cada fila en <code>x</code> con cada fila en <code>y</code>.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.14: Una combinación cruzada hace coincidir cada fila en <code>x</code> con cada fila en <code>y</code>.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1124,16 +1124,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 John   Max   </span></span>
 <span><span class="co">#&gt; 5 Simon  John  </span></span>
 <span><span class="co">#&gt; 6 Simon  Simon </span></span>
-<span><span class="co">#&gt; # ℹ 10 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 10 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="uniones-de-desigualdad" class="level3" data-number="20.5.2"><h3 data-number="20.5.2" class="anchored" data-anchor-id="uniones-de-desigualdad">
 <span class="header-section-number">20.5.2</span> Uniones de desigualdad</h3>
-<p>Las uniones de desigualdad usan <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code> o <code>&gt;</code> para restringir el conjunto de posibles coincidencias, como en <a href="#fig-join-gte">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-gte</span></a> y <a href="#fig-join-lt">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-lt</span></a>.</p>
+<p>Las uniones de desigualdad usan <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code> o <code>&gt;</code> para restringir el conjunto de posibles coincidencias, como en <a href="#fig-join-gte">Figura&nbsp;<span>20.13</span></a> y <a href="#fig-join-lt">Figura&nbsp;<span>20.15</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-lt" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/lt.png" class="img-fluid figure-img" width="185"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.15: Una unión de desigualdad donde ‘x’ se une a ‘y’ en filas donde la clave de ‘x’ es menor que la clave de ‘y’. Esto crea una forma triangular en la esquina superior izquierda. fig-alt: | Un diagrama que representa una unión de desigualdad donde un marco de datos x se une a un marco de datos y donde la clave de x es menor que la clave de y, lo que da como resultado una forma triangular en la esquina superior izquierda.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.15: Una unión de desigualdad donde ‘x’ se une a ‘y’ en filas donde la clave de ‘x’ es menor que la clave de ‘y’. Esto crea una forma triangular en la esquina superior izquierda. fig-alt: | Un diagrama que representa una unión de desigualdad donde un marco de datos x se une a un marco de datos y donde la clave de x es menor que la clave de y, lo que da como resultado una forma triangular en la esquina superior izquierda.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1141,8 +1141,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"John"</span>, <span class="st">"Simon"</span>, <span class="st">"Tracy"</span>, <span class="st">"Max"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span> <span class="op">&lt;</span> <span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 7 × 4</span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">id</span> <span class="op">&lt;</span> <span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;    id.x name.x  id.y name.y</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; </span></span>
 <span><span class="co">#&gt; 1     1 John       2 Simon </span></span>
@@ -1150,17 +1150,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 3     1 John       4 Max   </span></span>
 <span><span class="co">#&gt; 4     2 Simon      3 Tracy </span></span>
 <span><span class="co">#&gt; 5     2 Simon      4 Max   </span></span>
-<span><span class="co">#&gt; 6     3 Tracy      4 Max   </span></span>
-<span><span class="co">#&gt; # ℹ 1 more row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6     3 Tracy      4 Max</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="uniones-rodantes" class="level3" data-number="20.5.3"><h3 data-number="20.5.3" class="anchored" data-anchor-id="uniones-rodantes">
 <span class="header-section-number">20.5.3</span> Uniones rodantes</h3>
-<p>Las combinaciones rotativas son un tipo especial de combinación de desigualdad donde en lugar de obtener <em>todas</em> las filas que satisfacen la desigualdad, obtienes solo la fila más cercana, como en <a href="#fig-join-closest">Figure&nbsp;<span class="quarto-unresolved-ref">fig-join-closest</span></a>. Puede convertir cualquier combinación de desigualdad en una combinación continua agregando <code>closest()</code>. Por ejemplo, <code>join_by(closest(x &lt;= y))</code> coincide con la <code>y</code> más pequeña que es mayor o igual que x, y <code>join_by(closest(x &gt; y))</code> coincide con la <code>y</code> más grande que es menor que <code>x</code>.</p>
+<p>Las combinaciones rotativas son un tipo especial de combinación de desigualdad donde en lugar de obtener <em>todas</em> las filas que satisfacen la desigualdad, obtienes solo la fila más cercana, como en <a href="#fig-join-closest">Figura&nbsp;<span>20.16</span></a>. Puede convertir cualquier combinación de desigualdad en una combinación continua agregando <code>closest()</code>. Por ejemplo, <code>join_by(closest(x &lt;= y))</code> coincide con la <code>y</code> más pequeña que es mayor o igual que x, y <code>join_by(closest(x &gt; y))</code> coincide con la <code>y</code> más grande que es menor que <code>x</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-join-closest" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/join/closest.png" class="img-fluid figure-img" alt="Una unión continua es un subconjunto de una unión de desigualdad, por lo que algunas coincidencias están atenuadas, lo que indica que no se usan porque no son las &quot;más cercanas&quot;." width="262"></p>
-<figcaption class="figure-caption">Figure&nbsp;20.16: Una unión continua es similar a una unión de desigualdad mayor o igual, pero solo coincide con el primer valor.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;20.16: Una unión continua es similar a una unión de desigualdad mayor o igual, pero solo coincide con el primer valor.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1170,47 +1169,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">parties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  q <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
 <span>  party <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2022-01-10"</span>, <span class="st">"2022-04-04"</span>, <span class="st">"2022-07-11"</span>, <span class="st">"2022-10-03"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ahora imagina que tienes una tabla de cumpleaños de los empleados:</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">employees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">employees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu">babynames</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/babynames/man/babynames.html">babynames</a></span><span class="op">$</span><span class="va">name</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  birthday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2022-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">365</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">employees</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 2</span></span>
-<span><span class="co">#&gt;   name    birthday  </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;date&gt;    </span></span>
-<span><span class="co">#&gt; 1 Case    2022-09-13</span></span>
-<span><span class="co">#&gt; 2 Shonnie 2022-03-30</span></span>
-<span><span class="co">#&gt; 3 Burnard 2022-01-10</span></span>
-<span><span class="co">#&gt; 4 Omer    2022-11-25</span></span>
-<span><span class="co">#&gt; 5 Hillel  2022-07-30</span></span>
-<span><span class="co">#&gt; 6 Curlie  2022-12-11</span></span>
-<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;   name     birthday  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;date&gt;    </span></span>
+<span><span class="co">#&gt; 1 Kemba    2022-01-22</span></span>
+<span><span class="co">#&gt; 2 Orean    2022-06-26</span></span>
+<span><span class="co">#&gt; 3 Kirstyn  2022-02-11</span></span>
+<span><span class="co">#&gt; 4 Amparo   2022-11-11</span></span>
+<span><span class="co">#&gt; 5 Belen    2022-03-25</span></span>
+<span><span class="co">#&gt; 6 Rayshaun 2022-01-11</span></span>
+<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Y para cada empleado queremos encontrar la fecha de la primera fiesta que viene después (o en) su cumpleaños. Podemos expresar eso con una unión rodante:</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">employees</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">parties</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="fu">closest</span><span class="op">(</span><span class="va">birthday</span> <span class="op">&gt;=</span> <span class="va">party</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 4</span></span>
-<span><span class="co">#&gt;   name    birthday       q party     </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;int&gt; &lt;date&gt;    </span></span>
-<span><span class="co">#&gt; 1 Case    2022-09-13     3 2022-07-11</span></span>
-<span><span class="co">#&gt; 2 Shonnie 2022-03-30     1 2022-01-10</span></span>
-<span><span class="co">#&gt; 3 Burnard 2022-01-10     1 2022-01-10</span></span>
-<span><span class="co">#&gt; 4 Omer    2022-11-25     4 2022-10-03</span></span>
-<span><span class="co">#&gt; 5 Hillel  2022-07-30     3 2022-07-11</span></span>
-<span><span class="co">#&gt; 6 Curlie  2022-12-11     4 2022-10-03</span></span>
-<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;   name     birthday       q party     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;date&gt;     &lt;int&gt; &lt;date&gt;    </span></span>
+<span><span class="co">#&gt; 1 Kemba    2022-01-22     1 2022-01-10</span></span>
+<span><span class="co">#&gt; 2 Orean    2022-06-26     2 2022-04-04</span></span>
+<span><span class="co">#&gt; 3 Kirstyn  2022-02-11     1 2022-01-10</span></span>
+<span><span class="co">#&gt; 4 Amparo   2022-11-11     4 2022-10-03</span></span>
+<span><span class="co">#&gt; 5 Belen    2022-03-25     1 2022-01-10</span></span>
+<span><span class="co">#&gt; 6 Rayshaun 2022-01-11     1 2022-01-10</span></span>
+<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sin embargo, hay un problema con este enfoque: las personas que cumplen años antes del 10 de enero no organizan una fiesta:</p>
 <div class="cell">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">employees</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">parties</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="fu">closest</span><span class="op">(</span><span class="va">birthday</span> <span class="op">&gt;=</span> <span class="va">party</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 0 × 2</span></span>
-<span><span class="co">#&gt; # ℹ 2 variables: name &lt;chr&gt;, birthday &lt;date&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span><span class="co">#&gt;   name   birthday  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;date&gt;    </span></span>
+<span><span class="co">#&gt; 1 Maks   2022-01-07</span></span>
+<span><span class="co">#&gt; 2 Nalani 2022-01-04</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para resolver ese problema, necesitaremos abordar el problema de una manera diferente, con uniones superpuestas.</p>
 </section><section id="uniones-superpuestas" class="level3" data-number="20.5.4"><h3 data-number="20.5.4" class="anchored" data-anchor-id="uniones-superpuestas">
@@ -1239,7 +1242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1     1 2022-01-10 2022-01-01 2022-04-03</span></span>
 <span><span class="co">#&gt; 2     2 2022-04-04 2022-04-04 2022-07-11</span></span>
 <span><span class="co">#&gt; 3     3 2022-07-11 2022-07-11 2022-10-02</span></span>
-<span><span class="co">#&gt; 4     4 2022-10-03 2022-10-03 2022-12-31</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4     4 2022-10-03 2022-10-03 2022-12-31</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hadley es terriblemente malo ingresando datos, por lo que también quería verificar que los períodos de las fiestas no se superpusieran. Una forma de hacer esto es usar una autounión para verificar si algún intervalo de inicio-fin se superpone con otro:</p>
 <div class="cell">
@@ -1249,7 +1252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
 <span><span class="co">#&gt;   start.x    end.x      start.y    end.y     </span></span>
 <span><span class="co">#&gt;   &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span></span>
-<span><span class="co">#&gt; 1 2022-04-04 2022-07-11 2022-07-11 2022-10-02</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 2022-04-04 2022-07-11 2022-07-11 2022-10-02</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Vaya, hay una superposición, así que solucionemos ese problema y continuemos:</p>
 <div class="cell">
@@ -1258,22 +1261,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  party <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2022-01-10"</span>, <span class="st">"2022-04-04"</span>, <span class="st">"2022-07-11"</span>, <span class="st">"2022-10-03"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  start <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2022-01-01"</span>, <span class="st">"2022-04-04"</span>, <span class="st">"2022-07-11"</span>, <span class="st">"2022-10-03"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  end <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2022-04-03"</span>, <span class="st">"2022-07-10"</span>, <span class="st">"2022-10-02"</span>, <span class="st">"2022-12-31"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ahora podemos emparejar a cada empleado con su partido. Este es un buen lugar para usar <code>unmatched = "error"</code> porque queremos averiguar rápidamente si a algún empleado no se le asignó una fiesta.</p>
 <div class="cell">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">employees</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">parties</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">birthday</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span><span class="op">)</span>, unmatched <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 100 × 6</span></span>
-<span><span class="co">#&gt;   name    birthday       q party      start      end       </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span></span>
-<span><span class="co">#&gt; 1 Case    2022-09-13     3 2022-07-11 2022-07-11 2022-10-02</span></span>
-<span><span class="co">#&gt; 2 Shonnie 2022-03-30     1 2022-01-10 2022-01-01 2022-04-03</span></span>
-<span><span class="co">#&gt; 3 Burnard 2022-01-10     1 2022-01-10 2022-01-01 2022-04-03</span></span>
-<span><span class="co">#&gt; 4 Omer    2022-11-25     4 2022-10-03 2022-10-03 2022-12-31</span></span>
-<span><span class="co">#&gt; 5 Hillel  2022-07-30     3 2022-07-11 2022-07-11 2022-10-02</span></span>
-<span><span class="co">#&gt; 6 Curlie  2022-12-11     4 2022-10-03 2022-10-03 2022-12-31</span></span>
-<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;   name     birthday       q party      start      end       </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;date&gt;     &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span></span>
+<span><span class="co">#&gt; 1 Kemba    2022-01-22     1 2022-01-10 2022-01-01 2022-04-03</span></span>
+<span><span class="co">#&gt; 2 Orean    2022-06-26     2 2022-04-04 2022-04-04 2022-07-10</span></span>
+<span><span class="co">#&gt; 3 Kirstyn  2022-02-11     1 2022-01-10 2022-01-01 2022-04-03</span></span>
+<span><span class="co">#&gt; 4 Amparo   2022-11-11     4 2022-10-03 2022-10-03 2022-12-31</span></span>
+<span><span class="co">#&gt; 5 Belen    2022-03-25     1 2022-01-10 2022-01-01 2022-04-03</span></span>
+<span><span class="co">#&gt; 6 Rayshaun 2022-01-11     1 2022-01-10 2022-01-01 2022-04-03</span></span>
+<span><span class="co">#&gt; # ℹ 94 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios-2" class="level3" data-number="20.5.5"><h3 data-number="20.5.5" class="anchored" data-anchor-id="ejercicios-2">
 <span class="header-section-number">20.5.5</span> Ejercicios</h3>
@@ -1281,7 +1284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <p>¿Puedes explicar qué está pasando con las claves en esta unión equitativa? ¿Por qué son diferentes?</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">key</span> <span class="op">==</span> <span class="va">key</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
 <span><span class="co">#&gt;     key val_x val_y</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
@@ -1290,14 +1293,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 3     3 x3    &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 4     4 &lt;NA&gt;  y3</span></span>
 <span></span>
-<span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by</a></span><span class="op">(</span><span class="va">key</span> <span class="op">==</span> <span class="va">key</span><span class="op">)</span>, keep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 4</span></span>
 <span><span class="co">#&gt;   key.x val_x key.y val_y</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
 <span><span class="co">#&gt; 1     1 x1        1 y1   </span></span>
 <span><span class="co">#&gt; 2     2 x2        2 y2   </span></span>
 <span><span class="co">#&gt; 3     3 x3       NA &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 4    NA &lt;NA&gt;      4 y3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4    NA &lt;NA&gt;      4 y3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li><p>Al encontrar si algún período de fiesta se superponía con otro período de fiesta, usamos <code>q &lt; q</code> en <code><a href="https://dplyr.tidyverse.org/reference/join_by.html">join_by ()</a></code> ¿Por qué? ¿Qué pasa si eliminas esta desigualdad?</p></li>
@@ -1351,7 +1354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   const act_link_O = document.createElement('div');
   act_link_O.className='action-links';
   act_link_O.id='act-link-O';
-  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
 
 
   TOC.appendChild(originalga);
@@ -1433,12 +1436,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

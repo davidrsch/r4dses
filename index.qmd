@@ -19,6 +19,8 @@ Si habla otro idioma es posible que le interesen las traducciones disponibles gr
 -   [Italiano](https://it.r4ds.hadley.nz)
 -   [Turco](https://tr.r4ds.hadley.nz)
 
+Puede encontrar respuestas sugeridas a los ejercicios en el libro en <https://mine-cetinkaya-rundel.github.io/r4ds-solutions>.
+
 Tenga en cuenta que R4DS utiliza un [Código de conducta del colaborador](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 Al contribuir a este libro, usted acepta cumplir con sus términos.
 

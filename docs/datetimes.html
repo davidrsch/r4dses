@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 18&nbsp; Fechas y horas</title>
@@ -79,15 +79,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -95,13 +96,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./datetimes.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fechas y horas</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -126,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -136,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -163,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -310,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -380,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -404,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
 <li>
@@ -471,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Este capítulo se centrará en el paquete <strong>lubridate</strong>, que facilita el trabajo con fechas y horas en R. A partir de la última versión de tidyverse, lubridate es parte del núcleo de tidyverse. También necesitaremos nycflights13 para datos de práctica.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="sec-creating-datetimes" class="level2" data-number="18.2"><h2 data-number="18.2" class="anchored" data-anchor-id="sec-creating-datetimes">
 <span class="header-section-number">18.2</span> Creando fecha/horas</h2>
@@ -486,9 +487,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Para obtener la fecha actual o la fecha y hora, puede usar <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code> o <code><a href="https://lubridate.tidyverse.org/reference/now.html">now()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-08-26"</span></span>
+<span><span class="co">#&gt; [1] "2023-11-12"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-08-26 14:16:38 CEST"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2023-11-12 19:23:04 CET"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>De lo contrario, las siguientes secciones describen las cuatro formas en las que es probable que cree una fecha/hora:</p>
 <ul>
@@ -509,13 +510,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   date       datetime           </span></span>
 <span><span class="co">#&gt;   &lt;date&gt;     &lt;dttm&gt;             </span></span>
-<span><span class="co">#&gt; 1 2022-01-02 2022-01-02 05:12:00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 2022-01-02 2022-01-02 05:12:00</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si no ha oído hablar de <strong>ISO8601</strong> antes, es un estándar internacional<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> para escribir fechas donde los componentes de una fecha se organizan de mayor a menor separados por <code>-</code>. Por ejemplo, en ISO8601 el 3 de mayo de 2022 es <code>2022-05-03</code>. Las fechas ISO8601 también pueden incluir horas, donde la hora, el minuto y el segundo están separados por <code>:</code>, y los componentes de fecha y hora están separados por una <code>T</code> o un espacio. Por ejemplo, podría escribir 4:26 p.&nbsp;m. el 3 de mayo de 2022 como <code>2022-05-03 16:26</code> o <code>2022-05-03T16:26</code>.</p>
-<p>Para otros formatos de fecha y hora, necesitará usar <code>col_types</code> más <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date()</a></code> o <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime()</a></code> junto con un formato de fecha y hora. El formato de fecha y hora utilizado por readr es un estándar utilizado en muchos lenguajes de programación, que describe un componente de fecha con un <code>%</code> seguido de un solo carácter. Por ejemplo, <code>%Y-%m-%d</code> especifica una fecha que es un año, <code>-</code>, mes (como número) <code>-</code>, día. La tabla <a href="#tbl-date-formats">Table&nbsp;<span class="quarto-unresolved-ref">tbl-date-formats</span></a> enumera todas las opciones.</p>
+<p>Para otros formatos de fecha y hora, necesitará usar <code>col_types</code> más <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date()</a></code> o <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime()</a></code> junto con un formato de fecha y hora. El formato de fecha y hora utilizado por readr es un estándar utilizado en muchos lenguajes de programación, que describe un componente de fecha con un <code>%</code> seguido de un solo carácter. Por ejemplo, <code>%Y-%m-%d</code> especifica una fecha que es un año, <code>-</code>, mes (como número) <code>-</code>, día. La tabla <a href="#tbl-date-formats">Tabla&nbsp;<span>18.1</span></a> enumera todas las opciones.</p>
 <div id="tbl-date-formats" class="anchored">
 <table class="table">
-<caption>Table&nbsp;18.1: Todos los formatos de fecha entendidos por readr</caption>
+<caption>Tabla&nbsp;18.1: Todos los formatos de fecha entendidos por readr</caption>
 <colgroup>
 <col style="width: 10%">
 <col style="width: 10%">
@@ -562,14 +563,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td>Día</td>
 <td><code>%d</code></td>
-<td>Dos digitos</td>
-<td>02</td>
+<td>Uno o dos digitos</td>
+<td>2</td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><code>%e</code></td>
-<td>Uno o dos digitos</td>
-<td>2</td>
+<td>Dos digitos</td>
+<td>02</td>
 </tr>
 <tr class="even">
 <td>Hora</td>
@@ -657,7 +658,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
 <span><span class="co">#&gt;   date      </span></span>
 <span><span class="co">#&gt;   &lt;date&gt;    </span></span>
-<span><span class="co">#&gt; 1 2001-02-15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 2001-02-15</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que no importa cómo especifique el formato de fecha, siempre se muestra de la misma manera una vez que lo ingresa en R.</p>
 <p>Si está utilizando <code>%b</code> o <code>%B</code> y trabaja con fechas que no están en inglés, también deberá proporcionar un <code><a href="https://readr.tidyverse.org/reference/locale.html">locale()</a></code>. Vea la lista de idiomas integrados en <code><a href="https://readr.tidyverse.org/reference/date_names.html">date_names_langs()</a></code>, o cree el suyo propio con <code><a href="https://readr.tidyverse.org/reference/date_names.html">date_names()</a></code>.</p>
@@ -670,19 +671,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"January 31st, 2017"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2017-01-31"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="st">"31-Jan-2017"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2017-01-31"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2017-01-31"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd()</a></code> y amigos crean fechas. Para crear una fecha y hora, agregue un guión bajo y uno o más de “h”, “m” y “s” al nombre de la función de análisis:</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2017-01-31 20:11:59"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2017-01-31 20:11:59 UTC"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">mdy_hm</a></span><span class="op">(</span><span class="st">"01/31/2017 08:01"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2017-01-31 08:01:00 UTC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2017-01-31 08:01:00 UTC"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También puede forzar la creación de una fecha y hora a partir de una fecha proporcionando una zona horaria:</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2017-01-31"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2017-01-31 UTC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2017-01-31 UTC"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Aquí utilizo la zona horaria UTC<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> que también puede conocer como GMT, o Greenwich Mean Time, la hora en 0° de longitud<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> . No utiliza el horario de verano, por lo que es un poco más fácil de calcular .</p>
 </section><section id="de-componentes-individuales" class="level3" data-number="18.2.3"><h3 data-number="18.2.3" class="anchored" data-anchor-id="de-componentes-individuales">
@@ -700,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013     1     1     5     45</span></span>
 <span><span class="co">#&gt; 5  2013     1     1     6      0</span></span>
 <span><span class="co">#&gt; 6  2013     1     1     5     58</span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para crear una fecha/hora a partir de este tipo de entrada, usa <code><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_date()</a></code> para fechas, o <code><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime()</a></code> para fechas y horas:</p>
 <div class="cell">
@@ -716,7 +717,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013     1     1     5     45 2013-01-01 05:45:00</span></span>
 <span><span class="co">#&gt; 5  2013     1     1     6      0 2013-01-01 06:00:00</span></span>
 <span><span class="co">#&gt; 6  2013     1     1     5     58 2013-01-01 05:58:00</span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hagamos lo mismo para cada una de las cuatro columnas de tiempo en <code>flights</code>. Los tiempos se representan en un formato ligeramente extraño, por lo que usamos aritmética de módulo para extraer los componentes de hora y minuto. Una vez que hayamos creado las variables de fecha y hora, nos centraremos en las variables que exploraremos en el resto del capítulo.</p>
 <div class="cell">
@@ -745,13 +746,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 LGA    ATL          -6       -25 2013-01-01 05:54:00 2013-01-01 06:00:00</span></span>
 <span><span class="co">#&gt; 6 EWR    ORD          -4        12 2013-01-01 05:54:00 2013-01-01 05:58:00</span></span>
 <span><span class="co">#&gt; # ℹ 328,057 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 3 more variables: arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Con estos datos, podemos visualizar la distribución de los horarios de salida a lo largo del año:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">86400</span><span class="op">)</span> <span class="co"># 86400 seconds = 1 day</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">86400</span><span class="op">)</span> <span class="co"># 86400 seconds = 1 day</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" alt="Un polígono de frecuencia con hora de salida (enero-diciembre de 2013) en  el eje x y número de vuelos en el eje y (0-1000). El polígono de frecuencia está   agrupado por día para que vea una serie temporal de vuelos por día. El patrón está    dominado por un patrón semanal; hay menos vuelos los fines de semana. Son pocos los     días que se destacan por tener sorprendentemente pocos vuelos a principios de      febrero, principios de julio, finales de noviembre y finales de diciembre." width="576"></p>
 </div>
@@ -761,7 +762,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">&lt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20130102</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">600</span><span class="op">)</span> <span class="co"># 600 s = 10 minutes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">600</span><span class="op">)</span> <span class="co"># 600 s = 10 minutes</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" alt="Un polígono de frecuencia con hora de salida (6 am - medianoche del 1 de enero) en  el eje x, número de vuelos en el eje y (0-17), agrupados en incrementos de 10   minutos. Es difícil ver muchos patrones debido a la gran variabilidad, pero la   mayoría de los contenedores tienen de 8 a 12 vuelos, y hay muchos menos vuelos antes   de las 6 a. m. y después de las 8 p. m." width="576"></p>
 </div>
@@ -772,16 +773,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Es posible que desee cambiar entre una fecha y hora y una fecha. Ese es el trabajo de <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code> y <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-08-26 UTC"</span></span>
+<span><span class="co">#&gt; [1] "2023-11-12 UTC"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-08-26"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2023-11-12"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A veces obtendrá la fecha/hora como compensaciones numéricas de la “época de Unix”, 1970-01-01. Si el desplazamiento está en segundos, use <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code>; si es en días, usa <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1970-01-01 10:00:00 UTC"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fl">365</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "1980-01-01"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "1980-01-01"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios" class="level3" data-number="18.2.5"><h3 data-number="18.2.5" class="anchored" data-anchor-id="ejercicios">
 <span class="header-section-number">18.2.5</span> Ejercicios</h3>
@@ -789,7 +790,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <p>¿Qué sucede si analiza una cadena que contiene fechas no válidas?</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li><p>¿Qué hace el argumento <code>tzone</code> para <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code>? ¿Por qué es importante?</p></li>
@@ -802,7 +803,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span><span class="op">)</span></span>
 <span><span class="va">d5</span> <span class="op">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></span>
 <span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="st">"1705"</span></span>
-<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="st">"11:15:10.12 PM"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="st">"11:15:10.12 PM"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol></section></section><section id="componentes-de-fecha-y-hora" class="level2" data-number="18.3"><h2 data-number="18.3" class="anchored" data-anchor-id="componentes-de-fecha-y-hora">
@@ -824,7 +825,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">yday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 189</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para <code><a href="https://lubridate.tidyverse.org/reference/month.html">month()</a></code> y <code><a href="https://lubridate.tidyverse.org/reference/day.html">wday()</a></code> puede configurar <code>label = TRUE</code> para devolver el nombre abreviado del mes o día de la semana. Establezca <code>abbr = FALSE</code> para devolver el nombre completo.</p>
 <div class="cell">
@@ -833,14 +834,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 12 Levels: ene &lt; feb &lt; mar &lt; abr &lt; may &lt; jun &lt; jul &lt; ago &lt; sep &lt; ... &lt; dic</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, abbr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] miércoles</span></span>
-<span><span class="co">#&gt; 7 Levels: domingo &lt; lunes &lt; martes &lt; miércoles &lt; jueves &lt; ... &lt; sábado</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 7 Levels: domingo &lt; lunes &lt; martes &lt; miércoles &lt; jueves &lt; ... &lt; sábado</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Podemos usar <code><a href="https://lubridate.tidyverse.org/reference/day.html">wday()</a></code> para ver que salen más vuelos durante la semana que el fin de semana:</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">dep_time</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" alt="Un gráfico de barras con los días de la semana en el eje x y el número de vuelos  en el eje y. De lunes a viernes tienen aproximadamente la misma cantidad de vuelos,  ~48,0000, disminuyendo ligeramente en el transcurso de la semana. El domingo es un  poco más bajo (~45 000) y el sábado es mucho más bajo (~38 000)." width="576"></p>
 </div>
@@ -855,7 +856,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">minute</span>, y <span class="op">=</span> <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" alt="Un gráfico de líneas con el minuto de salida real (0-60) en el eje x y el retraso promedio (4-20) en el eje y. El retraso promedio comienza en (0, 12), aumenta constantemente a (18, 20), luego cae bruscamente, alcanzando un mínimo de ~23 minutos después de la hora y 9 minutos de retraso. Luego aumenta de nuevo a (17, 35), y disminuye bruscamente a (55, 4). Termina con un aumento a (60, 9)." width="576"></p>
 </div>
@@ -871,17 +872,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sched_dep</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">minute</span>, y <span class="op">=</span> <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" alt="Un gráfico de líneas con minutos de salida programada (0-60) en el eje x y demora promedio (4-16). Hay un patrón relativamente pequeño, solo una pequeña sugerencia de que el retraso promedio disminuye de quizás 10 minutos a 8 minutos en el transcurso de la hora." width="576"></p>
 </div>
 </div>
-<p>Entonces, ¿por qué vemos ese patrón con los horarios de salida reales? Bueno, como gran parte de los datos recopilados por humanos, hay un fuerte sesgo hacia los vuelos que salen en “buenos” horarios de salida, como muestra <a href="#fig-human-rounding">Figure&nbsp;<span class="quarto-unresolved-ref">fig-human-rounding</span></a>. ¡Esté siempre alerta a este tipo de patrón cada vez que trabaje con datos que involucran el juicio humano!</p>
+<p>Entonces, ¿por qué vemos ese patrón con los horarios de salida reales? Bueno, como gran parte de los datos recopilados por humanos, hay un fuerte sesgo hacia los vuelos que salen en “buenos” horarios de salida, como muestra <a href="#fig-human-rounding">Figura&nbsp;<span>18.1</span></a>. ¡Esté siempre alerta a este tipo de patrón cada vez que trabaje con datos que involucran el juicio humano!</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-human-rounding" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="datetimes_files/figure-html/fig-human-rounding-1.png" class="img-fluid figure-img" alt="Un gráfico de líneas con el minuto de salida (0-60) en el eje x y el número de vuelos (0-60000) en el eje y. La mayoría de los vuelos están programados para salir a la hora (~60 000) o a la media hora (~35 000). De lo contrario, la mayoría de los vuelos están programados para salir en múltiplos de cinco, con algunos adicionales a los 15, 45 y 55 minutos. " width="576"></p>
-<figcaption class="figure-caption">Figure&nbsp;18.1: Un polígono de frecuencia que muestra el número de vuelos programados para salir cada hora. Puede ver una fuerte preferencia por los números redondos como el 0 y el 30 y, en general, por los números que son múltiplos de cinco.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;18.1: Un polígono de frecuencia que muestra el número de vuelos programados para salir cada hora. Puede ver una fuerte preferencia por los números redondos como el 0 y el 30 y, en general, por los números que son múltiplos de cinco.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -893,7 +894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">dep_time</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">week</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" alt="Un gráfico de líneas con la semana (enero-diciembre de 2013) en el eje x y el número de vuelos (2000-7000) en el eje y. El patrón es bastante plano de febrero a noviembre con alrededor de 7.000 vuelos por semana. Hay muchos menos vuelos en la primera (aproximadamente 4.500 vuelos) y la última semana del año (aproximadamente 2.500 vuelos)." width="576"></p>
 </div>
@@ -905,17 +906,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_hour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Don't know how to automatically pick scale for object of type &lt;difftime&gt;.</span></span>
-<span><span class="co">#&gt; Defaulting to continuous.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Defaulting to continuous.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" alt="Un gráfico de líneas con el tiempo de salida en el eje x. Estas son unidades de segundos desde la medianoche, por lo que es difícil de interpretar." width="576"></p>
 </div>
 </div>
-<p>Calcular la diferencia entre un par de fechas y horas produce un tiempo de diferencia (más sobre eso en <a href="#sec-intervals"><span class="quarto-unresolved-ref">sec-intervals</span></a>). Podemos convertir eso en un objeto <code>hms</code> para obtener un eje x más útil:</p>
+<p>Calcular la diferencia entre un par de fechas y horas produce un tiempo de diferencia (más sobre eso en <a href="#sec-intervals"><span>Sección&nbsp;18.4.3</span></a>). Podemos convertir eso en un objeto <code>hms</code> para obtener un eje x más útil:</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dep_hour <span class="op">=</span> <span class="fu">hms</span><span class="fu">::</span><span class="fu"><a href="https://hms.tidyverse.org/reference/hms.html">as_hms</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">dep_time</span>, <span class="st">"day"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_hour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">30</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">30</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="datetimes_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" alt="Un gráfico de líneas con la hora de salida (medianoche a medianoche) en el eje x y el número de vuelos en el eje y (0 a 15 000). Hay muy pocos (<100) vuelos antes de las 5 am. El número de vuelos luego aumenta rápidamente a 12 000 por hora, con un máximo de 15 000 a las 9 a. m., antes de caer a alrededor de 8 000 por hora entre las 10 a. m. y las 2 p. m. Luego, el número de vuelos aumenta a alrededor de 12,000 por hora hasta las 8:00 p. m., cuando vuelven a caer rápidamente.." width="576"></p>
 </div>
@@ -935,19 +936,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] "2030-01-08 12:34:56 UTC"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">datetime</span></span>
-<span><span class="co">#&gt; [1] "2030-01-08 13:34:56 UTC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2030-01-08 13:34:56 UTC"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternativamente, en lugar de modificar una variable existente, puede crear una nueva fecha y hora con <code><a href="https://rdrr.io/r/stats/update.html">update()</a></code>. Esto también le permite establecer múltiples valores en un solo paso:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">datetime</span>, year <span class="op">=</span> <span class="fl">2030</span>, month <span class="op">=</span> <span class="fl">2</span>, mday <span class="op">=</span> <span class="fl">2</span>, hour <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2030-02-02 02:34:56 UTC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2030-02-02 02:34:56 UTC"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si los valores son demasiado grandes, se transferirán:</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2023-02-01"</span><span class="op">)</span>, mday <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2023-03-02"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2023-02-01"</span><span class="op">)</span>, hour <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2023-02-17 16:00:00 UTC"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2023-02-17 16:00:00 UTC"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios-1" class="level3" data-number="18.3.4"><h3 data-number="18.3.4" class="anchored" data-anchor-id="ejercicios-1">
 <span class="header-section-number">18.3.4</span> Ejercicios</h3>
@@ -978,12 +979,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># How old is Hadley?</span></span>
 <span><span class="va">h_age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"1979-10-14"</span><span class="op">)</span></span>
 <span><span class="va">h_age</span></span>
-<span><span class="co">#&gt; Time difference of 16022 days</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Time difference of 16100 days</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Un objeto de clase <code>difftime</code> registra un lapso de tiempo de segundos, minutos, horas, días o semanas. Esta ambigüedad puede hacer que trabajar con difftimes sea un poco doloroso, por lo que lubridate ofrece una alternativa que siempre usa segundos: la <strong>duración</strong>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration</a></span><span class="op">(</span><span class="va">h_age</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "1384300800s (~43.87 years)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "1391040000s (~44.08 years)"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Las duraciones vienen con un montón de constructoras convenientes:</p>
 <div class="cell">
@@ -999,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1814400s (~3 weeks)"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "31557600s (~1 years)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "31557600s (~1 years)"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Las duraciones siempre registran el lapso de tiempo en segundos. Las unidades más grandes se crean al convertir minutos, horas, días, semanas y años en segundos: 60 segundos en un minuto, 60 minutos en una hora, 24 horas en un día y 7 días en una semana. Las unidades de tiempo más grandes son más problemáticas. Un año utiliza el número “promedio” de días en un año, es decir, 365,25. No hay forma de convertir un mes en una duración, porque hay demasiada variación.</p>
 <p>Puedes sumar y multiplicar duraciones:</p>
@@ -1007,12 +1008,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "63115200s (~2 years)"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dhours</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "38869200s (~1.23 years)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "38869200s (~1.23 years)"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede sumar y restar duraciones desde y hacia días:</p>
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tomorrow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">last_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">last_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sin embargo, debido a que las duraciones representan una cantidad exacta de segundos, a veces puede obtener un resultado inesperado:</p>
 <div class="cell">
@@ -1021,7 +1022,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">one_am</span></span>
 <span><span class="co">#&gt; [1] "2026-03-08 01:00:00 EST"</span></span>
 <span><span class="va">one_am</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2026-03-09 02:00:00 EDT"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2026-03-09 02:00:00 EDT"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Por qué un día después de la 1 a. m. es el 8 de marzo y a las 2 a. m. el 9 de marzo? Si observa detenidamente la fecha, también puede notar que las zonas horarias han cambiado. El 8 de marzo solo tiene 23 horas porque es cuando comienza el horario de verano, por lo que si agregamos un día completo en segundos, terminamos con una hora diferente.</p>
 </section><section id="períodos" class="level3" data-number="18.4.2"><h3 data-number="18.4.2" class="anchored" data-anchor-id="períodos">
@@ -1031,7 +1032,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">one_am</span></span>
 <span><span class="co">#&gt; [1] "2026-03-08 01:00:00 EST"</span></span>
 <span><span class="va">one_am</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2026-03-09 01:00:00 EDT"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2026-03-09 01:00:00 EDT"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Al igual que las duraciones, los períodos se pueden crear con una serie de funciones constructoras amigables.</p>
 <div class="cell">
@@ -1041,14 +1042,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] "7d 0H 0M 0S"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"</span></span>
-<span><span class="co">#&gt; [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede sumar y multiplicar períodos:</p>
 <div class="cell">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">10</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "60m 10d 0H 0M 0S"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "50d 25H 2M 0S"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "50d 25H 2M 0S"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Y por supuesto, añádelos a las fechas. En comparación con las duraciones, es más probable que los períodos hagan lo que esperas:</p>
 <div class="cell">
@@ -1062,7 +1063,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">one_am</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2026-03-09 02:00:00 EDT"</span></span>
 <span><span class="va">one_am</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2026-03-09 01:00:00 EDT"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2026-03-09 01:00:00 EDT"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usemos períodos para arreglar una rareza relacionada con nuestras fechas de vuelo. Algunos aviones parecen haber llegado a su destino <em>antes</em> de partir de la ciudad de Nueva York.</p>
 <div class="cell">
@@ -1078,7 +1079,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 EWR    SFO          11       -14 2013-01-01 21:08:00 2013-01-01 20:57:00</span></span>
 <span><span class="co">#&gt; 6 LGA    FLL         -10        -2 2013-01-01 21:20:00 2013-01-01 21:30:00</span></span>
 <span><span class="co">#&gt; # ℹ 10,627 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 3 more variables: arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Estos son vuelos nocturnos. Utilizamos la misma información de fecha tanto para la hora de salida como para la de llegada, pero estos vuelos llegaron al día siguiente. Podemos arreglar esto agregando <code>días (1)</code> a la hora de llegada de cada vuelo nocturno.</p>
 <div class="cell">
@@ -1087,7 +1088,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    overnight <span class="op">=</span> <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span>,</span>
 <span>    arr_time <span class="op">=</span> <span class="va">arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span><span class="op">)</span>,</span>
 <span>    sched_arr_time <span class="op">=</span> <span class="va">sched_arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ahora todos nuestros vuelos obedecen las leyes de la física.</p>
 <div class="cell">
@@ -1095,7 +1096,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">overnight</span>, <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; # A tibble: 0 × 10</span></span>
 <span><span class="co">#&gt; # ℹ 10 variables: origin &lt;chr&gt;, dest &lt;chr&gt;, dep_delay &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   arr_delay &lt;dbl&gt;, dep_time &lt;dttm&gt;, sched_dep_time &lt;dttm&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; #   arr_delay &lt;dbl&gt;, dep_time &lt;dttm&gt;, sched_dep_time &lt;dttm&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="sec-intervals" class="level3" data-number="18.4.3"><h3 data-number="18.4.3" class="anchored" data-anchor-id="sec-intervals">
 <span class="header-section-number">18.4.3</span> Intervalos</h3>
@@ -1103,7 +1104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>¿Qué devuelve <code>years(1) / days(1)</code>? Bueno, si el año fue 2015, debería devolver 365, pero si fue 2016, ¡debería devolver 366! No hay suficiente información sobre lubridate para dar una sola respuesta clara. Lo que hace en cambio es dar una estimación:</p>
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 365.25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 365.25</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si desea una medición más precisa, deberá usar un <strong>intervalo</strong>. Un intervalo es un par de fechas de inicio y finalización, o puede considerarlo como una duración con un punto de inicio.</p>
 <p>Puede crear un intervalo escribiendo <code>start %--% end</code>:</p>
@@ -1114,14 +1115,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">y2023</span></span>
 <span><span class="co">#&gt; [1] 2023-01-01 UTC--2024-01-01 UTC</span></span>
 <span><span class="va">y2024</span></span>
-<span><span class="co">#&gt; [1] 2024-01-01 UTC--2025-01-01 UTC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 2024-01-01 UTC--2025-01-01 UTC</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Luego podrías dividirlo por <code><a href="https://lubridate.tidyverse.org/reference/period.html">days()</a></code> para averiguar cuántos días caben en el año:</p>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y2023</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 365</span></span>
 <span><span class="va">y2024</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 366</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 366</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios-2" class="level3" data-number="18.4.4"><h3 data-number="18.4.4" class="anchored" data-anchor-id="ejercicios-2">
 <span class="header-section-number">18.4.4</span> Ejercicios</h3>
@@ -1139,7 +1140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Puedes averiguar cuál cree R que es tu zona horaria actual con <code><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Europe/Madrid"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "Europe/Madrid"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(Si R no lo sabe, obtendrá una <code>NA</code>.)</p>
 <p>Y vea la lista completa de todos los nombres de zonas horarias con <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>:</p>
@@ -1148,7 +1149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] 596</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"</span></span>
-<span><span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En R, la zona horaria es un atributo de la fecha-hora que solo controla la impresión. Por ejemplo, estos tres objetos representan el mismo instante en el tiempo:</p>
 <div class="cell">
@@ -1162,21 +1163,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2024-06-02 04:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span></span>
 <span><span class="va">x3</span></span>
-<span><span class="co">#&gt; [1] "2024-06-02 04:00:00 NZST"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "2024-06-02 04:00:00 NZST"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puedes verificar que son la misma hora usando la resta:</p>
 <div class="cell">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x1</span> <span class="op">-</span> <span class="va">x2</span></span>
 <span><span class="co">#&gt; Time difference of 0 secs</span></span>
 <span><span class="va">x1</span> <span class="op">-</span> <span class="va">x3</span></span>
-<span><span class="co">#&gt; Time difference of 0 secs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Time difference of 0 secs</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A menos que se especifique lo contrario, lubridate siempre usa UTC. UTC (Tiempo Universal Coordinado) es la zona horaria estándar utilizada por la comunidad científica y es aproximadamente equivalente a GMT (Greenwich Mean Time). No tiene DST, lo que hace una representación conveniente para el cálculo. Las operaciones que combinan fechas y horas, como <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>, a menudo eliminarán la zona horaria. En ese caso, las fechas y horas se mostrarán en la zona horaria del primer elemento:</p>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span><span class="op">)</span></span>
 <span><span class="va">x4</span></span>
 <span><span class="co">#&gt; [1] "2024-06-01 12:00:00 EDT" "2024-06-01 12:00:00 EDT"</span></span>
-<span><span class="co">#&gt; [3] "2024-06-01 12:00:00 EDT"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [3] "2024-06-01 12:00:00 EDT"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede cambiar la zona horaria de dos maneras:</p>
 <ul>
@@ -1189,7 +1190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [3] "2024-06-02 02:30:00 +1030"</span></span>
 <span><span class="va">x4a</span> <span class="op">-</span> <span class="va">x4</span></span>
 <span><span class="co">#&gt; Time differences in secs</span></span>
-<span><span class="co">#&gt; [1] 0 0 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 0 0 0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(Esto también ilustra otro desafío de las zonas horarias: ¡no todas son compensaciones de horas enteras!)</p>
 </li>
@@ -1202,7 +1203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [3] "2024-06-01 12:00:00 +1030"</span></span>
 <span><span class="va">x4b</span> <span class="op">-</span> <span class="va">x4</span></span>
 <span><span class="co">#&gt; Time differences in hours</span></span>
-<span><span class="co">#&gt; [1] -14.5 -14.5 -14.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] -14.5 -14.5 -14.5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ul></section><section id="resumen" class="level2" data-number="18.6"><h2 data-number="18.6" class="anchored" data-anchor-id="resumen">
@@ -1256,7 +1257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   const act_link_O = document.createElement('div');
   act_link_O.className='action-links';
   act_link_O.id='act-link-O';
-  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
 
 
   TOC.appendChild(originalga);
@@ -1338,12 +1339,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

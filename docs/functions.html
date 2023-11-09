@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 26&nbsp; Funciones</title>
@@ -79,15 +79,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -95,13 +96,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./program.html">Programa</a></li><li class="breadcrumb-item"><a href="./functions.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Funciones</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -126,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -136,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -163,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -310,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -380,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -404,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
 <li>
@@ -487,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Agruparemos una variedad de funciones de todo el tidyverse. También usaremos nycflights13 como fuente de datos familiares para usar nuestras funciones.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="funciones-vectoriales" class="level2" data-number="26.2"><h2 data-number="26.2" class="anchored" data-anchor-id="funciones-vectoriales">
 <span class="header-section-number">26.2</span> Funciones vectoriales</h2>
@@ -517,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 2 0.880  0    0.611 0.557</span></span>
 <span><span class="co">#&gt; 3 0      1.37 1     0.752</span></span>
 <span><span class="co">#&gt; 4 0.795  1.37 0     1    </span></span>
-<span><span class="co">#&gt; 5 1      1.34 0.580 0.394</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 5 1      1.34 0.580 0.394</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Es posible que pueda descifrar que esto cambia la escala de cada columna para tener un rango de 0 a 1. Pero, ¿viste el error? Cuando Hadley escribió este código, cometió un error al copiar y pegar y olvidó cambiar una <code>a</code> por una <code>b</code>. Prevenir este tipo de error es una muy buena razón para aprender a escribir funciones.</p>
 <section id="escribiendo-una-función" class="level3" data-number="26.2.1"><h3 data-number="26.2.1" class="anchored" data-anchor-id="escribiendo-una-función">
@@ -527,11 +528,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">a</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">b</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">c</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">d</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">(</span><span class="va">d</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para hacer esto un poco más claro, podemos reemplazar el bit que varía con <code>█</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(█ <span class="sc">-</span> <span class="fu">min</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> (<span class="fu">max</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(█ <span class="sc">-</span> <span class="fu">min</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> (<span class="fu">max</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(█, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para convertir esto en una función necesitas tres cosas:</p>
 <ol type="1">
@@ -543,20 +544,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">arguments</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">body</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para este caso que conduce a:</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rescale01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En este punto, puede probar con algunas entradas simples para asegurarse de haber capturado la lógica correctamente:</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rescale01</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.0 0.5 1.0</span></span>
 <span><span class="fu">rescale01</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.00 0.25 0.50   NA 1.00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 0.00 0.25 0.50   NA 1.00</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Entonces puedes reescribir la llamada a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> como:</p>
 <div class="cell">
@@ -573,9 +574,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 2 0.880 0     0.611 0.557</span></span>
 <span><span class="co">#&gt; 3 0     0.530 1     0.752</span></span>
 <span><span class="co">#&gt; 4 0.795 0.531 0     1    </span></span>
-<span><span class="co">#&gt; 5 1     0.518 0.580 0.394</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 5 1     0.518 0.580 0.394</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>(En <a href="#sec-iteration"><span class="quarto-unresolved-ref">sec-iteration</span></a>, aprenderá a usar <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> para reducir aún más la duplicación, por lo que todo lo que necesita es <code>df |&gt; mutate(across(a:d, rescale01))</code>).</p>
+<p>(En <a href="iteration.html"><span>Capítulo&nbsp;27</span></a>, aprenderá a usar <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> para reducir aún más la duplicación, por lo que todo lo que necesita es <code>df |&gt; mutate(across(a:d, rescale01))</code>).</p>
 </section><section id="mejorando-nuestra-función" class="level3" data-number="26.2.2"><h3 data-number="26.2.2" class="anchored" data-anchor-id="mejorando-nuestra-función">
 <span class="header-section-number">26.2.2</span> Mejorando nuestra función</h3>
 <p>Puede notar que la función <code>rescale01()</code> hace un trabajo innecesario — en lugar de calcular <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> dos veces y <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> una vez, podríamos calcular tanto el mínimo como el máximo en un solo paso con <code><a href="https://rdrr.io/r/base/range.html">range( )</a></code>:</p>
@@ -583,13 +584,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rescale01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">rng</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O puede probar esta función en un vector que incluye un valor infinito:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="cn">Inf</span><span class="op">)</span></span>
 <span><span class="fu">rescale01</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]   0   0   0   0   0   0   0   0   0   0 NaN</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  [1]   0   0   0   0   0   0   0   0   0   0 NaN</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ese resultado no es particularmente útil, por lo que podríamos pedirle a <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> que ignore valores infinitos:</p>
 <div class="cell">
@@ -600,7 +601,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">rescale01</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] 0.0000000 0.1111111 0.2222222 0.3333333 0.4444444 0.5555556 0.6666667</span></span>
-<span><span class="co">#&gt;  [8] 0.7777778 0.8888889 1.0000000       Inf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  [8] 0.7777778 0.8888889 1.0000000       Inf</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Estos cambios ilustran un beneficio importante de las funciones: debido a que hemos movido el código repetido a una función, solo necesitamos hacer el cambio en un lugar.</p>
 </section><section id="funciones-mutate" class="level3" data-number="26.2.3"><h3 data-number="26.2.3" class="anchored" data-anchor-id="funciones-mutate">
@@ -610,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">z_score</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O tal vez quieras terminar un <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> sencillo y darle un nombre útil. Por ejemplo, esta función <code>clamp()</code> asegura que todos los valores de un vector se encuentran entre un mínimo o un máximo:</p>
 <div class="cell">
@@ -623,7 +624,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">clamp</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, min <span class="op">=</span> <span class="fl">3</span>, max <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 3 3 3 4 5 6 7 7 7 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  [1] 3 3 3 4 5 6 7 7 7 7</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Por supuesto, las funciones no solo necesitan trabajar con variables numéricas. Es posible que desee realizar una manipulación repetida de cadenas. Tal vez necesites hacer el primer carácter en mayúsculas:</p>
 <div class="cell">
@@ -633,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">first_upper</span><span class="op">(</span><span class="st">"hello"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Hello"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "Hello"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O tal vez desee eliminar los signos de porcentaje, las comas y los signos de dólar de una cadena antes de convertirla en un número:</p>
 <div class="cell">
@@ -644,20 +645,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">"%"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="st">","</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove_all</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"$"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">is_pct</span>, <span class="va">num</span> <span class="op">/</span> <span class="fl">100</span>, <span class="va">num</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">clean_number</span><span class="op">(</span><span class="st">"$12,300"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 12300</span></span>
 <span><span class="fu">clean_number</span><span class="op">(</span><span class="st">"45%"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.45</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 0.45</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A veces, sus funciones estarán altamente especializadas para un paso de análisis de datos. Por ejemplo, si tiene un montón de variables que registran valores faltantes como 997, 998 o 999, puede escribir una función para reemplazarlos con <code>NA</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fix_na</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">997</span>, <span class="fl">998</span>, <span class="fl">999</span><span class="op">)</span>, <span class="cn">NA</span>, <span class="va">x</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nos hemos centrado en ejemplos que toman un solo vector porque creemos que son los más comunes. Pero no hay razón para que su función no pueda tomar múltiples entradas de vectores.</p>
 </section><section id="funciones-summary" class="level3" data-number="26.2.4"><h3 data-number="26.2.4" class="anchored" data-anchor-id="funciones-summary">
@@ -669,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">commas</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"pigeon"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "cat, dog and pigeon"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "cat, dog and pigeon"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O podría terminar un cálculo simple, como el coeficiente de variación, que divide la desviación estándar por la media:</p>
 <div class="cell">
@@ -680,21 +681,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu">cv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.5196276</span></span>
 <span><span class="fu">cv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.5652554</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] 0.5652554</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O tal vez solo quiera hacer que un patrón común sea más fácil de recordar dándole un nombre fácil de recordar:</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># https://twitter.com/gbganalyst/status/1571619641390252033</span></span>
 <span><span class="va">n_missing</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span> </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También puede escribir funciones con múltiples entradas vectoriales. Por ejemplo, tal vez desee calcular el error de predicción absoluto medio para ayudarlo a comparar las predicciones del modelo con los valores reales:</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># https://twitter.com/neilgcurrie/status/1571607727255834625</span></span>
 <span><span class="va">mape</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">actual</span>, <span class="va">predicted</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">(</span><span class="va">actual</span> <span class="op">-</span> <span class="va">predicted</span><span class="op">)</span> <span class="op">/</span> <span class="va">actual</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">actual</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -729,7 +730,7 @@ RStudio
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">y</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">y</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">z</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">z</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">z</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">z</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li><p>En la segunda variante de <code>rescale01()</code>, los valores infinitos se dejan sin cambios. ¿Puedes reescribir <code>rescale01()</code> para que <code>-Inf</code> se asigne a 0 e <code>Inf</code> se asigne a 1?</p></li>
@@ -744,7 +745,7 @@ RStudio
 <span><span class="op">}</span></span>
 <span><span class="va">is_readable</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.access.html">file.access</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol></section></section><section id="funciones-de-data-frame" class="level2" data-number="26.3"><h2 data-number="26.3" class="anchored" data-anchor-id="funciones-de-data-frame">
@@ -759,14 +760,14 @@ RStudio
 <span>  <span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">group_var</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">mean_var</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si lo intentamos y lo usamos, obtenemos un error:</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">grouped_mean</span><span class="op">(</span><span class="va">cut</span>, <span class="va">carat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in `group_by()`:</span></span>
 <span><span class="co">#&gt; ! Must group by variables found in `.data`.</span></span>
-<span><span class="co">#&gt; ✖ Column `group_var` is not found.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ✖ Column `group_var` is not found.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para hacer el problema un poco más claro, podemos usar un marco de datos inventado:</p>
 <div class="cell">
@@ -787,7 +788,7 @@ RStudio
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   group_var `mean(mean_var)`</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 g                        1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 g                        1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Independientemente de cómo llamemos a <code>grouped_mean()</code>, siempre hace <code>df |&gt; group_by(group_var) |&gt; resume(mean(mean_var))</code>, en lugar de <code>df |&gt; group_by(group) |&gt; resume(mean(x) )</code> o <code>df |&gt; group_by(group) |&gt; resume(mean(y))</code>. Este es un problema de direccionamiento indirecto, y surge porque dplyr usa <strong>evaluación ordenada</strong> para permitirle referirse a los nombres de las variables dentro de su marco de datos sin ningún tratamiento especial.</p>
 <p>La evaluación ordenada es excelente el 95% de las veces porque hace que sus análisis de datos sean muy concisos, ya que nunca tiene que decir de qué marco de datos proviene una variable; es obvio por el contexto. La desventaja de la evaluación ordenada surge cuando queremos envolver el código tidyverse repetido en una función. Aquí necesitamos alguna forma de decirle a <code>group_mean()</code> y <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> que no traten <code>group_var</code> y <code>mean_var</code> como el nombre de las variables, sino que busquen dentro de ellas la variable que realmente queremos usar.</p>
@@ -804,7 +805,7 @@ RStudio
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   group `mean(x)`</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1     1        10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1     1        10</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¡Éxito!</p>
 </section><section id="sec-embracing" class="level3" data-number="26.3.2"><h3 data-number="26.3.2" class="anchored" data-anchor-id="sec-embracing">
@@ -836,7 +837,7 @@ RStudio
 <span><span class="co">#&gt; # A tibble: 1 × 6</span></span>
 <span><span class="co">#&gt;     min  mean median   max     n n_miss</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1   0.2 0.798    0.7  5.01 53940      0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1   0.2 0.798    0.7  5.01 53940      0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(Cada vez que envuelve <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> en un asistente, creemos que es una buena práctica configurar <code>.groups = "drop"</code> para evitar el mensaje y dejar los datos en un estado desagrupado).</p>
 <p>Lo bueno de esta función es que, debido a que envuelve <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, puede usarla en datos agrupados:</p>
@@ -851,7 +852,7 @@ RStudio
 <span><span class="co">#&gt; 2 Good       0.23 0.849   0.82  3.01  4906      0</span></span>
 <span><span class="co">#&gt; 3 Very Good  0.2  0.806   0.71  4    12082      0</span></span>
 <span><span class="co">#&gt; 4 Premium    0.2  0.892   0.86  4.01 13791      0</span></span>
-<span><span class="co">#&gt; 5 Ideal      0.2  0.703   0.54  3.5  21551      0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 5 Ideal      0.2  0.703   0.54  3.5  21551      0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Además, dado que los argumentos para resumir son un enmascaramiento de datos, también significa que el argumento <code>var</code> para <code>summary6()</code> es un enmascaramiento de datos. Eso significa que también puede resumir las variables calculadas:</p>
 <div class="cell">
@@ -865,9 +866,9 @@ RStudio
 <span><span class="co">#&gt; 2 Good      -0.638 -0.133  -0.0862 0.479  4906      0</span></span>
 <span><span class="co">#&gt; 3 Very Good -0.699 -0.164  -0.149  0.602 12082      0</span></span>
 <span><span class="co">#&gt; 4 Premium   -0.699 -0.125  -0.0655 0.603 13791      0</span></span>
-<span><span class="co">#&gt; 5 Ideal     -0.699 -0.225  -0.268  0.544 21551      0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 5 Ideal     -0.699 -0.225  -0.268  0.544 21551      0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Para resumir varias variables, deberá esperar hasta <a href="#sec-across"><span class="quarto-unresolved-ref">sec-across</span></a>, donde aprenderá a usar <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>.</p>
+<p>Para resumir varias variables, deberá esperar hasta <a href="iteration.html#sec-across"><span>Sección&nbsp;27.2</span></a>, donde aprenderá a usar <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>.</p>
 <p>Otra función auxiliar popular <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> es una versión de <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> que también calcula proporciones:</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># https://twitter.com/Diabb6/status/1571635146658402309</span></span>
@@ -887,7 +888,7 @@ RStudio
 <span><span class="co">#&gt; 4 VS2     12258 0.227 </span></span>
 <span><span class="co">#&gt; 5 VS1      8171 0.151 </span></span>
 <span><span class="co">#&gt; 6 VVS2     5066 0.0939</span></span>
-<span><span class="co">#&gt; # ℹ 2 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 2 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esta función tiene tres argumentos: <code>df</code>, <code>var</code> y <code>sort</code>, y solo <code>var</code> debe aceptarse porque se pasa a <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, que utiliza el enmascaramiento de datos para todas las variables. Tenga en cuenta que usamos un valor predeterminado para <code>sort</code>, de modo que si el usuario no proporciona su propio valor, el valor predeterminado será <code>FALSE</code>.</p>
 <p>O tal vez quiera encontrar los valores únicos ordenados de una variable para un subconjunto de los datos. En lugar de proporcionar una variable y un valor para realizar el filtrado, permitiremos que el usuario proporcione una condición:</p>
@@ -910,7 +911,7 @@ RStudio
 <span><span class="co">#&gt; 4 AUS  </span></span>
 <span><span class="co">#&gt; 5 AVL  </span></span>
 <span><span class="co">#&gt; 6 BDL  </span></span>
-<span><span class="co">#&gt; # ℹ 90 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 90 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Aquí adoptamos <code>condition</code> porque se pasa a <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> y <code>var</code> porque se pasa a <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>.</p>
 <p>Hicimos todos estos ejemplos para tomar un data frame como el primer argumento, pero si está trabajando repetidamente con los mismos datos, puede tener sentido codificarlo. Por ejemplo, la siguiente función siempre funciona con el conjunto de datos de vuelos y siempre selecciona <code>time_hour</code>, <code>carrier</code> y <code>flight</code>, ya que forman la clave principal compuesta que le permite identificar una fila.</p>
@@ -919,7 +920,7 @@ RStudio
 <span>  <span class="va">flights</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">rows</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">time_hour</span>, <span class="va">carrier</span>, <span class="va">flight</span>, <span class="op">{</span><span class="op">{</span> <span class="va">cols</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="enmascaramiento-de-datos-vs-selección-ordenada" class="level3" data-number="26.3.4"><h3 data-number="26.3.4" class="anchored" data-anchor-id="enmascaramiento-de-datos-vs-selección-ordenada">
 <span class="header-section-number">26.3.4</span> Enmascaramiento de datos vs selección ordenada</h3>
@@ -939,7 +940,7 @@ RStudio
 <span><span class="co">#&gt; Error in `group_by()`:</span></span>
 <span><span class="co">#&gt; ℹ In argument: `c(year, month, day)`.</span></span>
 <span><span class="co">#&gt; Caused by error:</span></span>
-<span><span class="co">#&gt; ! `c(year, month, day)` must be size 336776 or 1, not 1010328.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ! `c(year, month, day)` must be size 336776 or 1, not 1010328.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esto no funciona porque <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> usa enmascaramiento de datos, no selección ordenada. Podemos solucionar ese problema usando la práctica función <code><a href="https://dplyr.tidyverse.org/reference/pick.html">pick()</a></code>, que le permite usar la selección ordenada dentro de las funciones de enmascaramiento de datos:</p>
 <div class="cell">
@@ -963,7 +964,7 @@ RStudio
 <span><span class="co">#&gt; 4  2013     1     4      6</span></span>
 <span><span class="co">#&gt; 5  2013     1     5      3</span></span>
 <span><span class="co">#&gt; 6  2013     1     6      1</span></span>
-<span><span class="co">#&gt; # ℹ 359 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 359 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Otro uso conveniente de <code><a href="https://dplyr.tidyverse.org/reference/pick.html">pick()</a></code> es hacer una tabla de cuentas en 2D. Aquí contamos usando todas las variables en las <code>filas</code> y <code>columnas</code>, luego usamos <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> para reorganizar los conteos en una cuadrícula:</p>
 <div class="cell">
@@ -989,7 +990,7 @@ RStudio
 <span><span class="co">#&gt; 4 I1      G        53    19          16      46    16</span></span>
 <span><span class="co">#&gt; 5 I1      H        52    14          12      46    38</span></span>
 <span><span class="co">#&gt; 6 I1      I        34     9           8      24    17</span></span>
-<span><span class="co">#&gt; # ℹ 50 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 50 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si bien nuestros ejemplos se han centrado principalmente en dplyr, la evaluación ordenada también respalda a tidyr, y si observa los documentos <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>, puede ver que <code>names_from</code> usa una selección ordenada.</p>
 </section><section id="ejercicios-1" class="level3" data-number="26.3.5"><h3 data-number="26.3.5" class="anchored" data-anchor-id="ejercicios-1">
@@ -1001,31 +1002,31 @@ RStudio
 <li>
 <p>Encuentra todos los vuelos que fueron cancelados (es decir, <code>is.na(arr_time)</code>) o retrasados por más de una hora.</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">filter_severe</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">filter_severe</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>Cuenta el número de vuelos cancelados y el número de vuelos retrasados por más de una hora.</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">summarize_severe</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">summarize_severe</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>Encuentra todos los vuelos que fueron cancelados o retrasados por más de un número de horas proporcionado por el usuario:</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">filter_severe</span><span class="op">(</span>hours <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">filter_severe</span><span class="op">(</span>hours <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>Resume el clima para calcular el mínimo, la media y el máximo de una variable proporcionada por el usuario:</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weather</span> <span class="op">|&gt;</span> <span class="fu">summarize_weather</span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">weather</span> <span class="op">|&gt;</span> <span class="fu">summarize_weather</span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>Convierte la variable proporcionada por el usuario que utiliza la hora del reloj (por ejemplo, <code>dep_time</code>, <code>arr_time</code>, etc.) en una hora decimal (es decir, hours + (minutes/60)).</p>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">standardize_time</span><span class="op">(</span><span class="va">sched_dep_time</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu">standardize_time</span><span class="op">(</span><span class="va">sched_dep_time</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol>
@@ -1038,7 +1039,7 @@ RStudio
 <span>  <span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span>, sort <span class="op">=</span> <span class="va">sort</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol></section></section><section id="funciones-de-gráficas" class="level2" data-number="26.4"><h2 data-number="26.4" class="anchored" data-anchor-id="funciones-de-gráficas">
@@ -1051,7 +1052,7 @@ RStudio
 <span></span>
 <span><span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿No sería bueno si pudieras envolver esto en una función de histograma? Esto es muy fácil una vez que sabe que <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes ()</a></code> es una función de enmascaramiento de datos y debe adoptar:</p>
 <div class="cell">
@@ -1061,7 +1062,7 @@ RStudio
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="va">binwidth</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">histogram</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">histogram</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" alt="Un histograma de quilates de diamantes, con un rango de 0 a 5, que muestra una distribución unimodal sesgada a la derecha con un pico entre 0 y 1 quilate." width="576"></p>
 </div>
@@ -1070,7 +1071,7 @@ RStudio
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">histogram</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Size (in carats)"</span>, y <span class="op">=</span> <span class="st">"Number of diamonds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Size (in carats)"</span>, y <span class="op">=</span> <span class="st">"Number of diamonds"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="más-variables" class="level3" data-number="26.4.1"><h3 data-number="26.4.1" class="anchored" data-anchor-id="más-variables">
 <span class="header-section-number">26.4.1</span> Más variables</h3>
@@ -1087,7 +1088,7 @@ RStudio
 <span></span>
 <span><span class="va">starwars</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">mass</span> <span class="op">&lt;</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">linearity_check</span><span class="op">(</span><span class="va">mass</span>, <span class="va">height</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">linearity_check</span><span class="op">(</span><span class="va">mass</span>, <span class="va">height</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" alt="Diagrama de dispersión de altura frente a masa de personajes de StarWars que muestra una relación positiva. Una curva suave de la relación se traza en rojo y la línea de mejor ajuste se traza en azul." width="576"></p>
 </div>
@@ -1105,7 +1106,7 @@ RStudio
 <span>    <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">hex_plot</span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span>, <span class="va">depth</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">hex_plot</span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span>, <span class="va">depth</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" alt="Gráfico hexagonal de precio frente a quilates de diamantes que muestra una relación positiva. Hay más diamantes de menos de 2 quilates que de más de 2 quilates." width="576"></p>
 </div>
@@ -1121,12 +1122,12 @@ RStudio
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">sorted_bars</span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">sorted_bars</span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" alt="Gráfica de barras de claridad de diamantes, donde la claridad está en el eje y y los conteos están en el eje x, y las barras están ordenadas en orden de frecuencia: SI1, VS2, SI2, VS1, VVS2, VVS1, IF, I1." width="576"></p>
 </div>
 </div>
-<p>Tenemos que usar un nuevo operador aquí, <code>:=</code>, porque estamos generando el nombre de la variable en función de los datos proporcionados por el usuario. Los nombres de las variables van en el lado izquierdo de <code>=</code>, pero la sintaxis de R no permite nada a la izquierda de <code>=</code> excepto un solo nombre literal. Para solucionar este problema, usamos el operador especial <code>:=</code> que la evaluación ordenada trata exactamente de la misma manera que <code>=</code>.</p>
+<p>Tenemos que usar un nuevo operador aquí, <code>:=</code> (comúnmente conocido como “operador morsa”), porque estamos generando el nombre de la variable en función de los datos proporcionados por el usuario. Los nombres de las variables van en el lado izquierdo de <code>=</code>, pero la sintaxis de R no permite nada a la izquierda de <code>=</code> excepto un solo nombre literal. Para solucionar este problema, usamos el operador especial <code>:=</code> que la evaluación ordenada trata exactamente de la misma manera que <code>=</code>.</p>
 <p>O tal vez desee que sea más fácil dibujar un gráfico de barras solo para un subconjunto de los datos:</p>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">conditional_bars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">condition</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1136,7 +1137,7 @@ RStudio
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">conditional_bars</span><span class="op">(</span><span class="va">cut</span> <span class="op">==</span> <span class="st">"Good"</span>, <span class="va">clarity</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">conditional_bars</span><span class="op">(</span><span class="va">cut</span> <span class="op">==</span> <span class="st">"Good"</span>, <span class="va">clarity</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" alt="Diagrama de barra de claridad de diamantes. El más común es SI1, luego SI2, luego VS2, luego VS1, luego VVS2, luego VVS1, luego I1, luego por último IF." width="576"></p>
 </div>
@@ -1151,7 +1152,7 @@ RStudio
 <span>  <span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="va">binwidth</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿No sería bueno si pudiéramos etiquetar la salida con la variable y el ancho del contenedor que se usó? Para hacerlo, vamos a tener que pasar por debajo de las sábanas de la evaluación ordenada y usar una función del paquete del que aún no hemos hablado: rlang. rlang es un paquete de bajo nivel que es utilizado por casi todos los demás paquetes en el tidyverse porque implementa una evaluación ordenada (así como muchas otras herramientas útiles).</p>
 <p>Para resolver el problema de etiquetado podemos usar <code><a href="https://rlang.r-lib.org/reference/englue.html">rlang::englue()</a></code>. Esto funciona de manera similar a <code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code>, por lo que cualquier valor envuelto en <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code> se insertará en la cadena. Pero también entiende <code>{{ }}</code>, que inserta automáticamente el nombre de variable apropiado:</p>
@@ -1165,7 +1166,7 @@ RStudio
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">label</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">histogram</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu">histogram</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="functions_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid" alt="Histograma de quilates de diamantes, que va de 0 a 5. La distribución es unimodal y sesgada a la derecha con un pico entre 0 y 1 quilates." width="576"></p>
 </div>
@@ -1191,9 +1192,9 @@ RStudio
 <span></span>
 <span><span class="co"># Largo pero no claro</span></span>
 <span><span class="fu">impute_missing</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">collapse_years</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">collapse_years</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A R tampoco le importa cómo usa el espacio en blanco en sus funciones, pero a los futuros lectores sí. Continúe siguiendo las reglas de <a href="#sec-workflow-style"><span class="quarto-unresolved-ref">sec-workflow-style</span></a>. Además, <code>function()</code> siempre debe ir seguida de corchetes ondulados (<code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>), y el contenido debe tener una sangría de dos espacios adicionales. Esto hace que sea más fácil ver la jerarquía en su código rozando el margen izquierdo.</p>
+<p>A R tampoco le importa cómo usa el espacio en blanco en sus funciones, pero a los futuros lectores sí. Continúe siguiendo las reglas de <a href="workflow-style.html"><span>Capítulo&nbsp;5</span></a>. Además, <code>function()</code> siempre debe ir seguida de corchetes ondulados (<code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>), y el contenido debe tener una sangría de dos espacios adicionales. Esto hace que sea más fácil ver la jerarquía en su código rozando el margen izquierdo.</p>
 <div class="cell">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Faltan los dos espacios extras</span></span>
 <span><span class="va">density</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">color</span>, <span class="va">facets</span>, <span class="va">binwidth</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1209,7 +1210,7 @@ RStudio
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span>, color <span class="op">=</span> <span class="op">{</span><span class="op">{</span> <span class="va">color</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="va">binwidth</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">facets</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Como puede ver, recomendamos poner espacios adicionales dentro de <code>{{ }}</code>. Esto hace que sea muy obvio que algo inusual está sucediendo.</p>
 <section id="ejercicios-3" class="level3" data-number="26.5.1"><h3 data-number="26.5.1" class="anchored" data-anchor-id="ejercicios-3">
@@ -1224,7 +1225,7 @@ RStudio
 <span></span>
 <span><span class="va">f3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">y</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li><p>Tome una función que haya escrito recientemente y dedique 5 minutos a pensar en un mejor nombre para ella y sus argumentos.</p></li>
@@ -1280,7 +1281,7 @@ RStudio
   const act_link_O = document.createElement('div');
   act_link_O.className='action-links';
   act_link_O.id='act-link-O';
-  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
 
 
   TOC.appendChild(originalga);
@@ -1362,12 +1363,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

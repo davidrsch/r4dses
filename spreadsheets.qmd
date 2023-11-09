@@ -47,6 +47,7 @@ Para el resto del capítulo nos enfocaremos en usar `read_excel()`.
 ### Lectura de hojas de cálculo de Excel {#sec-reading-spreadsheets-excel}
 
 @fig-students-excel muestra cómo se ve la hoja de cálculo que vamos a leer en R en Excel.
+Esta hoja de cálculo se puede descargar en un archivo Excel desde <https://docs.google.com/spreadsheets/d/1V1nPp1tzOuutXFLb3G9Eyxi3qxeEhnOXUzL5_BcCQ0w/>.
 
 ```{r}
 #| label: fig-students-excel
@@ -558,8 +559,6 @@ El primer argumento de `read_sheet()` es la URL del archivo a leer, y devuelve u
 No es agradable trabajar con estas URL, por lo que a menudo querrá identificar una hoja por su ID.
 
 ```{r}
-#| include: false
-
 gs4_deauth()
 ```
 
@@ -630,7 +629,7 @@ write_sheet(bake_sale, ss = "bake-sale", sheet = "Sales")
 
 ### Autenticación
 
-Si bien puede leer una hoja de Google pública sin autenticarse con su cuenta de Google, leer una hoja privada o escribir en una hoja requiere autenticación para que googlesheets4 pueda ver y administrar *sus* hojas de Google.
+Si bien puede leer una hoja de Google pública sin autenticarse con su cuenta de Google y con `gs4_deauth()`, leer una hoja privada o escribir en una hoja requiere autenticación para que googlesheets4 pueda ver y administrar *sus* hojas de Google.
 
 Cuando intenta leer una hoja que requiere autenticación, googlesheets4 lo dirigirá a un navegador web con un mensaje para iniciar sesión en su cuenta de Google y otorgar permiso para operar en su nombre con Hojas de cálculo de Google.
 Sin embargo, si desea especificar una cuenta de Google específica, el alcance de la autenticación, etc., puede hacerlo con `gs4_auth()`, p.ej., `gs4_auth(email = "mine@example.com")`, que forzará el uso de un token asociado con un correo electrónico específico.

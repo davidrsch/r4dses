@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 4&nbsp; Transformación de datos</title>
@@ -79,15 +79,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -95,13 +96,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">El Juego Completo</a></li><li class="breadcrumb-item"><a href="./data-transform.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transformación de datos</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -126,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -136,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -163,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -310,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -380,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -404,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
 <li>
@@ -478,20 +479,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching core tidyverse packages ───────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.1.2     ✔ readr     2.1.4</span></span>
+<span><span class="co">#&gt; ✔ dplyr     1.1.3     ✔ readr     2.1.4</span></span>
 <span><span class="co">#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.0</span></span>
 <span><span class="co">#&gt; ✔ ggplot2   3.4.3     ✔ tibble    3.2.1</span></span>
-<span><span class="co">#&gt; ✔ lubridate 1.9.2     ✔ tidyr     1.3.0</span></span>
-<span><span class="co">#&gt; ✔ purrr     1.0.1     </span></span>
+<span><span class="co">#&gt; ✔ lubridate 1.9.3     ✔ tidyr     1.3.0</span></span>
+<span><span class="co">#&gt; ✔ purrr     1.0.2     </span></span>
 <span><span class="co">#&gt; ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tome nota del mensaje de conflictos que se imprime cuando carga el tidyverse. Te dice que dplyr sobrescribe algunas funciones en base R. Si desea utilizar la versión base de estas funciones después de cargar dplyr, deberá utilizar sus nombres completos: <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> y <code><a href="https://rdrr.io/r/stats/lag.html">stats::lag()</a></code>. Hasta ahora hemos ignorado en su mayoría de qué paquete proviene una función porque la mayoría de las veces no importa. Sin embargo, conocer el paquete puede ayudarlo a encontrar ayuda y funciones relacionadas, por lo que cuando necesitemos ser precisos sobre de qué paquete proviene una función, usaremos la misma sintaxis que R: <code>nombrepaquete::nombrefuncion()</code>.</p>
 </section><section id="nycflights13" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="nycflights13">
 <span class="header-section-number">4.1.2</span> nycflights13</h3>
-<p>Para explorar los verbos básicos de dplyr, usaremos <code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">nycflights13::flights</a></code>. Este conjunto de datos contiene todos los 336,776 vuelos que partieron de la ciudad de Nueva York en 2013. Los datos provienen de la <a href="http://www.trastats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0">Oficina de Estadísticas de Transporte</a> de EE. UU. y están documentados en <code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">?flights</a></code>.</p>
+<p>Para explorar los verbos básicos de dplyr, usaremos <code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">nycflights13::flights</a></code>. Este conjunto de datos contiene todos los 336,776 vuelos que partieron de la ciudad de Nueva York en 2013. Los datos provienen de la <a href="https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&amp;QO_fu146_anzr=b0-gvzr">Oficina de Estadísticas de Transporte</a> de EE. UU. y están documentados en <code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">?flights</a></code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span></span>
 <span><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
@@ -504,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>flights</code> es un tibble, un tipo especial de data frame utilizado por tidyverse para evitar algunos errores comunes. La diferencia más importante entre los tibbles y los data frames es la forma en que se imprimen los tibbles; están diseñados para grandes conjuntos de datos, por lo que solo muestran las primeras filas y solo las columnas que caben en una pantalla. Hay algunas opciones para ver todo. Si está utilizando RStudio, lo más conveniente es probablemente <code>View(flights)</code>, que abrirá una vista interactiva desplazable y filtrable. De lo contrario, puede usar <code>print(flights, width = Inf)</code> para mostrar todas las columnas, o usar <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code>:</p>
 <div class="cell">
@@ -529,7 +530,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; $ distance       &lt;dbl&gt; 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 73…</span></span>
 <span><span class="co">#&gt; $ hour           &lt;dbl&gt; 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6…</span></span>
 <span><span class="co">#&gt; $ minute         &lt;dbl&gt; 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59…</span></span>
-<span><span class="co">#&gt; $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-0…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-0…</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En ambas vistas, los nombres de las variables van seguidos de abreviaturas que indican el tipo de cada variable: <code>&lt;int&gt;</code> es la abreviatura de entero, <code>&lt;dbl&gt;</code> es la abreviatura de doble (también conocido como número real), <code>&lt;chr&gt;</code> para carácter (también conocido como cadenas) y <code>&lt;dttm&gt;</code> para fecha y hora. Estos son importantes porque las operaciones que puede realizar en una columna dependen mucho de su “tipo”.</p>
 </section><section id="básicos-de-dplyr" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="básicos-de-dplyr">
@@ -540,16 +541,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Los argumentos subsiguientes normalmente describen en qué columnas operar, utilizando los nombres de las variables (sin comillas).</p></li>
 <li><p>La salida es siempre un nuevo data frame.</p></li>
 </ol>
-<p>Debido a que cada verbo hace una cosa bien, resolver problemas complejos generalmente requerirá combinar varios verbos, y lo haremos con la canalización <code>|&gt;</code>. Hablaremos más sobre las canalizaciones en <a href="#sec-the-pipe"><span class="quarto-unresolved-ref">sec-the-pipe</span></a>, pero en resumen, una canalización toma la cosa a su izquierda y la pasa a la función a su derecha para que <code>x |&gt; f(y)</code> sea equivalente a <code>f(x, y)</code>, y <code>x |&gt; f(y) |&gt; g(z)</code> es equivalente a <code>g(f(x, y), z)</code>. La forma más fácil de leer <em>pipe</em> es “entonces”. Eso hace posible tener una idea del siguiente código aunque aún no haya aprendido los detalles:</p>
+<p>Debido a que cada verbo hace una cosa bien, resolver problemas complejos generalmente requerirá combinar varios verbos, y lo haremos con la canalización <code>|&gt;</code>. Hablaremos más sobre las canalizaciones en <a href="#sec-the-pipe"><span>Sección&nbsp;4.4</span></a>, pero en resumen, una canalización toma la cosa a su izquierda y la pasa a la función a su derecha para que <code>x |&gt; f(y)</code> sea equivalente a <code>f(x, y)</code>, y <code>x |&gt; f(y) |&gt; g(z)</code> es equivalente a <code>g(f(x, y), z)</code>. La forma más fácil de leer <em>pipe</em> es “entonces”. Eso hace posible tener una idea del siguiente código aunque aún no haya aprendido los detalles:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dest</span> <span class="op">==</span> <span class="st">"IAH"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    arr_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Los verbos de dplyr están organizados en cuatro grupos según lo que operan: <strong>filas</strong>, <strong>columnas</strong>, <strong>grupos</strong> o <strong>tablas</strong>. En las siguientes secciones, aprenderá los verbos más importantes para filas, columnas y grupos, luego regresaremos a los verbos de unión que funcionan en tablas en <a href="#sec-joins"><span class="quarto-unresolved-ref">sec-joins</span></a>. ¡Vamos a empezar!</p>
+<p>Los verbos de dplyr están organizados en cuatro grupos según lo que operan: <strong>filas</strong>, <strong>columnas</strong>, <strong>grupos</strong> o <strong>tablas</strong>. En las siguientes secciones, aprenderá los verbos más importantes para filas, columnas y grupos, luego regresaremos a los verbos de unión que funcionan en tablas en <a href="joins.html"><span>Capítulo&nbsp;20</span></a>. ¡Vamos a empezar!</p>
 </section></section><section id="filas" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="filas">
 <span class="header-section-number">4.2</span> Filas</h2>
 <p>Los verbos más importantes que operan en las filas de un conjunto de datos son <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, que cambia qué filas están presentes sin cambiar su orden, y <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>, que cambia el orden de las filas sin cambiar cuáles están presentes. Ambas funciones solo afectan a las filas y las columnas no se modifican. También hablaremos de <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>, que encuentra filas con valores únicos pero, a diferencia de <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, también puede modificar opcionalmente las columnas.</p>
@@ -570,7 +571,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1     1815           1325       290     2120           1542</span></span>
 <span><span class="co">#&gt; 6  2013     1     1     1842           1422       260     1958           1535</span></span>
 <span><span class="co">#&gt; # ℹ 9,717 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Además de <code>&gt;</code> (mayor que), puede usar <code>&gt;=</code> (mayor o igual que), <code>&lt;</code> (menor que), <code>&lt;=</code> (menor o igual que), <code>==</code> (igual a) y <code>!=</code> (no igual a). También puede combinar condiciones con <code>&amp;</code> o <code>,</code> para indicar “y” (verifique ambas condiciones) o con <code>|</code> para indicar “o” (verifique cualquiera de las dos condiciones):</p>
 <div class="cell">
@@ -602,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 51,949 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hay un atajo útil cuando estás combinando <code>|</code> y <code>==</code>: <code>%in%</code>. Mantiene filas donde la variable es igual a uno de los valores de la derecha:</p>
 <div class="cell">
@@ -619,13 +620,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 51,949 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Volveremos a estas comparaciones y operadores lógicos con más detalle en <a href="#sec-logicals"><span class="quarto-unresolved-ref">sec-logicals</span></a>.</p>
+<p>Volveremos a estas comparaciones y operadores lógicos con más detalle en <a href="logicals.html"><span>Capítulo&nbsp;13</span></a>.</p>
 <p>Cuando ejecuta <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, dplyr ejecuta la operación de filtrado, crea un nuevo data frame y luego lo imprime. No modifica el conjunto de datos <code>flights</code> existente porque las funciones dplyr nunca modifican sus entradas. Para guardar el resultado, debe usar el operador de asignación, <code>&lt;-</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ene1</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">day</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">day</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="errores-comunes" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="errores-comunes">
 <span class="header-section-number">4.2.2</span> Errores comunes</h3>
@@ -636,14 +637,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Error in `filter()`:</span></span>
 <span><span class="co">#&gt; ! We detected a named input.</span></span>
 <span><span class="co">#&gt; ℹ This usually means that you've used `=` instead of `==`.</span></span>
-<span><span class="co">#&gt; ℹ Did you mean `month == 1`?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ℹ Did you mean `month == 1`?</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Otro error es escribir declaraciones “o” como lo haría en español:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Esto “funciona”, en el sentido de que no arroja un error, pero no hace lo que quieres porque <code>|</code> primero verifica la condición <code>month == 1</code> y luego verifica la condición <code>2</code>, que no es una condición sensata para comprobar. Aprenderemos más sobre lo que sucede aquí y por qué en <a href="#sec-boolean-operations"><span class="quarto-unresolved-ref">sec-boolean-operations</span></a>.</p>
+<p>Esto “funciona”, en el sentido de que no arroja un error, pero no hace lo que quieres porque <code>|</code> primero verifica la condición <code>month == 1</code> y luego verifica la condición <code>2</code>, que no es una condición sensata para comprobar. Aprenderemos más sobre lo que sucede aquí y por qué en <a href="regexps.html#sec-boolean-operations"><span>Sección&nbsp;16.6.2</span></a>.</p>
 </section><section id="arrange" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="arrange">
 <span class="header-section-number">4.2.3</span> <code>arrange()</code>
 </h3>
@@ -661,7 +662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede usar <code><a href="https://dplyr.tidyverse.org/reference/desc.html">desc()</a></code> en una columna dentro de <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> para reordenar el marco de datos en función de esa columna en orden descendente (de mayor a menor). Por ejemplo, este código ordena los vuelos de mayor a menor retraso:</p>
 <div class="cell">
@@ -677,7 +678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     7    22      845           1600      1005     1044           1815</span></span>
 <span><span class="co">#&gt; 6  2013     4    10     1100           1900       960     1342           2211</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que la cantidad de filas no ha cambiado: solo estamos organizando los datos, no los estamos filtrando.</p>
 </section><section id="distinct" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="distinct">
@@ -712,7 +713,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 JFK    BQN  </span></span>
 <span><span class="co">#&gt; 5 LGA    ATL  </span></span>
 <span><span class="co">#&gt; 6 EWR    ORD  </span></span>
-<span><span class="co">#&gt; # ℹ 218 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 218 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternativamente, si desea mantener otras columnas al filtrar filas únicas, puede usar la opción <code>.keep_all = TRUE</code>.</p>
 <div class="cell">
@@ -728,10 +729,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 218 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>No es una coincidencia que todos estos vuelos distintos sean el 1 de enero: <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> encontrará la primera aparición de una fila única en el conjunto de datos y descartará el resto.</p>
-<p>Si quieres encontrar el número de ocurrencias, es mejor que cambies <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> por <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, y con el argumento <code>sort = TRUE</code> puedes organizarlas en orden descendente según el número de ocurrencias. Aprenderá más sobre el conteo en <a href="#sec-counts"><span class="quarto-unresolved-ref">sec-counts</span></a>.</p>
+<p>Si quieres encontrar el número de ocurrencias, es mejor que cambies <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> por <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, y con el argumento <code>sort = TRUE</code> puedes organizarlas en orden descendente según el número de ocurrencias. Aprenderá más sobre el conteo en <span class="quarto-unresolved-ref">?sec-counts</span>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -744,7 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 JFK    SFO    8204</span></span>
 <span><span class="co">#&gt; 5 LGA    CLT    6168</span></span>
 <span><span class="co">#&gt; 6 EWR    ORD    6100</span></span>
-<span><span class="co">#&gt; # ℹ 218 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 218 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="ejercicios">
 <span class="header-section-number">4.2.5</span> Ejercicios</h3>
@@ -787,7 +788,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 13 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 13 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>De forma predeterminada, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> agrega nuevas columnas en el lado derecho de su conjunto de datos, lo que dificulta ver lo que está sucediendo aquí. Podemos usar el argumento <code>.before</code> para agregar las variables al lado izquierdo <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <div class="cell">
@@ -807,7 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5       19      394.  2013     1     1      554            600        -6</span></span>
 <span><span class="co">#&gt; 6      -16      288.  2013     1     1      554            558        -4</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 13 more variables: arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 13 more variables: arr_time &lt;int&gt;, sched_arr_time &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>El <code>.</code> es un signo de que <code>.before</code> es un argumento para la función, no el nombre de una tercera variable nueva que estamos creando. También puede usar <code>.after</code> para agregar después de una variable, y tanto en <code>.before</code> como en <code>.after</code> puede usar el nombre de la variable en lugar de una posición. Por ejemplo, podríamos agregar las nuevas variables después de <code>day</code>:</p>
 <div class="cell">
@@ -816,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    ganancia <span class="op">=</span> <span class="va">dep_delay</span> <span class="op">-</span> <span class="va">arr_delay</span>,</span>
 <span>    velocidad <span class="op">=</span> <span class="va">distance</span> <span class="op">/</span> <span class="va">air_time</span> <span class="op">*</span> <span class="fl">60</span>,</span>
 <span>    .after <span class="op">=</span> <span class="va">day</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternativamente, puede controlar qué variables se mantienen con el argumento <code>.keep</code>. Un argumento particularmente útil es <code>"used"</code>, que especifica que solo mantenemos las columnas involucradas o creadas en el paso <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. Por ejemplo, la siguiente salida contendrá solo las variables <code>dep_delay</code>, <code>arr_delay</code>, <code>air_time</code>, <code>gain</code>, <code>hours</code> y <code>gain_per_hour</code>.</p>
 <div class="cell">
@@ -826,7 +827,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    horas <span class="op">=</span> <span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span>,</span>
 <span>    ganancia_por_hora <span class="op">=</span> <span class="va">ganancia</span> <span class="op">/</span> <span class="va">horas</span>,</span>
 <span>    .keep <span class="op">=</span> <span class="st">"used"</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que, dado que no hemos asignado el resultado del cálculo anterior a <code>flights</code>, las nuevas variables <code>ganancia</code>, <code>horas</code> y <code>ganancia_por_hora</code> solo se imprimirán, pero no se almacenarán en un data frame. Y si queremos que estén disponibles en un data frame para uso futuro, debemos pensar detenidamente si queremos que el resultado se asigne de nuevo a “vuelos”, sobrescribiendo el data frame original con muchas más variables, o a un nuevo objeto. A menudo, la respuesta correcta es un nuevo objeto que se nombra de manera informativa para indicar su contenido, por ejemplo, <code>delay_gain</code>, pero también puede tener buenas razones para sobrescribir <code>flights</code>.</p>
 </section><section id="sec-select" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-select">
@@ -838,21 +839,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Seleccionar todas las columnas entre year y day</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">day</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">day</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Seleccionar todas las columnas excepto aquellas entre year y day (incluyendolas)</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">year</span><span class="op">:</span><span class="va">day</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">year</span><span class="op">:</span><span class="va">day</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También puede usar <code>-</code> en lugar de <code>!</code> (y es probable que lo vea en la naturaleza); recomendamos <code>!</code> porque se lee como “no” y combina bien con <code>&amp;</code> y <code>|</code>.</p>
 <ul>
@@ -860,7 +861,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.character</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hay una serie de funciones auxiliares que puede usar dentro de <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>:</p>
 <ul>
@@ -873,7 +874,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <code>num_range("x", 1:3)</code>: coincide con <code>x1</code>, <code>x2</code> y <code>x3</code>.</li>
 </ul>
-<p>Ver <code><a href="https://dplyr.tidyverse.org/reference/select.html">?select</a></code> para más detalles. Una vez que conozca las expresiones regulares (el tema de <a href="#sec-regular-expressions"><span class="quarto-unresolved-ref">sec-regular-expressions</span></a>), también podrá usar <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches()</a></code> para seleccionar variables que coincidan con un patrón.</p>
+<p>Ver <code><a href="https://dplyr.tidyverse.org/reference/select.html">?select</a></code> para más detalles. Una vez que conozca las expresiones regulares (el tema de <a href="regexps.html"><span>Capítulo&nbsp;16</span></a>), también podrá usar <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">matches()</a></code> para seleccionar variables que coincidan con un patrón.</p>
 <p>Puede cambiar el nombre de las variables a medida que las selecciona con <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> usando <code>=</code>. El nuevo nombre aparece en el lado izquierdo de <code>=</code>, y la variable antigua aparece en el lado derecho:</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
@@ -887,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 N804JB  </span></span>
 <span><span class="co">#&gt; 5 N668DN  </span></span>
 <span><span class="co">#&gt; 6 N39463  </span></span>
-<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 336,770 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="rename" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="rename">
 <span class="header-section-number">4.3.3</span> <code>rename()</code>
@@ -906,7 +907,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si tiene un montón de columnas con nombres inconsistentes y sería doloroso arreglarlas todas a mano, consulte <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> que proporciona una limpieza automatizada útil.</p>
 </section><section id="relocate" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="relocate">
@@ -926,14 +927,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5 2013-01-01 06:00:00      116  2013     1     1      554            600</span></span>
 <span><span class="co">#&gt; 6 2013-01-01 05:00:00      150  2013     1     1      554            558</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 12 more variables: dep_delay &lt;dbl&gt;, arr_time &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 12 more variables: dep_delay &lt;dbl&gt;, arr_time &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También puedes especificar dónde ponerlos usando los argumentos <code>.before</code> y <code>.after</code>, al igual que en <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">dep_time</span>, .after <span class="op">=</span> <span class="va">time_hour</span><span class="op">)</span></span>
 <span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"arr"</span><span class="op">)</span>, .before <span class="op">=</span> <span class="va">dep_time</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"arr"</span><span class="op">)</span>, .before <span class="op">=</span> <span class="va">dep_time</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="ejercicios-1" class="level3" data-number="4.3.5"><h3 data-number="4.3.5" class="anchored" data-anchor-id="ejercicios-1">
 <span class="header-section-number">4.3.5</span> Ejercicios</h3>
@@ -944,13 +945,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <p>¿Qué hace la función <code><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of()</a></code>? ¿Por qué podría ser útil junto con este vector?</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"dep_delay"</span>, <span class="st">"arr_delay"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"dep_delay"</span>, <span class="st">"arr_delay"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>¿Te sorprende el resultado de ejecutar el siguiente código? ¿Cómo tratan los ayudantes de select con las mayúsculas y minúsculas de forma predeterminada? ¿Cómo se puede cambiar ese valor predeterminado?</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"TIME"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"TIME"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li><p>Cambie el nombre de <code>air_time</code> a <code>air_time_min</code> para indicar las unidades de medida y muévalo al comienzo del data frame.</p></li>
@@ -963,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Error in `arrange()`:</span></span>
 <span><span class="co">#&gt; ℹ In argument: `..1 = arr_delay`.</span></span>
 <span><span class="co">#&gt; Caused by error:</span></span>
-<span><span class="co">#&gt; ! objeto 'arr_delay' no encontrado</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ! objeto 'arr_delay' no encontrado</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol></section></section><section id="sec-the-pipe" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="sec-the-pipe">
@@ -984,7 +985,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4  2013     8    28     2122 UA        1022  519.</span></span>
 <span><span class="co">#&gt; 5  2013     6    11     1628 UA        1178  515.</span></span>
 <span><span class="co">#&gt; 6  2013     8    27     1017 UA         333  515.</span></span>
-<span><span class="co">#&gt; # ℹ 7,192 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 7,192 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Aunque esta canalización tiene cuatro pasos, es fácil de hojear porque los verbos aparecen al comienzo de cada línea: comience con los datos de <code>flights</code>, luego filtra por destino, luego crea la columana <code>speed</code> con <code>mutate</code>, luego selecciona las columnas deseadas y culmina ordenandolas en orden descendente por la columna <code>speed</code>.</p>
 <p>¿Qué pasaría si no tuviéramos la canalización? Podríamos anidar cada llamada de función dentro de la llamada anterior:</p>
@@ -1001,23 +1002,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="va">year</span><span class="op">:</span><span class="va">day</span>, <span class="va">dep_time</span>, <span class="va">carrier</span>, <span class="va">flight</span>, <span class="va">speed</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O podríamos usar un montón de objetos intermedios:</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flights</span>, <span class="va">dest</span> <span class="op">==</span> <span class="st">"IAH"</span><span class="op">)</span></span>
 <span><span class="va">flights2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">flights1</span>, speed <span class="op">=</span> <span class="va">distance</span> <span class="op">/</span> <span class="va">air_time</span> <span class="op">*</span> <span class="fl">60</span><span class="op">)</span></span>
 <span><span class="va">flights3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flights2</span>, <span class="va">year</span><span class="op">:</span><span class="va">day</span>, <span class="va">dep_time</span>, <span class="va">carrier</span>, <span class="va">flight</span>, <span class="va">speed</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">flights3</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">flights3</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si bien ambas formas tienen su tiempo y lugar, la canalización generalmente produce un código de análisis de datos que es más fácil de escribir y leer.</p>
-<p>Para agregar la canalización a su código, recomendamos usar el atajo de teclado incorporado Ctrl/Cmd + Shift + M. Deberá realizar un cambio en sus opciones de RStudio para usar <code>|&gt;</code> en lugar de <code>%&gt;%</code> como se muestra en <a href="#fig-pipe-options">Figure&nbsp;<span class="quarto-unresolved-ref">fig-pipe-options</span></a>; más sobre <code>%&gt;%</code> en breve.</p>
+<p>Para agregar la canalización a su código, recomendamos usar el atajo de teclado incorporado Ctrl/Cmd + Shift + M. Deberá realizar un cambio en sus opciones de RStudio para usar <code>|&gt;</code> en lugar de <code>%&gt;%</code> como se muestra en <a href="#fig-pipe-options">Figura&nbsp;<span>4.1</span></a>; más sobre <code>%&gt;%</code> en breve.</p>
 <p>485</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pipe-options" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="screenshots/rstudio-pipe-options.png" class="img-fluid figure-img" alt="Captura de pantalla que muestra la opción &quot;Use native pipe operator&quot; que puede encontrarse en el panel &quot;Editing&quot; de las opciones de &quot;Code&quot;." width="616"></p>
-<figcaption class="figure-caption">Figure&nbsp;4.1: Para insertar <code>|&gt;</code>, asegúrese de que la opción “Use native pipe operator” esté marcada.</figcaption></figure>
+<figcaption class="figure-caption">Figura&nbsp;4.1: Para insertar <code>|&gt;</code>, asegúrese de que la opción “Use native pipe operator” esté marcada.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1037,7 +1038,7 @@ magrittr
 <span></span>
 <span><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para casos simples, <code>|&gt;</code> y <code>%&gt;%</code> se comportan de manera idéntica. Entonces, ¿por qué recomendamos la canalización base? En primer lugar, debido a que es parte de la base R, siempre está disponible para su uso, incluso cuando no está utilizando el tidyverse. En segundo lugar, <code>|&gt;</code> es un poco más simple que <code>%&gt;%</code>: en el tiempo entre la invención de <code>%&gt;%</code> en 2014 y la inclusión de <code>|&gt;</code> en R 4.1.0 en 2021, ganamos una mejor comprensión de la canalización. Esto permitió que la implementación base desechara características poco utilizadas y menos importantes.</p>
 </div>
@@ -1063,7 +1064,7 @@ magrittr
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> no cambia los datos pero, si observa detenidamente el resultado, notará que la salida indica que está “agrupado por” mes (<code>Groups: month [12]</code>). Esto significa que las operaciones posteriores ahora funcionarán “por mes”. <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> agrega esta característica agrupada (referida como clase) al marco de datos, lo que cambia el comportamiento de los verbos subsiguientes aplicados a los datos.</p>
 </section><section id="sec-summarize" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="sec-summarize">
@@ -1085,9 +1086,9 @@ magrittr
 <span><span class="co">#&gt; 4     4        NA</span></span>
 <span><span class="co">#&gt; 5     5        NA</span></span>
 <span><span class="co">#&gt; 6     6        NA</span></span>
-<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>¡UH oh! Algo salió mal y todos nuestros resultados son <code>NA</code>s (pronunciado “N-A”), el símbolo de R para el valor faltante. Esto sucedió porque a algunos de los vuelos observados les faltaban datos en la columna de demora, por lo que cuando calculamos la media que incluye esos valores, obtuvimos un resultado <code>NA</code>. Volveremos a discutir los valores faltantes en detalle en <a href="#sec-missing-values"><span class="quarto-unresolved-ref">sec-missing-values</span></a>, pero por ahora le diremos a la función <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> que ignore todos los valores faltantes configurando el argumento <code>na.rm</code> en <code>TRUE</code>:</p>
+<p>¡UH oh! Algo salió mal y todos nuestros resultados son <code>NA</code>s (pronunciado “N-A”), el símbolo de R para el valor faltante. Esto sucedió porque a algunos de los vuelos observados les faltaban datos en la columna de demora, por lo que cuando calculamos la media que incluye esos valores, obtuvimos un resultado <code>NA</code>. Volveremos a discutir los valores faltantes en detalle en <a href="missing-values.html"><span>Capítulo&nbsp;19</span></a>, pero por ahora le diremos a la función <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> que ignore todos los valores faltantes configurando el argumento <code>na.rm</code> en <code>TRUE</code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1103,7 +1104,7 @@ magrittr
 <span><span class="co">#&gt; 4     4  13.9</span></span>
 <span><span class="co">#&gt; 5     5  13.0</span></span>
 <span><span class="co">#&gt; 6     6  20.8</span></span>
-<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede crear cualquier cantidad de resúmenes en una sola llamada a <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>. Aprenderá varios resúmenes útiles en los próximos capítulos, pero un resumen muy útil es <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code>, que devuelve el número de filas en cada grupo:</p>
 <div class="cell">
@@ -1122,7 +1123,7 @@ magrittr
 <span><span class="co">#&gt; 4     4  13.9 28330</span></span>
 <span><span class="co">#&gt; 5     5  13.0 28796</span></span>
 <span><span class="co">#&gt; 6     6  20.8 28243</span></span>
-<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 6 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¡Los medios y los conteos pueden llevarlo sorprendentemente lejos en la ciencia de datos!</p>
 </section><section id="las-funciones-slice_" class="level3" data-number="4.5.3"><h3 data-number="4.5.3" class="anchored" data-anchor-id="las-funciones-slice_">
@@ -1158,7 +1159,7 @@ magrittr
 <span><span class="co">#&gt; 5 ATL    2013     7    22     2257            759       898      121</span></span>
 <span><span class="co">#&gt; 6 AUS    2013     7    10     2056           1505       351     2347</span></span>
 <span><span class="co">#&gt; # ℹ 102 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que hay 105 destinos, pero aquí tenemos 108 filas. ¿Qué pasa? <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max()</a></code> mantienen valores empatados por lo que <code>n = 1</code> significa darme todas las filas con el valor más alto. Si desea exactamente una fila por grupo, puede configurar <code>whit_ties = FALSE</code>.</p>
 <p>Esto es similar a calcular el retraso máximo con <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, pero obtienes la fila correspondiente completa (o filas si hay un empate) en lugar de la estadística de resumen única.</p>
@@ -1180,14 +1181,14 @@ magrittr
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cuando resume un tibble agrupado por más de una variable, cada resumen elimina el último grupo. En retrospectiva, esta no fue una excelente manera de hacer que esta función funcionara, pero es difícil cambiarla sin romper el código existente. Para que sea obvio lo que sucede, dplyr muestra un mensaje que le indica cómo puede cambiar este comportamiento:</p>
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">daily_flights</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using</span></span>
-<span><span class="co">#&gt; the `.groups` argument.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; the `.groups` argument.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si está satisfecho con este comportamiento, puede solicitarlo explícitamente para suprimir el mensaje:</p>
 <div class="cell">
@@ -1195,7 +1196,7 @@ magrittr
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, </span>
 <span>    .groups <span class="op">=</span> <span class="st">"drop_last"</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Alternativamente, cambie el comportamiento predeterminado configurando un valor diferente, por ejemplo, <code>"drop"</code> para eliminar todas las agrupaciones o <code>"keep"</code> para conservar los mismos grupos.</p>
 </section><section id="desagrupar" class="level3" data-number="4.5.5"><h3 data-number="4.5.5" class="anchored" data-anchor-id="desagrupar">
@@ -1214,7 +1215,7 @@ magrittr
 <span><span class="co">#&gt; 5  2013     1     1      554            600        -6      812            837</span></span>
 <span><span class="co">#&gt; 6  2013     1     1      554            558        -4      740            728</span></span>
 <span><span class="co">#&gt; # ℹ 336,770 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, …</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ahora veamos qué sucede cuando resume un data frame no agrupado.</p>
 <div class="cell">
@@ -1227,7 +1228,7 @@ magrittr
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   avg_delay flights</span></span>
 <span><span class="co">#&gt;       &lt;dbl&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1      12.6  336776</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1      12.6  336776</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Como puede ver, cuando resume un data frame sin agrupar, obtiene una sola fila porque dplyr trata todas las filas en un data frame sin agrupar como pertenecientes a un grupo.</p>
 </section><section id="by" class="level3" data-number="4.5.6"><h3 data-number="4.5.6" class="anchored" data-anchor-id="by">
@@ -1240,7 +1241,7 @@ magrittr
 <span>    delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="va">month</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O si desea agrupar por múltiples variables:</p>
 <div class="cell">
@@ -1249,7 +1250,7 @@ magrittr
 <span>    delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span>
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>.by</code> funciona con todos los verbos y tiene la ventaja de que no necesita usar el argumento <code>.groups</code> para suprimir el mensaje de agrupación o <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> cuando haya terminado.</p>
 <p>No nos enfocamos en esta sintaxis en este capítulo porque era muy nueva cuando se escribió el libro. Queríamos mencionarlo porque creemos que es muy prometedor y es probable que sea bastante popular. Puede obtener más información al respecto en la [publicación de blog de dplyr 1.1.0] (https://www.tidyverse.org/blog/2023/02/dplyr-1-1-0-per-operation-grouping/).</p>
@@ -1268,21 +1269,21 @@ magrittr
 <span>  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
 <span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
 <span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"K"</span>, <span class="st">"K"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"K"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="a">
 <li>
 <p>Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>. También comente en qué se diferencia del <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> en la parte (a)?</p>
 <div class="cell">
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -1290,7 +1291,7 @@ magrittr
 <div class="cell">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -1298,7 +1299,7 @@ magrittr
 <div class="cell">
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -1306,7 +1307,7 @@ magrittr
 <div class="cell">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
@@ -1318,7 +1319,7 @@ magrittr
 <span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol>
@@ -1343,7 +1344,7 @@ magrittr
 <span><span class="co">#&gt; 4 aasedo01       0          5</span></span>
 <span><span class="co">#&gt; 5 abadan01       0.0952    21</span></span>
 <span><span class="co">#&gt; 6 abadfe01       0.111      9</span></span>
-<span><span class="co">#&gt; # ℹ 20,463 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 20,463 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, <code>performance</code>) contra el número de oportunidades para batear la pelota (medida por veces al bate, <code>n</code>), se ven dos patrones:</p>
 <ol type="1">
@@ -1355,7 +1356,7 @@ magrittr
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n</span>, y <span class="op">=</span> <span class="va">performance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="data-transform_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" alt="Un diagrama de dispersión del número de rendimiento de bateo versus oportunidades de bateo superpuesto con una línea suavizada. El rendimiento medio aumenta considerablemente de 0,2 cuando n es 1 a 0,25 cuando n es ~1000. Rendimiento medio continúa aumentando linealmente en una pendiente mucho menos profunda alcanzando ~0,3 cuando n es ~15.000." width="576"></p>
 </div>
@@ -1374,7 +1375,7 @@ magrittr
 <span><span class="co">#&gt; 4 bartocl01           1     1</span></span>
 <span><span class="co">#&gt; 5 bassdo01            1     1</span></span>
 <span><span class="co">#&gt; 6 birasst01           1     2</span></span>
-<span><span class="co">#&gt; # ℹ 20,463 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 20,463 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puede encontrar una buena explicación de este problema y cómo superarlo en <a href="http://varianceexplained.org/r/empirical_bayes_baseball/" class="uri">http://varianceexplained.org/r/empirical_bayes_baseball/</a> y <a href="https://www.evanmiller.org/how-not-to-sort-by-average-rating.html" class="uri">https://www.evanmiller.org/how-not-to-sort-by-average-rating.html</a>.</p>
 </section><section id="resumen" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="resumen">
@@ -1428,7 +1429,7 @@ magrittr
   const act_link_O = document.createElement('div');
   act_link_O.className='action-links';
   act_link_O.id='act-link-O';
-  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
 
 
   TOC.appendChild(originalga);
@@ -1510,12 +1511,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

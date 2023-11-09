@@ -403,7 +403,7 @@ flights2 |>
       group_by(dest) |>
       summarize(delay = mean(arr_delay), n = n()) |>
       filter(n > 5) |>
-      inner_join(airports, by = c("dest" = "faa")) |>
+      inner_join(airports, join_by(dest == faa)) |>
       ggplot(aes(x = lon, y = lat)) +
         borders("state") +
         geom_point(aes(size = n, color = delay)) +
@@ -680,7 +680,7 @@ En equi-joins, las teclas `x` e `y` son siempre iguales, por lo que solo necesit
 Podemos solicitar que dplyr mantenga ambas claves con `keep = TRUE`, lo que lleva al siguiente código y `inner_join()` redibujado en @fig-inner-both.
 
 ```{r}
-x |> left_join(y, by = "key", keep = TRUE)
+x |> inner_join(y, join_by(key == key), keep = TRUE)
 ```
 
 ```{r}
@@ -781,7 +781,7 @@ Una pequeña técnica útil es usarlos para restringir la unión cruzada de modo
 ```{r}
 df <- tibble(id = 1:4, name = c("John", "Simon", "Tracy", "Max"))
 
-df |> left_join(df, join_by(id < id))
+df |> inner_join(df, join_by(id < id))
 ```
 
 ### Uniones rodantes
@@ -822,6 +822,7 @@ parties <- tibble(
 Ahora imagina que tienes una tabla de cumpleaños de los empleados:
 
 ```{r}
+set.seed(123)
 employees <- tibble(
   name = sample(babynames::babynames$name, 100),
   birthday = ymd("2022-01-01") + (sample(365, 100, replace = TRUE) - 1)
@@ -902,9 +903,9 @@ employees |>
     ¿Por qué son diferentes?
 
     ```{r}
-    x |> full_join(y, by = "key")
+    x |> full_join(y, join_by(key == key))
 
-    x |> full_join(y, by = "key", keep = TRUE)
+    x |> full_join(y, join_by(key == key), keep = TRUE)
     ```
 
 2.  Al encontrar si algún período de fiesta se superponía con otro período de fiesta, usamos `q < q` en `join_by ()` ¿Por qué?

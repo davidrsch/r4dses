@@ -743,7 +743,7 @@ sorted_bars <- function(df, var) {
 diamonds |> sorted_bars(clarity)
 ```
 
-Tenemos que usar un nuevo operador aquí, `:=`, porque estamos generando el nombre de la variable en función de los datos proporcionados por el usuario.
+Tenemos que usar un nuevo operador aquí, `:=` (comúnmente conocido como "operador morsa"), porque estamos generando el nombre de la variable en función de los datos proporcionados por el usuario.
 Los nombres de las variables van en el lado izquierdo de `=`, pero la sintaxis de R no permite nada a la izquierda de `=` excepto un solo nombre literal.
 Para solucionar este problema, usamos el operador especial `:=` que la evaluación ordenada trata exactamente de la misma manera que `=`.
 
