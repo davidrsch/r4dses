@@ -56,7 +56,7 @@ Los datos son un archivo CSV de 9 GB, por lo que llevará algún tiempo descarga
 Recomiendo encarecidamente usar `curl::multidownload()` para obtener archivos muy grandes, ya que está diseñado exactamente para este propósito: le brinda una barra de progreso y puede reanudar la descarga si se interrumpe.
 
 ```{r}
-#| eval: false
+#| eval: !expr "!file.exists('data/seattle-library-checkouts.csv')"
 dir.create("data", showWarnings = FALSE)
 
 curl::multi_download(

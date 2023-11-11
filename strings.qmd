@@ -130,8 +130,11 @@ x
 str_view(x)
 ```
 
-Tenga en cuenta que `str_view()` usa un fondo azul para las pestañas para que sean más fáciles de detectar.
+Tenga en cuenta que `str_view()` usa llaves para las pestañas para que sean más fáciles de detectar [^strings-3].
 Uno de los desafíos de trabajar con texto es que hay una variedad de formas en que los espacios en blanco pueden terminar en el texto, por lo que este fondo lo ayuda a reconocer que algo extraño está sucediendo.
+
+[^strings-3]: `str_view()` también usa colores para llamar su atención sobre tabulaciones, espacios, coincidencias, etc.
+    Los colores no aparecen actualmente en el libro, pero los notará cuando ejecute el código de forma interactiva.
 
 ### Ejercicios
 
@@ -190,9 +193,9 @@ df |>
 
 ### `str_glue()` {#sec-glue}
 
-Si está mezclando muchas cadenas fijas y variables con `str_c()`, notará que escribe muchas `"`s, lo que dificulta ver el objetivo general del código. Un enfoque alternativo es proporcionado por el [paquete glue](https://glue.tidyverse.org) a través de `str_glue()`[^strings-3]. Le das una sola cadena que tiene una característica especial: cualquier cosa dentro de `{}` se evaluará como que está fuera de las comillas:
+Si está mezclando muchas cadenas fijas y variables con `str_c()`, notará que escribe muchas `"`s, lo que dificulta ver el objetivo general del código. Un enfoque alternativo es proporcionado por el [paquete glue](https://glue.tidyverse.org) a través de `str_glue()`[^strings-4]. Le das una sola cadena que tiene una característica especial: cualquier cosa dentro de `{}` se evaluará como que está fuera de las comillas:
 
-[^strings-3]: Si no está usando stringr, también puede acceder a él directamente con `glue::glue()`.
+[^strings-4]: Si no está usando stringr, también puede acceder a él directamente con `glue::glue()`.
 
 ```{r}
 df |> mutate(greeting = str_glue("Hola {name}!"))
@@ -212,9 +215,9 @@ df |> mutate(greeting = str_glue("{{Hola {name}!}}"))
 
 `str_c()` y `str_glue()` funciona bien con `mutate()` porque su salida tiene la misma longitud que sus entradas.
 ¿Qué pasa si quieres una función que funcione bien con `summarize()`, es decir, algo que siempre devuelva una sola cadena?
-Ese es el trabajo de `str_flatten()`[^strings-4]: toma un vector de caracteres y combina cada elemento del vector en una sola cadena:
+Ese es el trabajo de `str_flatten()`[^strings-5]: toma un vector de caracteres y combina cada elemento del vector en una sola cadena:
 
-[^strings-4]: El equivalente base de R es `paste()` usado con el argumento `collapse`.
+[^strings-5]: El equivalente base de R es `paste()` usado con el argumento `collapse`.
 
 ```{r}
 str_flatten(c("x", "y", "z"))
@@ -343,11 +346,11 @@ df4 |>
 
 ### Diagnóstico de problemas de ensanchamiento
 
-`separate_wider_delim()`[^strings-5] requiere un conjunto fijo y conocido de columnas.
+`separate_wider_delim()`[^strings-6] requiere un conjunto fijo y conocido de columnas.
 ¿Qué sucede si alguna de las filas no tiene el número esperado de piezas?
 Hay dos posibles problemas, muy pocas o demasiadas piezas, por lo que `separate_wider_delim()` proporciona dos argumentos para ayudar: `too_few` y `too_many`. Primero veamos el caso `too_few` con el siguiente conjunto de datos de muestra:
 
-[^strings-5]: Los mismos principios se aplican a `separate_wider_position()` y `separate_wider_regex()`.
+[^strings-6]: Los mismos principios se aplican a `separate_wider_position()` y `separate_wider_regex()`.
 
 ```{r}
 #| error: true
@@ -464,9 +467,9 @@ str_length(c("a", "R for data science", NA))
 
 Podría usar esto con `count()` para encontrar la distribución de las longitudes de los nombres de bebés de EE.
 UU.
-y luego con `filter()` para ver los nombres más largos, que tienen 15 letras [^strings-6]:
+y luego con `filter()` para ver los nombres más largos, que tienen 15 letras [^strings-7]:
 
-[^strings-6]: Mirando estas entradas, supondríamos que los datos de babynames eliminan espacios o guiones y se truncan después de 15 letras.
+[^strings-7]: Mirando estas entradas, supondríamos que los datos de babynames eliminan espacios o guiones y se truncan después de 15 letras.
 
 ```{r}
 babynames |>
@@ -548,9 +551,9 @@ readr usa UTF-8 en todas partes.
 Este es un buen valor predeterminado, pero fallará para los datos producidos por sistemas más antiguos que no usan UTF-8.
 Si esto sucede, sus cadenas se verán raras cuando las imprima.
 A veces, solo uno o dos caracteres pueden estar en mal estado; otras veces, obtendrás un completo galimatías.
-Por ejemplo, aquí hay dos CSV en línea con codificaciones inusuales [^strings-7]:
+Por ejemplo, aquí hay dos CSV en línea con codificaciones inusuales [^strings-8]:
 
-[^strings-7]: Aquí estoy usando el `\x` especial para codificar datos binarios directamente en una cadena.
+[^strings-8]: Aquí estoy usando el `\x` especial para codificar datos binarios directamente en una cadena.
 
 ```{r}
 #| eval: false
@@ -632,10 +635,10 @@ str_to_upper(c("i", "ı"))
 str_to_upper(c("i", "ı"), locale = "tr")
 ```
 
-¡La clasificación de las cadenas depende del orden del alfabeto, y el orden del alfabeto no es el mismo en todos los idiomas [^strings-8]!
+¡La clasificación de las cadenas depende del orden del alfabeto, y el orden del alfabeto no es el mismo en todos los idiomas [^strings-9]!
 He aquí un ejemplo: en checo, "ch" es una letra compuesta que aparece después de la `h` en el alfabeto.
 
-[^strings-8]: Clasificar en idiomas que no tienen alfabeto, como el chino, es aún más complicado.
+[^strings-9]: Clasificar en idiomas que no tienen alfabeto, como el chino, es aún más complicado.
 
 ```{r}
 str_sort(c("a", "c", "ch", "h", "z"))
