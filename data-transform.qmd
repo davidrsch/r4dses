@@ -347,7 +347,9 @@ flights |>
   select(!year:day)
 ```
 
-También puede usar `-` en lugar de `!` (y es probable que lo vea en la naturaleza); recomendamos `!` porque se lee como "no" y combina bien con `&` y `|`.
+Históricamente, esta operación se realizaba con `-` en lugar de `!`, por lo que es probable que la veas en la naturaleza.
+Estos dos operadores tienen el mismo propósito pero con sutiles diferencias de comportamiento.
+Recomendamos usar `!` porque se lee como "no" y combina bien con `&` y `|`.
 
 -   Seleccionar todas las columnas que son caracteres
 

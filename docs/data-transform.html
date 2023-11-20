@@ -855,7 +855,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">year</span><span class="op">:</span><span class="va">day</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>También puede usar <code>-</code> en lugar de <code>!</code> (y es probable que lo vea en la naturaleza); recomendamos <code>!</code> porque se lee como “no” y combina bien con <code>&amp;</code> y <code>|</code>.</p>
+<p>Históricamente, esta operación se realizaba con <code>-</code> en lugar de <code>!</code>, por lo que es probable que la veas en la naturaleza. Estos dos operadores tienen el mismo propósito pero con sutiles diferencias de comportamiento. Recomendamos usar <code>!</code> porque se lee como “no” y combina bien con <code>&amp;</code> y <code>|</code>.</p>
 <ul>
 <li>Seleccionar todas las columnas que son caracteres</li>
 </ul>

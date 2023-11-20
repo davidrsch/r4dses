@@ -877,5 +877,5 @@ Tampoco hemos mencionado lo que realmente debe escribir para comunicar clarament
 Para mejorar su escritura, recomendamos leer [*Style: Lessons in Clarity and Grace*](https://www.amazon.com/Style-Lessons-Clarity-Grace-12th/dp/0134080416) de Joseph M. Williams & Joseph Bizup, o [*The Sense of Structure: Writing from the Reader's Perspective*](https://www.amazon.com/Sense-Structure-Writing-Readers-Perspective/dp/0205296327) de George Gopen.
 Ambos libros lo ayudarán a comprender la estructura de oraciones y párrafos, y le brindarán las herramientas para que su escritura sea más clara.
 (Estos libros son bastante caros si se compran nuevos, pero muchas clases de inglés los usan, por lo que hay muchas copias baratas de segunda mano).
-George Gopen también tiene una serie de artículos breves sobre escritura en <https://www.georgegopen.com/the-litigation-articles.html>.
+George Gopen también tiene una serie de artículos breves sobre escritura en <https://www.georgegopen.com/litigation-articles.html>.
 Están dirigidos a abogados, pero casi todo se aplica también a los científicos de datos.
