@@ -2,7 +2,7 @@
 
 ## R para la Ciencia de Datos
 
-<a href="https://amzn.to/2aHLAQ1"><img src="logo.png" alt="Cover image" width="285" height="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"** de Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
+<a href="https://amzn.to/2aHLAQ1"><img src="logo.png" alt="Cover image" width="285" align="right" style="margin: 0 1em 0 1em"/></a> Este repositorio contiene el código fuente del libro **"R para la Ciencia de Datos"** de Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund.
 El libro está construido usando [Quarto](https://quarto.org/).
 Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
