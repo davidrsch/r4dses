@@ -597,7 +597,7 @@ Volveremos a discutir los valores faltantes en detalle en @sec-missing-values, p
 flights |> 
   group_by(month) |> 
   summarize(
-    delay = mean(dep_delay, na.rm = TRUE)
+    avg_delay = mean(dep_delay, na.rm = TRUE)
   )
 ```
 
@@ -608,7 +608,7 @@ Aprenderá varios resúmenes útiles en los próximos capítulos, pero un resume
 flights |> 
   group_by(month) |> 
   summarize(
-    delay = mean(dep_delay, na.rm = TRUE), 
+    avg_delay = mean(dep_delay, na.rm = TRUE), 
     n = n()
   )
 ```
