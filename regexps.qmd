@@ -265,7 +265,7 @@ df |>
   )
 ```
 
-Si la coincidencia falla, puede usar `too_short = "debug"` para descubrir qué salió mal, al igual que `separate_wider_delim()` y `separate_wider_position()`.
+Si la coincidencia falla, puede usar `too_few = "debug"` para descubrir qué salió mal, al igual que `separate_wider_delim()` y `separate_wider_position()`.
 
 ### Ejercicios
 
@@ -336,7 +336,7 @@ Eso le permite evitar una capa de escape:
 str_view(x, r"{\\}")
 ```
 
-Si está tratando de hacer coincidir un literal `.`, `$`, `|`, `*`, `+`, `?`, `{`, `}`, `(`, `)`, hay una alternativa al uso de un escape de barra invertida: puede usar una clase de carácter: `[.]`, `[$]`, `[|]`, \...
+Si está tratando de hacer coincidir un literal `.`, `$`, `|`, `*`, `+`, `?`, `{`, `}`, `(`, `)`, hay una alternativa al uso de un escape de barra invertida: puede usar una clase de carácter: `[.]`, `[$]`, `[|]`, ...
 todos coinciden con los valores literales.
 
 ```{r}

@@ -360,8 +360,8 @@ Eso, por ejemplo, nos permite ver la proporción de vuelos que se retrasaron a l
 flights |> 
   group_by(year, month, day) |> 
   summarize(
-    all_delayed = mean(dep_delay <= 60, na.rm = TRUE),
-    any_long_delay = sum(arr_delay >= 300, na.rm = TRUE),
+    proportion_delayed = mean(dep_delay <= 60, na.rm = TRUE),
+    count_long_delay = sum(arr_delay >= 300, na.rm = TRUE),
     .groups = "drop"
   )
 ```
@@ -562,9 +562,9 @@ No esperamos que memorices estas reglas, pero deberían convertirse en una segun
 1.  Un número es par si es divisible por dos, lo cual en R puedes averiguar con `x %% 2 == 0`.
     Usa este hecho y `if_else()` para determinar si cada número entre 0 y 20 es par o impar.
 
-2.  Dado un vector de días como `x <- c("Lunes", "Sábado", "Miércoles")`, use una instrucción `ifelse()` para etiquetarlos como fines de semana o días de semana.
+2.  Dado un vector de días como `x <- c("Lunes", "Sábado", "Miércoles")`, use una instrucción `if_else()` para etiquetarlos como fines de semana o días de semana.
 
-3.  Usa `ifelse()` para calcular el valor absoluto de un vector numérico llamado `x`.
+3.  Usa `if_else()` para calcular el valor absoluto de un vector numérico llamado `x`.
 
 4.  Escriba una instrucción `case_when()` que use las columnas `month` y `day` de `flights` para etiquetar una selección de días festivos importantes de EE.
     UU.

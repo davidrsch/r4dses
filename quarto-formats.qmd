@@ -246,7 +246,7 @@ cat(readr::read_file("quarto/example-book.yml"))
 
 Le recomendamos que utilice un proyecto de RStudio para sus sitios web y libros.
 Basado en el archivo `_quarto.yml`, RStudio reconocerá el tipo de proyecto en el que está trabajando y agregará una pestaña Build al IDE que puede usar para renderizar y obtener una vista previa de sus sitios web y libros.
-Tanto los sitios web como los libros también se pueden renderizar usando `quarto::render()`.
+Tanto los sitios web como los libros también se pueden renderizar usando `quarto::quarto_render()`.
 
 Lea más sobre sitios web de Quarto en <https://quarto.org/docs/websites> y sobre libros en <https://quarto.org/docs/books>.
 

@@ -164,7 +164,7 @@ De hecho, Quarto usa Pandoc Markdown (una versión ligeramente extendida de Mark
 Si bien Markdown está diseñado para que sea fácil de leer y escribir, como verá en @sec-source-editor, aún requiere aprender una nueva sintaxis.
 Por lo tanto, si es nuevo en documentos computacionales como archivos `.qmd` pero tiene experiencia en el uso de herramientas como Google Docs o MS Word, la forma más fácil de comenzar con Quarto en RStudio es el editor visual.
 
-En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘ /</kbd> para insertar casi cualquier cosa.
+En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘</kbd> + <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>/</kbd> para insertar casi cualquier cosa.
 Si está al comienzo de una línea (como se muestra en @fig-visual-editor), también puede ingresar solo <kbd>/</kbd> para invocar el atajo.
 
 ```{r}

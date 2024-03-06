@@ -242,7 +242,7 @@ En esta sesión de R, el directorio de trabajo actual (piense en él como "inici
 Este código devolverá un resultado diferente cuando lo ejecute, porque su computadora tiene una estructura de directorio diferente a la de Hadley.
 
 Como usuario principiante de R, está bien dejar que su directorio de trabajo sea su directorio de inicio, directorio de documentos o cualquier otro directorio extraño en su computadora.
-Pero llevas siete capítulos en este libro y ya no eres un principiante de rango.
+Pero llevas varios capítulos en este libro y ya no eres un principiante.
 Muy pronto debería evolucionar para organizar sus proyectos en directorios y, cuando trabaje en un proyecto, establecer el directorio de trabajo de R en el directorio asociado.
 
 Puede configurar el directorio de trabajo desde R pero **nosotros** **no lo recomendamos**:

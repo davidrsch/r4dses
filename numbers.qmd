@@ -644,11 +644,11 @@ Pero el siguiente código hace que parezca que un aeropuerto, [EGE](https://en.w
 flights |> 
   group_by(origin, dest) |> 
   summarize(
-    distance_sd = IQR(distance), 
+    distance_iqr = IQR(distance), 
     n = n(),
     .groups = "drop"
   ) |> 
-  filter(distance_sd > 0)
+  filter(distance_iqr > 0)
 ```
 
 ### Distribuciones
@@ -718,7 +718,7 @@ Finalmente, no olvide lo que aprendió en @sec-sample-size: siempre que cree res
 
 Hay un último tipo de resumen que es útil para los vectores numéricos, pero también funciona con cualquier otro tipo de valor: extraer un valor en una posición específica: `primero(x)`, `último(x)` y `nth(x, n)`.
 
-Por ejemplo, podemos encontrar la primera y la última salida de cada día:
+Por ejemplo, podemos encontrar la primera, quinta y la última salida de cada día:
 
 ```{r}
 flights |> 

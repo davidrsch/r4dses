@@ -178,9 +178,9 @@ Es difícil leer esta trama porque no hay un patrón general.
 Podemos mejorarlo reordenando los niveles de `relig` usando `fct_reorder()`.
 `fct_reorder()` toma tres argumentos:
 
--   `f`, el factor cuyos niveles desea modificar.
--   `x`, un vector numérico que desea utilizar para reordenar los niveles.
--   Opcionalmente, `fun`, una función que se usa si hay varios valores de `x` para cada valor de `f`. El valor predeterminado es `mediana`.
+-   `.f`, el factor cuyos niveles desea modificar.
+-   `.x`, un vector numérico que desea utilizar para reordenar los niveles.
+-   Opcionalmente, `.fun`, una función que se usa si hay varios valores de `.x` para cada valor de `.f`. El valor predeterminado es `median`.
 
 ```{r}
 #| fig-alt: >
@@ -233,7 +233,7 @@ Reserve `fct_reorder()` para factores cuyos niveles estén ordenados arbitrariam
 
 Sin embargo, tiene sentido poner "No aplicable" al frente con los otros niveles especiales.
 Puedes usar `fct_relevel()`.
-Se necesita un factor, `f`, y luego cualquier cantidad de niveles que desee mover al frente de la fila.
+Se necesita un factor, `.f`, y luego cualquier cantidad de niveles que desee mover al frente de la fila.
 
 ```{r}
 #| fig-alt: >
@@ -249,7 +249,7 @@ ggplot(rincome_summary, aes(x = age, y = fct_relevel(rincome, "No aplicable"))) 
 ¿Por qué cree que la edad promedio para "No aplicable" es tan alta?
 
 Otro tipo de reordenación es útil cuando colorea las líneas de un gráfico.
-`fct_reorder2(f, x, y)` reordena el factor `f` por los valores `y` asociados con los valores `x` más grandes.
+`fct_reorder2(.f, .x, .y)` reordena el factor `.f` por los valores `.y` asociados con los valores `.x` más grandes.
 Esto hace que el gráfico sea más fácil de leer porque los colores de la línea en el extremo derecho del gráfico se alinearán con la leyenda.
 
 ```{r}
