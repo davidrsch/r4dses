@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 17&nbsp; Factores</title>
@@ -20,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -77,17 +77,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -95,19 +103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./factors.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./factors.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
@@ -126,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </li>
       </ul>
 </div>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -136,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Buscar"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -163,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -310,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -351,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -380,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -401,10 +409,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
 <li>
@@ -437,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./factors.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-factors" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factores</span></span></h1>
 </div>
 
@@ -451,6 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header><section id="introducción" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="introducción">
 <span class="header-section-number">17.1</span> Introducción</h2>
 <p>Los factores se utilizan para variables categóricas, variables que tienen un conjunto fijo y conocido de valores posibles. También son útiles cuando desea mostrar vectores de caracteres en un orden no alfabético.</p>
@@ -459,27 +468,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">17.1.1</span> Requisitos previos</h3>
 <p>Base R proporciona algunas herramientas básicas para crear y manipular factores. Los complementaremos con el paquete <strong>forcats</strong>, que es parte del tidyverse principal. Proporciona herramientas para tratar con variables <strong>cat</strong>egóricas (¡y es un anagrama de factores!) usando una amplia gama de ayudantes para trabajar con factores.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="fundamentos-de-los-factores" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="fundamentos-de-los-factores">
 <span class="header-section-number">17.2</span> Fundamentos de los factores</h2>
 <p>Imagina que tienes una variable que registra el mes:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dic"</span>, <span class="st">"Abr"</span>, <span class="st">"Ene"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dic"</span>, <span class="st">"Abr"</span>, <span class="st">"Ene"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usar una cadena para registrar esta variable tiene dos problemas:</p>
 <ol type="1">
 <li>
 <p>Solo hay doce meses posibles, y no hay nada que lo salve de los errores tipográficos:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dic"</span>, <span class="st">"Abr"</span>, <span class="st">"Eme"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dic"</span>, <span class="st">"Abr"</span>, <span class="st">"Eme"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
 <p>No ordena de una manera útil:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Abr" "Dic" "Ene" "Mar"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "Abr" "Dic" "Ene" "Mar"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol>
@@ -488,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">meses_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Ene"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Abr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, </span>
 <span>  <span class="st">"Jul"</span>, <span class="st">"Ago"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dic"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ahora puedes crear un factor:</p>
 <div class="cell">
@@ -499,38 +508,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] Ene Mar Abr Dic</span></span>
-<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Y cualquier valor que no esté en el nivel se convertirá silenciosamente a NA:</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">meses_levels</span><span class="op">)</span></span>
 <span><span class="va">y2</span></span>
 <span><span class="co">#&gt; [1] Dic  Abr  &lt;NA&gt; Mar </span></span>
-<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esto parece arriesgado, por lo que es posible que desee utilizar <code><a href="https://forcats.tidyverse.org/reference/fct.html">forcats::fct()</a></code> en su lugar:</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct.html">fct</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">meses_levels</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in `fct()`:</span></span>
 <span><span class="co">#&gt; ! All values of `x` must appear in `levels` or `na`</span></span>
-<span><span class="co">#&gt; ℹ Missing level: "Eme"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ℹ Missing level: "Eme"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si omite los niveles, se tomarán de los datos en orden alfabético:</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] Dic Abr Ene Mar</span></span>
-<span><span class="co">#&gt; Levels: Abr Dic Ene Mar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: Abr Dic Ene Mar</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ordenar alfabéticamente es un poco arriesgado porque no todas las computadoras ordenarán las cadenas de la misma manera. Entonces <code><a href="https://forcats.tidyverse.org/reference/fct.html">forcats::fct()</a></code> ordena por primera aparición:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct.html">fct</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] Dic Abr Ene Mar</span></span>
-<span><span class="co">#&gt; Levels: Dic Abr Ene Mar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: Dic Abr Ene Mar</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si alguna vez necesita acceder directamente al conjunto de niveles válidos, puede hacerlo con <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">y2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "Ene" "Feb" "Mar" "Abr" "May" "Jun" "Jul" "Ago" "Sep" "Oct" "Nov" "Dic"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  [1] "Ene" "Feb" "Mar" "Abr" "May" "Jun" "Jul" "Ago" "Sep" "Oct" "Nov" "Dic"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>También puedes crear un factor al leer tus datos con readr con <code><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor()</a></code>:</p>
 <div class="cell">
@@ -547,7 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   problems(dat)</span></span>
 <span><span class="va">df</span><span class="op">$</span><span class="va">month</span></span>
 <span><span class="co">#&gt; [1] &lt;NA&gt; Feb  Mar </span></span>
-<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="encuesta-social-general" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="encuesta-social-general">
 <span class="header-section-number">17.3</span> Encuesta Social General</h2>
@@ -564,7 +573,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5  2000 Divorced         25 White Not applicable Not str democrat  </span></span>
 <span><span class="co">#&gt; 6  2000 Married          25 White $20000 - 24999 Strong democrat   </span></span>
 <span><span class="co">#&gt; # ℹ 21,477 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: relig &lt;fct&gt;, denom &lt;fct&gt;, tvhours &lt;int&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 3 more variables: relig &lt;fct&gt;, denom &lt;fct&gt;, tvhours &lt;int&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(Recuerde, dado que este conjunto de datos lo proporciona un paquete, puede obtener más información sobre las variables con <code><a href="https://forcats.tidyverse.org/reference/gss_cat.html">?gss_cat</a></code>.)</p>
 <p>Cuando los factores se almacenan en un tibble, no puede ver sus niveles tan fácilmente. Una forma de verlos es con <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>:</p>
@@ -576,7 +585,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   &lt;fct&gt; &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 Other  1959</span></span>
 <span><span class="co">#&gt; 2 Black  3129</span></span>
-<span><span class="co">#&gt; 3 White 16395</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3 White 16395</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cuando se trabaja con factores, las dos operaciones más comunes son cambiar el orden de los niveles y cambiar los valores de los niveles. Esas operaciones se describen en las secciones siguientes.</p>
 <section id="ejercicios" class="level3" data-number="17.3.1"><h3 data-number="17.3.1" class="anchored" data-anchor-id="ejercicios">
@@ -597,24 +606,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="factors_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" alt="Un diagrama de dispersión con horas de televisión en el eje x y religión en el eje y. El eje y está ordenado de manera aparentemente arbitraria, lo que dificulta tener una idea del patrón general." width="576"></p>
+<div>
+<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" alt="Un diagrama de dispersión con horas de televisión en el eje x y religión en el eje y. El eje y está ordenado de manera aparentemente arbitraria, lo que dificulta tener una idea del patrón general." width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Es difícil leer esta trama porque no hay un patrón general. Podemos mejorarlo reordenando los niveles de <code>relig</code> usando <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code>. <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code> toma tres argumentos:</p>
 <ul>
 <li>
-<code>f</code>, el factor cuyos niveles desea modificar.</li>
+<code>.f</code>, el factor cuyos niveles desea modificar.</li>
 <li>
-<code>x</code>, un vector numérico que desea utilizar para reordenar los niveles.</li>
-<li>Opcionalmente, <code>fun</code>, una función que se usa si hay varios valores de <code>x</code> para cada valor de <code>f</code>. El valor predeterminado es <code>mediana</code>.</li>
+<code>.x</code>, un vector numérico que desea utilizar para reordenar los niveles.</li>
+<li>Opcionalmente, <code>.fun</code>, una función que se usa si hay varios valores de <code>.x</code> para cada valor de <code>.f</code>. El valor predeterminado es <code>median</code>.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" alt="El mismo diagrama de dispersión que el anterior, pero ahora la religión se muestra en orden creciente de t horas. &quot;Other eastern&quot; tiene la menor cantidad de horas por debajo de 2 y &quot;Don't know&quot; tiene la mayor cantidad (más de 5)." width="576"></p>
+<div>
+<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" alt="El mismo diagrama de dispersión que el anterior, pero ahora la religión se muestra en orden creciente de t horas. &quot;Other eastern&quot; tiene la menor cantidad de horas por debajo de 2 y &quot;Don't know&quot; tiene la mayor cantidad (más de 5)." width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Reordenar la religión hace que sea mucho más fácil ver que las personas en la categoría “No sé” ven mucha más televisión, y el hinduismo y otras religiones orientales ven mucho menos.</p>
@@ -625,7 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Qué sucede si creamos una gráfica similar que observa cómo varía la edad promedio según el nivel de ingresos informado?</p>
 <div class="cell">
@@ -637,25 +652,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="va">age</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="factors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" alt="Un diagrama de dispersión con la edad en el eje x y los ingresos en el eje y. Los ingresos se han reordenado en función de la edad media, lo que no tiene mucho sentido. Una sección del eje y va desde $6000-6999, luego <$1000, luego $8000-9999." width="576"></p>
+<div>
+<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" alt="Un diagrama de dispersión con la edad en el eje x y los ingresos en el eje y. Los ingresos se han reordenado en función de la edad media, lo que no tiene mucho sentido. Una sección del eje y va desde $6000-6999, luego <$1000, luego $8000-9999." width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>¡Aquí, reordenar arbitrariamente los niveles no es una buena idea! Esto se debe a que <code>rincome</code> ya tiene un orden de principios con el que no debemos meternos. Reserve <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code> para factores cuyos niveles estén ordenados arbitrariamente.</p>
-<p>Sin embargo, tiene sentido poner “No aplicable” al frente con los otros niveles especiales. Puedes usar <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code>. Se necesita un factor, <code>f</code>, y luego cualquier cantidad de niveles que desee mover al frente de la fila.</p>
+<p>Sin embargo, tiene sentido poner “No aplicable” al frente con los otros niveles especiales. Puedes usar <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code>. Se necesita un factor, <code>.f</code>, y luego cualquier cantidad de niveles que desee mover al frente de la fila.</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="st">"No aplicable"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: 1 unknown level in `f`: No aplicable</span></span>
-<span><span class="co">#&gt; 1 unknown level in `f`: No aplicable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Warning: 1 unknown level in `f`: No aplicable</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" alt="El mismo diagrama de dispersión pero ahora &quot;No aplicable&quot; se muestra en la parte inferior del eje y. En general, existe una asociación positiva entre los ingresos y la edad, y la franja de ingresos con el promedio de edad más alto es &quot;No aplicable&quot;." width="576"></p>
+<div>
+<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" alt="El mismo diagrama de dispersión pero ahora &quot;No aplicable&quot; se muestra en la parte inferior del eje y. En general, existe una asociación positiva entre los ingresos y la edad, y la franja de ingresos con el promedio de edad más alto es &quot;No aplicable&quot;." width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>¿Por qué cree que la edad promedio para “No aplicable” es tan alta?</p>
-<p>Otro tipo de reordenación es útil cuando colorea las líneas de un gráfico. <code>fct_reorder2(f, x, y)</code> reordena el factor <code>f</code> por los valores <code>y</code> asociados con los valores <code>x</code> más grandes. Esto hace que el gráfico sea más fácil de leer porque los colores de la línea en el extremo derecho del gráfico se alinearán con la leyenda.</p>
-<div>
+<p>Otro tipo de reordenación es útil cuando colorea las líneas de un gráfico. <code>fct_reorder2(.f, .x, .y)</code> reordena el factor <code>.f</code> por los valores <code>.y</code> asociados con los valores <code>.x</code> más grandes. Esto hace que el gráfico sea más fácil de leer porque los colores de la línea en el extremo derecho del gráfico se alinearán con la leyenda.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">by_age</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">marital</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -671,15 +690,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">by_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">prop</span>, color <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2</a></span><span class="op">(</span><span class="va">marital</span>, <span class="va">age</span>, <span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"marital"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"marital"</span><span class="op">)</span> </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="factors_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" alt="Un gráfico de líneas con la edad en el eje x y la proporción en el eje y. Hay una línea para cada categoría de estado civil: sin respuesta, nunca casado, separado, divorciado, viudo y casado. Es un poco difícil leer la gráfica porque el orden de la leyenda no está relacionado con las líneas de la gráfica. Reorganizar la leyenda hace que el gráfico sea más fácil de leer porque los colores de la leyenda ahora coinciden con el orden de las líneas en el extremo derecho del gráfico. Puede ver algunos patrones que no sorprenden: la proporción de personas que nunca se casaron disminuye con la edad, los casados forman una U invertida y los viudos comienzan con un nivel bajo pero aumentan abruptamente después de los 60 años." width="288"></p>
 </div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="factors_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid" alt="Un gráfico de líneas con la edad en el eje x y la proporción en el eje y. Hay una línea para cada categoría de estado civil: sin respuesta, nunca casado, separado, divorciado, viudo y casado. Es un poco difícil leer la gráfica porque el orden de la leyenda no está relacionado con las líneas de la gráfica. Reorganizar la leyenda hace que el gráfico sea más fácil de leer porque los colores de la leyenda ahora coinciden con el orden de las líneas en el extremo derecho del gráfico. Puede ver algunos patrones que no sorprenden: la proporción de personas que nunca se casaron disminuye con la edad, los casados forman una U invertida y los viudos comienzan con un nivel bajo pero aumentan abruptamente después de los 60 años." width="288"></p>
-</div>
 </div>
 </div>
 </div>
@@ -688,9 +706,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>marital <span class="op">=</span> <span class="va">marital</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">marital</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="factors_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" alt="Un gráfico de barras del estado civil ordenado de menos a más común: sin respuesta (~0), separado (~1000), viudo (~2000), divorciado (~3000), nunca casado (~5000), casado (~10,000 )." width="576"></p>
+<div>
+<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" alt="Un gráfico de barras del estado civil ordenado de menos a más común: sin respuesta (~0), separado (~1000), viudo (~2000), divorciado (~3000), nunca casado (~5000), casado (~10,000 )." width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="ejercicios-1" class="level3" data-number="17.4.1"><h3 data-number="17.4.1" class="anchored" data-anchor-id="ejercicios-1">
@@ -713,7 +734,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 Strong republican   2314</span></span>
 <span><span class="co">#&gt; 5 Not str republican  3032</span></span>
 <span><span class="co">#&gt; 6 Ind,near rep        1791</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Los niveles son breves e inconsistentes. Modifiquémoslos para que sean más largos y usemos una construcción paralela. Como la mayoría de las funciones de renombrar y recodificar en tidyverse, los valores nuevos van a la izquierda y los valores antiguos van a la derecha:</p>
 <div class="cell">
@@ -738,7 +759,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 Republican, strong     2314</span></span>
 <span><span class="co">#&gt; 5 Republican, weak       3032</span></span>
 <span><span class="co">#&gt; 6 Independent, near rep  1791</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code> dejará los niveles que no se mencionan explícitamente como están y le avisará si accidentalmente hace referencia a un nivel que no existe.</p>
 <p>Para combinar grupos, puede asignar varios niveles antiguos al mismo nivel nuevo:</p>
@@ -756,7 +777,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>      <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Don't know"</span>,</span>
 <span>      <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Other party"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usa esta técnica con cuidado: si agrupas categorías que son realmente diferentes, terminarás con resultados engañosos.</p>
 <p>Si desea colapsar muchos niveles, <code><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse()</a></code> es una variante útil de <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>. Para cada variable nueva, puede proporcionar un vector de niveles antiguos:</p>
@@ -777,7 +798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1 other     548</span></span>
 <span><span class="co">#&gt; 2 rep      5346</span></span>
 <span><span class="co">#&gt; 3 ind      8409</span></span>
-<span><span class="co">#&gt; 4 dem      7180</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4 dem      7180</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A veces, solo desea agrupar los grupos pequeños para simplificar un diagrama o una tabla. Ese es el trabajo de la familia de funciones <code>fct_lump_*()</code>. <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_lowfreq()</a></code> es un punto de partida simple que agrupa progresivamente las categorías de grupos más pequeños en “Otros”, manteniendo siempre “Otros” como la categoría más pequeña.</p>
 <div class="cell">
@@ -788,7 +809,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   relig          n</span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 Protestant 10846</span></span>
-<span><span class="co">#&gt; 2 Other      10637</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2 Other      10637</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En este caso, no es muy útil: es cierto que la mayoría de los estadounidenses en esta encuesta son protestantes, ¡pero probablemente nos gustaría ver más detalles! En cambio, podemos usar <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_n()</a></code> para especificar que queremos exactamente 10 grupos:</p>
 <div class="cell">
@@ -804,7 +825,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 Christian    689</span></span>
 <span><span class="co">#&gt; 5 Other        458</span></span>
 <span><span class="co">#&gt; 6 Jewish       388</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lea la documentación para conocer <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min()</a></code> y <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_prop()</a></code>, que son útiles en otros casos.</p>
 <section id="ejercicios-2" class="level3" data-number="17.5.1"><h3 data-number="17.5.1" class="anchored" data-anchor-id="ejercicios-2">
@@ -819,7 +840,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] a b c</span></span>
-<span><span class="co">#&gt; Levels: a &lt; b &lt; c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Levels: a &lt; b &lt; c</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En la práctica, los factores <code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code> se comportan de manera muy similar a los factores regulares. Solo hay dos lugares donde puede notar un comportamiento diferente:</p>
 <ul>
@@ -876,7 +897,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   const act_link_O = document.createElement('div');
   act_link_O.className='action-links';
   act_link_O.id='act-link-O';
-  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.Rmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
 
 
   TOC.appendChild(originalga);
@@ -958,12 +979,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -983,10 +1004,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -996,8 +1016,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1010,6 +1039,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1053,6 +1201,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1078,6 +1227,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1137,23 +1312,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./regexps.html" class="pagination-link">
+      <a href="./regexps.html" class="pagination-link  aria-label=" regulares="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./datetimes.html" class="pagination-link">
+      <a href="./datetimes.html" class="pagination-link" aria-label="<span class='chapter-number'>18</span>&nbsp; <span class='chapter-title'>Fechas y horas</span>">
         <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fechas y horas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</div>   
+    <div class="nav-footer-left">
+<p>R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-right">
+<p>Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
 

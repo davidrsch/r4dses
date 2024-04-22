@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 22&nbsp; Bases de datos</title>
@@ -20,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -77,7 +77,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
@@ -86,6 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "resultado adicional en este documento",
     "search-more-matches-text": "resultados adicionales en este documento",
     "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Buscar"
@@ -96,19 +103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import.html">Importar</a></li><li class="breadcrumb-item"><a href="./databases.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import.html">Importar</a></li><li class="breadcrumb-item"><a href="./databases.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
@@ -402,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
@@ -444,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import.html">Importar</a></li><li class="breadcrumb-item"><a href="./databases.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-import-databases" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Bases de datos</span></span></h1>
 </div>
 
@@ -457,6 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     
   </div>
   
+
 
 </header><section id="introducción" class="level2" data-number="22.1"><h2 data-number="22.1" class="anchored" data-anchor-id="introducción">
 <span class="header-section-number">22.1</span> Introducción</h2>
@@ -510,11 +518,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Configurar un DBMS cliente-servidor o en la nube sería una molestia para este libro, por lo que en su lugar usaremos un DBMS en proceso que vive completamente en un paquete R: duckdb. Gracias a la magia de DBI, la única diferencia entre usar duckdb y cualquier otro DBMS es cómo te conectarás a la base de datos. Esto hace que sea excelente para enseñar porque puede ejecutar fácilmente este código y tomar fácilmente lo que aprende y aplicarlo en otro lugar.</p>
 <p>Conectarse a duckdb es particularmente simple porque los valores predeterminados crean una base de datos temporal que se elimina cuando sale de R. Eso es excelente para aprender porque garantiza que comenzará desde cero cada vez que reinicie R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/duckdb/man/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>duckdb es una base de datos de alto rendimiento diseñada en gran medida para las necesidades de un científico de datos. Lo usamos aquí porque es muy fácil de usar, pero también es capaz de manejar gigabytes de datos a gran velocidad. Si desea utilizar duckdb para un proyecto de análisis de datos real, también deberá proporcionar el argumento <code>dbdir</code> para crear una base de datos persistente y decirle a duckdb dónde guardarla. Asumiendo que estás usando un proyecto (<a href="workflow-scripts.html"><span>Capítulo&nbsp;7</span></a>), es razonable guardarlo en el directorio <code>duckdb</code> del proyecto actual:</p>
+<p>duckdb es una base de datos de alto rendimiento diseñada en gran medida para las necesidades de un científico de datos. Lo usamos aquí porque es muy fácil de usar, pero también es capaz de manejar gigabytes de datos a gran velocidad. Si desea utilizar duckdb para un proyecto de análisis de datos real, también deberá proporcionar el argumento <code>dbdir</code> para crear una base de datos persistente y decirle a duckdb dónde guardarla. Asumiendo que estás usando un proyecto (<a href="workflow-scripts.html" class="quarto-xref"><span>Capítulo 7</span></a>), es razonable guardarlo en el directorio <code>duckdb</code> del proyecto actual:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/duckdb/man/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="st">"duckdb"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="st">"duckdb"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="sec-load-data" class="level3" data-number="22.3.2"><h3 data-number="22.3.2" class="anchored" data-anchor-id="sec-load-data">
 <span class="header-section-number">22.3.2</span> Cargar algunos datos</h3>
@@ -523,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"mpg"</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/mpg.html">mpg</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"diamonds"</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Si está utilizando duckdb en un proyecto real, le recomendamos que aprenda sobre <code>duckdb_read_csv()</code> y <code>duckdb_register_arrow()</code>. Estos le brindan formas potentes y eficaces de cargar rápidamente datos directamente en duckdb, sin tener que cargarlos primero en R. También mostraremos una técnica útil para cargar varios archivos en una base de datos en <a href="iteration.html#sec-save-database"><span>Sección&nbsp;27.4.1</span></a>.</p>
+<p>Si está utilizando duckdb en un proyecto real, le recomendamos que aprenda sobre <code>duckdb_read_csv()</code> y <code>duckdb_register_arrow()</code>. Estos le brindan formas potentes y eficaces de cargar rápidamente datos directamente en duckdb, sin tener que cargarlos primero en R. También mostraremos una técnica útil para cargar varios archivos en una base de datos en <a href="iteration.html#sec-save-database" class="quarto-xref"><span>Sección 27.4.1</span></a>.</p>
 </section><section id="dbi-básico" class="level3" data-number="22.3.3"><h3 data-number="22.3.3" class="anchored" data-anchor-id="dbi-básico">
 <span class="header-section-number">22.3.3</span> DBI básico</h3>
 <p>Puede comprobar que los datos se cargan correctamente utilizando un par de otras funciones de DBI: <code><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables()</a></code> enumera todas las tablas de la base de datos<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> y <code><a href="https://dbi.r-dbi.org/reference/dbReadTable.html">dbReadTable()</a></code> recupera el contenido de una tabla.</p>
@@ -574,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"diamonds"</span><span class="op">)</span></span>
 <span><span class="va">diamonds_db</span></span>
 <span><span class="co">#&gt; # Source:   table&lt;diamonds&gt; [?? x 10]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB 0.8.1 [DDR@Windows 10 x64:R 4.3.1/:memory:]</span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.0 [DDR@Windows 10 x64:R 4.3.3/:memory:]</span></span>
 <span><span class="co">#&gt;   carat cut       color clarity depth table price     x     y     z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43</span></span>
@@ -611,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">big_diamonds_db</span></span>
 <span><span class="co">#&gt; # Source:   SQL [?? x 5]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB 0.8.1 [DDR@Windows 10 x64:R 4.3.1/:memory:]</span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.0 [DDR@Windows 10 x64:R 4.3.3/:memory:]</span></span>
 <span><span class="co">#&gt;   carat cut       color clarity price</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1  1.54 Premium   E     VS2     15002</span></span>
@@ -684,7 +692,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; WHERE (dest = 'IAH')</span></span>
 <span><span class="co">#&gt; ORDER BY dep_delay</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -769,10 +777,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *, distance / (air_time / 60.0) AS speed</span></span>
+<span><span class="co">#&gt; SELECT flights.*, distance / (air_time / 60.0) AS speed</span></span>
 <span><span class="co">#&gt; FROM flights</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Volveremos a la traducción de componentes individuales (como <code>/</code>) en <a href="#sec-sql-expressions"><span>Sección&nbsp;22.6</span></a>.</p>
+<p>Volveremos a la traducción de componentes individuales (como <code>/</code>) en <a href="#sec-sql-expressions" class="quarto-xref"><span>Sección 22.6</span></a>.</p>
 </section><section id="from" class="level3" data-number="22.5.3"><h3 data-number="22.5.3" class="anchored" data-anchor-id="from">
 <span class="header-section-number">22.5.3</span> FROM</h3>
 <p>La cláusula <code>FROM</code> define la fuente de datos. Va a ser poco interesante por un tiempo, porque solo estamos usando tablas individuales. Verá ejemplos más complejos una vez que lleguemos a las funciones de unión.</p>
@@ -792,7 +800,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; FROM diamonds</span></span>
 <span><span class="co">#&gt; GROUP BY cut</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Volveremos a lo que sucede con la traducción <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> y <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> en <a href="#sec-sql-expressions"><span>Sección&nbsp;22.6</span></a>.</p>
+<p>Volveremos a lo que sucede con la traducción <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code> y <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> en <a href="#sec-sql-expressions" class="quarto-xref"><span>Sección 22.6</span></a>.</p>
 </section><section id="where" class="level3" data-number="22.5.5"><h3 data-number="22.5.5" class="anchored" data-anchor-id="where">
 <span class="header-section-number">22.5.5</span> WHERE</h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> se traduce a la cláusula <code>WHERE</code>:</p>
@@ -801,7 +809,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dest</span> <span class="op">==</span> <span class="st">"IAH"</span> <span class="op">|</span> <span class="va">dest</span> <span class="op">==</span> <span class="st">"HOU"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; WHERE (dest = 'IAH' OR dest = 'HOU')</span></span>
 <span></span>
@@ -809,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">arr_delay</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; WHERE (arr_delay &gt; 0.0 AND arr_delay &lt; 20.0)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -826,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dest</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IAH"</span>, <span class="st">"HOU"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; WHERE (dest IN ('IAH', 'HOU'))</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -839,25 +847,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Use `na.rm = TRUE` to silence this warning</span></span>
 <span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
 <span><span class="co">#&gt; # Source:   SQL [?? x 2]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB 0.8.1 [DDR@Windows 10 x64:R 4.3.1/:memory:]</span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.0 [DDR@Windows 10 x64:R 4.3.3/:memory:]</span></span>
 <span><span class="co">#&gt;   dest   delay</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ATL   11.3  </span></span>
-<span><span class="co">#&gt; 2 ORD    5.88 </span></span>
-<span><span class="co">#&gt; 3 RDU   10.1  </span></span>
-<span><span class="co">#&gt; 4 IAD   13.9  </span></span>
-<span><span class="co">#&gt; 5 DTW    5.43 </span></span>
-<span><span class="co">#&gt; 6 LAX    0.547</span></span>
+<span><span class="co">#&gt; 1 ORD    5.88 </span></span>
+<span><span class="co">#&gt; 2 FLL    8.08 </span></span>
+<span><span class="co">#&gt; 3 IAD   13.9  </span></span>
+<span><span class="co">#&gt; 4 PBI    8.56 </span></span>
+<span><span class="co">#&gt; 5 TPA    7.41 </span></span>
+<span><span class="co">#&gt; 6 DFW    0.322</span></span>
 <span><span class="co">#&gt; # ℹ more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Si desea obtener más información sobre cómo funcionan los valores <code>NULL</code>, puede disfrutar de “<a href="https://modern-sql.com/concept/%20Three-valued-logic"><em>Lógica de tres valores</em></a>” de Markus Winand.</p>
+<p>Si desea obtener más información sobre cómo funcionan los valores <code>NULL</code>, puede disfrutar de “<a href="https://modern-sql.com/concept/three-valued-logic"><em>La lógica de tres valores de SQL</em></a>” de Markus Winand.</p>
 <p>En general, puedes trabajar con <code>NULL</code>s usando las funciones que usarías para <code>NA</code>s en R:</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">flights</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; WHERE (NOT((dep_delay IS NULL)))</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -884,7 +892,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT flights.*</span></span>
 <span><span class="co">#&gt; FROM flights</span></span>
 <span><span class="co">#&gt; ORDER BY "year", "month", "day", dep_delay DESC</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -901,9 +909,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *, year1 + 1.0 AS year2</span></span>
+<span><span class="co">#&gt; SELECT q01.*, year1 + 1.0 AS year2</span></span>
 <span><span class="co">#&gt; FROM (</span></span>
-<span><span class="co">#&gt;   SELECT *, "year" + 1.0 AS year1</span></span>
+<span><span class="co">#&gt;   SELECT flights.*, "year" + 1.0 AS year1</span></span>
 <span><span class="co">#&gt;   FROM flights</span></span>
 <span><span class="co">#&gt; ) q01</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -914,9 +922,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year1</span> <span class="op">==</span> <span class="fl">2014</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/explain.html">show_query</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;SQL&gt;</span></span>
-<span><span class="co">#&gt; SELECT *</span></span>
+<span><span class="co">#&gt; SELECT q01.*</span></span>
 <span><span class="co">#&gt; FROM (</span></span>
-<span><span class="co">#&gt;   SELECT *, "year" + 1.0 AS year1</span></span>
+<span><span class="co">#&gt;   SELECT flights.*, "year" + 1.0 AS year1</span></span>
 <span><span class="co">#&gt;   FROM flights</span></span>
 <span><span class="co">#&gt; ) q01</span></span>
 <span><span class="co">#&gt; WHERE (year1 = 2014.0)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1255,10 +1263,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1268,8 +1275,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1282,6 +1298,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1325,6 +1460,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1350,6 +1486,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1409,23 +1571,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./spreadsheets.html" class="pagination-link">
+      <a href="./spreadsheets.html" class="pagination-link  aria-label=" de="" calculo="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Hojas de calculo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./arrow.html" class="pagination-link">
+      <a href="./arrow.html" class="pagination-link" aria-label="<span class='chapter-number'>23</span>&nbsp; <span class='chapter-title'>Arrow</span>">
         <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</div>   
+    <div class="nav-footer-left">
+<p>R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-right">
+<p>Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
 

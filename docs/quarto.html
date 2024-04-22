@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 29&nbsp; Quarto</title>
@@ -20,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -77,7 +77,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
@@ -86,6 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "resultado adicional en este documento",
     "search-more-matches-text": "resultados adicionales en este documento",
     "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Buscar"
@@ -96,19 +103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./communicate.html">Comunicar</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./communicate.html">Comunicar</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
@@ -402,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
@@ -476,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./communicate.html">Comunicar</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-quarto" class="quarto-section-identifier"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></h1>
 </div>
 
@@ -489,6 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     
   </div>
   
+
 
 </header><section id="introducción" class="level2" data-number="29.1"><h2 data-number="29.1" class="anchored" data-anchor-id="introducción">
 <span class="header-section-number">29.1</span> Introducción</h2>
@@ -544,39 +552,55 @@ smaller |&gt;
 <strong>Porciones</strong> de código R rodeadas por <code>```</code>.</li>
 <li>Texto mezclado con formato de texto simple como <code>#título</code> y <code>_cursiva_</code>.</li>
 </ol>
-<p><a href="#fig-diamond-sizes-notebook">Figura&nbsp;<span>29.1</span></a> muestra un documento <code>.qmd</code> en RStudio con interfaz de notebook donde el código y la salida están intercalados. Puede ejecutar cada fragmento de código haciendo clic en el ícono Ejecutar (parece un botón de reproducción en la parte superior del fragmento), o presionando Cmd/Ctrl + Shift + Enter. RStudio ejecuta el código y muestra los resultados en línea con el código.</p>
+<p><a href="#fig-diamond-sizes-notebook" class="quarto-xref">Figura&nbsp;<span>29.1</span></a> muestra un documento <code>.qmd</code> en RStudio con interfaz de notebook donde el código y la salida están intercalados. Puede ejecutar cada fragmento de código haciendo clic en el ícono Ejecutar (parece un botón de reproducción en la parte superior del fragmento), o presionando Cmd/Ctrl + Shift + Enter. RStudio ejecuta el código y muestra los resultados en línea con el código.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-notebook" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="quarto/diamond-sizes-notebook.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso."></p>
-<figcaption class="figure-caption">Figura&nbsp;29.1: Un documento de Quarto en RStudio. Código y salida intercalados en el documento, con la salida de la gráfica apareciendo justo debajo del código.</figcaption></figure>
+<div id="fig-diamond-sizes-notebook" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso.">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-notebook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="quarto/diamond-sizes-notebook.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diamond-sizes-notebook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;29.1: Un documento de Quarto en RStudio. Código y salida intercalados en el documento, con la salida de la gráfica apareciendo justo debajo del código.
+</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Si no le gusta ver sus gráficos y resultados en su documento y prefiere utilizar la consola y los paneles de gráficos de RStudio, puede hacer clic en el icono de engranaje junto a “Render” y cambiar a “Chunk Output in Console”, como se muestra en <a href="#fig-diamond-sizes-console-output">Figura&nbsp;<span>29.2</span></a>.</p>
+<p>Si no le gusta ver sus gráficos y resultados en su documento y prefiere utilizar la consola y los paneles de gráficos de RStudio, puede hacer clic en el icono de engranaje junto a “Render” y cambiar a “Chunk Output in Console”, como se muestra en <a href="#fig-diamond-sizes-console-output" class="quarto-xref">Figura&nbsp;<span>29.2</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-console-output" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="quarto/diamond-sizes-console-output.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada."></p>
-<figcaption class="figure-caption">Figura&nbsp;29.2: Un documento Quarto en RStudio con la salida del gráfico en el panel Gráficos.</figcaption></figure>
+<div id="fig-diamond-sizes-console-output" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada.">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-console-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="quarto/diamond-sizes-console-output.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diamond-sizes-console-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;29.2: Un documento Quarto en RStudio con la salida del gráfico en el panel Gráficos.
+</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Para generar un informe completo que contenga todo el texto, el código y los resultados, haga clic en “Render” o presione Cmd/Ctrl + Shift + K. También puede hacer esto mediante programación con <code>quarto::quarto_render("diamond-sizes.qmd")</code>. Esto mostrará el informe en el panel del visor como se muestra en <a href="#fig-diamond-sizes-report">Figura&nbsp;<span>29.3</span></a> y creará un archivo HTML.</p>
+<p>Para generar un informe completo que contenga todo el texto, el código y los resultados, haga clic en “Render” o presione Cmd/Ctrl + Shift + K. También puede hacer esto mediante programación con <code>quarto::quarto_render("diamond-sizes.qmd")</code>. Esto mostrará el informe en el panel del visor como se muestra en <a href="#fig-diamond-sizes-report" class="quarto-xref">Figura&nbsp;<span>29.3</span></a> y creará un archivo HTML.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-report" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="quarto/diamond-sizes-report.png" class="img-fluid figure-img" style="width:90.0%" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen."></p>
-<figcaption class="figure-caption">Figura&nbsp;29.3: Un documento de Quarto en RStudio con el documento renderizado en el panel del View.</figcaption></figure>
+<div id="fig-diamond-sizes-report" class="quarto-figure quarto-figure-center quarto-float anchored" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen.">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-report-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="quarto/diamond-sizes-report.png" class="img-fluid figure-img" style="width:90.0%" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diamond-sizes-report-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;29.3: Un documento de Quarto en RStudio con el documento renderizado en el panel del View.
+</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Cuando renderiza el documento, Quarto envía el archivo <code>.qmd</code> a <strong>knitr</strong>, <a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (<code>.md</code>) que incluye el código y su salida. El archivo markdown generado por knitr luego es procesado por <strong>pandoc</strong>, <a href="https://pandoc.org/" class="uri">https://pandoc.org</a>, que es responsable de crear el archivo terminado. Este proceso se muestra en <a href="#fig-quarto-flow">Figura&nbsp;<span>29.4</span></a>. La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en <a href="quarto-formats.html"><span>Capítulo&nbsp;30</span></a>.</p>
+<p>Cuando renderiza el documento, Quarto envía el archivo <code>.qmd</code> a <strong>knitr</strong>, <a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (<code>.md</code>) que incluye el código y su salida. El archivo markdown generado por knitr luego es procesado por <strong>pandoc</strong>, <a href="https://pandoc.org/" class="uri">https://pandoc.org</a>, que es responsable de crear el archivo terminado. Este proceso se muestra en <a href="#fig-quarto-flow" class="quarto-xref">Figura&nbsp;<span>29.4</span></a>. La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en <a href="quarto-formats.html" class="quarto-xref"><span>Capítulo 30</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-quarto-flow" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/quarto-flow.png" class="img-fluid figure-img" style="width:75.0%" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. "></p>
-<figcaption class="figure-caption">Figura&nbsp;29.4: Diagrama del flujo de trabajo de Quarto de qmd, a knitr, a md, a pandoc, a la salida en formato PDF, MS Word o HTML.</figcaption></figure>
+<div id="fig-quarto-flow" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. ">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-quarto-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/quarto-flow.png" class="img-fluid figure-img" style="width:75.0%" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. ">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quarto-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;29.4: Diagrama del flujo de trabajo de Quarto de qmd, a knitr, a md, a pandoc, a la salida en formato PDF, MS Word o HTML.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -589,13 +613,17 @@ smaller |&gt;
 <li><p>Cree un nuevo documento Quarto para cada uno de los tres formatos integrados: HTML, PDF y Word. Renderice cada uno de los tres documentos. ¿Cómo difieren las salidas? ¿Cómo difieren las entradas? (Es posible que deba instalar LaTeX para generar la salida en PDF; RStudio le indicará si es necesario).</p></li>
 </ol></section></section><section id="editor-visual" class="level2" data-number="29.3"><h2 data-number="29.3" class="anchored" data-anchor-id="editor-visual">
 <span class="header-section-number">29.3</span> Editor Visual</h2>
-<p>El editor visual de RStudio proporciona una interfaz <a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a> para crear documentos Quarto. En el fondo, la prosa de los documentos Quarto (archivos <code>.qmd</code>) está escrita en Markdown, un conjunto ligero de convenciones para formatear archivos de texto sin formato. De hecho, Quarto usa Pandoc Markdown (una versión ligeramente extendida de Markdown que Quarto entiende), que incluye tablas, citas, referencias cruzadas, notas al pie, divs/spans, listas de definiciones, atributos, HTML/TeX sin formato y más, así como soporte para ejecutar celdas de código y ver su salida en línea. Si bien Markdown está diseñado para que sea fácil de leer y escribir, como verá en <a href="#sec-source-editor"><span>Sección&nbsp;29.4</span></a>, aún requiere aprender una nueva sintaxis. Por lo tanto, si es nuevo en documentos computacionales como archivos <code>.qmd</code> pero tiene experiencia en el uso de herramientas como Google Docs o MS Word, la forma más fácil de comenzar con Quarto en RStudio es el editor visual.</p>
-<p>En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘ /</kbd> para insertar casi cualquier cosa. Si está al comienzo de una línea (como se muestra en <a href="#fig-visual-editor">Figura&nbsp;<span>29.5</span></a>), también puede ingresar solo <kbd>/</kbd> para invocar el atajo.</p>
+<p>El editor visual de RStudio proporciona una interfaz <a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a> para crear documentos Quarto. En el fondo, la prosa de los documentos Quarto (archivos <code>.qmd</code>) está escrita en Markdown, un conjunto ligero de convenciones para formatear archivos de texto sin formato. De hecho, Quarto usa Pandoc Markdown (una versión ligeramente extendida de Markdown que Quarto entiende), que incluye tablas, citas, referencias cruzadas, notas al pie, divs/spans, listas de definiciones, atributos, HTML/TeX sin formato y más, así como soporte para ejecutar celdas de código y ver su salida en línea. Si bien Markdown está diseñado para que sea fácil de leer y escribir, como verá en <a href="#sec-source-editor" class="quarto-xref"><span>Sección 29.4</span></a>, aún requiere aprender una nueva sintaxis. Por lo tanto, si es nuevo en documentos computacionales como archivos <code>.qmd</code> pero tiene experiencia en el uso de herramientas como Google Docs o MS Word, la forma más fácil de comenzar con Quarto en RStudio es el editor visual.</p>
+<p>En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘</kbd> + <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>/</kbd> para insertar casi cualquier cosa. Si está al comienzo de una línea (como se muestra en <a href="#fig-visual-editor" class="quarto-xref">Figura&nbsp;<span>29.5</span></a>), también puede ingresar solo <kbd>/</kbd> para invocar el atajo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-visual-editor" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="quarto/quarto-visual-editor.png" class="img-fluid figure-img" style="width:75.0%" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta)."></p>
-<figcaption class="figure-caption">Figura&nbsp;29.5: Editor visual de Quarto.</figcaption></figure>
+<div id="fig-visual-editor" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta).">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-visual-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="quarto/quarto-visual-editor.png" class="img-fluid figure-img" style="width:75.0%" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta).">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-visual-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;29.5: Editor visual de Quarto.
+</figcaption></figure>
 </div>
 </div>
 </div>
@@ -605,7 +633,7 @@ smaller |&gt;
 <section id="ejercicios-1" class="level3" data-number="29.3.1"><h3 data-number="29.3.1" class="anchored" data-anchor-id="ejercicios-1">
 <span class="header-section-number">29.3.1</span> Ejercicios</h3>
 <ol type="1">
-<li>Vuelva a crear el documento en <a href="#fig-visual-editor">Figura&nbsp;<span>29.5</span></a> usando el editor visual.</li>
+<li>Vuelva a crear el documento en <a href="#fig-visual-editor" class="quarto-xref">Figura&nbsp;<span>29.5</span></a> usando el editor visual.</li>
 <li>Usando el editor visual, inserte un fragmento de código usando el menú Insertar y luego la herramienta Insertar cualquier cosa.</li>
 <li>Usando el editor visual, descubra cómo:
 <ol type="a">
@@ -699,9 +727,9 @@ superscript^2^ subscript~2~
 <p>A los fragmento de código se les puede dar una etiqueta opcional, p.ej.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: simple-addition</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: simple-addition</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">1 + 1</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>#&gt; [1] 2</code></pre>
 </div>
@@ -711,12 +739,15 @@ superscript^2^ subscript~2~
 <p>Puede navegar más fácilmente a fragmentos específicos utilizando el navegador de código desplegable en la parte inferior izquierda del editor de secuencias de comandos:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="screenshots/quarto-chunk-nav.png" class="img-fluid" style="width:30.0%" alt="Fragmento de RStudio IDE que muestra solo el navegador de código desplegable que muestra tres fragmentos. Chunk 1 es setup. Chunk 2 es cars y está en una sección llamada Quarto. Chunk 3 es pressure y está en una sección llamada Including plots."></p>
+<div>
+<figure class="figure"><p><img src="screenshots/quarto-chunk-nav.png" class="img-fluid figure-img" style="width:30.0%" alt="Fragmento de RStudio IDE que muestra solo el navegador de código desplegable que muestra tres fragmentos. Chunk 1 es setup. Chunk 2 es cars y está en una sección llamada Quarto. Chunk 3 es pressure y está en una sección llamada Including plots."></p>
+</figure>
+</div>
 </div>
 </div>
 </li>
-<li><p>Los gráficos producidos por los fragmentos tendrán nombres útiles que los harán más fáciles de usar en otros lugares. Más sobre eso en <a href="#sec-figures"><span>Sección&nbsp;29.6</span></a>.</p></li>
-<li><p>Puede configurar redes de fragmentos almacenados en caché para evitar volver a realizar cálculos costosos en cada ejecución. Más sobre eso en <a href="#sec-caching"><span>Sección&nbsp;29.8</span></a>.</p></li>
+<li><p>Los gráficos producidos por los fragmentos tendrán nombres útiles que los harán más fáciles de usar en otros lugares. Más sobre eso en <a href="#sec-figures" class="quarto-xref"><span>Sección 29.6</span></a>.</p></li>
+<li><p>Puede configurar redes de fragmentos almacenados en caché para evitar volver a realizar cálculos costosos en cada ejecución. Más sobre eso en <a href="#sec-caching" class="quarto-xref"><span>Sección 29.8</span></a>.</p></li>
 </ol>
 <p>Las etiquetas de fragmentos deben ser cortas pero sugerentes y no deben contener espacios. Recomendamos usar guiones (<code>-</code>) para separar palabras (en lugar de guiones bajos, <code>_</code>) y evitar otros caracteres especiales en las etiquetas de fragmentos.</p>
 <p>Por lo general, eres libre de etiquetar tu fragmento como quieras, pero hay un nombre de fragmento que imbuye un comportamiento especial: <code>setup</code>. Cuando esté en modo notebook, el fragmento denominado setup se ejecutará automáticamente una vez, antes de que se ejecute cualquier otro código.</p>
@@ -736,10 +767,10 @@ superscript^2^ subscript~2~
 <p>Cada una de estas opciones de fragmento se agrega al encabezado del fragmento, después de <code>#|</code>, por ejemplo, en el siguiente fragmento, el resultado no se imprime ya que <code>eval</code> se establece en falso.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: simple-multiplication</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: simple-multiplication</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| eval: false</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">2 * 2</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La siguiente tabla resume qué tipos de salida suprime cada opción:</p>
@@ -885,17 +916,26 @@ superscript^2^ subscript~2~
 <p>Si encuentra que tiene que entrecerrar los ojos para leer el texto en su gráfica, necesita modificar <code>fig-width</code>. Si <code>fig-width</code> es más grande que el tamaño de la figura en el documento final, el texto será demasiado pequeño; si <code>fig-width</code> es más pequeño, el texto será demasiado grande. A menudo necesitarás hacer un poco de experimentación para encontrar la proporción correcta entre el <code>fig-width</code> y el ancho final en tu documento. Para ilustrar el principio, las siguientes tres gráficas tienen un ancho de figura de 4, 6 y 8 respectivamente:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="quarto_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" style="width:50.0%" alt="Diagrama de dispersión del kilometraje de la carretera frente al desplazamiento de los automóviles, donde los puntos tienen un tamaño normal y el texto del eje y las etiquetas tienen un tamaño de fuente similar al del texto circundante."></p>
+<div>
+<figure class="figure"><p><img src="quarto_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:50.0%" alt="Diagrama de dispersión del kilometraje de la carretera frente al desplazamiento de los automóviles, donde los puntos tienen un tamaño normal y el texto del eje y las etiquetas tienen un tamaño de fuente similar al del texto circundante."></p>
+</figure>
 </div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="quarto_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" style="width:50.0%" alt="Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de automóviles, donde los puntos son más pequeños que en el gráfico anterior y el texto del eje y las etiquetas son más pequeños que el texto circundante."></p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="quarto_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" style="width:50.0%" alt="Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de automóviles, donde los puntos son incluso más pequeños que en el gráfico anterior  y el texto del eje y las etiquetas son incluso más pequeños que el texto  circundante."></p>
+<div>
+<figure class="figure"><p><img src="quarto_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:50.0%" alt="Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de automóviles, donde los puntos son más pequeños que en el gráfico anterior y el texto del eje y las etiquetas son más pequeños que el texto circundante."></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="quarto_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:50.0%" alt="Diagrama de dispersión de kilometraje en carretera frente a desplazamiento de automóviles, donde los puntos son incluso más pequeños que en el gráfico anterior  y el texto del eje y las etiquetas son incluso más pequeños que el texto  circundante."></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Si desea asegurarse de que el tamaño de la fuente sea consistente en todas sus figuras, cada vez que configure <code>out-width</code>, también deberá ajustar <code>fig-width</code> para mantener la misma proporción con su <code>out-width</code> predeterminado. Por ejemplo, si su <code>fig-width</code> predeterminado es 6 y <code>out-width</code> es “70%”, cuando establezca <code>out-width: "50%"</code>, deberá establecer <code>fig-width</code> en 4.3 (6 * 0.5 / 0.7).</p>
@@ -933,13 +973,15 @@ superscript^2^ subscript~2~
 <span><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
 <span><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Si prefiere que los datos se muestren con un formato adicional, puede usar la función <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>. El siguiente código genera <a href="#tbl-kable">Tabla&nbsp;<span>29.1</span></a>.</p>
+<p>Si prefiere que los datos se muestren con un formato adicional, puede usar la función <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>. El siguiente código genera <a href="#tbl-kable" class="quarto-xref">Tabla&nbsp;<span>29.1</span></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-kable" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;29.1: A knitr kable.
+</figcaption><div aria-describedby="tbl-kable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-kable" class="anchored">
-<table class="table table-sm table-striped small">
-<caption>Tabla&nbsp;29.1: A knitr kable.</caption>
+<table class="do-not-create-environment cell table table-sm table-striped small">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 7%">
@@ -1043,6 +1085,8 @@ superscript^2^ subscript~2~
 </table>
 </div>
 </div>
+</figure>
+</div>
 </div>
 <p>Lee la documentación de <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">?knitr::kable</a></code> para ver otras formas en las que puedes personalizar la tabla. Para una personalización aún más profunda, considere <strong>gt</strong>, <strong>huxtable</strong>, <strong>reactable</strong>, <strong>kableExtra</strong>, <strong>xtable</strong>, <strong>stargazer</strong>, <strong>pander</strong>, * Paquetes *tables <strong>y</strong> ascii**. Cada uno proporciona un conjunto de herramientas para devolver tablas formateadas desde el código R.</p>
 <section id="ejercicios-5" class="level3" data-number="29.7.1"><h3 data-number="29.7.1" class="anchored" data-anchor-id="ejercicios-5">
@@ -1061,47 +1105,47 @@ superscript^2^ subscript~2~
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cache</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>También puede habilitar el almacenamiento en caché a nivel de fragmento para almacenar en caché los resultados del cálculo en un fragmento específico:</p>
-<div class="cell" data-hash="quarto_cache/html/unnamed-chunk-20_76e2bd8c58f97bc890d977829333471b">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># código para cálculos largos...</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="in"># código para cálculos largos...</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cuando se establece, esto guardará la salida del fragmento en un archivo con un nombre especial en el disco. En ejecuciones posteriores, knitr verificará si el código ha cambiado y, si no es así, reutilizará los resultados almacenados en caché.</p>
 <p>El sistema de almacenamiento en caché debe usarse con cuidado, ya que, de manera predeterminada, se basa solo en el código, no en sus dependencias. Por ejemplo, aquí el fragmento <code>processed_data</code> depende del fragmento <code>raw-data</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: raw-data</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: raw-data</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>rawdata <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"a_very_large_file.csv"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="in">rawdata &lt;- readr::read_csv("a_very_large_file.csv")</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: processed_data</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: processed_data</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>processed_data <span class="ot">&lt;-</span> rawdata <span class="sc">|&gt;</span> </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(import_var)) <span class="sc">|&gt;</span> </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_variable =</span> <span class="fu">complicated_transformation</span>(x, y, z))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="in">processed_data &lt;- rawdata |&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(!is.na(import_var)) |&gt; </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(new_variable = complicated_transformation(x, y, z))</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Almacenar en caché el fragmento <code>processed_data</code> significa que se volverá a ejecutar si se cambia la canalización de dplyr, pero no se volverá a ejecutar si cambia la llamada <code>read_csv()</code>. Puede evitar ese problema con la opción de fragmento <code>dependson</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: processed-data</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| dependson: "raw-data"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: processed-data</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| dependson: "raw-data"</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>processed_data <span class="ot">&lt;-</span> rawdata <span class="sc">|&gt;</span> </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(import_var)) <span class="sc">|&gt;</span> </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_variable =</span> <span class="fu">complicated_transformation</span>(x, y, z))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="in">processed_data &lt;- rawdata |&gt; </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(!is.na(import_var)) |&gt; </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(new_variable = complicated_transformation(x, y, z))</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>dependson</code> debe contener un vector de caracteres de <em>cada</em> fragmento del que depende el fragmento almacenado en caché. Knitr actualizará los resultados del fragmento en caché cada vez que detecte que una de sus dependencias ha cambiado.</p>
 <p>Tenga en cuenta que los fragmentos no se actualizarán si <code>un_archivo_muy_grande.csv</code> cambia, porque el almacenamiento en caché de knitr solo rastrea los cambios dentro del archivo <code>.qmd</code>. Si también desea realizar un seguimiento de los cambios en ese archivo, puede usar la opción <code>cache.extra</code>. Esta es una expresión R arbitraria que invalidará el caché cada vez que cambie. Una buena función para usar es <code><a href="https://rdrr.io/r/base/file.info.html">file.mtime()</a></code>: regresa cuando fue modificada por última vez. Entonces puedes escribir:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: raw-data</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache.extra: !expr file.mtime("a_very_large_file.csv")</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: raw-data</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache.extra: !expr file.mtime("a_very_large_file.csv")</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>rawdata <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"un_archivo_muy_grande.csv"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="in">rawdata &lt;- readr::read_csv("un_archivo_muy_grande.csv")</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Seguimos el consejo de <a href="https://twitter.com/drob/status/738786604731490304">David Robinson</a> para nombrar estos fragmentos: cada fragmento lleva el nombre del objeto principal que crea. Esto facilita la comprensión de la especificación <code>dependson</code>.</p>
 <p>A medida que sus estrategias de almacenamiento en caché se vuelven progresivamente más complicadas, es una buena idea borrar regularmente todos sus cachés con <code><a href="https://rdrr.io/pkg/knitr/man/clean_cache.html">knitr::clean_cache()</a></code>.</p>
@@ -1367,10 +1411,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1380,8 +1423,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1394,6 +1446,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1437,6 +1608,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1462,6 +1634,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1521,23 +1719,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./communicate.html" class="pagination-link">
+      <a href="./communicate.html" class="pagination-link  aria-label=" comunicar="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Comunicar</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./quarto-formats.html" class="pagination-link">
+      <a href="./quarto-formats.html" class="pagination-link" aria-label="<span class='chapter-number'>30</span>&nbsp; <span class='chapter-title'>Formatos Quarto</span>">
         <span class="nav-page-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Formatos Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
-    <div class="nav-footer-left">R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</div>   
+    <div class="nav-footer-left">
+<p>R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-right">
+<p>Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
 
