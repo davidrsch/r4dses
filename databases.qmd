@@ -425,7 +425,7 @@ flights |>
   summarize(delay = mean(arr_delay))
 ```
 
-Si desea obtener más información sobre cómo funcionan los valores `NULL`, puede disfrutar de "[*Lógica de tres valores*](https://modern-sql.com/concept/%20Three-valued-logic)" de Markus Winand.
+Si desea obtener más información sobre cómo funcionan los valores `NULL`, puede disfrutar de "[*La lógica de tres valores de SQL*](https://modern-sql.com/concept/three-valued-logic)" de Markus Winand.
 
 En general, puedes trabajar con `NULL`s usando las funciones que usarías para `NA`s en R:
 
