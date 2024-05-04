@@ -27,7 +27,7 @@ Nuestro modelo de los pasos de un proyecto típico de ciencia de datos se parece
 #| fig-alt: >
 #|   Un diagrama que muestra el ciclo de la ciencia de datos: Importar -> Ordenar -> Comprender 
 #|   (que tiene las fases Transformar -> Visualizar -> Modelar en un ciclo) -> 
-#|   Comunicar. Rodeando todo esto está Comunicar.
+#|   Comunicar. Rodeando todo esto está Programa.
 #| out.width: NULL
 
 knitr::include_graphics("diagrams/data-science/base.png", dpi = 270)
