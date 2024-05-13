@@ -129,7 +129,7 @@ Hay un par de variantes de `n()` y `count()` que pueden resultarle útiles:
 
 ### Ejercicios
 
-1.  ¿Cómo puedes usar `count()` para contar las filas de números con un valor faltante para una variable dada?
+1.  ¿Cómo puedes usar `count()` para contar las el número de filas con un valor faltante para una variable dada?
 2.  Expanda las siguientes llamadas a `count()` para usar en su lugar `group_by()`, `summarize()` y `arrange()`:
     1.  `flights |> count(dest, sort = TRUE)`
 
