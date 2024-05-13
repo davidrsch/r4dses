@@ -311,7 +311,7 @@ flights |>
 ```
 
 Tenga en cuenta que, dado que no hemos asignado el resultado del cálculo anterior a `flights`, las nuevas variables `ganancia`, `horas` y `ganancia_por_hora` solo se imprimirán, pero no se almacenarán en un data frame.
-Y si queremos que estén disponibles en un data frame para uso futuro, debemos pensar detenidamente si queremos que el resultado se asigne de nuevo a "vuelos", sobrescribiendo el data frame original con muchas más variables, o a un nuevo objeto.
+Y si queremos que estén disponibles en un data frame para uso futuro, debemos pensar detenidamente si queremos que el resultado se asigne de nuevo a `flights`, sobrescribiendo el data frame original con muchas más variables, o a un nuevo objeto.
 A menudo, la respuesta correcta es un nuevo objeto que se nombra de manera informativa para indicar su contenido, por ejemplo, `delay_gain`, pero también puede tener buenas razones para sobrescribir `flights`.
 
 ### `select()` {#sec-select}
@@ -322,43 +322,43 @@ En esta situación, el primer desafío suele ser centrarse en las variables que 
 
 -   Seleccionar columnas por nombre
 
-```{r}
-#| results: false
+    ```{r}
+    #| results: false
 
-flights |>
-  select(year, month, day)
-```
+    flights |>
+      select(year, month, day)
+    ```
 
 -   Seleccionar todas las columnas entre year y day
 
-```{r}
-#| results: false
+    ```{r}
+    #| results: false
 
-flights |> 
-  select(year:day)
-```
+    flights |> 
+      select(year:day)
+    ```
 
 -   Seleccionar todas las columnas excepto aquellas entre year y day (incluyendolas)
 
-```{r}
-#| results: false
+    ```{r}
+    #| results: false
 
-flights |> 
-  select(!year:day)
-```
+    flights |> 
+      select(!year:day)
+    ```
 
-Históricamente, esta operación se realizaba con `-` en lugar de `!`, por lo que es probable que la veas en la naturaleza.
-Estos dos operadores tienen el mismo propósito pero con sutiles diferencias de comportamiento.
-Recomendamos usar `!` porque se lee como "no" y combina bien con `&` y `|`.
+    Históricamente, esta operación se realizaba con `-` en lugar de `!`, por lo que es probable que la veas en la naturaleza.
+    Estos dos operadores tienen el mismo propósito pero con sutiles diferencias de comportamiento.
+    Recomendamos usar `!` porque se lee como "no" y combina bien con `&` y `|`.
 
 -   Seleccionar todas las columnas que son caracteres
 
-```{r}
-#| results: false 
+    ```{r}
+    #| results: false 
 
-flights |> 
-  select(where(is.character))
-```
+    flights |> 
+      select(where(is.character))
+    ```
 
 Hay una serie de funciones auxiliares que puede usar dentro de `select()`:
 
@@ -771,7 +771,7 @@ Puede obtener más información al respecto en la \[publicación de blog de dply
         ```
 
     b.  Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace `arrange()`.
-        También comente en qué se diferencia del `group_by()` en la parte (a)?
+        También comente en qué se diferencia del `group_by()` en la parte (a).
 
         ```{r}
         #| eval: false
@@ -790,7 +790,7 @@ Puede obtener más información al respecto en la \[publicación de blog de dply
           summarize(mean_x = mean(x))
         ```
 
-    d.  ¿Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace la canalización.
+    d.  Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace la canalización.
         Luego, comenta lo que dice el mensaje.
 
         ```{r}
@@ -802,7 +802,7 @@ Puede obtener más información al respecto en la \[publicación de blog de dply
         ```
 
     e.  Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace la canalización.
-        ¿En qué se diferencia la salida de la del inciso d).
+        ¿En qué se diferencia la salida de la del inciso d)?
 
         ```{r}
         #| eval: false
@@ -813,7 +813,7 @@ Puede obtener más información al respecto en la \[publicación de blog de dply
         ```
 
     f.  Escriba cómo cree que se verá la salida, luego verifique si estuvo en lo correcto y describa qué hace la canalización.
-        ¿En qué se diferencian las salidas de las dos *pipes*?
+        ¿En qué se diferencian las salidas de las dos *canalizaciones*?
 
         ```{r}
         #| eval: false
@@ -858,9 +858,9 @@ Cuando graficamos la habilidad del bateador (medida por el promedio de bateo, `p
 #| fig-alt: >
 #|   Un diagrama de dispersión del número de rendimiento de bateo versus oportunidades de bateo
 #|   superpuesto con una línea suavizada. El rendimiento medio aumenta considerablemente
-#|   de 0,2 cuando n es 1 a 0,25 cuando n es ~1000. Rendimiento medio
+#|   de 0,2 cuando n es ~100 a 0,25 cuando n es ~1000. Rendimiento medio
 #|   continúa aumentando linealmente en una pendiente mucho menos profunda alcanzando
-#|   ~0,3 cuando n es ~15.000.
+#|   ~0,3 cuando n es ~12.000.
 
 batters |> 
   filter(n > 100) |> 
@@ -885,7 +885,7 @@ Puede encontrar una buena explicación de este problema y cómo superarlo en <ht
 ## Resumen
 
 En este capítulo, ha aprendido las herramientas que proporciona dplyr para trabajar con data frames.
-Las herramientas se agrupan aproximadamente en tres categorías: las que manipulan las filas (como `filter()` y `arrange()`, las que manipulan las columnas (como `select()` y `mutate()`), y las que que manipulan grupos (como `group_by()` y `summarize()`).
+Las herramientas se agrupan aproximadamente en tres categorías: las que manipulan las filas (como `filter()` y `arrange()`), las que manipulan las columnas (como `select()` y `mutate()`), y las que que manipulan grupos (como `group_by()` y `summarize()`).
 En este capítulo, nos hemos centrado en estas herramientas de "data frame completo", pero aún no ha aprendido mucho sobre lo que puede hacer con la variable individual.
 Volveremos a eso en la parte Transformar del libro, donde cada capítulo le brindará herramientas para un tipo específico de variable.
 
