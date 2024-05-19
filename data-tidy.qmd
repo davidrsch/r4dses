@@ -209,7 +209,8 @@ billboard |>
 El número de filas ahora es mucho menor, lo que indica que se eliminaron muchas filas con `NA`.
 
 También puede preguntarse qué sucede si una canción está en el top 100 durante más de 76 semanas.
-No podemos decirlo a partir de estos datos, pero puede suponer que se agregarán columnas adicionales `wk77`, `wk78`, ... al conjunto de datos.
+No podemos decirlo a partir de estos datos, pero puede suponer que se agregarán columnas adicionales `wk77`, `wk78`, ...
+al conjunto de datos.
 
 Estos datos ahora están ordenados, pero podríamos hacer que el cálculo futuro sea un poco más fácil al convertir `week` en un número usando `mutate()` y `readr::parse_number()`.
 `parse_number()` es una función útil que extraerá el primer número de una cadena, ignorando el resto del texto.
@@ -396,7 +397,7 @@ household
 ```
 
 Este conjunto de datos contiene información sobre cinco familias, con los nombres y fechas de nacimiento de hasta dos niños.
-El nuevo desafío en este conjunto de datos es que los nombres de las columnas contienen los nombres de dos variables (`dob`, `name)` y los valores de otra (`child,` con valores 1 o 2).
+El nuevo desafío en este conjunto de datos es que los nombres de las columnas contienen los nombres de dos variables (`dob`, `name`) y los valores de otra (`child`, con valores 1 o 2).
 Para resolver este problema, nuevamente necesitamos proporcionar un vector a `names_to` pero esta vez usamos el centinela especial `".value"`; este no es el nombre de una variable sino un valor único que le dice a `pivot_longer()` que haga algo diferente.
 Esto anula el argumento `values_to` habitual para usar el primer componente del nombre de la columna dinámica como nombre de variable en la salida.
 
@@ -455,7 +456,7 @@ cms_patient_experience |>
 Ninguna de estas columnas hará nombres de variables particularmente buenos: `measure_cd` no sugiere el significado de la variable y `measure_title` es una oración larga que contiene espacios.
 Usaremos `measure_cd` como la fuente para nuestros nuevos nombres de columna por ahora, pero en un análisis real, es posible que desee crear sus propios nombres de variables que sean cortos y significativos.
 
-\``pivot_wider()` tiene la interfaz opuesta a `pivot_longer()`: en lugar de elegir nuevos nombres de columna, debemos proporcionar las columnas existentes que definen los valores (`values_from`) y el nombre de la columna (`names_from)`:
+\``pivot_wider()` tiene la interfaz opuesta a `pivot_longer()`: en lugar de elegir nuevos nombres de columna, debemos proporcionar las columnas existentes que definen los valores (`values_from`) y el nombre de la columna (`names_from`):
 
 ```{r}
 cms_patient_experience |> 

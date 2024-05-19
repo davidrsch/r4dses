@@ -166,7 +166,7 @@ flights |>
 ```
 
 Esto "funciona", en el sentido de que no arroja un error, pero no hace lo que quieres porque `|` primero verifica la condición `month == 1` y luego verifica la condición `2`, que no es una condición sensata para comprobar.
-Aprenderemos más sobre lo que sucede aquí y por qué en @sec-boolean-operations.
+Aprenderemos más sobre lo que sucede aquí y por qué en @sec-order-operations-boolean.
 
 ### `arrange()`
 

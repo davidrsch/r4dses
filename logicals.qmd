@@ -248,7 +248,7 @@ Un valor faltante en un vector lógico significa que el valor podría ser `TRUE`
 `NA | TRUE` también debe ser `TRUE` porque `NA` puede ser `TRUE` o `FALSE`.
 Sin embargo `NA | FALSE` es `FALSE` porque `NA` puede ser `TRUE` o `FALSE` Se aplica un razonamiento similar con `NA & FALSE`.
 
-### Orden de operaciones
+### Orden de operaciones {#sec-order-operations-boolean}
 
 Tenga en cuenta que el orden de las operaciones no funciona como en inglés.
 Tome el siguiente código que encuentra todos los vuelos que salieron en noviembre o diciembre:
