@@ -50,7 +50,7 @@ x <- c("$1,234", "USD 3,513", "59%")
 parse_number(x)
 ```
 
-## Contar
+## Contar {#sec-counts}
 
 Es sorprendente la cantidad de ciencia de datos que puede hacer con solo conteos y un poco de aritmética básica, por lo que dplyr se esfuerza por hacer que contar sea lo más fácil posible con `count()`.
 Esta función es excelente para realizar exploraciones y comprobaciones rápidas durante el análisis:
@@ -498,7 +498,7 @@ events
 ```
 
 Pero, ¿cómo pasamos de ese vector lógico a algo que podamos `group_by()`?
-`cumsum()`, de @sec-cumulative-and-rolling-aggregates, viene al rescate como brecha, es decir, `has_gap` es `TRUE`, incrementará `group` en uno (@sec-numeric-summaries-of -lógicos):
+`cumsum()`, de @sec-cumulative-and-rolling-aggregates, viene al rescate como brecha, es decir, `has_gap` es `TRUE`, incrementará `group` en uno (@sec-numeric-summaries-of-logicals):
 
 ```{r}
 events |> mutate(

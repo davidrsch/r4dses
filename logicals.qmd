@@ -579,5 +579,5 @@ En este capítulo, aprendió a crear vectores lógicos con `>`, `<`, `<=`, `>=`,
 También aprendiste las poderosas funciones `if_else()` y `case_when()` que te permiten devolver valores dependiendo del valor de un vector lógico.
 
 Veremos vectores lógicos una y otra vez en los siguientes capítulos.
-Por ejemplo, en @sec-strings aprenderá sobre `str_detect(x, pattern)` que devuelve un vector lógico que es `TRUE` para los elementos de `x` que coinciden con el patrón, `pattern`, y en @sec-dates- and-times creará vectores lógicos a partir de la comparación de fechas y horas.
+Por ejemplo, en @sec-strings aprenderá sobre `str_detect(x, pattern)` que devuelve un vector lógico que es `TRUE` para los elementos de `x` que coinciden con el patrón, `pattern`, y en @sec-dates-and-times creará vectores lógicos a partir de la comparación de fechas y horas.
 Pero por ahora, vamos a pasar al siguiente tipo de vector más importante: los vectores numéricos.

@@ -9,7 +9,7 @@ source("_common.R")
 ## Introducción
 
 Ya aprendiste los conceptos básicos de los valores faltantes anteriormente en el libro.
-Los vio por primera vez en @sec-data-visualization, donde resultaron en una advertencia al hacer un gráfico, así como en @sec-summarize, donde interfirieron con el cálculo de estadísticas de resumen, y aprendió sobre su naturaleza infecciosa y cómo verificar su presencia en @sec-na-comparation.
+Los vio por primera vez en @sec-data-visualization, donde resultaron en una advertencia al hacer un gráfico, así como en @sec-summarize, donde interfirieron con el cálculo de estadísticas de resumen, y aprendió sobre su naturaleza infecciosa y cómo verificar su presencia en @sec-na-comparison.
 Ahora volveremos a ellos con más profundidad, para que pueda conocer más detalles.
 
 Comenzaremos discutiendo algunas herramientas generales para trabajar con valores faltantes registrados como `NA`s.

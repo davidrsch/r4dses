@@ -222,7 +222,7 @@ Antes de agregar más capas a este gráfico, hagamos una pausa por un momento y 
 
 Estamos viendo este mensaje porque hay dos pingüinos en nuestro conjunto de datos a los que les faltan valores de masa corporal y/o longitud de aleta y ggplot2 no tiene forma de representarlos en el gráfico sin estos dos valores.
 Al igual que R, ggplot2 se suscribe a la filosofía de que los valores faltantes nunca deben desaparecer en silencio.
-Este tipo de advertencia es probablemente uno de los tipos de advertencia más comunes que verá cuando trabaje con datos reales: los valores faltantes son un problema muy común y aprenderá más sobre ellos a lo largo del libro, particularmente en @sec-missing- valores.
+Este tipo de advertencia es probablemente uno de los tipos de advertencia más comunes que verá cuando trabaje con datos reales: los valores faltantes son un problema muy común y aprenderá más sobre ellos a lo largo del libro, particularmente en @sec-missing-values.
 Para las gráficas restantes en este capítulo, suprimiremos esta advertencia para que no se imprima junto con cada gráfica que hagamos
 
 ### Agregar estética y capas {#sec-adding-aesthetics-layers}
