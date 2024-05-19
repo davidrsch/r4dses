@@ -14,21 +14,21 @@ Después de leer este libro, tendrá las herramientas para abordar una amplia va
 
 La ciencia de datos es un campo amplio, y no hay forma de que puedas dominarlo todo leyendo un solo libro.
 Este libro tiene como objetivo brindarle una base sólida en las herramientas más importantes y el conocimiento suficiente para encontrar los recursos para aprender más cuando sea necesario.
-Nuestro modelo de los pasos de un proyecto típico de ciencia de datos se parece a @fig-ds-diagram.
+Nuestro modelo de los pasos de un proyecto típico de ciencia de datos se parece a [Figura 1](#fig-ds-diagram).
 
 ```{r}
 #| label: fig-ds-diagram
 #| echo: false
-#| fig-cap: >
+#| fig-cap: |
 #|   En nuestro modelo del proceso de ciencia de datos, comienza con la importación de datos
 #|   y ordenando. Luego, comprende sus datos con un ciclo iterativo de
 #|   transformar, visualizar y modelar. Terminas el proceso 
 #|   comunicando sus resultados a otros humanos.
-#| fig-alt: >
+#| fig-alt: |
 #|   Un diagrama que muestra el ciclo de la ciencia de datos: Importar -> Ordenar -> Comprender 
 #|   (que tiene las fases Transformar -> Visualizar -> Modelar en un ciclo) -> 
 #|   Comunicar. Rodeando todo esto está Programa.
-#| out.width: NULL
+#| out-width: NULL
 
 knitr::include_graphics("diagrams/data-science/base.png", dpi = 270)
 ```
@@ -143,7 +143,7 @@ RStudio se actualiza un par de veces al año y le avisará automáticamente cuan
 Es una buena idea actualizar regularmente para aprovechar las últimas y mejores funciones.
 Para este libro, asegúrese de tener al menos RStudio 2022.02.0.
 
-Cuando inicie RStudio, @fig-rstudio-console, verá dos regiones clave en la interfaz: el panel de la consola y el panel de salida.
+Cuando inicie RStudio, [Figura 2](#fig-rstudio-console), verá dos regiones clave en la interfaz: el panel de la consola y el panel de salida.
 Por ahora, todo lo que necesita saber es que escribe el código R en el panel de la consola y presiona enter para ejecutarlo.
 ¡Aprenderás más a medida que avancemos![^intro-1]
 
@@ -152,11 +152,11 @@ Por ahora, todo lo que necesita saber es que escribe el código R en el panel de
 ```{r}
 #| label: fig-rstudio-console
 #| echo: false
-#| out-width: ~
-#| fig-cap: >
+#| out-width: NULL
+#| fig-cap: |
 #|   El IDE de RStudio tiene dos regiones clave: escriba el código R en el panel de la consola
 #|   a la izquierda y busque gráficos en el panel de salida a la derecha.
-#| fig-alt: >
+#| fig-alt: |
 #|   El IDE de RStudio con los paneles Consola y Salida resaltados.
 
 knitr::include_graphics("diagrams/rstudio/console.png", dpi = 270)

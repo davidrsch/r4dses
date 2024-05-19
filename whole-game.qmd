@@ -6,7 +6,7 @@
 source("_common.R")
 ```
 
-Nuestro objetivo en esta parte del libro es brindarle una descripción general rápida de las principales herramientas de la ciencia de datos: **importar**, **ordenar**, **transformar** y **visualizar datos**, así como se muestra en @fig-ds-whole-game.
+Nuestro objetivo en esta parte del libro es brindarle una descripción general rápida de las principales herramientas de la ciencia de datos: **importar**, **ordenar**, **transformar** y **visualizar datos**, así como se muestra en [Figura 1](@fig-ds-whole-game).
 Queremos mostrarle el "juego completo" de la ciencia de datos brindándole lo suficiente de todas las piezas principales para que pueda abordar conjuntos de datos reales, aunque simples.
 Las últimas partes del libro abordarán cada uno de estos temas con mayor profundidad, aumentando la gama de desafíos de la ciencia de datos que puede abordar.
 
