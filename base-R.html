@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
+<title>R para la Ciencia de Datos (2e) - 27&nbsp; Una guía para R base</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./communicate.html" rel="next">
+<link href="./iteration.html" rel="prev">
+<link href="./cover.jpg" rel="icon" type="image/jpeg">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./program.html">Programa</a></li><li class="breadcrumb-item"><a href="./base-R.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Una guía para R base</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R para la Ciencia de Datos (2e)</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
+            Original
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/davidrsch/r4dses">
+            Traducción
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio a la segunda edición</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">El Juego Completo</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualización de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Flujo de trabajo: conceptos básicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Transformación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Flujo de trabajo: estilo de código</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ordenando datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Flujo de trabajo: scripts y proyectos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Importación de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Flujo de trabajo: obtener ayuda</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Capas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis exploratorio de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Comunicación</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transformar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vectores lógicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Números</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Caracteres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Expresiones regulares</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Factores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Fechas y horas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Valores faltanres</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Uniones</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Importar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Hojas de calculo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./databases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Bases de datos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Datos jerárquicos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programa</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Funciones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Iteración</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Una guía para R base</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comunicar</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Formatos Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+<li>
+<a href="#introducci%C3%B3n" id="toc-introducción" class="nav-link active" data-scroll-target="#introducci%C3%B3n"><span class="header-section-number">27.1</span> Introducción</a>
+  <ul class="collapse">
+<li><a href="#requisitos-previos" id="toc-requisitos-previos" class="nav-link" data-scroll-target="#requisitos-previos"><span class="header-section-number">27.1.1</span> Requisitos previos</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-subset-many" id="toc-sec-subset-many" class="nav-link" data-scroll-target="#sec-subset-many"><span class="header-section-number">27.2</span> Selección de varios elementos con <code>[</code></a>
+  <ul class="collapse">
+<li><a href="#subconjunto-de-vectores" id="toc-subconjunto-de-vectores" class="nav-link" data-scroll-target="#subconjunto-de-vectores"><span class="header-section-number">27.2.1</span> Subconjunto de vectores</a></li>
+  <li><a href="#subconjuntos-de-data-frames" id="toc-subconjuntos-de-data-frames" class="nav-link" data-scroll-target="#subconjuntos-de-data-frames"><span class="header-section-number">27.2.2</span> Subconjuntos de data frames</a></li>
+  <li><a href="#equivalentes-de-dplyr" id="toc-equivalentes-de-dplyr" class="nav-link" data-scroll-target="#equivalentes-de-dplyr"><span class="header-section-number">27.2.3</span> equivalentes de dplyr</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">27.2.4</span> Ejercicios</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-subset-one" id="toc-sec-subset-one" class="nav-link" data-scroll-target="#sec-subset-one"><span class="header-section-number">27.3</span> Seleccionando un solo elemento con <code>$</code> y <code>[[</code></a>
+  <ul class="collapse">
+<li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">27.3.1</span> Data frames</a></li>
+  <li><a href="#tibbles" id="toc-tibbles" class="nav-link" data-scroll-target="#tibbles"><span class="header-section-number">27.3.2</span> Tibbles</a></li>
+  <li><a href="#listas" id="toc-listas" class="nav-link" data-scroll-target="#listas"><span class="header-section-number">27.3.3</span> Listas</a></li>
+  <li><a href="#ejercicios-1" id="toc-ejercicios-1" class="nav-link" data-scroll-target="#ejercicios-1"><span class="header-section-number">27.3.4</span> Ejercicios</a></li>
+  </ul>
+</li>
+  <li><a href="#familia-apply" id="toc-familia-apply" class="nav-link" data-scroll-target="#familia-apply"><span class="header-section-number">27.4</span> Familia apply</a></li>
+  <li><a href="#bucles-for" id="toc-bucles-for" class="nav-link" data-scroll-target="#bucles-for"><span class="header-section-number">27.5</span> Bucles <code>for</code></a></li>
+  <li><a href="#gr%C3%A1ficas" id="toc-gráficas" class="nav-link" data-scroll-target="#gr%C3%A1ficas"><span class="header-section-number">27.6</span> Gráficas</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen"><span class="header-section-number">27.7</span> Resumen</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./program.html">Programa</a></li><li class="breadcrumb-item"><a href="./base-R.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Una guía para R base</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-base-r" class="quarto-section-identifier"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Una guía para R base</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introducción" class="level2" data-number="27.1"><h2 data-number="27.1" class="anchored" data-anchor-id="introducción">
+<span class="header-section-number">27.1</span> Introducción</h2>
+<p>Para finalizar la sección de programación, le daremos un recorrido rápido por las funciones básicas de R más importantes que no trataremos en este libro. Estas herramientas son particularmente útiles a medida que programa más y lo ayudarán a leer el código que encontrará en la naturaleza.</p>
+<p>Este es un buen lugar para recordarle que tidyverse no es la única forma de resolver problemas de ciencia de datos. Enseñamos el tidyverse en este libro porque los paquetes de tidyverse comparten una filosofía de diseño común, aumentando la consistencia entre las funciones y haciendo que cada nueva función o paquete sea un poco más fácil de aprender y usar. No es posible usar tidyverse sin usar base R, por lo que en realidad ya te hemos enseñado un <strong>montón</strong> de funciones base R: desde <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> para cargar paquetes, hasta <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> y <code><a href="https://rdrr.io/r/base/mean.html">mean ()</a></code> para resúmenes numéricos, hasta los tipos de datos factor, fecha y POSIXct y, por supuesto, todos los operadores básicos como <code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>, <code>|</code>, <code>&amp;</code>, y <code>!</code>. En lo que no nos hemos centrado hasta ahora son los flujos de trabajo básicos de R, por lo que destacaremos algunos de ellos en este capítulo.</p>
+<p>Después de leer este libro, aprenderá otros enfoques para los mismos problemas usando base R, data.table y otros paquetes. Sin duda, encontrará estos otros enfoques cuando comience a leer el código R escrito por otros, especialmente si está usando StackOverflow. Está 100 % bien escribir código que use una combinación de enfoques, ¡y no dejes que nadie te diga lo contrario!</p>
+<p>En este capítulo, nos centraremos en cuatro grandes temas: creación de subconjuntos con <code>[</code>, creación de subconjuntos con <code>[[</code> y <code>$</code>, la familia de funciones apply y bucles <code>for</code>. Para terminar, discutiremos brevemente dos funciones de gráficas esenciales.</p>
+<section id="requisitos-previos" class="level3" data-number="27.1.1"><h3 data-number="27.1.1" class="anchored" data-anchor-id="requisitos-previos">
+<span class="header-section-number">27.1.1</span> Requisitos previos</h3>
+<p>Este paquete se centra en la base R, por lo que no tiene requisitos previos reales, pero cargaremos el tidyverse para explicar algunas de las diferencias.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="sec-subset-many" class="level2" data-number="27.2"><h2 data-number="27.2" class="anchored" data-anchor-id="sec-subset-many">
+<span class="header-section-number">27.2</span> Selección de varios elementos con <code>[</code>
+</h2>
+<p><code>[</code> se usa para extraer subcomponentes de vectores y marcos de datos, y se llama <code>x[i]</code> o <code>x[i, j]</code>. En esta sección, le presentaremos el poder de <code>[</code>, primero mostrándole cómo puede usarlo con vectores, luego cómo los mismos principios se extienden de manera sencilla a estructuras bidimensionales (2d) como marcos de datos. Luego, lo ayudaremos a consolidar ese conocimiento al mostrar cómo varios verbos dplyr son casos especiales de <code>[</code>.</p>
+<section id="subconjunto-de-vectores" class="level3" data-number="27.2.1"><h3 data-number="27.2.1" class="anchored" data-anchor-id="subconjunto-de-vectores">
+<span class="header-section-number">27.2.1</span> Subconjunto de vectores</h3>
+<p>Hay cinco tipos principales de elementos con los que puede crear subconjuntos de un vector, es decir, que pueden ser la <code>i</code> en <code>x[i]</code>:</p>
+<ol type="1">
+<li>
+<p><strong>Un vector de enteros positivos</strong>. Subdividir con enteros positivos mantiene los elementos en esas posiciones:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span>, <span class="st">"four"</span>, <span class="st">"five"</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "three" "two"   "five"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Al repetir una posición, en realidad puede hacer una salida más larga que la entrada, lo que hace que el término “subconjunto” sea un poco inapropiado.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "one"  "one"  "five" "five" "five" "two"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p><strong>Un vector de enteros negativos</strong>. Los valores negativos colocan los elementos en las posiciones especificadas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "two"  "four"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p><strong>Un vector lógico</strong>. La creación de subconjuntos con un vector lógico mantiene todos los valores correspondientes a un valor <code>TRUE</code>. Esto suele ser útil junto con las funciones de comparación.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Todos los valores no faltante de x</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 10  3  5  8  1</span></span>
+<span></span>
+<span><span class="co"># Todos los valore de x pares (¡o faltante!)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 10 NA  8 NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A diferencia de <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, los índices <code>NA</code> se incluirán en la salida como <code>NA</code>s.</p>
+</li>
+<li>
+<p><strong>Un vector de caracteres</strong>. Si tiene un vector con nombre, puede crear subconjuntos con un vector de caracteres:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>abc <span class="op">=</span> <span class="fl">1</span>, def <span class="op">=</span> <span class="fl">2</span>, xyz <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"xyz"</span>, <span class="st">"def"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; xyz def </span></span>
+<span><span class="co">#&gt;   5   2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Al igual que con la creación de subconjuntos con números enteros positivos, puede usar un vector de caracteres para duplicar entradas individuales.</p>
+</li>
+<li><p><strong>Nada</strong>. El último tipo de subconjunto es nada, <code>x[]</code>, que devuelve la <code>x</code> completa. Esto no es útil para crear subconjuntos de vectores, pero como veremos en breve, es útil para crear subconjuntos de estructuras 2d como tibbles.</p></li>
+</ol></section><section id="subconjuntos-de-data-frames" class="level3" data-number="27.2.2"><h3 data-number="27.2.2" class="anchored" data-anchor-id="subconjuntos-de-data-frames">
+<span class="header-section-number">27.2.2</span> Subconjuntos de data frames</h3>
+<p>Hay bastantes formas diferentes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> de usar <code>[</code> con un marco de datos, pero la forma más importante es seleccionar filas y columnas de forma independiente con <code>df[rows, cols]</code>. Aquí <code>rows</code> y <code>cols</code> son vectores como se describe arriba. Por ejemplo, <code>df[rows, ]</code> y <code>df[, cols]</code> seleccionan solo filas o solo columnas, utilizando el subconjunto vacío para conservar la otra dimensión.</p>
+<p>Aquí hay un par de ejemplos:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
+<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"e"</span>, <span class="st">"f"</span><span class="op">)</span>, </span>
+<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Selecciona la primera fila y la segunda columna</span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span><span class="co">#&gt;   y    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 a</span></span>
+<span></span>
+<span><span class="co"># Selecciona todas las filas y las columnas x e y</span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span> , <span class="st">"y"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt;       x y    </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1     1 a    </span></span>
+<span><span class="co">#&gt; 2     2 e    </span></span>
+<span><span class="co">#&gt; 3     3 f</span></span>
+<span></span>
+<span><span class="co"># Selecciona las filas donde `x` es mayor que 1 y todas las columnas</span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;       x y         z</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     2 e     0.834</span></span>
+<span><span class="co">#&gt; 2     3 f     0.601</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Volveremos a <code>$</code> en breve, pero debería poder adivinar lo que hace <code>df$x</code> a partir del contexto: extrae la variable <code>x</code> de <code>df</code>. Necesitamos usarlo aquí porque <code>[</code> no usa una evaluación ordenada, por lo que debe ser explícito sobre la fuente de la variable <code>x</code>.</p>
+<p>Hay una diferencia importante entre tibbles y marcos de datos cuando se trata de <code>[</code>. En este libro, hemos usado principalmente tibbles, que <em>son</em> marcos de datos, pero ajustan algunos comportamientos para hacer su vida un poco más fácil. En la mayoría de los lugares, puede usar “tibble” y “marco de datos” indistintamente, por lo que cuando queramos llamar la atención sobre el marco de datos integrado de R, escribiremos <code>data.frame</code>. Si <code>df</code> es un <code>data.frame</code>, <code>df[, cols]</code> devolverá un vector si <code>col</code> selecciona una sola columna y un marco de datos si selecciona más de una columna. Si <code>df</code> es un tibble, entonces <code>[</code> siempre devolverá un tibble.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">df1</span><span class="op">[</span>, <span class="st">"x"</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span>
+<span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">df2</span><span class="op">[</span>, <span class="st">"x"</span><span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 1</span></span>
+<span><span class="co">#&gt;       x</span></span>
+<span><span class="co">#&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     1</span></span>
+<span><span class="co">#&gt; 2     2</span></span>
+<span><span class="co">#&gt; 3     3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Una forma de evitar esta ambigüedad con <code>data.frame</code>s es especificar explícitamente <code>drop = FALSE</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span><span class="op">[</span>, <span class="st">"x"</span> , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span><span class="co">#&gt;   x</span></span>
+<span><span class="co">#&gt; 1 1</span></span>
+<span><span class="co">#&gt; 2 2</span></span>
+<span><span class="co">#&gt; 3 3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="equivalentes-de-dplyr" class="level3" data-number="27.2.3"><h3 data-number="27.2.3" class="anchored" data-anchor-id="equivalentes-de-dplyr">
+<span class="header-section-number">27.2.3</span> equivalentes de dplyr</h3>
+<p>Varios verbos dplyr son casos especiales de <code>[</code>:</p>
+<ul>
+<li>
+<p><code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> es equivalente a subdividir las filas con un vector lógico, teniendo cuidado de excluir los valores faltantes:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>, </span>
+<span>  y <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, </span>
+<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># igual que</span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">x</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">df</span><span class="op">$</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span>, <span class="op">]</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Otra técnica común en la naturaleza es usar <code><a href="https://rdrr.io/r/base/which.html">which()</a></code> por su efecto secundario de descartar valores faltantes: <code>df[which(df$x &gt; 1), ]</code>.</p>
+</li>
+<li>
+<p><code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> es equivalente a dividir las filas en subconjuntos con un vector entero, generalmente creado con <code><a href="https://rdrr.io/r/base/order.html">order()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># igual que</span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">x</span>, <span class="va">df</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, <span class="op">]</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Puede usar <code>order(decreasing = TRUE)</code> para ordenar todas las columnas en orden descendente o <code>-rank(col)</code> para ordenar las columnas en orden decreciente individualmente.</p>
+</li>
+<li>
+<p>Tanto <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> como <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate()</a></code> son similares a subdividir las columnas con un vector de caracteres:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># igual que</span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ul>
+<p>Base R también proporciona una función que combina las características de <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> llamada <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span><span class="co">#&gt;   y           z</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 a     0.157  </span></span>
+<span><span class="co">#&gt; 2 b     0.00740</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># same as</span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esta función fue la inspiración para gran parte de la sintaxis de dplyr.</p>
+</section><section id="ejercicios" class="level3" data-number="27.2.4"><h3 data-number="27.2.4" class="anchored" data-anchor-id="ejercicios">
+<span class="header-section-number">27.2.4</span> Ejercicios</h3>
+<ol type="1">
+<li>
+<p>Crear funciones que tomen un vector como entrada y retorno:</p>
+<ol type="a">
+<li>Los elementos en posiciones pares.</li>
+<li>Todos los elementos excepto el último valor.</li>
+<li>Solo valores pares (y sin valores faltantes).</li>
+</ol>
+</li>
+<li><p>¿Por qué <code>x[-which(x &gt; 0)]</code> no es lo mismo que <code>x[x &lt;= 0]</code>? Lea la documentación de <code><a href="https://rdrr.io/r/base/which.html">which()</a></code> y haga algunos experimentos para averiguarlo..</p></li>
+</ol></section></section><section id="sec-subset-one" class="level2" data-number="27.3"><h2 data-number="27.3" class="anchored" data-anchor-id="sec-subset-one">
+<span class="header-section-number">27.3</span> Seleccionando un solo elemento con <code>$</code> y <code>[[</code>
+</h2>
+<p><code>[</code>, que selecciona muchos elementos, se combina con <code>[[</code> y <code>$</code>, que extraen un solo elemento. En esta sección, le mostraremos cómo usar <code>[[</code> y <code>$</code> para extraer columnas de los marcos de datos, analizaremos un par de diferencias más entre <code>data.frames</code> y tibbles, y enfatizaremos algunas diferencias importantes entre <code>[</code> y <code>[[</code> cuando se usa con listas.</p>
+<section id="data-frames" class="level3" data-number="27.3.1"><h3 data-number="27.3.1" class="anchored" data-anchor-id="data-frames">
+<span class="header-section-number">27.3.1</span> Data frames</h3>
+<p><code>[[</code> y <code>$</code> se puede usar para extraer columnas de un marco de datos. <code>[[</code> puede acceder por posición o por nombre, y <code>$</code> está especializado para acceder por nombre:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">21</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># por posiciónn</span></span>
+<span><span class="va">tb</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span></span>
+<span><span class="co"># por nombre</span></span>
+<span><span class="va">tb</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span><span class="va">tb</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También se pueden usar para crear nuevas columnas, el equivalente base R de <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tb</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">tb</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">tb</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="va">tb</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
+<span><span class="co">#&gt;       x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1    10    11</span></span>
+<span><span class="co">#&gt; 2     2     4     6</span></span>
+<span><span class="co">#&gt; 3     3     1     4</span></span>
+<span><span class="co">#&gt; 4     4    21    25</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hay varios otros enfoques básicos de R para crear nuevas columnas, incluidos <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/base/with.html">with()</a></code> y <code><a href="https://rdrr.io/r/base/with.html">within()</a></code>. Hadley reunió algunos ejemplos en <a href="https://gist.github.com/hadley/1986a273e384fb2d4d752c18ed71bedf" class="uri">https://gist.github.com/hadley/1986a273e384fb2d4d752c18ed71bedf</a>.</p>
+<p>Usar <code>$</code> directamente es conveniente cuando se realizan resúmenes rápidos. Por ejemplo, si solo desea encontrar el tamaño del diamante más grande o los posibles valores de <code>cut</code>, no es necesario usar <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">carat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5.01</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">cut</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Fair"      "Good"      "Very Good" "Premium"   "Ideal"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>dplyr también proporciona un equivalente a <code>[[</code>/<code>$</code> que no mencionamos en <a href="data-transform.html" class="quarto-xref"><span>Capítulo 3</span></a>: <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code>. <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code> toma un nombre de variable o una posición de variable y devuelve solo esa columna. Eso significa que podríamos reescribir el código anterior para usar pipe:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5.01</span></span>
+<span></span>
+<span><span class="va">diamonds</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Fair"      "Good"      "Very Good" "Premium"   "Ideal"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="tibbles" class="level3" data-number="27.3.2"><h3 data-number="27.3.2" class="anchored" data-anchor-id="tibbles">
+<span class="header-section-number">27.3.2</span> Tibbles</h3>
+<p>Hay un par de diferencias importantes entre tibbles y <code>data.frame</code>s base cuando se trata de <code>$</code>. Los marcos de datos coinciden con el prefijo de cualquier nombre de variable (la llamada <strong>coincidencia parcial</strong>) y no se quejan si una columna no existe:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">z</span></span>
+<span><span class="co">#&gt; NULL</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Los Tibbles son más estrictos: solo coinciden exactamente con los nombres de las variables y generarán una advertencia si la columna a la que intenta acceder no existe:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tb</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt; Warning: Unknown or uninitialised column: `x`.</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span><span class="va">tb</span><span class="op">$</span><span class="va">z</span></span>
+<span><span class="co">#&gt; Warning: Unknown or uninitialised column: `z`.</span></span>
+<span><span class="co">#&gt; NULL</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Por eso a veces bromeamos diciendo que los tibbles son holgazanes y hoscos: hacen menos y se quejan más.</p>
+</section><section id="listas" class="level3" data-number="27.3.3"><h3 data-number="27.3.3" class="anchored" data-anchor-id="listas">
+<span class="header-section-number">27.3.3</span> Listas</h3>
+<p><code>[[</code> y <code>$</code> también son muy importantes para trabajar con listas, y es importante comprender en qué se diferencian de <code>[</code>. Ilustremos las diferencias con una lista llamada <code>l</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
+<span>  b <span class="op">=</span> <span class="st">"a string"</span>, </span>
+<span>  c <span class="op">=</span> <span class="va">pi</span>, </span>
+<span>  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>
+<p><code>[</code> extrae una sublista. No importa cuántos elementos extraiga, el resultado siempre será una lista.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ a: int [1:3] 1 2 3</span></span>
+<span><span class="co">#&gt;  $ b: chr "a string"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 1</span></span>
+<span><span class="co">#&gt;  $ a: int [1:3] 1 2 3</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 1</span></span>
+<span><span class="co">#&gt;  $ d:List of 2</span></span>
+<span><span class="co">#&gt;   ..$ : num -1</span></span>
+<span><span class="co">#&gt;   ..$ : num -5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Al igual que con los vectores, puede crear subconjuntos con un vector lógico, entero o de caracteres.</p>
+</li>
+<li>
+<p><code>[[</code> y <code>$</code> extrae un solo componente de una lista. Eliminan un nivel de jerarquía de la lista.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  int [1:3] 1 2 3</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ : num -1</span></span>
+<span><span class="co">#&gt;  $ : num -5</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">a</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  int [1:3] 1 2 3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ul>
+<p>La diferencia entre <code>[</code> y <code>[[</code> es particularmente importante para las listas porque <code>[[</code> profundiza en la lista mientras que <code>[</code> devuelve una nueva lista más pequeña. Para ayudarlo a recordar la diferencia, eche un vistazo al pimentero inusual que se muestra en <a href="#fig-pepper" class="quarto-xref">Figura&nbsp;<span>27.1</span></a>. Si este pimentero es su lista <code>pepper</code>, entonces <code>pepper[1]</code> es un pimentero que contiene un solo paquete de pimienta. <code>pepper[2]</code> se vería igual, pero contendría el segundo paquete. <code>pepper[1:2]</code> sería un pimentero que contiene dos paquetes de pimienta. <code>pepper[[1]]</code> extraería el propio paquete de pimienta.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pepper" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Tres fotos. A la izquierda hay una foto de un pimentero de vidrio. En lugar del pimentero que contiene pimienta, contiene un solo paquete de pimienta. En el medio hay una foto de un solo paquete de pimienta. A la derecha hay una foto del contenido de un paquete de pimienta.">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-pepper-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="diagrams/pepper.png" class="img-fluid figure-img" style="width:100.0%" alt="Tres fotos. A la izquierda hay una foto de un pimentero de vidrio. En lugar del pimentero que contiene pimienta, contiene un solo paquete de pimienta. En el medio hay una foto de un solo paquete de pimienta. A la derecha hay una foto del contenido de un paquete de pimienta.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pepper-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;27.1: (Izquierda) Un pimentero que Hadley encontró una vez en su habitación de hotel. (Centro) <code>pepper[1]</code> (Derecha) <code>pepper[[1]]</code>
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Este mismo principio se aplica cuando usa 1d <code>[</code> con un marco de datos: <code>df["x"]</code> devuelve un marco de datos de una columna y <code>df[["x"]]</code> devuelve un vector.</p>
+</section><section id="ejercicios-1" class="level3" data-number="27.3.4"><h3 data-number="27.3.4" class="anchored" data-anchor-id="ejercicios-1">
+<span class="header-section-number">27.3.4</span> Ejercicios</h3>
+<ol type="1">
+<li><p>¿Qué sucede cuando usas <code>[[</code> con un entero positivo que es más grande que la longitud del vector? ¿Qué sucede cuando creas un subconjunto con un nombre que no existe?</p></li>
+<li><p>¿Qué sería <code>pepper[[1]][1]</code>? ¿Qué pasa con <code>pepper[[1]][[1]]</code>?</p></li>
+</ol></section></section><section id="familia-apply" class="level2" data-number="27.4"><h2 data-number="27.4" class="anchored" data-anchor-id="familia-apply">
+<span class="header-section-number">27.4</span> Familia apply</h2>
+<p>En <a href="iteration.html" class="quarto-xref"><span>Capítulo 26</span></a>, aprendió técnicas tidyverse para la iteración como <code><a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::across()</a></code> y la familia de funciones map. En esta sección, aprenderá sobre sus equivalentes básicos, la <strong>familia apply</strong>. En este contexto, aplicar y mapear son sinónimos porque otra forma de decir “mapear una función sobre cada elemento de un vector” es “aplicar una función sobre cada elemento de un vector”. Aquí le daremos una descripción general rápida de esta familia para que pueda reconocerlos en la naturaleza.</p>
+<p>El miembro más importante de esta familia es <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>, que es muy similar a <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. De hecho, debido a que no hemos usado ninguna de las características más avanzadas de <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, puede reemplazar cada llamada <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> en <a href="iteration.html" class="quarto-xref"><span>Capítulo 26</span></a> con <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</p>
+<p>No hay una base R equivalente exacta a <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> pero puedes acercarte usando <code>[</code> con <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>. Esto funciona porque, bajo el capó, los marcos de datos son listas de columnas, por lo que llamar a <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> en un marco de datos aplica la función a cada columna.</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="st">"a"</span>, d <span class="op">=</span> <span class="st">"b"</span>, e <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Primero encuentra columnas numéricas</span></span>
+<span><span class="va">num_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">is.numeric</span><span class="op">)</span></span>
+<span><span class="va">num_cols</span></span>
+<span><span class="co">#&gt;     a     b     c     d     e </span></span>
+<span><span class="co">#&gt;  TRUE  TRUE FALSE FALSE  TRUE</span></span>
+<span></span>
+<span><span class="co"># Luego transforme cada columna con lapply() y luego reemplace los valores originales</span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="va">num_cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="va">num_cols</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt;       a     b c     d         e</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     2     4 a     b         8</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>El código anterior usa una nueva función, <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code>. Es similar a <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> pero siempre intenta simplificar el resultado, de ahí la <code>s</code> en su nombre, produciendo aquí un vector lógico en lugar de una lista. No recomendamos usarlo para programar, porque la simplificación puede fallar y generar un tipo inesperado, pero generalmente está bien para uso interactivo. purrr tiene una función similar llamada <code><a href="https://purrr.tidyverse.org/reference/map.html">map_vec()</a></code> que no mencionamos en <a href="iteration.html" class="quarto-xref"><span>Capítulo 26</span></a>.</p>
+<p>Base R proporciona una versión más estricta de <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> llamada <code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code>, abreviatura de <strong>v</strong>ector apply. Toma un argumento adicional que especifica el tipo esperado, lo que garantiza que la simplificación ocurra de la misma manera, independientemente de la entrada. Por ejemplo, podríamos reemplazar la llamada <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> anterior con <code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> donde especificamos que esperamos que <code><a href="https://rdrr.io/r/base/numeric.html">is.numeric()</a></code> devuelva un vector lógico de longitud 1:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">is.numeric</span>, <span class="fu"><a href="https://rdrr.io/r/base/logical.html">logical</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     a     b     c     d     e </span></span>
+<span><span class="co">#&gt;  TRUE  TRUE FALSE FALSE  TRUE</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La distinción entre <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> y <code><a href="https://rdrr.io/r/base/lapply.html">vapply()</a></code> es realmente importante cuando están dentro de una función (porque hace una gran diferencia en la solidez de la función ante entradas inusuales), pero generalmente no importa en el análisis de datos.</p>
+<p>Otro miembro importante de la familia apply es <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code>, que calcula un solo resumen agrupado:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
+<span><span class="co">#&gt;   cut       price</span></span>
+<span><span class="co">#&gt;   &lt;ord&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Fair      4359.</span></span>
+<span><span class="co">#&gt; 2 Good      3929.</span></span>
+<span><span class="co">#&gt; 3 Very Good 3982.</span></span>
+<span><span class="co">#&gt; 4 Premium   4584.</span></span>
+<span><span class="co">#&gt; 5 Ideal     3458.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">price</span>, <span class="va">diamonds</span><span class="op">$</span><span class="va">cut</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      Fair      Good Very Good   Premium     Ideal </span></span>
+<span><span class="co">#&gt;  4358.758  3928.864  3981.760  4584.258  3457.542</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Desafortunadamente, <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> devuelve sus resultados en un vector con nombre que requiere algo de gimnasia si desea recopilar múltiples resúmenes y agrupar variables en un marco de datos (ciertamente es posible no hacer esto y solo trabajar con vectores flotantes libres, pero en nuestro experiencia que sólo retrasa el trabajo). Si desea ver cómo podría usar <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> u otras técnicas básicas para realizar otros resúmenes agrupados, Hadley ha recopilado algunas técnicas <a href="https://gist.github.com/hadley/c430501804349d382ce90754936ab8ec">en un gist</a> .</p>
+<p>El último miembro de la familia apply es el titular <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>, que funciona con matrices y arreglos. En particular, tenga cuidado con <code>apply(df, 2, something)</code>, que es una forma lenta y potencialmente peligrosa de hacer <code>lapply(df, something)</code>. Esto rara vez surge en la ciencia de datos porque generalmente trabajamos con marcos de datos y no con matrices.</p>
+</section><section id="bucles-for" class="level2" data-number="27.5"><h2 data-number="27.5" class="anchored" data-anchor-id="bucles-for">
+<span class="header-section-number">27.5</span> Bucles <code>for</code>
+</h2>
+<p>Los bucles <code>for</code> son el bloque de construcción fundamental de la iteración que tanto la familia apply como la función map utilizan bajo el capó. Los bucles <code>for</code> son herramientas poderosas y generales que es importante aprender a medida que se convierte en un programador de R más experimentado. La estructura básica de un bucle <code>for</code> se ve así:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">element</span> <span class="kw">in</span> <span class="va">vector</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># hacer algo con el elemento</span></span>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>El uso más directo de los bucles <code>for</code> es lograr el mismo efecto que <code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code>: llamar a alguna función con un efecto secundario en cada elemento de una lista. Por ejemplo, en <a href="iteration.html#sec-save-database" class="quarto-xref"><span>Sección 26.4.1</span></a> en lugar de caminar:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">paths</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">walk</a></span><span class="op">(</span><span class="va">append_file</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podríamos haber usado un bucle <code>for</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">path</span> <span class="kw">in</span> <span class="va">paths</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">append_file</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Las cosas se vuelven un poco más complicadas si desea guardar la salida del bucle <code>for</code>, por ejemplo, leyendo todos los archivos de Excel en un directorio como hicimos en <a href="iteration.html" class="quarto-xref"><span>Capítulo 26</span></a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">dir</a></span><span class="op">(</span><span class="st">"data/gapminder"</span>, pattern <span class="op">=</span> <span class="st">"\\.xlsx$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">paths</span>, <span class="fu">readxl</span><span class="fu">::</span><span class="va"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hay algunas técnicas diferentes que puede usar, pero le recomendamos que sea explícito sobre cómo se verá la salida por adelantado. En este caso, vamos a querer una lista de la misma longitud que <code>paths</code>, que podemos crear con <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Luego, en lugar de iterar sobre los elementos de <code>paths</code>, iteramos sobre sus índices, usando <code><a href="https://rdrr.io/r/base/seq.html">seq_along()</a></code> para generar un índice para cada elemento de las rutas:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Usar los índices es importante porque nos permite vincular cada posición en la entrada con la posición correspondiente en la salida:</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">files</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">paths</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para combinar la lista de tibbles en un solo tibble puedes usar <code><a href="https://rdrr.io/r/base/do.call.html">do.call()</a></code> + <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">files</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1,704 × 5</span></span>
+<span><span class="co">#&gt;   country     continent lifeExp      pop gdpPercap</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan Asia         28.8  8425333      779.</span></span>
+<span><span class="co">#&gt; 2 Albania     Europe       55.2  1282697     1601.</span></span>
+<span><span class="co">#&gt; 3 Algeria     Africa       43.1  9279525     2449.</span></span>
+<span><span class="co">#&gt; 4 Angola      Africa       30.0  4232095     3521.</span></span>
+<span><span class="co">#&gt; 5 Argentina   Americas     62.5 17876956     5911.</span></span>
+<span><span class="co">#&gt; 6 Australia   Oceania      69.1  8691212    10040.</span></span>
+<span><span class="co">#&gt; # ℹ 1,698 more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En lugar de hacer una lista y guardar los resultados a medida que avanzamos, un enfoque más simple es construir el marco de datos pieza por pieza:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">path</span> <span class="kw">in</span> <span class="va">paths</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">out</span>, <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Recomendamos evitar este patrón porque puede volverse muy lento cuando el vector es muy largo. Esta es la fuente del bulo persistente de que los bucles <code>for</code> son lentos: no lo son, pero el crecimiento iterativo de un vector sí lo es.</p>
+</section><section id="gráficas" class="level2" data-number="27.6"><h2 data-number="27.6" class="anchored" data-anchor-id="gráficas">
+<span class="header-section-number">27.6</span> Gráficas</h2>
+<p>Muchos usuarios de R que no usan tidyverse igualmente prefieren ggplot2 para gráficar debido a características útiles como valores predeterminados sensibles, leyendas automáticas y una apariencia moderna. Sin embargo, las funciones gráficas base R aún pueden ser útiles porque son muy concisas; se necesita escribir muy poco para hacer un gráfico exploratorio básico.</p>
+<p>Hay dos tipos principales de gráficos base que verá en la naturaleza: diagramas de dispersión e histogramas, producidos con <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> y <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> respectivamente. Aquí hay un ejemplo rápido del conjunto de datos de diamantes:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Izquierda</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">carat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Derecha</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">carat</span>, <span class="va">diamonds</span><span class="op">$</span><span class="va">price</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="base-R_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" alt="A la izquierda, histograma de quilates de diamantes, que van de 0 a 5 quilates. La distribución es unimodal y sesgada a la derecha. A la derecha, diagrama de dispersión de precio frente a quilates de diamantes, que muestra una relación positiva que se despliega a medida que aumentan el precio y los quilates. El gráfico de dispersión muestra muy pocos diamantes de más de 3 quilates en comparación con los diamantes de entre 0 y 3 quilates." width="384"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="base-R_files/figure-html/unnamed-chunk-38-2.png" class="img-fluid" alt="A la izquierda, histograma de quilates de diamantes, que van de 0 a 5 quilates. La distribución es unimodal y sesgada a la derecha. A la derecha, diagrama de dispersión de precio frente a quilates de diamantes, que muestra una relación positiva que se despliega a medida que aumentan el precio y los quilates. El gráfico de dispersión muestra muy pocos diamantes de más de 3 quilates en comparación con los diamantes de entre 0 y 3 quilates." width="384"></p>
+</div>
+</div>
+</div>
+<p>Tenga en cuenta que las funciones de trazado base funcionan con vectores, por lo que debe extraer columnas del marco de datos utilizando <code>$</code> o alguna otra técnica.</p>
+</section><section id="resumen" class="level2" data-number="27.7"><h2 data-number="27.7" class="anchored" data-anchor-id="resumen">
+<span class="header-section-number">27.7</span> Resumen</h2>
+<p>En este capítulo, le mostramos una selección de funciones básicas de R útiles para la creación de subconjuntos y la iteración. En comparación con los enfoques discutidos en otras partes del libro, estas funciones tienden a tener más un sabor de “vector” que un sabor de “marco de datos” porque las funciones base de R tienden a tomar vectores individuales, en lugar de un marco de datos y alguna especificación de columna. Esto a menudo hace que la vida sea más fácil para la programación y, por lo tanto, se vuelve más importante a medida que escribe más funciones y comienza a escribir sus propios paquetes.</p>
+<p>Este capítulo concluye la sección de programación del libro. Ha tenido un comienzo sólido en su viaje para convertirse no solo en un científico de datos que usa R, sino en un científico de datos que puede <em>programar</em> en R. Esperamos que estos capítulos hayan despertado su interés en la programación y que desee aprender más fuera de este libro.</p>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Lea <a href="https://adv-r.hadley.nz/subsetting.html#subset-multiple" class="uri">https://adv-r.hadley.nz/subsetting.html#subset-multiple</a> para ver cómo también puede crear subconjuntos de un marco de datos como si fuera un objeto 1d y cómo puede crear subconjuntos con una matriz.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Pero no maneja marcos de datos agrupados de manera diferente y no admite funciones auxiliares de selección como <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with()</a></code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Simplemente carece de características convenientes como barras de progreso e informar qué elemento causó el problema si hay un error.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script>
+
+  // Chapter name
+  const currentChapterFile = window.location.pathname.split('/').pop().replace('.html', '');
+
+  //Deffining urls
+  const originalURL = "https://github.com/hadley/r4ds";
+  const translationURL = "https://github.com/davidrsch/r4dses";
+
+  //Deffining texts
+  const edit_text = "Editar esta página";
+  const issue_text = "Informar de un problema"
+
+  //Deffining git_i
+  const git_i = '<div><i class="bi bi-github"></i></div>';
+
+  // Adding TOC if not exist
+  const sidebarmargin = document.getElementById('quarto-margin-sidebar');
+  const buscar_TOC = document.getElementById('TOC');
+
+  if (!buscar_TOC) {
+    const crear_TOC = document.createElement('nav');
+    crear_TOC.id = 'TOC';
+    crear_TOC.role = "doc-toc";
+    crear_TOC.class = "toc-active";
+    sidebarmargin.appendChild(crear_TOC);
+  }
+
+
+  // Adding original github actions
+  const TOC = document.getElementById('TOC');
+  const originalga = document.createElement('h2');
+  originalga.textContent = "Original";
+  const toc_act_O = document.createElement('div');
+  toc_act_O.className = 'toc-actions';
+  toc_act_O.id = 'toc-act-O';
+  const act_link_O = document.createElement('div');
+  act_link_O.className='action-links';
+  act_link_O.id='act-link-O';
+  const edit_issue_O ='<p><a href="'+originalURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+originalURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(originalga);
+  TOC.appendChild(toc_act_O);
+  toc_act_O.innerHTML += git_i;
+  toc_act_O.appendChild(act_link_O);
+  act_link_O.innerHTML += edit_issue_O;
+
+  // Adding translation github actions
+  const translationga = document.createElement('h2');
+  translationga.textContent = "Traducción";
+  const toc_act_T = document.createElement('div');
+  toc_act_T.className = 'toc-actions';
+  toc_act_T.id = 'toc-act-T';
+  const act_link_T = document.createElement('div');
+  act_link_T.className='action-links';
+  act_link_T.id='act-link-T';
+  const edit_issue_T ='<p><a href="'+translationURL+'/edit/main/'+currentChapterFile+'.qmd" class="toc-action">'+edit_text+'</p><p><a href="'+translationURL+'/issues/new" class="toc-action">'+issue_text+'</p>';
+
+
+  TOC.appendChild(translationga);
+  TOC.appendChild(toc_act_T);
+  toc_act_T.innerHTML += git_i;
+  toc_act_T.appendChild(act_link_T);
+  act_link_T.innerHTML += edit_issue_T;
+
+
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./iteration.html" class="pagination-link" aria-label="Iteración">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Iteración</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./communicate.html" class="pagination-link" aria-label="Comunicar">
+        <span class="nav-page-text">Comunicar</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>R para la Ciencia de Datos (2e) fue escrito por Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Este libro fue creado usando <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+</body></html>
