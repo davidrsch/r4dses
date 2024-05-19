@@ -56,3 +56,22 @@ code a:any-link {
 pre {
   background-image: linear-gradient(160deg,#f8f8f8 0,#f1f1f1 100%);
 }
+
+/* Action Links ----------------------------------------*/
+.action-links p {
+    margin-top: 0;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.action-links p a {
+    color: #637238;
+}
+
+.action-links p a:hover {
+    color: #637238;
+}
+
+.toc-actions div i {
+  color: #637238;
+}
