@@ -92,7 +92,7 @@ Cuando `class` se asigna a `shape`, recibimos dos advertencias:
 Dado que ggplot2 solo usará seis formas a la vez, de manera predeterminada, los grupos adicionales no se trazarán cuando use la aesthetic shape.
 La segunda advertencia está relacionada: hay 62 SUV (todoterrenos) en el conjunto de datos y no están representados.
 
-De manera similar, también podemos mapear la estética `class` a `size` o `alpha`, que controlan la forma y la transparencia de los puntos, respectivamente.
+De manera similar, también podemos mapear la estética `class` a `size` o `alpha`, que controlan el tamaño y la transparencia de los puntos, respectivamente.
 
 ```{r}
 #| layout-ncol: 2
@@ -156,32 +156,35 @@ Deberá elegir un valor que tenga sentido para esa estética:
 #| fig.asp: 0.364
 #| fig-align: "center"
 #| fig-cap: >
-#|   R tiene 25 formas integradas que se identifican con números. Hay 
+#|   R tiene 26 formas integradas que se identifican con números. Hay 
 #|   algunos duplicados aparentes: por ejemplo, 0, 15 y 22 son todos 
 #|   cuadrados. La diferencia proviene de la interacción de las 
 #|   asthetics `color` y `fill`. Las formas huecas (0--14) tienen un 
 #|   borde determinado por `color`; las formas sólidas (15--20) 
-#|   se rellenan con `color`; las formas rellenas (21--24) tienen un 
+#|   se rellenan con `color`; las formas rellenas (21--25) tienen un 
 #|   borde de `color` y se rellenan con `fill`. Las formas se 
 #|   organizan para mantener formas similares una al lado de la otra..
 #| fig-alt: >
-#|   Mapeo entre formas y los números que las representan: 0 - cuadrado,
-#|   1 - círculo, 2 - triángulo apuntando hacia arriba, 3 - más, 4 - cruz, 
-#|   5 - rombo, 6 - triángulo apuntando hacia abajo, 7 - cruz cuadrada, 
-#|   8 - estrella, 9 - diamante más, 10 - círculo más, 11 - triángulos 
-#|   arriba y abajo, 12 - cuadrado más, 13 - cruz circular, 14 - cuadrado 
-#|   y triángulo hacia abajo, 15 - cuadrado relleno, 16 - círculo 
+#|   Mapeo entre formas y los números que las representan: 0 - cuadrado
+#|   hueco, 1 - círculo hueco, 2 - triángulo hueco apuntando hacia 
+#|   arriba, 3 - símbolo de adición, 4 - cruz, 5 - rombo hueco, 
+#|   6 - triángulo hueco apuntando hacia abajo, 7 - cruz en un cuadrado, 
+#|   8 - asterisco, 9 - símbolo de adición en un rombo, 10 - símbolo de
+#|   adición en un círculo, 11 - triángulos hacia arriba y hacia abajo
+#|   huecos, 12 - símbolo de adición en un cuadrado, 13 - cruz 
+#|   superpuesta a un círculo, 14 - cuadrado y triángulo 
+#|   apuntando hacia arriba, 15 - cuadrado relleno, 16 - círculo 
 #|   relleno, 17 - triángulo relleno apuntando hacia arriba, 18 - 
-#|   diamante relleno, 19 - círculo sólido, 20 - viñeta (círculo más 
-#|   pequeño), 21 - círculo relleno azul, 22 - azul cuadrado 
-#|   relleno, 23 - azul diamante relleno, 24 - triángulo relleno
-#|   apuntando hacia arriba azul, 25 - triángulo relleno apuntando 
-#|   hacia abajo azul.
+#|   rombo relleno, 19 - círculo relleno, 20 - viñeta (círculo más 
+#|   pequeño), 21 - círculo con relleno y borde, 22 - cuadrado con 
+#|   relleno y borde, 23 - rombo con relleno y borde, 24 - triángulo 
+#|   apuntando hacia arriba con relleno y borde, 25 - triángulo 
+#|   apuntando hacia abajo con relleno y borde.
 
 shapes <- tibble(
-  shape = c(0, 1, 2, 5, 3, 4, 6:19, 22, 21, 24, 23, 20),
-  x = (0:24 %/% 5) / 2,
-  y = (-(0:24 %% 5)) / 4
+  shape = c(0, 1, 2, 5, 3, 4, 6:19, 22, 21, 24, 23, 20, 25),
+  x = (0:25 %/% 5) / 2,
+  y = (-(0:25 %% 5)) / 4
 )
 ggplot(shapes, aes(x, y)) + 
   geom_point(aes(shape = shape), size = 5, fill = "red") +
@@ -335,15 +338,16 @@ Es conveniente confiar en esta característica porque la estética `group` por s
 #| message: false
 #| fig-alt: >
 #|   Tres gráficas, cada una con eficiencia de combustible en carretera 
-#|   en el eje y y el tamaño del motor de los automóviles, donde los 
-#|   datos se representan mediante una curva suave. La primera 
-#|   gráfica solo tiene estas dos variables, la gráfica central 
-#|   tiene tres curvas para cada nivel de tren de transmisión, 
+#|   en el eje y y el tamaño del motor de los automóviles en el eje x,
+#|   donde los datos se representan mediante una curva suave.
+#|   La primera gráfica solo tiene estas dos variables, la gráfica 
+#|   central tiene tres curvas para cada nivel de tren de transmisión, 
 #|   y la gráfica de la derecha no solo tiene las mismas tres curvas 
 #|   suaves separadas para cada nivel del tren de transmisión, 
 #|   también se trazan las curvas en diferentes colores, con una 
-#|   leyenda que explica qué color se asigna a qué nivel. También se 
-#|   muestran los intervalos de confianza alrededor de las curvas suaves.
+#|   leyenda que explica qué color se asigna a qué nivel. 
+#|   También se muestran los intervalos de confianza alrededor de 
+#|   las curvas suavizadas.
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -385,12 +389,9 @@ El argumento de datos locales en `geom_point()` anula el argumento de datos glob
 #| message: false
 #| fig-alt: >
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera 
-#|   frente al tamaño del motor de los automóviles, donde los puntos 
-#|   se colorean según la clase de coche. Una curva suave siguiendo
-#|   la trayectoria de la relación entre la eficiencia de combustible 
-#|   en carretera versus el tamaño del motor de los automóviles 
-#|   subcompactos se superpone junto con un intervalo de confianza
-#|   alrededor.
+#|   frente al tamaño del motor de los automóviles, donde los 
+#|   automóviles de dos plazas están resaltados con puntos rojos y círculos
+#|   huecos.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -533,7 +534,7 @@ En @sec-data-visualization, aprendió sobre facetas con `facet_wrap()`, que divi
 #| fig-alt: >
 #|   Diagrama de dispersión de la eficiencia de combustible en carretera 
 #|   frente al tamaño del motor de los automóviles, facetado por 
-#|   clase, con facetas que abarcan dos filas.
+#|   número de cilindros, con facetas que abarcan dos filas.
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
@@ -560,7 +561,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 Por defecto, cada una de las facetas comparte la misma escala y rango para los ejes x e y.
 Esto es útil cuando desea comparar datos entre facetas, pero puede ser limitante cuando desea visualizar mejor la relación dentro de cada faceta.
-Establecer el argumento `scales` en una función de facetado en `"free"` permitirá diferentes escalas de eje tanto en filas como en columnas, `"free_x"` permitirá diferentes escalas en filas y `"free_y"` permitirá diferentes escalas en las columnas.
+Establecer el argumento `scales` en una función de facetado en `"free_x"` permitirá diferentes escalas del eje x en columnas, `"free_y"` permitirá diferentes escalas en el eje y en filas, y `"free"` permitirá diferentes escalas en ambos ejes.
 
 ```{r}
 #| fig-alt: >
@@ -576,7 +577,7 @@ Establecer el argumento `scales` en una función de facetado en `"free"` permiti
 
 ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
-  facet_grid(drv ~ cyl, scales = "free_y")
+  facet_grid(drv ~ cyl, scales = "free")
 ```
 
 ### Ejercicios
@@ -616,7 +617,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
     ggplot(mpg) + 
       geom_point(aes(x = displ, y = hwy)) + 
-      facet_wrap(~ class, nrow = 2)
+      facet_wrap(~ cyl, nrow = 2)
     ```
 
     ¿Cuáles son las ventajas de usar facetas en lugar de la estética del color?
@@ -815,7 +816,7 @@ Puede colorear un gráfico de barras utilizando la estética `color` o, más út
 #|   En el primer gráfico, las barras tienen bordes coloreados. 
 #|   En la segunda trama, están llenos de colores. Las alturas de 
 #|   las barras corresponden al número de autos en cada categoría 
-#|   de corte.
+#|   de drv.
 
 # Izquierda
 ggplot(mpg, aes(x = drv, color = drv)) + 
@@ -835,7 +836,7 @@ Cada rectángulo de color representa una combinación de `drv` y `class`.
 #|   donde cada barra se llena con colores para las clases de automóviles. 
 #|   Las alturas de las barras corresponden a la cantidad de autos en 
 #|   cada categoría de manejo, y las alturas de los segmentos 
-#|   coloreados son proporcionales a la cantidad de autos con un nivel 
+#|   coloreados representan el número de autos con un nivel 
 #|   de clase dado dentro de un nivel de tipo de manejo dado.
 
 ggplot(mpg, aes(x = drv, fill = class)) + 
@@ -855,13 +856,12 @@ Si no desea un gráfico de barras apiladas, puede usar una de las otras tres opc
     #| fig-alt: >
     #|   Gráfico de barras segmentado de tipos de conducción de 
     #|   automóviles, donde cada barra se llena con colores para las 
-    #|   clases de automóviles. Las alturas de las barras corresponden 
-    #|   a la cantidad de autos en cada categoría de manejo, y las 
-    #|   alturas de los segmentos coloreados son proporcionales 
-    #|   a la cantidad de autos con un nivel de clase dado dentro de un 
-    #|   nivel de tipo de manejo dado. Sin embargo, los segmentos 
-    #|   se superponen. En el primer gráfico las barras se rellenan con 
-    #|   colores transparentes y en el segundo gráfico solo se delinean 
+    #|   clases de automóviles.
+    #|   Las alturas de los segmentos coloreados representan la 
+    #|   cantidad de autos en cada clase en un nivle de tipo de 
+    #|   conducción. Sin embargo, los segmentos se superponen. En el 
+    #|   primer gráfico las barras se rellenan con colores 
+    #|   transparentes y en el segundo gráfico solo se delinean 
     #|   con color.
 
     # Izquierda

@@ -88,7 +88,7 @@ students
 
 En la columna `favourite.food`, hay un montón de artículos de comida, y luego la cadena de caracteres `N/A`, que debería haber sido un `NA` real que R reconocerá como "no disponible".
 Esto es algo que podemos abordar usando el argumento `na`.
-Por defecto `read_csv()` solo reconoce cadenas vacías (`""`) como `NA`s, queremos que también reconozca la cadena de caracteres `"N/A`.
+Por defecto `read_csv()` solo reconoce cadenas vacías (`""`) como `NA`s, y queremos que también reconozca la cadena de caracteres `"N/A`.
 
 ```{r}
 #| message: false
@@ -131,7 +131,7 @@ students |>
 Tenga en cuenta que los valores en la variable `meal_plan` se han mantenido igual, pero el tipo de variable indicado debajo del nombre de la variable ha cambiado de carácter (`<chr>`) a factor (`<fct>`).
 Aprenderá más sobre los factores en @sec-factors.
 
-Antes de analizar estos datos, probablemente querrá arreglar las columna `age` y `id`.
+Antes de analizar estos datos, probablemente querrá arreglar las columna `age`.
 Actualmente, `age` es una variable de carácter porque una de las observaciones se escribe como `five` en lugar de un `5` numérico.
 Discutimos los detalles para solucionar este problema en @sec-import-spreadsheets.
 
