@@ -586,7 +586,7 @@ Tabla&nbsp;7.1: Datos del archivo students.csv como una tabla.
 <span><span class="co">#&gt; 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
 <span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>En la columna <code>favourite.food</code>, hay un montón de artículos de comida, y luego la cadena de caracteres <code>N/A</code>, que debería haber sido un <code>NA</code> real que R reconocerá como “no disponible”. Esto es algo que podemos abordar usando el argumento <code>na</code>. Por defecto <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> solo reconoce cadenas vacías (<code>""</code>) como <code>NA</code>s, queremos que también reconozca la cadena de caracteres <code>"N/A</code>.</p>
+<p>En la columna <code>favourite.food</code>, hay un montón de artículos de comida, y luego la cadena de caracteres <code>N/A</code>, que debería haber sido un <code>NA</code> real que R reconocerá como “no disponible”. Esto es algo que podemos abordar usando el argumento <code>na</code>. Por defecto <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> solo reconoce cadenas vacías (<code>""</code>) como <code>NA</code>s, y queremos que también reconozca la cadena de caracteres <code>"N/A</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/students.csv"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"N/A"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -647,7 +647,7 @@ Tabla&nbsp;7.1: Datos del archivo students.csv como una tabla.
 <span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tenga en cuenta que los valores en la variable <code>meal_plan</code> se han mantenido igual, pero el tipo de variable indicado debajo del nombre de la variable ha cambiado de carácter (<code>&lt;chr&gt;</code>) a factor (<code>&lt;fct&gt;</code>). Aprenderá más sobre los factores en <a href="factors.html" class="quarto-xref"><span>Capítulo 16</span></a>.</p>
-<p>Antes de analizar estos datos, probablemente querrá arreglar las columna <code>age</code> y <code>id</code>. Actualmente, <code>age</code> es una variable de carácter porque una de las observaciones se escribe como <code>five</code> en lugar de un <code>5</code> numérico. Discutimos los detalles para solucionar este problema en <a href="spreadsheets.html" class="quarto-xref"><span>Capítulo 20</span></a>.</p>
+<p>Antes de analizar estos datos, probablemente querrá arreglar las columna <code>age</code>. Actualmente, <code>age</code> es una variable de carácter porque una de las observaciones se escribe como <code>five</code> en lugar de un <code>5</code> numérico. Discutimos los detalles para solucionar este problema en <a href="spreadsheets.html" class="quarto-xref"><span>Capítulo 20</span></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="va">students</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -857,7 +857,7 @@ Tabla&nbsp;7.1: Datos del archivo students.csv como una tabla.
 <span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;     row   col expected actual file                            </span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                           </span></span>
-<span><span class="co">#&gt; 1     3     1 a double .      /tmp/RtmpYLHNF5/file1a66510fcdb3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1     3     1 a double .      /tmp/Rtmpb1q8bM/file5366284b86cd</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esto nos dice que hubo un problema en la fila 3, columna 1 donde readr esperaba un doble pero obtuvo un <code>.</code>. Eso sugiere que este conjunto de datos usa <code>.</code> para valores faltantes. Entonces establecemos <code>na = "."</code>, la adivinación automática tiene éxito, dándonos la columna numérica que queremos:</p>
 <div class="cell">
