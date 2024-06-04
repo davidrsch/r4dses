@@ -318,7 +318,7 @@ diamonds |>
   summarize_means(c(carat, x:z))
 ```
 
-### Vs `pivot_longer()`
+### Comparar con `pivot_longer()`
 
 Antes de continuar, vale la pena señalar una conexión interesante entre `across()` y `pivot_longer()` (@sec-pivoting).
 En muchos casos, usted realiza los mismos cálculos girando primero los datos y luego realizando las operaciones por grupo en lugar de por columna.

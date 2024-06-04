@@ -214,11 +214,11 @@ Por ejemplo, `df |> filter(!is.na(x))` encuentra todas las filas donde no falta 
 #|    izquierda, `y` es el círculo de la derecha, y la región sombreada muestra
 #|    qué partes selecciona cada operador.
 #| fig-alt: >
-#|    Seis diagramas de Venn, cada uno explicando un operador lógico distinto. Los
-#|    círculos (conjuntos) en cada uno de los diagramas de Venn representan x e y. 1. y &
-#|    !x es y pero nada de x; x & y es la intersección de x e y; x & !y es
-#|    x pero ninguno de y; x es todo de x nada de y; xor(x, y) es todo
-#|    excepto la intersección de x e y; y es todo de y y nada de x; y
+#|    Siete diagramas de Venn, cada uno explicando un operador lógico distinto.
+#|    Los círculos (conjuntos) en cada uno de los diagramas de Venn representan x e y. 
+#|    x & !y es x pero nada de y; x & y es la intersección de x e y; 
+#|    !x & y es y pero nada de x; x es todo de x; xor(x, y) es todo
+#|    excepto la intersección de x e y; y es todo de y; y
 #|    x | y es todo.
 knitr::include_graphics("diagrams/transform.png", dpi = 270)
 ```
@@ -352,7 +352,7 @@ Eso nos lleva a los resúmenes numéricos.
 ### Resúmenes numéricos de vectores lógicos {#sec-numeric-summaries-of-logicals}
 
 Cuando usa un vector lógico en un contexto numérico, `TRUE` se convierte en 1 y `FALSE` se convierte en 0.
-Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` da el número de `TRUE`s y `mean(x)` da la proporción de `TRUE`s (porque `mean()` es simplemente `sum()` dividido por `length()`.
+Esto hace que `sum()` y `mean()` sean muy útiles con vectores lógicos porque `sum(x)` da el número de `TRUE`s y `mean(x)` da la proporción de `TRUE`s (porque `mean()` es simplemente `sum()` dividido por `length()`).
 
 Eso, por ejemplo, nos permite ver la proporción de vuelos que se retrasaron a la salida como máximo una hora y la cantidad de vuelos que se retrasaron a la llegada cinco horas o más:
 

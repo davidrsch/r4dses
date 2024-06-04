@@ -26,7 +26,7 @@ Puede leer estos capítulos cuando los necesite; están diseñados para ser en g
 
 -   @sec-logicals te enseña sobre vectores lógicos.
     Estos son el tipo de vector más simple, pero son extremadamente poderosos.
-    Aprenderá cómo crearlos con comparaciones numéricas, cómo combinarlos con álgebra booleana, cómo usarlos en resúmenes y cómo usarlos para transformaciones de condiciones.
+    Aprenderá cómo crearlos con comparaciones numéricas, cómo combinarlos con álgebra booleana, cómo usarlos en resúmenes y cómo usarlos para transformaciones condicionales.
 
 -   @sec-numbers se sumerge en herramientas para vectores de números, la potencia de la ciencia de datos.
     Aprenderá más sobre contar y un montón de funciones importantes de transformación y resumen.

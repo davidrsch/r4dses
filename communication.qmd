@@ -183,10 +183,10 @@ Este útil paquete ajustará automáticamente las etiquetas para que no se super
 
 ```{r}
 #| fig-alt: |
-#|   Diagrama de dispersión de la eficiencia de combustible en carretera frente al tamaño del motor de los automóviles, donde
-#|   los puntos se colorean según la clase de coche. Algunos puntos están etiquetados
-#|   con el nombre del coche. Las etiquetas son cajas con fondo blanco y transparente.
-#|   y colocados para que no se superpongan.
+#|   Diagrama de dispersión del kilometraje en carretera frente al tamaño del motor, donde los puntos están 
+#|   coloreados por tipo de conducción. Se superponen curvas suaves para cada tipo de conducción. 
+#|   Las etiquetas de texto identifican las curvas como rueda delantera, rueda trasera y 4 ruedas. 
+#|   Las etiquetas son cuadros con fondo blanco y están colocadas para que no se superpongan.
 
 ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_point(alpha = 0.3) +
@@ -389,7 +389,7 @@ Tenga en cuenta que las rupturas (`breaks`) están en la escala original de los 
 #| fig-alt: |
 #|   Dos diagramas de caja de lado a lado de precio versus corte de diamantes. Los valores atípicos
 #|   son transparentes. En ambos gráficos, las etiquetas del eje x tienen formato de dólares.
-#|   Las etiquetas del eje y en la gráfica de la izquierda comienzan en $0 y van hasta $15,000, aumentando
+#|   Las etiquetas del eje x en la gráfica de la izquierda comienzan en $0 y van hasta $15,000, aumentando
 #|   por $5,000. Las etiquetas del eje x en la gráfica de la derecha comienzan en $1K y van a
 #|   $19K, aumentando $6K.
 
@@ -461,7 +461,7 @@ La configuración del tema `legend.position` controla dónde se dibuja la leyend
 #| fig-alt: |
 #|   Cuatro diagramas de dispersión de eficiencia de combustible en carretera frente al tamaño del motor de los automóviles
 #|   donde los puntos están coloreados según la clase de automóvil. En el sentido de las agujas del reloj, la leyenda
-#|   se coloca a la derecha, izquierda, arriba y abajo del gráfico.
+#|   se coloca a la derecha, izquierda, abajo y arriba del gráfico.
 
 base <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class))
@@ -577,7 +577,7 @@ Esto también ayudará a garantizar que su gráfica sea interpretable en blanco 
 
 ```{r}
 #| fig-alt: |
-#|   Dos diagramas de dispersión de kilometraje en carretera versus tamaño de motor donde ambos colores
+#|   Diagrama de dispersión del kilometraje en carretera versus el tamaño del motor, donde ambos colores
 #|   y la forma de los puntos se basan en el tipo de unidad. La paleta de colores no es
 #|   la paleta ggplot2 por defecto.
 
@@ -689,12 +689,13 @@ La creación de subconjuntos de datos ha afectado las escalas x e y, así como l
 #| message: false
 #| fig-alt: |
 #|   A la izquierda, diagrama de dispersión de kilometraje en carretera 
-#|   frente a desplazamiento, con desplazamiento. La curva suave superpuesta 
-#|   muestra una tendencia decreciente y luego creciente, como un palo 
-#|   de hockey. A la derecha, se trazan las mismas variables con un 
-#|   desplazamiento que varía solo de 5 a 6 y el kilometraje en carretera 
-#|   que varía solo de 10 a 25. La curva suave superpuesta muestra una 
-#|   tendencia que primero aumenta ligeramente y luego disminuye.
+#|   frente a desplazamiento, donde los puntos son coloreados según el
+#|   tipo de manejo. La curva suave superpuesta muestra una tendencia
+#|   decreciente y luego creciente, como un palo de hockey. A la derecha,
+#|   se trazan las mismas variables con un desplazamiento que varía solo 
+#|   de 5 a 6 y el kilometraje en carretera que varía solo de 10 a 25. 
+#|   La curva suave superpuesta muestra una tendencia que primero aumenta
+#|   ligeramente y luego disminuye.
 
 # Izquierda
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -981,9 +982,8 @@ A continuación, `|` coloca `p1` y `p3` uno al lado del otro y `/` mueve `p2` a 
 #|   Tres gráficas dispuestas de manera que la primera y la tercera gráfica estén una al lado de la otra
 #|   y la segunda gráfica se extendía debajo de ellos. La primera gráfica es una
 #|   diagrama de dispersión del kilometraje en carretera versus el tamaño del motor, el tercer diagrama es un
-#|   diagrama de dispersión de kilometraje en carretera versus kilometraje en ciudad, y el tercer diagrama es
-#|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión) colocados a continuación
-#|   el uno al otro
+#|   diagrama de dispersión de kilometraje en carretera versus kilometraje en ciudad, y el segundo diagrama es
+#|   diagramas de caja de lado a lado de kilometraje en carretera versus tren de transmisión).
 
 p3 <- ggplot(mpg, aes(x = cty, y = hwy)) + 
   geom_point() + 
