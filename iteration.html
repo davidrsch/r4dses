@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>R para la Ciencia de Datos (2e) - 26&nbsp; Iteración</title>
@@ -430,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#nombres-de-columna" id="toc-nombres-de-columna" class="nav-link" data-scroll-target="#nombres-de-columna"><span class="header-section-number">26.2.4</span> Nombres de columna</a></li>
   <li><a href="#filtrando" id="toc-filtrando" class="nav-link" data-scroll-target="#filtrando"><span class="header-section-number">26.2.5</span> Filtrando</a></li>
   <li><a href="#across-en-funciones" id="toc-across-en-funciones" class="nav-link" data-scroll-target="#across-en-funciones"><span class="header-section-number">26.2.6</span> <code>across()</code> en funciones</a></li>
-  <li><a href="#vs-pivot_longer" id="toc-vs-pivot_longer" class="nav-link" data-scroll-target="#vs-pivot_longer"><span class="header-section-number">26.2.7</span> Vs <code>pivot_longer()</code></a></li>
+  <li><a href="#comparar-con-pivot_longer" id="toc-comparar-con-pivot_longer" class="nav-link" data-scroll-target="#comparar-con-pivot_longer"><span class="header-section-number">26.2.7</span> Comparar con <code>pivot_longer()</code></a></li>
   <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios"><span class="header-section-number">26.2.8</span> Ejercicios</a></li>
   </ul>
 </li>
@@ -787,8 +787,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 4 Premium   0.892  5.97  5.94  3.65 13791</span></span>
 <span><span class="co">#&gt; 5 Ideal     0.703  5.51  5.52  3.40 21551</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="vs-pivot_longer" class="level3" data-number="26.2.7"><h3 data-number="26.2.7" class="anchored" data-anchor-id="vs-pivot_longer">
-<span class="header-section-number">26.2.7</span> Vs <code>pivot_longer()</code>
+</section><section id="comparar-con-pivot_longer" class="level3" data-number="26.2.7"><h3 data-number="26.2.7" class="anchored" data-anchor-id="comparar-con-pivot_longer">
+<span class="header-section-number">26.2.7</span> Comparar con <code>pivot_longer()</code>
 </h3>
 <p>Antes de continuar, vale la pena señalar una conexión interesante entre <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> y <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> (<a href="data-tidy.html#sec-pivoting" class="quarto-xref"><span>Sección 5.3</span></a>). En muchos casos, usted realiza los mismos cálculos girando primero los datos y luego realizando las operaciones por grupo en lugar de por columna. Por ejemplo, tome este resumen multifunción:</p>
 <div class="cell">
@@ -1318,9 +1318,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1  1967   142</span></span>
 <span><span class="co">#&gt; 2  1977   142</span></span>
 <span><span class="co">#&gt; 3  1987   142</span></span>
-<span><span class="co">#&gt; 4  2007   142</span></span>
-<span><span class="co">#&gt; 5  1952   142</span></span>
-<span><span class="co">#&gt; 6  1957   142</span></span>
+<span><span class="co">#&gt; 4  1952   142</span></span>
+<span><span class="co">#&gt; 5  1957   142</span></span>
+<span><span class="co">#&gt; 6  1962   142</span></span>
 <span><span class="co">#&gt; # ℹ more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="escribir-archivos-csv" class="level3" data-number="26.4.2"><h3 data-number="26.4.2" class="anchored" data-anchor-id="escribir-archivos-csv">
