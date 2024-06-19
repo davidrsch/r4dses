@@ -575,7 +575,7 @@ Para leerlos correctamente, especifica la codificación a través del argumento 
 read_csv(x1, locale = locale(encoding = "Latin1"))$text
 #> [1] "El Ni\xf1o fue particularmente malo este año"
 
-read_csvread_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
+read_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
 #> [1] "こんにちは"
 ```
 
