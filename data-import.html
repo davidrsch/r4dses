@@ -857,7 +857,7 @@ Tabla&nbsp;7.1: Datos del archivo students.csv como una tabla.
 <span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;     row   col expected actual file                            </span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                           </span></span>
-<span><span class="co">#&gt; 1     3     1 a double .      /tmp/RtmpSIqzCp/file1ab33000f9c5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1     3     1 a double .      /tmp/Rtmpu8KwsT/file54725d26179b</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esto nos dice que hubo un problema en la fila 3, columna 1 donde readr esperaba un doble pero obtuvo un <code>.</code>. Eso sugiere que este conjunto de datos usa <code>.</code> para valores faltantes. Entonces establecemos <code>na = "."</code>, la adivinación automática tiene éxito, dándonos la columna numérica que queremos:</p>
 <div class="cell">

@@ -582,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"diamonds"</span><span class="op">)</span></span>
 <span><span class="va">diamonds_db</span></span>
 <span><span class="co">#&gt; # Source:   table&lt;diamonds&gt; [?? x 10]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1021-azure:R 4.4.0/:memory:]</span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1022-azure:R 4.4.0/:memory:]</span></span>
 <span><span class="co">#&gt;   carat cut       color clarity depth table price     x     y     z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43</span></span>
@@ -619,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">big_diamonds_db</span></span>
 <span><span class="co">#&gt; # Source:   SQL [?? x 5]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1021-azure:R 4.4.0/:memory:]</span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1022-azure:R 4.4.0/:memory:]</span></span>
 <span><span class="co">#&gt;   carat cut       color clarity price</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1  1.54 Premium   E     VS2     15002</span></span>
@@ -847,15 +847,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; Use `na.rm = TRUE` to silence this warning</span></span>
 <span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
 <span><span class="co">#&gt; # Source:   SQL [?? x 2]</span></span>
-<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1021-azure:R 4.4.0/:memory:]</span></span>
-<span><span class="co">#&gt;   dest   delay</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 IAH    4.24 </span></span>
-<span><span class="co">#&gt; 2 BQN    8.25 </span></span>
-<span><span class="co">#&gt; 3 ATL   11.3  </span></span>
-<span><span class="co">#&gt; 4 MCO    5.45 </span></span>
-<span><span class="co">#&gt; 5 LAS    0.258</span></span>
-<span><span class="co">#&gt; 6 PHX    2.10 </span></span>
+<span><span class="co">#&gt; # Database: DuckDB v0.10.2 [unknown@Linux 6.5.0-1022-azure:R 4.4.0/:memory:]</span></span>
+<span><span class="co">#&gt;   dest  delay</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 SFO    2.67</span></span>
+<span><span class="co">#&gt; 2 GSP   15.9 </span></span>
+<span><span class="co">#&gt; 3 SJU    2.52</span></span>
+<span><span class="co">#&gt; 4 DCA    9.07</span></span>
+<span><span class="co">#&gt; 5 SNA   -7.87</span></span>
+<span><span class="co">#&gt; 6 GSO   14.1 </span></span>
 <span><span class="co">#&gt; # ℹ more rows</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Si desea obtener más información sobre cómo funcionan los valores <code>NULL</code>, puede disfrutar de “<a href="https://modern-sql.com/concept/three-valued-logic"><em>La lógica de tres valores de SQL</em></a>” de Markus Winand.</p>
