@@ -11,7 +11,7 @@ source("_common.R")
 > "Las familias felices son todas iguales; cada familia infeliz es infeliz a su manera."\
 > --- Leo Tolstoy
 
-> "TLos conjuntos de datos ordenados son todos iguales, pero cada conjunto de datos desordenado es desordenado a su manera."\
+> "Los conjuntos de datos ordenados son todos iguales, pero cada conjunto de datos desordenado es desordenado a su manera."\
 > --- Hadley Wickham
 
 En este capítulo, aprenderá una forma consistente de organizar sus datos en R utilizando un sistema llamado **tidy data** (datos ordenados).
