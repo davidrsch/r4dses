@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
-<title>R para la Ciencia de Datos (2e) - 13&nbsp; Números</title>
+<title>13&nbsp; Números – R para la Ciencia de Datos (2e)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./numbers.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Números</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
     <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -754,7 +754,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-prop-cancelled" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un gráfico de líneas que muestra cómo cambia la proporción de vuelos cancelados a lo largo de el transcurso del día. La proporción comienza baja en torno al 0,5% en 5 a.m., luego aumenta constantemente a lo largo del día hasta alcanzar su punto máximo el 4% a las 19 h. La proporción de vuelos cancelados cae rápidamente bajando a alrededor del 1% para la medianoche.">
+<div id="fig-prop-cancelled" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un gráfico de líneas que muestra cómo cambia la proporción de vuelos cancelados a lo largo de el transcurso del día. La proporción comienza baja en torno al 0,5% en 5 a.m., luego aumenta constantemente a lo largo del día hasta alcanzar su punto máximo el 4% a las 19 h. La proporción de vuelos cancelados cae rápidamente bajando a alrededor del 1% para la medianoche.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-prop-cancelled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="numbers_files/figure-html/fig-prop-cancelled-1.png" class="img-fluid figure-img" alt="Un gráfico de líneas que muestra cómo cambia la proporción de vuelos cancelados a lo largo de el transcurso del día. La proporción comienza baja en torno al 0,5% en 5 a.m., luego aumenta constantemente a lo largo del día hasta alcanzar su punto máximo el 4% a las 19 h. La proporción de vuelos cancelados cae rápidamente bajando a alrededor del 1% para la medianoche." width="576">
 </div>
@@ -1072,7 +1072,7 @@ Figura&nbsp;13.1: Un gráfico de líneas con la hora de salida programada en el 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-mean-vs-median" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Todos los puntos caen por debajo de una línea de 45°, lo que significa que el retraso mediano es siempre menor que el retraso medio. La mayoría de los puntos están agrupados en un región densa de media [0, 20] y mediana [-5, 5]. como el retraso medio aumenta, la dispersión de la mediana también aumenta. Hay dos puntos periféricos con media ~60, mediana ~30 y media ~85, mediana ~55.">
+<div id="fig-mean-vs-median" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Todos los puntos caen por debajo de una línea de 45°, lo que significa que el retraso mediano es siempre menor que el retraso medio. La mayoría de los puntos están agrupados en un región densa de media [0, 20] y mediana [-5, 5]. como el retraso medio aumenta, la dispersión de la mediana también aumenta. Hay dos puntos periféricos con media ~60, mediana ~30 y media ~85, mediana ~55.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-mean-vs-median-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="numbers_files/figure-html/fig-mean-vs-median-1.png" class="img-fluid figure-img" alt="Todos los puntos caen por debajo de una línea de 45°, lo que significa que el retraso mediano es siempre menor que el retraso medio. La mayoría de los puntos están agrupados en un región densa de media [0, 20] y mediana [-5, 5]. como el retraso medio aumenta, la dispersión de la mediana también aumenta. Hay dos puntos periféricos con media ~60, mediana ~30 y media ~85, mediana ~55." width="576">
 </div>
@@ -1131,7 +1131,7 @@ Figura&nbsp;13.2: Un diagrama de dispersión que muestra las diferencias de resu
 <p><a href="#fig-flights-dist" class="quarto-xref">Figura&nbsp;<span>13.3</span></a> muestra la distribución general de los retrasos en las salidas. La distribución está tan sesgada que tenemos que acercarnos para ver la mayor parte de los datos. Esto sugiere que es poco probable que la media sea un buen resumen y que preferiríamos la mediana en su lugar.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-flights-dist" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Dos histogramas de `dep_delay`. A la izquierda, es muy difícil de ver cualquier patrón excepto que hay un pico muy grande alrededor de cero, las barras decaen rápidamente en altura, y durante la mayor parte de la gráfica, no se pueden ver las barras porque son demasiado cortas para verlas. A la derecha, donde hemos descartado retrasos superiores a dos horas, podemos ver que el pico se produce ligeramente por debajo de cero (es decir, la mayoría de los vuelos salen un par de minutos antes), pero todavía hay una pendiente muy empinada que decaee después de eso. ">
+<div id="fig-flights-dist" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dos histogramas de `dep_delay`. A la izquierda, es muy difícil de ver cualquier patrón excepto que hay un pico muy grande alrededor de cero, las barras decaen rápidamente en altura, y durante la mayor parte de la gráfica, no se pueden ver las barras porque son demasiado cortas para verlas. A la derecha, donde hemos descartado retrasos superiores a dos horas, podemos ver que el pico se produce ligeramente por debajo de cero (es decir, la mayoría de los vuelos salen un par de minutos antes), pero todavía hay una pendiente muy empinada que decaee después de eso. ">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-flights-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="numbers_files/figure-html/fig-flights-dist-1.png" class="img-fluid figure-img" alt="Dos histogramas de `dep_delay`. A la izquierda, es muy difícil de ver cualquier patrón excepto que hay un pico muy grande alrededor de cero, las barras decaen rápidamente en altura, y durante la mayor parte de la gráfica, no se pueden ver las barras porque son demasiado cortas para verlas. A la derecha, donde hemos descartado retrasos superiores a dos horas, podemos ver que el pico se produce ligeramente por debajo de cero (es decir, la mayoría de los vuelos salen un par de minutos antes), pero todavía hay una pendiente muy empinada que decaee después de eso. " width="576">
 </div>
@@ -1333,18 +1333,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1376,7 +1365,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1384,7 +1395,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

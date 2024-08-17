@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
-<title>R para la Ciencia de Datos (2e) - 11&nbsp; Comunicación</title>
+<title>11&nbsp; Comunicación – R para la Ciencia de Datos (2e)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./visualize.html">Visualizar</a></li><li class="breadcrumb-item"><a href="./communication.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Comunicación</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
     <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -900,7 +900,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Las escalas ColorBrewer están documentadas en línea en <a href="https://colorbrewer2.org/" class="uri">https://colorbrewer2.org/</a> y están disponibles en R a través del paquete <strong>RColorBrewer</strong>, de Erich Neuwirth. <a href="#fig-brewer" class="quarto-xref">Figura&nbsp;<span>11.1</span></a> muestra la lista completa de todas las paletas. Las paletas secuencial (superior) y divergente (inferior) son particularmente útiles si sus valores categóricos están ordenados o tienen un “medio”. Esto suele ocurrir si ha utilizado <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> para convertir una variable continua en una variable categórica.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-brewer" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Todas las escalas colorBrewer. Un grupo va de colores claros a oscuros. Otro grupo es un conjunto de colores no ordinales. Y el último grupo tiene escalas divergentes (de oscuro a claro y de nuevo a oscuro). Dentro de cada conjunto hay varias paletas.">
+<div id="fig-brewer" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Todas las escalas colorBrewer. Un grupo va de colores claros a oscuros. Otro grupo es un conjunto de colores no ordinales. Y el último grupo tiene escalas divergentes (de oscuro a claro y de nuevo a oscuro). Dentro de cada conjunto hay varias paletas.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-brewer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="communication_files/figure-html/fig-brewer-1.png" class="img-fluid figure-img" alt="Todas las escalas colorBrewer. Un grupo va de colores claros a oscuros. Otro grupo es un conjunto de colores no ordinales. Y el último grupo tiene escalas divergentes (de oscuro a claro y de nuevo a oscuro). Dentro de cada conjunto hay varias paletas." width="576">
 </div>
@@ -1122,7 +1122,7 @@ Figura&nbsp;11.1: All colorBrewer scales.
 <p>ggplot2 incluye los ocho temas que se muestran en <a href="#fig-themes" class="quarto-xref">Figura&nbsp;<span>11.2</span></a>, con <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray()</a></code> como predeterminado.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Muchos más están incluidos en paquetes complementarios como <strong>ggthemes</strong> (<a href="https://jrnold.github.io/ggthemes" class="uri">https://jrnold.github.io/ggthemes</a>), de Jeffrey Arnold. También puede crear sus propios temas, si está tratando de hacer coincidir un estilo corporativo o de revista en particular.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-themes" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ocho gráficos de barras creados con ggplot2, cada uno con uno de los ocho temas integrados: theme_bw() - Fondo blanco con líneas de cuadrícula, theme_light() - Ejes de luz y líneas de cuadrícula, theme_classic() - Tema clásico, ejes pero sin cuadrícula líneas, theme_linedraw() - Solo líneas negras, theme_dark() - Fondo oscuro para contraste, theme_minimal() - Tema mínimo, sin fondo, theme_gray() - Fondo gris (tema predeterminado), theme_void() - Tema vacío, solo son visibles los geoms.">
+<div id="fig-themes" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Ocho gráficos de barras creados con ggplot2, cada uno con uno de los ocho temas integrados: theme_bw() - Fondo blanco con líneas de cuadrícula, theme_light() - Ejes de luz y líneas de cuadrícula, theme_classic() - Tema clásico, ejes pero sin cuadrícula líneas, theme_linedraw() - Solo líneas negras, theme_dark() - Fondo oscuro para contraste, theme_minimal() - Tema mínimo, sin fondo, theme_gray() - Fondo gris (tema predeterminado), theme_void() - Tema vacío, solo son visibles los geoms.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-themes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/visualization-themes.png" class="img-fluid figure-img" alt="Ocho gráficos de barras creados con ggplot2, cada uno con uno de los ocho temas integrados: theme_bw() - Fondo blanco con líneas de cuadrícula, theme_light() - Ejes de luz y líneas de cuadrícula, theme_classic() - Tema clásico, ejes pero sin cuadrícula líneas, theme_linedraw() - Solo líneas negras, theme_dark() - Fondo oscuro para contraste, theme_minimal() - Tema mínimo, sin fondo, theme_gray() - Fondo gris (tema predeterminado), theme_void() - Tema vacío, solo son visibles los geoms." width="1600">
 </div>
@@ -1382,18 +1382,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1425,7 +1414,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1433,7 +1444,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

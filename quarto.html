@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
-<title>R para la Ciencia de Datos (2e) - 28&nbsp; Quarto</title>
+<title>28&nbsp; Quarto – R para la Ciencia de Datos (2e)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./communicate.html">Comunicar</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Quarto</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
     <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -555,7 +555,7 @@ smaller |&gt;
 <p><a href="#fig-diamond-sizes-notebook" class="quarto-xref">Figura&nbsp;<span>28.1</span></a> muestra un documento <code>.qmd</code> en RStudio con interfaz de notebook donde el código y la salida están intercalados. Puede ejecutar cada fragmento de código haciendo clic en el ícono Ejecutar (parece un botón de reproducción en la parte superior del fragmento), o presionando Cmd/Ctrl + Shift + Enter. RStudio ejecuta el código y muestra los resultados en línea con el código.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-notebook" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso.">
+<div id="fig-diamond-sizes-notebook" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-notebook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="quarto/diamond-sizes-notebook.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y una ventana de visor en blanco a la derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico muestra que la frecuencia disminuye a medida que aumenta el peso.">
 </div>
@@ -568,7 +568,7 @@ Figura&nbsp;28.1: Un documento de Quarto en RStudio. Código y salida intercalad
 <p>Si no le gusta ver sus gráficos y resultados en su documento y prefiere utilizar la consola y los paneles de gráficos de RStudio, puede hacer clic en el icono de engranaje junto a “Render” y cambiar a “Chunk Output in Console”, como se muestra en <a href="#fig-diamond-sizes-console-output" class="quarto-xref">Figura&nbsp;<span>28.2</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-console-output" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada.">
+<div id="fig-diamond-sizes-console-output" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-console-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="quarto/diamond-sizes-console-output.png" class="img-fluid figure-img" style="width:90.0%" alt="Ventana de RStudio con un documento de Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento Quarto tiene un fragmento de código que crea un gráfico de frecuencia de diamantes que pesan menos de 2,5 quilates. El gráfico se muestra en el panel Gráfico y muestra que la frecuencia disminuye a medida que aumenta el peso. La opción RStudio para mostrar Chunk Output en Console también está resaltada.">
 </div>
@@ -581,7 +581,7 @@ Figura&nbsp;28.2: Un documento Quarto en RStudio con la salida del gráfico en e
 <p>Para generar un informe completo que contenga todo el texto, el código y los resultados, haga clic en “Render” o presione Cmd/Ctrl + Shift + K. También puede hacer esto mediante programación con <code>quarto::quarto_render("diamond-sizes.qmd")</code>. Esto mostrará el informe en el panel del visor como se muestra en <a href="#fig-diamond-sizes-report" class="quarto-xref">Figura&nbsp;<span>28.3</span></a> y creará un archivo HTML.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-diamond-sizes-report" class="quarto-figure quarto-figure-center quarto-float anchored" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen.">
+<div id="fig-diamond-sizes-report" class="quarto-float quarto-figure quarto-figure-center anchored" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-diamond-sizes-report-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="quarto/diamond-sizes-report.png" class="img-fluid figure-img" style="width:90.0%" alt="RVentana de Studio con un documento Quarto titulado &quot;diamond-sizes.qmd&quot; a la izquierda y el panel Gráfico en la parte inferior derecha. El documento renderizado no muestra nada del código, pero el código es visible en el documento de origen.">
 </div>
@@ -594,7 +594,7 @@ Figura&nbsp;28.3: Un documento de Quarto en RStudio con el documento renderizado
 <p>Cuando renderiza el documento, Quarto envía el archivo <code>.qmd</code> a <strong>knitr</strong>, <a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>, que ejecuta todos los fragmentos de código y crea un nuevo documento de markdown (<code>.md</code>) que incluye el código y su salida. El archivo markdown generado por knitr luego es procesado por <strong>pandoc</strong>, <a href="https://pandoc.org/" class="uri">https://pandoc.org</a>, que es responsable de crear el archivo terminado. Este proceso se muestra en <a href="#fig-quarto-flow" class="quarto-xref">Figura&nbsp;<span>28.4</span></a>. La ventaja de este flujo de trabajo de dos pasos es que puede crear una amplia gama de formatos de salida, como aprenderá en <a href="quarto-formats.html" class="quarto-xref"><span>Capítulo 29</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-quarto-flow" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. ">
+<div id="fig-quarto-flow" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. ">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-quarto-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/quarto-flow.png" class="img-fluid figure-img" style="width:75.0%" alt="Diagrama de flujo de trabajo que comienza con un archivo qmd, luego knitr, luego md, luego pandoc, luego PDF, MS Word o HTML. ">
 </div>
@@ -617,7 +617,7 @@ Figura&nbsp;28.4: Diagrama del flujo de trabajo de Quarto de qmd, a knitr, a md,
 <p>En el editor visual, puede usar los botones en la barra de menú para insertar imágenes, tablas, referencias cruzadas, etc. o puede usar el atajo general <kbd>⌘</kbd> + <kbd>/</kbd> or <kbd>Ctrl</kbd> + <kbd>/</kbd> para insertar casi cualquier cosa. Si está al comienzo de una línea (como se muestra en <a href="#fig-visual-editor" class="quarto-xref">Figura&nbsp;<span>28.5</span></a>), también puede ingresar solo <kbd>/</kbd> para invocar el atajo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-visual-editor" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta).">
+<div id="fig-visual-editor" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta).">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-visual-editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="quarto/quarto-visual-editor.png" class="img-fluid figure-img" style="width:75.0%" alt="Un documento Quarto que muestra varias funciones del editor visual, como formato de texto (cursiva, negrita, subrayado, versalitas, código, superíndice y subíndice), encabezados de primer a tercer nivel, listas numeradas y con viñetas, enlaces, frases vinculadas e imágenes (junto con una ventana emergente para personalizar el tamaño de la imagen, agregar un título y texto alternativo, etc.), tablas con una fila de encabezado y la herramienta Insertar cualquier cosa con opciones para insertar un fragmento de código R, un fragmento de código Python, un div, una lista con viñetas, una lista numerada o un encabezado de primer nivel (las primeras opciones de la herramienta).">
 </div>
@@ -976,7 +976,7 @@ superscript^2^ subscript~2~
 <p>Si prefiere que los datos se muestren con un formato adicional, puede usar la función <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>. El siguiente código genera <a href="#tbl-kable" class="quarto-xref">Tabla&nbsp;<span>28.1</span></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, <span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-kable" class="cell quarto-float anchored">
+<div id="tbl-kable" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabla&nbsp;28.1: A knitr kable.
 </figcaption><div aria-describedby="tbl-kable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1367,18 +1367,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1410,7 +1399,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1418,7 +1429,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

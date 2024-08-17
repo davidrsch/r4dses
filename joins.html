@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
-<title>R para la Ciencia de Datos (2e) - 19&nbsp; Uniones</title>
+<title>19&nbsp; Uniones – R para la Ciencia de Datos (2e)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">Transformar</a></li><li class="breadcrumb-item"><a href="./joins.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Uniones</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="./">R para la Ciencia de Datos (2e)</a> 
         <div class="sidebar-tools-main">
     <div class="dropdown">
-      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/hadley/r4ds">
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">El Juego Completo</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Programa</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comunicar</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Alternar sección">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -581,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Estas relaciones se resumen visualmente en <a href="#fig-flights-relationships" class="quarto-xref">Figura&nbsp;<span>19.1</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-flights-relationships" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Las relaciones entre aeropuertos, aviones, vuelos, clima y conjuntos de datos de aerolíneas del paquete nycflights13. airports$faa conectados a los flights$origin y flights$dest. planes$tailnum está conectado a los flights$tailnum. weather$time_hour y weather$origin están conectados conjuntamente con los flights$time_hour y los flights$origin. airlines$carrier está conectado a flights$carrier. No hay conexiones directas entre aeropuertos, aviones, aerolíneas y marcos de datos meteorológicos.">
+<div id="fig-flights-relationships" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Las relaciones entre aeropuertos, aviones, vuelos, clima y conjuntos de datos de aerolíneas del paquete nycflights13. airports$faa conectados a los flights$origin y flights$dest. planes$tailnum está conectado a los flights$tailnum. weather$time_hour y weather$origin están conectados conjuntamente con los flights$time_hour y los flights$origin. airlines$carrier está conectado a flights$carrier. No hay conexiones directas entre aeropuertos, aviones, aerolíneas y marcos de datos meteorológicos.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-flights-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/relational.png" class="img-fluid figure-img" alt="Las relaciones entre aeropuertos, aviones, vuelos, clima y conjuntos de datos de aerolíneas del paquete nycflights13. airports$faa conectados a los flights$origin y flights$dest. planes$tailnum está conectado a los flights$tailnum. weather$time_hour y weather$origin están conectados conjuntamente con los flights$time_hour y los flights$origin. airlines$carrier está conectado a flights$carrier. No hay conexiones directas entre aeropuertos, aviones, aerolíneas y marcos de datos meteorológicos." width="502">
 </div>
@@ -941,7 +941,7 @@ Figura&nbsp;19.1: Conexiones entre los cinco marcos de datos en el paquete nycfl
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-setup" class="quarto-figure quarto-figure-center quarto-float anchored" alt="x e y son dos marcos de datos con 2 columnas y 3 filas, con contenidos como se describe en el texto. Los valores de las claves están coloreados: 1 es verde, 2 es morado, 3 es naranja y 4 es amarillo.">
+<div id="fig-join-setup" class="quarto-float quarto-figure quarto-figure-center anchored" alt="x e y son dos marcos de datos con 2 columnas y 3 filas, con contenidos como se describe en el texto. Los valores de las claves están coloreados: 1 es verde, 2 es morado, 3 es naranja y 4 es amarillo.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/setup.png" class="img-fluid figure-img" alt="x e y son dos marcos de datos con 2 columnas y 3 filas, con contenidos como se describe en el texto. Los valores de las claves están coloreados: 1 es verde, 2 es morado, 3 es naranja y 4 es amarillo." width="160">
 </div>
@@ -954,7 +954,7 @@ Figura&nbsp;19.2: Representación gráfica de dos tablas simples. Las columnas <
 <p><a href="#fig-join-setup2" class="quarto-xref">Figura&nbsp;<span>19.3</span></a> introduce la base para nuestra representación visual. Muestra todas las posibles coincidencias entre <code>x</code> e <code>y</code> como la intersección entre las líneas dibujadas desde cada fila de <code>x</code> y cada fila de <code>y</code>. Las filas y columnas en la salida están determinadas principalmente por <code>x</code>, por lo que la tabla <code>x</code> es horizontal y se alinea con la salida.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-setup2" class="quarto-figure quarto-figure-center quarto-float anchored" alt="x e y se colocan en ángulo recto, con líneas horizontales que se extienden desde x y líneas verticales que se extienden desde y. Hay 3 filas en x y 3 filas en y, lo que lleva a nueve intersecciones que representan nueve posibles coincidencias.">
+<div id="fig-join-setup2" class="quarto-float quarto-figure quarto-figure-center anchored" alt="x e y se colocan en ángulo recto, con líneas horizontales que se extienden desde x y líneas verticales que se extienden desde y. Hay 3 filas en x y 3 filas en y, lo que lleva a nueve intersecciones que representan nueve posibles coincidencias.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-setup2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/setup2.png" class="img-fluid figure-img" alt="x e y se colocan en ángulo recto, con líneas horizontales que se extienden desde x y líneas verticales que se extienden desde y. Hay 3 filas en x y 3 filas en y, lo que lleva a nueve intersecciones que representan nueve posibles coincidencias." width="170">
 </div>
@@ -967,7 +967,7 @@ Figura&nbsp;19.3: Para comprender cómo funcionan las uniones, es útil pensar e
 <p>Para describir un tipo específico de combinación, indicamos coincidencias con puntos. Las coincidencias determinan las filas en la salida, un nuevo marco de datos que contiene la clave, los valores x y los valores y. Por ejemplo, <a href="#fig-join-inner" class="quarto-xref">Figura&nbsp;<span>19.4</span></a> muestra una combinación interna, donde las filas se retienen si y solo si las claves son iguales.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-inner" class="quarto-figure quarto-figure-center quarto-float anchored" alt="x e y se colocan en ángulo recto con líneas que forman una cuadrícula de coincidencias potenciales. Las claves 1 y 2 aparecen tanto en x como en y, por lo que obtenemos una coincidencia, indicada por un punto. Cada punto corresponde a una fila en la salida, por lo que el marco de datos combinado resultante tiene dos filas.">
+<div id="fig-join-inner" class="quarto-float quarto-figure quarto-figure-center anchored" alt="x e y se colocan en ángulo recto con líneas que forman una cuadrícula de coincidencias potenciales. Las claves 1 y 2 aparecen tanto en x como en y, por lo que obtenemos una coincidencia, indicada por un punto. Cada punto corresponde a una fila en la salida, por lo que el marco de datos combinado resultante tiene dos filas.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-inner-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/inner.png" class="img-fluid figure-img" alt="x e y se colocan en ángulo recto con líneas que forman una cuadrícula de coincidencias potenciales. Las claves 1 y 2 aparecen tanto en x como en y, por lo que obtenemos una coincidencia, indicada por un punto. Cada punto corresponde a una fila en la salida, por lo que el marco de datos combinado resultante tiene dos filas." width="363">
 </div>
@@ -983,7 +983,7 @@ Figura&nbsp;19.4: Una unión interna hace coincidir cada fila en <code>x</code> 
 <p>Una <strong>unión izquierda</strong> mantiene todas las observaciones en <code>x</code>, <a href="#fig-join-left" class="quarto-xref">Figura&nbsp;<span>19.5</span></a>. Cada fila de <code>x</code> se conserva en la salida porque puede volver a coincidir con una fila de <code>NA</code>s en <code>y</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-left" class="quarto-figure quarto-figure-center quarto-float anchored" alt="En comparación con el diagrama anterior que muestra una combinación interna, la tabla y obtiene una nueva fila virtual que contiene NA que coincidirá con cualquier fila en x que de otro modo no coincidiría. Esto significa que la salida ahora tiene tres filas. Para key = 3, que coincide con esta fila virtual, val_y toma el valor NA.">
+<div id="fig-join-left" class="quarto-float quarto-figure quarto-figure-center anchored" alt="En comparación con el diagrama anterior que muestra una combinación interna, la tabla y obtiene una nueva fila virtual que contiene NA que coincidirá con cualquier fila en x que de otro modo no coincidiría. Esto significa que la salida ahora tiene tres filas. Para key = 3, que coincide con esta fila virtual, val_y toma el valor NA.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-left-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/left.png" class="img-fluid figure-img" alt="En comparación con el diagrama anterior que muestra una combinación interna, la tabla y obtiene una nueva fila virtual que contiene NA que coincidirá con cualquier fila en x que de otro modo no coincidiría. Esto significa que la salida ahora tiene tres filas. Para key = 3, que coincide con esta fila virtual, val_y toma el valor NA." width="385">
 </div>
@@ -998,7 +998,7 @@ Figura&nbsp;19.5: Una representación visual de la combinación izquierda donde 
 <p>Una <strong>unión derecha</strong> mantiene todas las observaciones en <code>y</code>, <a href="#fig-join-right" class="quarto-xref">Figura&nbsp;<span>19.6</span></a>. Cada fila de <code>y</code> se conserva en la salida porque puede volver a hacer coincidir una fila de <code>NA</code>s en <code>x</code>. La salida aún coincide con <code>x</code> tanto como sea posible; cualquier fila adicional de <code>y</code> se agrega al final.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-right" class="quarto-figure quarto-figure-center quarto-float anchored" alt="En comparación con el diagrama anterior que muestra una combinación izquierda, la tabla x ahora gana una fila virtual para que cada fila en y tenga una coincidencia en x. val x contiene NAN para la fila en y que no coincide con x.">
+<div id="fig-join-right" class="quarto-float quarto-figure quarto-figure-center anchored" alt="En comparación con el diagrama anterior que muestra una combinación izquierda, la tabla x ahora gana una fila virtual para que cada fila en y tenga una coincidencia en x. val x contiene NAN para la fila en y que no coincide con x.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-right-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/right.png" class="img-fluid figure-img" alt="En comparación con el diagrama anterior que muestra una combinación izquierda, la tabla x ahora gana una fila virtual para que cada fila en y tenga una coincidencia en x. val x contiene NAN para la fila en y que no coincide con x." width="380">
 </div>
@@ -1013,7 +1013,7 @@ Figura&nbsp;19.6: Una representación visual de la combinación correcta donde c
 <p>Una <strong>combinación completa</strong> mantiene todas las observaciones que aparecen en <code>x</code> o <code>y</code>, <a href="#fig-join-full" class="quarto-xref">Figura&nbsp;<span>19.7</span></a>. Cada fila de <code>x</code> e <code>y</code> se incluye en la salida porque tanto <code>x</code> como <code>y</code> tienen una fila de reserva de <code>NA</code>. Una vez más, la salida comienza con todas las filas desde <code>x</code>, seguidas de las filas restantes <code>y</code> no coincidentes.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-full" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Ahora tanto x como y tienen una fila virtual que siempre coincide. El resultado tiene 4 filas: llaves 1, 2, 3 y 4 con todos los valores de val_x y val_y, sin embargo, la llave 2, val_y y la llave 4, val_x son NA ya que esas llaves no coinciden con los otros marcos de datos.">
+<div id="fig-join-full" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Ahora tanto x como y tienen una fila virtual que siempre coincide. El resultado tiene 4 filas: llaves 1, 2, 3 y 4 con todos los valores de val_x y val_y, sin embargo, la llave 2, val_y y la llave 4, val_x son NA ya que esas llaves no coinciden con los otros marcos de datos.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-full-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/full.png" class="img-fluid figure-img" alt="Ahora tanto x como y tienen una fila virtual que siempre coincide. El resultado tiene 4 filas: llaves 1, 2, 3 y 4 con todos los valores de val_x y val_y, sin embargo, la llave 2, val_y y la llave 4, val_x son NA ya que esas llaves no coinciden con los otros marcos de datos." width="388">
 </div>
@@ -1028,7 +1028,7 @@ Figura&nbsp;19.7: Una representación visual de la combinación completa donde c
 <p>Otra forma de mostrar cómo difieren los tipos de unión externa es con un diagrama de Venn, como en <a href="#fig-join-venn" class="quarto-xref">Figura&nbsp;<span>19.8</span></a>. Sin embargo, esta no es una gran representación porque, si bien puede refrescar su memoria sobre qué filas se conservan, no ilustra lo que sucede con las columnas.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-venn" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Diagramas de Venn para uniones internas, completas, izquierdas y derechas. Cada unión representada con dos círculos que se cruzan que representan marcos de datos x e y, con x a la derecha e y a la izquierda. El sombreado indica el resultado de la unión.">
+<div id="fig-join-venn" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Diagramas de Venn para uniones internas, completas, izquierdas y derechas. Cada unión representada con dos círculos que se cruzan que representan marcos de datos x e y, con x a la derecha e y a la izquierda. El sombreado indica el resultado de la unión.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-venn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/venn.png" class="img-fluid figure-img" alt="Diagramas de Venn para uniones internas, completas, izquierdas y derechas. Cada unión representada con dos círculos que se cruzan que representan marcos de datos x e y, con x a la derecha e y a la izquierda. El sombreado indica el resultado de la unión." width="385">
 </div>
@@ -1044,7 +1044,7 @@ Figura&nbsp;19.8: Diagramas de Venn que muestran la diferencia entre uniones int
 <p>Hasta ahora hemos explorado lo que sucede si una fila en <code>x</code> coincide con cero o una fila en <code>y</code>. ¿Qué sucede si coincide con más de una fila? Para comprender lo que sucede, primero limitemos nuestro enfoque a <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> y luego dibujemos una imagen, <a href="#fig-join-match-types" class="quarto-xref">Figura&nbsp;<span>19.9</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-match-types" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un diagrama de combinación donde x tiene valores clave 1, 2 y 3, e y tiene valores clave 1, 2, 2. La salida tiene tres filas porque la clave 1 coincide con una fila, la clave 2 coincide con dos filas y la clave 3 coincide con cero filas.">
+<div id="fig-join-match-types" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un diagrama de combinación donde x tiene valores clave 1, 2 y 3, e y tiene valores clave 1, 2, 2. La salida tiene tres filas porque la clave 1 coincide con una fila, la clave 2 coincide con dos filas y la clave 3 coincide con cero filas.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-match-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/match-types.png" class="img-fluid figure-img" alt="Un diagrama de combinación donde x tiene valores clave 1, 2 y 3, e y tiene valores clave 1, 2, 2. La salida tiene tres filas porque la clave 1 coincide con una fila, la clave 2 coincide con dos filas y la clave 3 coincide con cero filas." width="348">
 </div>
@@ -1089,7 +1089,7 @@ Figura&nbsp;19.9: Las tres formas en que una fila en <code>x</code> puede coinci
 <p>El número de coincidencias también determina el comportamiento de las uniones de filtrado. El semi-join mantiene filas en <code>x</code> que tienen una o más coincidencias en <code>y</code>, como en <a href="#fig-join-semi" class="quarto-xref">Figura&nbsp;<span>19.10</span></a>. El anti-join mantiene filas en <code>x</code> que coinciden con cero filas en <code>y</code>, como en <a href="#fig-join-anti" class="quarto-xref">Figura&nbsp;<span>19.11</span></a>. En ambos casos, solo es importante la existencia de una coincidencia; no importa cuantas veces coincida. Esto significa que las uniones de filtrado nunca duplican filas como lo hacen las uniones mutantes.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-semi" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un diagrama de unión con viejos amigos x e y. En una combinación semi, solo importa la presencia de una coincidencia, por lo que la salida contiene las mismas columnas que x.">
+<div id="fig-join-semi" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un diagrama de unión con viejos amigos x e y. En una combinación semi, solo importa la presencia de una coincidencia, por lo que la salida contiene las mismas columnas que x.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-semi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/semi.png" class="img-fluid figure-img" alt="Un diagrama de unión con viejos amigos x e y. En una combinación semi, solo importa la presencia de una coincidencia, por lo que la salida contiene las mismas columnas que x." width="318">
 </div>
@@ -1101,7 +1101,7 @@ Figura&nbsp;19.10: En un semi-join solo importa que haya coincidencia; de lo con
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-anti" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un anti-join es lo contrario de un semi-join, por lo que las coincidencias se dibujan con líneas rojas que indican que se eliminarán de la salida.">
+<div id="fig-join-anti" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un anti-join es lo contrario de un semi-join, por lo que las coincidencias se dibujan con líneas rojas que indican que se eliminarán de la salida.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-anti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/anti.png" class="img-fluid figure-img" alt="Un anti-join es lo contrario de un semi-join, por lo que las coincidencias se dibujan con líneas rojas que indican que se eliminarán de la salida." width="317">
 </div>
@@ -1125,7 +1125,7 @@ Figura&nbsp;19.11: Un anti-join es lo contrario de un semi-join, eliminando fila
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-inner-both" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un diagrama de unión que muestra una unión interna entre x e y. El resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. Los valores de key.x y key.y son idénticos, por lo que generalmente solo mostramos uno. ">
+<div id="fig-inner-both" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un diagrama de unión que muestra una unión interna entre x e y. El resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. Los valores de key.x y key.y son idénticos, por lo que generalmente solo mostramos uno. ">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-inner-both-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/inner-both.png" class="img-fluid figure-img" alt="Un diagrama de unión que muestra una unión interna entre x e y. El resultado ahora incluye cuatro columnas: key.x, val_x, key.y y val_y. Los valores de key.x y key.y son idénticos, por lo que generalmente solo mostramos uno. " width="415">
 </div>
@@ -1138,7 +1138,7 @@ Figura&nbsp;19.12: Una combinación interna que muestra <code>x</code> e <code>y
 <p>Cuando nos alejamos de las combinaciones de igualdad, siempre mostraremos las claves, porque los valores de las claves a menudo serán diferentes. Por ejemplo, en lugar de hacer coincidir solo cuando la <code>x$key</code> y la <code>y$key</code> son iguales, podríamos hacer coincidir siempre que la <code>x$key</code> sea mayor o igual que la <code>y$key</code>, lo que lleva a <a href="#fig-join-gte" class="quarto-xref">Figura&nbsp;<span>19.13</span></a>. Las funciones de combinación de dplyr entienden esta distinción entre combinaciones equi y no equi, por lo que siempre mostrará ambas teclas cuando realice una combinación no equi.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-gte" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un diagrama de unión que ilustra join_by(key >= key). La primera fila de x coincide con una fila de y y la segunda y la tercera fila coinciden con dos filas. Esto significa que la salida tiene cinco filas que contienen cada uno de los siguientes pares (key.x, key.y): (1, 1), (2, 1), (2, 2), (3, 1), (3, 2).">
+<div id="fig-join-gte" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un diagrama de unión que ilustra join_by(key >= key). La primera fila de x coincide con una fila de y y la segunda y la tercera fila coinciden con dos filas. Esto significa que la salida tiene cinco filas que contienen cada uno de los siguientes pares (key.x, key.y): (1, 1), (2, 1), (2, 2), (3, 1), (3, 2).">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-gte-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/gte.png" class="img-fluid figure-img" alt="Un diagrama de unión que ilustra join_by(key >= key). La primera fila de x coincide con una fila de y y la segunda y la tercera fila coinciden con dos filas. Esto significa que la salida tiene cinco filas que contienen cada uno de los siguientes pares (key.x, key.y): (1, 1), (2, 1), (2, 2), (3, 1), (3, 2)." width="385">
 </div>
@@ -1165,7 +1165,7 @@ Figura&nbsp;19.13: Una combinación no equitativa en la que la tecla <code>x</co
 <p>Una unión cruzada coincide con todo, como en <a href="#fig-join-cross" class="quarto-xref">Figura&nbsp;<span>19.14</span></a>, generando el producto cartesiano de filas. Esto significa que la salida tendrá filas <code>nrow(x) * nrow(y)</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-cross" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Un diagrama de unión que muestra un punto para cada combinación de x e y.">
+<div id="fig-join-cross" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Un diagrama de unión que muestra un punto para cada combinación de x e y.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-cross-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/cross.png" class="img-fluid figure-img" alt="Un diagrama de unión que muestra un punto para cada combinación de x e y." width="155">
 </div>
@@ -1195,7 +1195,7 @@ Figura&nbsp;19.14: Una combinación cruzada hace coincidir cada fila en <code>x<
 <p>Las uniones de desigualdad usan <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code> o <code>&gt;</code> para restringir el conjunto de posibles coincidencias, como en <a href="#fig-join-gte" class="quarto-xref">Figura&nbsp;<span>19.13</span></a> y <a href="#fig-join-lt" class="quarto-xref">Figura&nbsp;<span>19.15</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-lt" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-join-lt" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-lt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/lt.png" class="img-fluid figure-img" width="185">
 </div>
@@ -1225,7 +1225,7 @@ Figura&nbsp;19.15: Una unión de desigualdad donde ‘x’ se une a ‘y’ en f
 <p>Las combinaciones rotativas son un tipo especial de combinación de desigualdad donde en lugar de obtener <em>todas</em> las filas que satisfacen la desigualdad, obtienes solo la fila más cercana, como en <a href="#fig-join-closest" class="quarto-xref">Figura&nbsp;<span>19.16</span></a>. Puede convertir cualquier combinación de desigualdad en una combinación continua agregando <code>closest()</code>. Por ejemplo, <code>join_by(closest(x &lt;= y))</code> coincide con la <code>y</code> más pequeña que es mayor o igual que x, y <code>join_by(closest(x &gt; y))</code> coincide con la <code>y</code> más grande que es menor que <code>x</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-join-closest" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Una unión continua es un subconjunto de una unión de desigualdad, por lo que algunas coincidencias están atenuadas, lo que indica que no se usan porque no son las &quot;más cercanas&quot;.">
+<div id="fig-join-closest" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Una unión continua es un subconjunto de una unión de desigualdad, por lo que algunas coincidencias están atenuadas, lo que indica que no se usan porque no son las &quot;más cercanas&quot;.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-join-closest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/join/closest.png" class="img-fluid figure-img" alt="Una unión continua es un subconjunto de una unión de desigualdad, por lo que algunas coincidencias están atenuadas, lo que indica que no se usan porque no son las &quot;más cercanas&quot;." width="262">
 </div>
@@ -1489,18 +1489,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1532,7 +1521,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1540,7 +1551,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
