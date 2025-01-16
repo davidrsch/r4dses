@@ -8,19 +8,15 @@ source("_common.R")
 
 ## Introducción
 
-Los factores se utilizan para variables categóricas, variables que tienen un conjunto fijo y conocido de valores posibles.
-También son útiles cuando desea mostrar vectores de caracteres en un orden no alfabético.
+Los factores se utilizan para variables categóricas, variables que tienen un conjunto fijo y conocido de valores posibles. También son útiles cuando desea mostrar vectores de caracteres en un orden no alfabético.
 
-Comenzaremos explicando por qué se necesitan factores para el análisis de datos[^factors-1] y cómo puede crearlos con `factor()`. Luego le presentaremos el conjunto de datos `gss_cat` que contiene un montón de variables categóricas para experimentar.
-Luego usará ese conjunto de datos para practicar la modificación del orden y los valores de los factores, antes de que terminemos con una discusión sobre los factores ordenados.
+Comenzaremos explicando por qué se necesitan factores para el análisis de datos[^factors-1] y cómo puede crearlos con `factor()`. Luego le presentaremos el conjunto de datos `gss_cat` que contiene un montón de variables categóricas para experimentar. Luego usará ese conjunto de datos para practicar la modificación del orden y los valores de los factores, antes de que terminemos con una discusión sobre los factores ordenados.
 
 [^factors-1]: También son muy importantes para el modelado.
 
 ### Requisitos previos
 
-Base R proporciona algunas herramientas básicas para crear y manipular factores.
-Los complementaremos con el paquete **forcats**, que es parte del tidyverse principal.
-Proporciona herramientas para tratar con variables **cat**egóricas (¡y es un anagrama de factores!) usando una amplia gama de ayudantes para trabajar con factores.
+Base R proporciona algunas herramientas básicas para crear y manipular factores. Los complementaremos con el paquete **forcats**, que es parte del tidyverse principal. Proporciona herramientas para tratar con variables **cat**egóricas (¡y es un anagrama de factores!) usando una amplia gama de ayudantes para trabajar con factores.
 
 ```{r}
 #| label: setup
@@ -51,8 +47,7 @@ Usar una cadena para registrar esta variable tiene dos problemas:
     sort(x1)
     ```
 
-Puede solucionar ambos problemas con un factor.
-Para crear un factor, debe comenzar creando una lista de los **niveles** (levels) válidos:
+Puede solucionar ambos problemas con un factor. Para crear un factor, debe comenzar creando una lista de los **niveles** (levels) válidos:
 
 ```{r}
 meses_levels <- c(
@@ -90,8 +85,7 @@ Si omite los niveles, se tomarán de los datos en orden alfabético:
 factor(x1)
 ```
 
-Ordenar alfabéticamente es un poco arriesgado porque no todas las computadoras ordenarán las cadenas de la misma manera.
-Entonces `forcats::fct()` ordena por primera aparición:
+Ordenar alfabéticamente es un poco arriesgado porque no todas las computadoras ordenarán las cadenas de la misma manera. Entonces `forcats::fct()` ordena por primera aparición:
 
 ```{r}
 fct(x1)
@@ -118,9 +112,7 @@ df$month
 
 ## Encuesta Social General
 
-Para el resto de este capítulo, usaremos `forcats::gss_cat`.
-Es una muestra de datos de la [Encuesta Social General](https://gss.norc.org), una encuesta estadounidense de larga duración realizada por la organización de investigación independiente NORC en la Universidad de Chicago.
-La encuesta tiene miles de preguntas, por lo que en `gss_cat` Hadley seleccionó algunas que ilustrarán algunos desafíos comunes que encontrará al trabajar con factores.
+Para el resto de este capítulo, usaremos `forcats::gss_cat`. Es una muestra de datos de la [Encuesta Social General](https://gss.norc.org), una encuesta estadounidense de larga duración realizada por la organización de investigación independiente NORC en la Universidad de Chicago. La encuesta tiene miles de preguntas, por lo que en `gss_cat` Hadley seleccionó algunas que ilustrarán algunos desafíos comunes que encontrará al trabajar con factores.
 
 ```{r}
 gss_cat
@@ -128,34 +120,26 @@ gss_cat
 
 (Recuerde, dado que este conjunto de datos lo proporciona un paquete, puede obtener más información sobre las variables con `?gss_cat`.)
 
-Cuando los factores se almacenan en un tibble, no puede ver sus niveles tan fácilmente.
-Una forma de verlos es con `count()`:
+Cuando los factores se almacenan en un tibble, no puede ver sus niveles tan fácilmente. Una forma de verlos es con `count()`:
 
 ```{r}
 gss_cat |>
   count(race)
 ```
 
-Cuando se trabaja con factores, las dos operaciones más comunes son cambiar el orden de los niveles y cambiar los valores de los niveles.
-Esas operaciones se describen en las secciones siguientes.
+Cuando se trabaja con factores, las dos operaciones más comunes son cambiar el orden de los niveles y cambiar los valores de los niveles. Esas operaciones se describen en las secciones siguientes.
 
 ### Ejercicios
 
-1.  Explore la distribución de `rincome` (ingresos declarados).
-    ¿Qué hace que el gráfico de barras predeterminado sea difícil de entender?
-    ¿Cómo podrías mejorar la gráfica?
+1.  Explore la distribución de `rincome` (ingresos declarados). ¿Qué hace que el gráfico de barras predeterminado sea difícil de entender? ¿Cómo podrías mejorar la gráfica?
 
-2.  ¿Cuál es la `relig` más común en esta encuesta?
-    ¿Cuál es el `partyid` más común?
+2.  ¿Cuál es la `relig` más común en esta encuesta? ¿Cuál es el `partyid` más común?
 
-3.  ¿A qué `relig` se aplica `denom` (denominación)?
-    ¿Cómo puedes averiguarlo con una tabla?
-    ¿Cómo puedes averiguarlo con una visualización?
+3.  ¿A qué `relig` se aplica `denom` (denominación)? ¿Cómo puedes averiguarlo con una tabla? ¿Cómo puedes averiguarlo con una visualización?
 
 ## Modificación del orden de los factores {#sec-modifying-factor-order}
 
-Suele ser útil cambiar el orden de los niveles de los factores en una visualización.
-Por ejemplo, imagine que desea explorar la cantidad promedio de horas que pasan viendo televisión por día en todas las religiones:
+Suele ser útil cambiar el orden de los niveles de los factores en una visualización. Por ejemplo, imagine que desea explorar la cantidad promedio de horas que pasan viendo televisión por día en todas las religiones:
 
 ```{r}
 #| fig-alt: >
@@ -174,9 +158,7 @@ ggplot(relig_summary, aes(x = tvhours, y = relig)) +
   geom_point()
 ```
 
-Es difícil leer esta trama porque no hay un patrón general.
-Podemos mejorarlo reordenando los niveles de `relig` usando `fct_reorder()`.
-`fct_reorder()` toma tres argumentos:
+Es difícil leer esta trama porque no hay un patrón general. Podemos mejorarlo reordenando los niveles de `relig` usando `fct_reorder()`. `fct_reorder()` toma tres argumentos:
 
 -   `.f`, el factor cuyos niveles desea modificar.
 -   `.x`, un vector numérico que desea utilizar para reordenar los niveles.
@@ -194,8 +176,7 @@ ggplot(relig_summary, aes(x = tvhours, y = fct_reorder(relig, tvhours))) +
 
 Reordenar la religión hace que sea mucho más fácil ver que las personas en la categoría "No sé" ven mucha más televisión, y el hinduismo y otras religiones orientales ven mucho menos.
 
-A medida que comience a realizar transformaciones más complicadas, le recomendamos que las saque de `aes()` y las lleve a un paso separado de `mutate()`.
-Por ejemplo, podría reescribir el gráfico anterior como:
+A medida que comience a realizar transformaciones más complicadas, le recomendamos que las saque de `aes()` y las lleve a un paso separado de `mutate()`. Por ejemplo, podría reescribir el gráfico anterior como:
 
 ```{r}
 #| eval: false
@@ -227,13 +208,9 @@ ggplot(rincome_summary, aes(x = age, y = fct_reorder(rincome, age))) +
   geom_point()
 ```
 
-¡Aquí, reordenar arbitrariamente los niveles no es una buena idea!
-Esto se debe a que `rincome` ya tiene un orden de principios con el que no debemos meternos.
-Reserve `fct_reorder()` para factores cuyos niveles estén ordenados arbitrariamente.
+¡Aquí, reordenar arbitrariamente los niveles no es una buena idea! Esto se debe a que `rincome` ya tiene un orden de principios con el que no debemos meternos. Reserve `fct_reorder()` para factores cuyos niveles estén ordenados arbitrariamente.
 
-Sin embargo, tiene sentido poner "No aplicable" al frente con los otros niveles especiales.
-Puedes usar `fct_relevel()`.
-Se necesita un factor, `.f`, y luego cualquier cantidad de niveles que desee mover al frente de la fila.
+Sin embargo, tiene sentido poner "No aplicable" al frente con los otros niveles especiales. Puedes usar `fct_relevel()`. Se necesita un factor, `.f`, y luego cualquier cantidad de niveles que desee mover al frente de la fila.
 
 ```{r}
 #| fig-alt: >
@@ -248,9 +225,7 @@ ggplot(rincome_summary, aes(x = age, y = fct_relevel(rincome, "No aplicable"))) 
 
 ¿Por qué cree que la edad promedio para "No aplicable" es tan alta?
 
-Otro tipo de reordenación es útil cuando colorea las líneas de un gráfico.
-`fct_reorder2(.f, .x, .y)` reordena el factor `.f` por los valores `.y` asociados con los valores `.x` más grandes.
-Esto hace que el gráfico sea más fácil de leer porque los colores de la línea en el extremo derecho del gráfico se alinearán con la leyenda.
+Otro tipo de reordenación es útil cuando colorea las líneas de un gráfico. `fct_reorder2(.f, .x, .y)` reordena el factor `.f` por los valores `.y` asociados con los valores `.x` más grandes. Esto hace que el gráfico sea más fácil de leer porque los colores de la línea en el extremo derecho del gráfico se alinearán con la leyenda.
 
 ```{r}
 #| layout-ncol: 2
@@ -286,8 +261,7 @@ ggplot(by_age, aes(x = age, y = prop, color = fct_reorder2(marital, age, prop)))
   labs(color = "marital") 
 ```
 
-Finalmente, para gráficos de barras, puede usar `fct_infreq()` para ordenar niveles en frecuencia decreciente: este es el tipo más simple de reordenamiento porque no necesita variables adicionales.
-Combínelo con `fct_rev()` si los quiere en frecuencia creciente para que en el gráfico de barras los valores más grandes estén a la derecha, no a la izquierda.
+Finalmente, para gráficos de barras, puede usar `fct_infreq()` para ordenar niveles en frecuencia decreciente: este es el tipo más simple de reordenamiento porque no necesita variables adicionales. Combínelo con `fct_rev()` si los quiere en frecuencia creciente para que en el gráfico de barras los valores más grandes estén a la derecha, no a la izquierda.
 
 ```{r}
 #| fig-alt: >
@@ -303,8 +277,7 @@ gss_cat |>
 
 ### Ejercicios
 
-1.  Hay algunos números sospechosamente altos en `tvhours`.
-    ¿Es la media un buen resumen?
+1.  Hay algunos números sospechosamente altos en `tvhours`. ¿Es la media un buen resumen?
 
 2.  Para cada factor en `gss_cat`, identifique si el orden de los niveles es arbitrario o basado en principios.
 
@@ -312,19 +285,13 @@ gss_cat |>
 
 ## Modificar los niveles de los factores
 
-Más poderoso que cambiar el orden de los niveles es cambiar sus valores.
-Esto le permite aclarar etiquetas para publicación y contraer niveles para visualizaciones de alto nivel.
-La herramienta más general y poderosa es `fct_recode()`.
-Le permite recodificar, o cambiar, el valor de cada nivel.
-Por ejemplo, tome la variable `partyid` del marco de datos `gss_cat`:
+Más poderoso que cambiar el orden de los niveles es cambiar sus valores. Esto le permite aclarar etiquetas para publicación y contraer niveles para visualizaciones de alto nivel. La herramienta más general y poderosa es `fct_recode()`. Le permite recodificar, o cambiar, el valor de cada nivel. Por ejemplo, tome la variable `partyid` del marco de datos `gss_cat`:
 
 ```{r}
 gss_cat |> count(partyid)
 ```
 
-Los niveles son breves e inconsistentes.
-Modifiquémoslos para que sean más largos y usemos una construcción paralela.
-Como la mayoría de las funciones de renombrar y recodificar en tidyverse, los valores nuevos van a la izquierda y los valores antiguos van a la derecha:
+Los niveles son breves e inconsistentes. Modifiquémoslos para que sean más largos y usemos una construcción paralela. Como la mayoría de las funciones de renombrar y recodificar en tidyverse, los valores nuevos van a la izquierda y los valores antiguos van a la derecha:
 
 ```{r}
 gss_cat |>
@@ -365,8 +332,7 @@ gss_cat |>
 
 Usa esta técnica con cuidado: si agrupas categorías que son realmente diferentes, terminarás con resultados engañosos.
 
-Si desea colapsar muchos niveles, `fct_collapse()` es una variante útil de `fct_recode()`.
-Para cada variable nueva, puede proporcionar un vector de niveles antiguos:
+Si desea colapsar muchos niveles, `fct_collapse()` es una variante útil de `fct_recode()`. Para cada variable nueva, puede proporcionar un vector de niveles antiguos:
 
 ```{r}
 gss_cat |>
@@ -381,9 +347,7 @@ gss_cat |>
   count(partyid)
 ```
 
-A veces, solo desea agrupar los grupos pequeños para simplificar un diagrama o una tabla.
-Ese es el trabajo de la familia de funciones `fct_lump_*()`.
-`fct_lump_lowfreq()` es un punto de partida simple que agrupa progresivamente las categorías de grupos más pequeños en "Otros", manteniendo siempre "Otros" como la categoría más pequeña.
+A veces, solo desea agrupar los grupos pequeños para simplificar un diagrama o una tabla. Ese es el trabajo de la familia de funciones `fct_lump_*()`. `fct_lump_lowfreq()` es un punto de partida simple que agrupa progresivamente las categorías de grupos más pequeños en "Otros", manteniendo siempre "Otros" como la categoría más pequeña.
 
 ```{r}
 gss_cat |>
@@ -391,8 +355,7 @@ gss_cat |>
   count(relig)
 ```
 
-En este caso, no es muy útil: es cierto que la mayoría de los estadounidenses en esta encuesta son protestantes, ¡pero probablemente nos gustaría ver más detalles!
-En cambio, podemos usar `fct_lump_n()` para especificar que queremos exactamente 10 grupos:
+En este caso, no es muy útil: es cierto que la mayoría de los estadounidenses en esta encuesta son protestantes, ¡pero probablemente nos gustaría ver más detalles! En cambio, podemos usar `fct_lump_n()` para especificar que queremos exactamente 10 grupos:
 
 ```{r}
 gss_cat |>
@@ -408,36 +371,33 @@ Lea la documentación para conocer `fct_lump_min()` y `fct_lump_prop()`, que son
 
 2.  ¿Cómo podría colapsar 'rincome' en un pequeño conjunto de categorías?
 
-3.  Observe que hay 9 grupos (excluyendo otros) en el ejemplo `fct_lump` anterior.
-    ¿Por qué no 10?
-    (Sugerencia: escriba `?fct_lump` y encuentre que el valor predeterminado para el argumento `other_level` es "Other".)
+3.  Observe que hay 9 grupos (excluyendo otros) en el ejemplo `fct_lump` anterior. ¿Por qué no 10? (Sugerencia: escriba `?fct_lump` y encuentre que el valor predeterminado para el argumento `other_level` es "Other".)
 
 ## Factores ordenados {#sec-ordered-factors}
 
-Antes de continuar, hay un tipo especial de factor que debe mencionarse brevemente: los factores ordenados.
-Los factores ordenados, creados con `ordered()`, implican un ordenamiento estricto y la misma distancia entre los niveles: el primer nivel es "menor que" el segundo nivel en la misma cantidad que el segundo nivel es "menor que" el tercer nivel, y pronto..
-Puede reconocerlos al imprimir porque usan `<` entre los niveles de los factores:
+Antes de continuar, es importante mencionar brevemente un tipo especial de factor: los factores ordenados.
+Creados con la función `ordered()`, los factores ordenados implican un orden estricto entre niveles, pero no especifican nada sobre la magnitud de las diferencias entre los niveles.
+Utiliza factores ordenados cuando sabe que los niveles están clasificados, pero no existe una clasificación numérica precisa.
+
+Puede identificar un factor ordenado cuando se imprime porque utiliza símbolos `<` entre los niveles de factor:
 
 ```{r}
 ordered(c("a", "b", "c"))
 ```
 
-En la práctica, los factores `ordered()` se comportan de manera muy similar a los factores regulares.
-Solo hay dos lugares donde puede notar un comportamiento diferente:
+Tanto en la base R como en el tidyverse, los factores ordenados se comportan de manera muy similar a los factores regulares. Solo hay dos lugares donde puede notar un comportamiento diferente:
 
 -   Si asigna un factor ordenado a color o rellena ggplot2, se establecerá de forma predeterminada en `scale_color_viridis()`/`scale_fill_viridis()`, una escala de color que implica una clasificación.
--   Si usa una función ordenada en un modelo lineal, usará "contrastes poligonales". Estos son medianamente útiles, pero es poco probable que haya oído hablar de ellos a menos que tenga un doctorado en Estadística, e incluso entonces probablemente no los interprete de forma rutinaria. Si desea obtener más información, le recomendamos `vignette("contrasts", package = "faux")` de Lisa DeBruine.
+-   Si utiliza un predictor ordenado en un modelo lineal, utilizará "contrastes polinómicos". Estos son ligeramente útiles, pero es poco probable que haya oído hablar de ellos a menos que tenga un doctorado en Estadística, y aun así probablemente no los interprete de forma rutinaria. Si desea obtener más información, le recomendamos `vignette("contrasts", package = "faux")` de Lisa DeBruine.
 
-Dada la utilidad discutible de estas diferencias, generalmente no recomendamos usar factores ordenados.
+A los efectos de este libro, no es particularmente importante distinguir correctamente entre factores regulares y ordenados.
+Sin embargo, en términos más generales, ciertos campos (particularmente las ciencias sociales) utilizan ampliamente factores ordenados.
+En estos contextos, es importante identificarlos correctamente para que otros paquetes de análisis puedan ofrecer el comportamiento adecuado.
 
 ## Resumen
 
-Este capítulo le presentó el práctico paquete forcats para trabajar con factores, y le presentó las funciones más utilizadas.
-forcats contiene una amplia gama de otros ayudantes que no tuvimos espacio para discutir aquí, por lo que siempre que se enfrente a un desafío de análisis factorial que no haya enfrentado antes, le recomiendo hojear el [índice de referencia](https:/%20/forcats.tidyverse.org/reference/index.html) para ver si hay una función enlatada que pueda ayudar a resolver su problema.
+Este capítulo le presentó el práctico paquete forcats para trabajar con factores, y le presentó las funciones más utilizadas. forcats contiene una amplia gama de otros ayudantes que no tuvimos espacio para discutir aquí, por lo que siempre que se enfrente a un desafío de análisis factorial que no haya enfrentado antes, le recomiendo hojear el [índice de referencia](https:/%20/forcats.tidyverse.org/reference/index.html) para ver si hay una función enlatada que pueda ayudar a resolver su problema.
 
-Si desea obtener más información sobre los factores después de leer este capítulo, le recomendamos que lea el artículo de Amelia McNamara y Nicholas Horton, [*Wrangling categorical data in R*](https://peerj.com/preprints/3163/).
-Este artículo expone parte de la historia discutida en [*stringsAsFactors: An noauthorized biography*](https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/) y [*stringsAsFactors = \<sigh\>*](https://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh), y compara los enfoques ordenados de los datos categóricos descritos en este libro con los métodos base R.
-Una primera versión del documento ayudó a motivar y definir el alcance del paquete forcats; ¡Gracias Amelia y Nick!
+Si desea obtener más información sobre los factores después de leer este capítulo, le recomendamos que lea el artículo de Amelia McNamara y Nicholas Horton, [*Wrangling categorical data in R*](https://peerj.com/preprints/3163/). Este artículo expone parte de la historia discutida en [*stringsAsFactors: An noauthorized biography*](https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/) y [*stringsAsFactors = \<sigh\>*](https://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh), y compara los enfoques ordenados de los datos categóricos descritos en este libro con los métodos base R. Una primera versión del documento ayudó a motivar y definir el alcance del paquete forcats; ¡Gracias Amelia y Nick!
 
-En el próximo capítulo, cambiaremos de marcha para comenzar a aprender sobre fechas y horas en R.
-Las fechas y las horas parecen engañosamente simples, pero como verá pronto, cuanto más aprende sobre ellas, ¡más complejas parecen volverse!
+En el próximo capítulo, cambiaremos de marcha para comenzar a aprender sobre fechas y horas en R. Las fechas y las horas parecen engañosamente simples, pero como verá pronto, cuanto más aprende sobre ellas, ¡más complejas parecen volverse!

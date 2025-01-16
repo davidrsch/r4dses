@@ -1,28 +1,21 @@
 # Bienvenida {.unnumbered}
 
-Este es el sitio web de la segunda edición de **"R para la Ciencia de Datos"**.
-Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
+Este es el sitio web de la segunda edición de **"R para la Ciencia de Datos"**. Este libro le enseñará cómo hacer ciencia de datos con R: aprenderá cómo obtener sus datos en R, convertirlos en la estructura más útil, transformarlos y visualizarlos.
 
-En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos.
-Así como un químico aprende a limpiar tubos de ensayo y a abastecer un laboratorio, usted aprenderá a limpiar datos, dibujar diagramas y mucho más.
-Estas son las habilidades que hacen que exista la ciencia de datos y aquí encontrará las mejores prácticas para realizar estas tareas con R.
-Aprenderá a usar la gramática de los gráficos, la programación literaria y la investigación reproducible para ahorrar tiempo.
-También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.
+En este libro, encontrará ejercicios prácticos para aprender las habilidades necesarias para la ciencia de datos. Así como un químico aprende a limpiar tubos de ensayo y a abastecer un laboratorio, usted aprenderá a limpiar datos, dibujar diagramas y mucho más. Estas son las habilidades que hacen que exista la ciencia de datos y aquí encontrará las mejores prácticas para realizar estas tareas con R. Aprenderá a usar la gramática de los gráficos, la programación literaria y la investigación reproducible para ahorrar tiempo. También aprenderá a administrar los recursos cognitivos para facilitar los descubrimientos al discutir, visualizar y explorar datos.
 
-Este sitio web es y será siempre gratuito, bajo la licencia de [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) License.
-Si desea una copia física del libro, puede pedir una en [Amazon](https://www.amazon.com/dp/1492097403?&tag=hadlwick-20).
-Si aprecia leer el libro gratis y desea retribuir, haga una donación a [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): el [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (que aparece en la portada de R4DS) es un loro nativo de Nueva Zelanda en peligro de extinción; solo quedan 248.
+Este sitio web es y será siempre gratuito, bajo la licencia de [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) License. Si desea una copia física del libro, puede pedir una en [Amazon](https://www.amazon.com/dp/1492097403?&tag=hadlwick-20). Si aprecia leer el libro gratis y desea retribuir, haga una donación a [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): el [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (que aparece en la portada de R4DS) es un loro nativo de Nueva Zelanda en peligro de extinción; solo quedan 248.
 
 Si habla otro idioma es posible que le interesen las traducciones disponibles gratuitamente de la primera edición:
 
 -   [Español](http://es.r4ds.hadley.nz)
 -   [Italiano](https://it.r4ds.hadley.nz)
 -   [Turco](https://tr.r4ds.hadley.nz)
+-   [Portuguese](https://pt.r4ds.hadley.nz)
 
 Puede encontrar respuestas sugeridas a los ejercicios en el libro en <https://mine-cetinkaya-rundel.github.io/r4ds-solutions>.
 
-Tenga en cuenta que R4DS utiliza un [Código de conducta del colaborador](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
-Al contribuir a este libro, usted acepta cumplir con sus términos.
+Tenga en cuenta que R4DS utiliza un [Código de conducta del colaborador](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). Al contribuir a este libro, usted acepta cumplir con sus términos.
 
 ## Agradecimientos {.unnumbered}
 
@@ -34,5 +27,4 @@ R4DS está alojado por <https://www.netlify.com> como parte de su apoyo a las co
 
 Señalar que esta es una traducción textual del libro por lo que cuando los autores se refieren a sí mismo en primera persona, será Hadley Wickham, Mine Çetinkaya-Rundel & Garrett Grolemund y no el traductor.
 
-La traducción fue realizada usando Google Translate y se corrigieron algunos errores gramaticales y de coherencia.
-Si detecta algún error relacionado con contenido de la traducción, siéntase libre de abrir un issue o un pull request en este [repositorio](https://github.com/davidrsch/r4dses).
+La traducción fue realizada usando Google Translate y se corrigieron algunos errores gramaticales y de coherencia. Si detecta algún error relacionado con contenido de la traducción, siéntase libre de abrir un issue o un pull request en este [repositorio](https://github.com/davidrsch/r4dses).
