@@ -97,5 +97,5 @@ format:
     callout-appearance: simple
     include-after-body: [ddrsch_script.html]
 
-editor: visual
+editor: source
 

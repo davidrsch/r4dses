@@ -331,7 +331,7 @@ Además de funciones que solo funcionan específicamente con vectores lógicos, 
 Hay dos resúmenes lógicos principales: `any()` y `all()`.
 `any(x)` es el equivalente de `|`; devolverá `TRUE` si hay algún `TRUE` en `x`.
 `all(x)` es equivalente a `&`; devolverá `TRUE` solo si todos los valores de `x` son `TRUE`.
-Como todas las funciones de resumen, devolverán `NA` si hay algún valor faltante presente y, como de costumbre, puede hacer que los valores faltantes desaparezcan con `na.rm = TRUE`.
+Como casi todas las funciones de resumen, puede hacer que los valores faltantes desaparezcan con `na.rm = TRUE`.
 
 Por ejemplo, podríamos usar `all()` y `any()` para averiguar si todos los vuelos se retrasaron a la salida como máximo una hora o si algún vuelo se retrasó a la llegada cinco horas o más.
 Y usar `group_by()` nos permite hacer eso por día:

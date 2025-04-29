@@ -305,7 +305,7 @@ Por ejemplo, cuando escribe:
 
 ```{r}
 #| label: default-scales
-#| fig-show: "hide"
+#| fig-show: hide
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class))
@@ -314,7 +314,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ggplot2 agrega automáticamente escalas predeterminadas detrás de escena:
 
 ```{r}
-#| fig-show: "hide"
+#| fig-show: hide
 
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
@@ -817,7 +817,7 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
 1.  ¿Por qué el siguiente código no anula la escala predeterminada?
 
     ```{r}
-    #| fig-show: "hide"
+    #| fig-show: hide
 
     df <- tibble(
       x = rnorm(10000),
@@ -845,7 +845,7 @@ En este caso particular, podría haber utilizado simplemente facetas, pero esta 
     Luego, modifique el código usando `override.aes` para que la leyenda sea más fácil de ver.
 
     ```{r}
-    #| fig-show: "hide"
+    #| fig-show: hide
     #| fig-alt: |
     #|   Diagrama de dispersión del kilometraje en carretera frente al desplazamiento
     #|   de automóviles, coloreado por clase de automóvil. El fondo de la trama es

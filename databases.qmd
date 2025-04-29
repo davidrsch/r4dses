@@ -503,7 +503,7 @@ Aquí hay un ejemplo simple:
 
 ```{r}
 flights |> 
-  left_join(planes |> rename(year_built = year), by = "tailnum") |> 
+  left_join(planes |> rename(year_built = year), join_by(tailnum)) |> 
   show_query()
 ```
 
@@ -596,7 +596,7 @@ flights |>
   )
 ```
 
-En SQL, la cláusula `GROUP BY` se usa exclusivamente para resúmenes, por lo que aquí puede ver que la agrupación se ha movido desde el argumento `PARTITION BY` a `OVER`.
+En SQL, la cláusula `GROUP BY` se usa exclusivamente para resúmenes, por lo que aquí puede ver que la agrupación se ha movido desde la cláusula `GROUP BY` a `OVER`.
 
 Las funciones de ventana incluyen todas las funciones que miran hacia adelante o hacia atrás, como `lead()` y `lag()` que miran el valor "anterior" o "siguiente" respectivamente:
 

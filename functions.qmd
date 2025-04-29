@@ -351,7 +351,7 @@ Pero a menudo también repetirá los verbos, particularmente dentro de un pipe g
 Cuando se dé cuenta de que está copiando y pegando varios verbos varias veces, podría pensar en escribir una función de data frame.
 Las funciones de data frame funcionan como los verbos dplyr: toman un data frame como primer argumento, algunos argumentos adicionales que dicen qué hacer con él y devuelven un data frame o un vector.
 
-Para permitirle escribir una función que use verbos dplyr, primero le presentaremos el desafío de la indirección y cómo puede superarlo abrazando, `{{ }}`.
+Para permitirle escribir una función que use verbos dplyr, primero le presentaremos el desafío de la indirección y cómo puede superarlo abrazando, `{{{ }}}`.
 Con esta teoría en su haber, le mostraremos un montón de ejemplos para ilustrar lo que podría hacer con ella.
 
 ### Evaluación indirecta y ordenada
@@ -398,11 +398,11 @@ La desventaja de la evaluación ordenada surge cuando queremos envolver el códi
 Aquí necesitamos alguna forma de decirle a `group_mean()` y `summarize()` que no traten `group_var` y `mean_var` como el nombre de las variables, sino que busquen dentro de ellas la variable que realmente queremos usar.
 
 La evaluación ordenada incluye una solución a este problema llamada **abrazar** 🤗.
-Abrazar una variable significa envolverla entre llaves para que (por ejemplo) `var` se convierta en `{{ var }}`.
+Abrazar una variable significa envolverla entre llaves para que (por ejemplo) `var` se convierta en `{{{ var }}}`.
 Abrazar una variable le dice a dplyr que use el valor almacenado dentro del argumento, no el argumento como el nombre literal de la variable.
-Una forma de recordar lo que está pasando es pensar en `{{ }}` como mirar hacia abajo en un túnel --- `{{ var }}` hará que una función dplyr mire dentro de `var` en lugar de buscar una variable llamada `var`.
+Una forma de recordar lo que está pasando es pensar en `{{{ }}}` como mirar hacia abajo en un túnel --- `{{{ var }}}` hará que una función dplyr mire dentro de `var` en lugar de buscar una variable llamada `var`.
 
-Entonces, para hacer que `grouped_mean()` funcione, necesitamos rodear `group_var` y `mean_var` con `{{ }}`:
+Entonces, para hacer que `grouped_mean()` funcione, necesitamos rodear `group_var` y `mean_var` con `{{{ }}}`:
 
 ```{r}
 grouped_mean <- function(df, group_var, mean_var) {
@@ -788,7 +788,7 @@ rlang es un paquete de bajo nivel que es utilizado por casi todos los demás paq
 
 Para resolver el problema de etiquetado podemos usar `rlang::englue()`.
 Esto funciona de manera similar a `str_glue()`, por lo que cualquier valor envuelto en `{ }` se insertará en la cadena.
-Pero también entiende `{{ }}`, que inserta automáticamente el nombre de variable apropiado:
+Pero también entiende `{{{ }}}`, que inserta automáticamente el nombre de variable apropiado:
 
 ```{r}
 #| fig-alt: |
@@ -867,7 +867,7 @@ density <- function(color, facets, binwidth = 0.1) {
 }
 ```
 
-Como puede ver, recomendamos poner espacios adicionales dentro de `{{ }}`.
+Como puede ver, recomendamos poner espacios adicionales dentro de `{{{ }}}`.
 Esto hace que sea muy obvio que algo inusual está sucediendo.
 
 ### Ejercicios

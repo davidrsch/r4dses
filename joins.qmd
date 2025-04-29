@@ -830,7 +830,7 @@ employees <- tibble(
 employees
 ```
 
-Y para cada empleado queremos encontrar la fecha de la primera fiesta que viene después (o en) su cumpleaños.
+Y para cada empleado queremos encontrar la fecha de la última fiesta que viene antes (o en) su cumpleaños.
 Podemos expresar eso con una unión rodante:
 
 ```{r}

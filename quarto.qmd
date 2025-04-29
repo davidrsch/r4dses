@@ -614,13 +614,16 @@ En ejecuciones posteriores, knitr verificará si el código ha cambiado y, si no
 El sistema de almacenamiento en caché debe usarse con cuidado, ya que, de manera predeterminada, se basa solo en el código, no en sus dependencias.
 Por ejemplo, aquí el fragmento `processed_data` depende del fragmento `raw-data`:
 
+````
 ```{{r}}
 #| label: raw-data
 #| cache: true
 
 rawdata <- readr::read_csv("a_very_large_file.csv")
 ```
+````
 
+````
 ```{{r}}
 #| label: processed_data
 #| cache: true
@@ -629,10 +632,12 @@ processed_data <- rawdata |>
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
 ```
+````
 
 Almacenar en caché el fragmento `processed_data` significa que se volverá a ejecutar si se cambia la canalización de dplyr, pero no se volverá a ejecutar si cambia la llamada `read_csv()`.
 Puede evitar ese problema con la opción de fragmento `dependson`:
 
+````
 ```{{r}}
 #| label: processed-data
 #| cache: true
@@ -642,6 +647,7 @@ processed_data <- rawdata |>
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
 ```
+````
 
 `dependson` debe contener un vector de caracteres de *cada* fragmento del que depende el fragmento almacenado en caché.
 Knitr actualizará los resultados del fragmento en caché cada vez que detecte que una de sus dependencias ha cambiado.
@@ -652,6 +658,7 @@ Esta es una expresión R arbitraria que invalidará el caché cada vez que cambi
 Una buena función para usar es `file.mtime()`: regresa cuando fue modificada por última vez.
 Entonces puedes escribir:
 
+````
 ```{{r}}
 #| label: raw-data
 #| cache: true
@@ -659,6 +666,7 @@ Entonces puedes escribir:
 
 rawdata <- readr::read_csv("un_archivo_muy_grande.csv")
 ```
+````
 
 Seguimos el consejo de [David Robinson](https://twitter.com/drob/status/738786604731490304) para nombrar estos fragmentos: cada fragmento lleva el nombre del objeto principal que crea.
 Esto facilita la comprensión de la especificación `dependson`.
