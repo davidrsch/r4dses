@@ -87,6 +87,8 @@ lang: es
 
 format:
   html:
+    meta:
+      - google-site-verification: "kphyQu6n4JhBUuoLZxnJpD9dbw9q5FLwqXb9AkI2fhU"
     theme:
       - cosmo
       - r4ds.scss
