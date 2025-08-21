@@ -389,7 +389,7 @@ ggplot(
     ¿Cuál es el valor predeterminado del argumento?
     Cree un diagrama de dispersión en el que utilice con éxito este argumento con valor `TRUE`.
 
-7.  Agregue el siguiente título al gráfico que hizo en el ejercicio anterior: "Los datos provienen del paquete palmerpenguins".
+7.  Agregue la siguiente etiqueta (o texto explicativo) al gráfico que hizo en el ejercicio anterior: "Los datos provienen del paquete palmerpenguins".
     Sugerencia: Eche un vistazo a la documentación de `labs()`.
 
 8.  Vuelva a crear la siguiente visualización.
