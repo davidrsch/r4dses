@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, y Garrett Grolemund">
 <title>1&nbsp; Visualización de datos – R para la Ciencia de Datos (2e)</title>
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-db9d66f5ba9a02067d452febdb22cb5e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-3c9a47e83a10d04cd0880f8a376518a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -721,8 +721,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><p>¿Cuántas filas hay en <code>penguins</code>? ¿Cuántas columnas?</p></li>
 <li><p>¿Qué describe la variable <code>bill_ depth_mm</code> en el data frame <code>penguins</code>? Lea la ayuda con <code><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html">?penguins</a></code> para averiguarlo.</p></li>
-<li><p>Haz un diagrama de dispersión de <code>bill_depth_mm</code> frente a <code>bill_length_mm</code>. Describe la relación entre estas dos variables.</p></li>
-<li><p>¿Qué pasa si haces un diagrama de dispersión de <code>species</code> frente a <code>bill_depth_mm</code>? Es decir, haz un diagrama de dispersión con <code>bill_depth_mm</code> en el eje y y <code>bill_length_mm</code> en el eje x. ¿Cuál podría ser una mejor elección de geom?</p></li>
+<li><p>Crea un diagrama de dispersión de <code>bill_depth_mm</code> vs.&nbsp;<code>bill_length_mm</code>. Es decir, crea un diagrama de dispersión con <code>bill_depth_mm</code> en el eje y, y <code>bill_length_mm</code> en el eje x. Describe la relación entre estas dos variables.</p></li>
+<li><p>¿Qué sucede si se crea un diagrama de dispersión de <code>species</code> vs.&nbsp;<code>bill_depth_mm</code>? ¿Cuál sería una mejor opción de geoma?</p></li>
 <li>
 <p>¿Por qué lo siguiente da un error y cómo lo solucionaría?</p>
 <div class="cell">
@@ -731,7 +731,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </li>
 <li><p>¿Qué hace el argumento <code>na.rm</code> en <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>? ¿Cuál es el valor predeterminado del argumento? Cree un diagrama de dispersión en el que utilice con éxito este argumento con valor <code>TRUE</code>.</p></li>
-<li><p>Agregue el siguiente título al gráfico que hizo en el ejercicio anterior: “Los datos provienen del paquete palmerpenguins”. Sugerencia: Eche un vistazo a la documentación de <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code>.</p></li>
+<li><p>Agregue la siguiente etiqueta (o texto explicativo) al gráfico que hizo en el ejercicio anterior: “Los datos provienen del paquete palmerpenguins”. Sugerencia: Eche un vistazo a la documentación de <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code>.</p></li>
 <li>
 <p>Vuelva a crear la siguiente visualización. ¿A qué aesthetic se debe asignar <code>bill_depth_mm</code>? ¿Y debería mapearse a nivel global o a nivel de geom?</p>
 <div class="cell">
