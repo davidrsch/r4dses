@@ -369,12 +369,12 @@ ggplot(
 2.  ¿Qué describe la variable `bill_ depth_mm` en el data frame `penguins`?
     Lea la ayuda con `?penguins` para averiguarlo.
 
-3.  Haz un diagrama de dispersión de `bill_depth_mm` frente a `bill_length_mm`.
+3.  Crea un diagrama de dispersión de `bill_depth_mm` vs. `bill_length_mm`.
+    Es decir, crea un diagrama de dispersión con `bill_depth_mm` en el eje y, y `bill_length_mm` en el eje x.
     Describe la relación entre estas dos variables.
 
-4.  ¿Qué pasa si haces un diagrama de dispersión de `species` frente a `bill_depth_mm`?
-    Es decir, haz un diagrama de dispersión con `bill_depth_mm` en el eje y y `bill_length_mm` en el eje x.
-    ¿Cuál podría ser una mejor elección de geom?
+4.  ¿Qué sucede si se crea un diagrama de dispersión de `species` vs. `bill_depth_mm`?
+    ¿Cuál sería una mejor opción de geoma?
 
 5.  ¿Por qué lo siguiente da un error y cómo lo solucionaría?
 
